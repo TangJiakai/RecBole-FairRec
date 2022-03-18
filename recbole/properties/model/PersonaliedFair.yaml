@@ -1,0 +1,5 @@
+fair_reg: 10
+mlp_hidden_size_list: [64, 32, 16]
+dis_hidden_size_list: [64, 128, 64, 64, 64, 32]
+train_epoch_interval: 10
+filter_mode: cm

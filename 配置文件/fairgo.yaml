@@ -1,0 +1,68 @@
+# Environment settings
+show_progress: True
+gpu_id: 0
+seed: 2022
+use_gpu: True
+state: INFO
+reproducibility: True
+data_path: 'dataset'
+checkpoint_dir: 'saved'
+dataset: ml-1M
+save_dataset: True
+save_dataloaders: True
+wandb_project: 'fairgo'
+log_wandb: False
+
+# Data settings
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+RATING_FIELD: rating
+TIME_FIELD: timestamp
+LABEL_FIELD: gender
+NEG_PREFIX: neg_
+ITEM_LIST_LENGTH_FIELD: item_length
+LIST_SUFFIX: _list
+load_col:
+  inter: [user_id,item_id,rating,timestamp]
+  user: [user_id,gender,age,occupation]
+  user_emb: [uid,user_emb]
+  item_emb: [iid,item_emb]
+additional_feat_suffix: [user_emb,item_emb]
+alias_of_user_id: [uid]
+alias_of_item_id: [iid]
+preload_weight:
+  uid: user_emb
+  iid: item_emb
+
+# model config
+model: FairGO
+embedding_size: 64
+n_layers: 2
+dis_hidden_size_list: [16,8,2,2]
+filter_hidden_size_list: [128,64,64]
+activation: leakeyrelu
+
+# training settings
+epochs: 30
+train_batch_size: 1024
+learner: adam
+learning_rate: 0.005
+training_neg_sample_num: 0
+train_epoch_interval: 5
+eval_step: 6
+stopping_step: 10
+weight_decay: 0.0001
+
+# evalution settings
+eval_args:
+  split: {'RS':[7,1,2]}
+  group_by: user
+  order: TO
+  mode: labeled
+metrics: ["RMSE"]
+valid_metric: RMSE
+eval_batch_size: 1024
+loss_decimal_place: 4
+metric_decimal_place: 4
