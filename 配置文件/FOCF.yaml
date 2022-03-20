@@ -1,0 +1,59 @@
+# Environment settings
+show_progress: True
+gpu_id: 0
+seed: 2022
+use_gpu: True
+state: INFO
+reproducibility: True
+data_path: 'dataset'
+checkpoint_dir: 'saved'
+dataset: ml-1M
+save_dataset: True
+save_dataloaders: True
+
+# Data settings
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+RATING_FIELD: rating
+LABEL_FIELD: rating
+user_inter_num_interval: "[50,inf)"
+SST_FIELD: gender
+sst_attr_list: ["gender"]
+unused_col: ~
+load_col:
+  inter: [user_id,item_id,rating,timestamp]
+  user: [user_id,gender]
+  item: [item_id,genre]
+val_interval:
+  genre: ["action","crime","musical","romance","sci-fi"]
+
+# model config
+model: FOCF
+embedding_size: 2
+# none|value|absolute|under|over|nonparity
+fair_objective: value
+
+# training settings
+epochs: 1
+train_batch_size: 1024
+learner: adam
+learning_rate: 0.001
+eval_step: 1
+stopping_step: 10
+regular_weight: 0.001
+neg_sampling: ~
+require_pow: True
+
+# evalution settings
+eval_args:
+  split: {'RS':[8,1,1]}
+  group_by: user
+  order: RO
+  mode: labeled
+metrics: ["RMSE","NonParityUnfairness","ValueUnfairness","AbsoluteUnfairness","UnderUnfairness","OverUnfairness"]
+valid_metric: RMSE
+eval_batch_size: 1024
+loss_decimal_place: 4
+metric_decimal_place: 4

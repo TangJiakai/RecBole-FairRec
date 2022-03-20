@@ -170,10 +170,18 @@ class Collector(object):
             self.data_struct.update_tensor('rec.score', scores_tensor)
 
         if self.register.need('data.label'):
-            self.label_field = self.config['LABEL_FIELD']
-            self.data_struct.update_tensor('data.label', interaction[self.label_field].to(self.device))
+            label_field = self.config['LABEL_FIELD']
+            self.data_struct.update_tensor('data.label', interaction[label_field].to(self.device))
 
-        if self.register.need('sst'):
+        if self.register.need('data.rating'):
+            rating_field = self.config['RATING_FIELD']
+            self.data_struct.update_tensor('data.rating', interaction[rating_field].to(self.device))
+
+        if self.register.need('data.iid'):
+            item_id_field = self.config['ITEM_ID_FIELD']
+            self.data_struct.update_tensor('data.iid', interaction[item_id_field].to(self.device))
+
+        if self.register.need('data.sst'):
             for sst in self.config['sst_attr_list']:
                 assert sst in interaction.columns, f'{sst} is not in interaction'
                 self.data_struct.update_tensor('data.' + sst, interaction[sst])
@@ -205,10 +213,10 @@ class Collector(object):
             And reset some of outdated resource.
         """
         returned_struct = copy.deepcopy(self.data_struct)
-        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.label', 'data.sst']:
+        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.rating']:
             if key in self.data_struct:
                 del self.data_struct[key]
-        if self.config['sst_attr_list']:
+        if self.register.need('data.sst'):
             for key in self.config['sst_attr_list']:
                 if key in self.data_struct:
                     del self.data_struct[key]

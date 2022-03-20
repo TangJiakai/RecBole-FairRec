@@ -122,8 +122,7 @@ def load_data_and_model(model_file, dataset_file=None, dataloader_file=None):
 
 
 if __name__ == '__main__':
-    # results = run_recbole()
-    # logger.info(results)
-    checkpoint = torch.load('saved/FairGO-Mar-01-2022_20-26-39.pth')
-    print(checkpoint['state_dict'].keys())
+    results = run_recbole()
+    logger.info(results)
+
 
