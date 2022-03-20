@@ -213,11 +213,11 @@ class Collector(object):
             And reset some of outdated resource.
         """
         returned_struct = copy.deepcopy(self.data_struct)
-        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.rating']:
+        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.label', 'data.rating', 'data.iid']:
             if key in self.data_struct:
                 del self.data_struct[key]
         if self.register.need('data.sst'):
             for key in self.config['sst_attr_list']:
-                if key in self.data_struct:
-                    del self.data_struct[key]
+                if ('data.' + key) in self.data_struct:
+                    del self.data_struct['data.'+key]
         return returned_struct
