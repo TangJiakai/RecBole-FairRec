@@ -791,7 +791,7 @@ class NonParityUnfairness(AbstractMetric):
             sst(str): sensitive attribute
             sst_value(numpy.array): sensitive attribute's value of corresponding users
         Return:
-            difference for sensitive attribute with binary value or standard deviation for multiple value
+            difference for sensitive attribute with binary value or std for multiple-value attribute
         """
         unique_value = np.unique(sst_value)
         if len(unique_value) < 2:
