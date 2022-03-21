@@ -7,17 +7,19 @@ Implement Fair Recommendation Model In RecBole
 ### FOCF
 - **MovieLens-1M**  
     
-    hyper parameters for **hyper tuning**:   
-    - learning rate: loguniform [-6,0]   
-    - embedding size: choice [2,4,8,16,32]   
+    Common Hyper Parameters:
 
-    **best** hyper parameters:  
-    - learning rate: 0.006  
-    - emebdding size: 4  
-    - train batch size: 160000
-    - learner: adam
-    - regular_weight: 0.001
-    - SST_FIELD: gender
+        - train batch size: 160000
+        - learner: adam
+        - SST_FIELD: gender
+
+    FOCF_None   
+    
+        **best** hyper parameters:  
+        - learning rate: 0.006  
+        - emebdding size: 4  
+        - regular_weight: 0.001
+    
 
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
