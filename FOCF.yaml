@@ -33,7 +33,7 @@ val_interval:
 model: FOCF
 embedding_size: 2
 # none|value|absolute|under|over|nonparity
-fair_objective: none
+fair_objective: value
 
 # training settings
 epochs: 1000

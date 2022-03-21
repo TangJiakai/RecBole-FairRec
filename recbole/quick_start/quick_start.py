@@ -11,7 +11,6 @@ from logging import getLogger
 
 import torch
 import pickle
-import line_profiler
 
 from recbole.config import Config
 from recbole.data import create_dataset, data_preparation, save_split_dataloaders, load_split_dataloaders
