@@ -13,6 +13,10 @@ Implement Fair Recommendation Model In RecBole
     **best** hyper parameters:  
     - learning rate:   
     - emebdding size:   
+    - train batch size: 160000
+    - learner: adam
+    - regular_weight: 0.001
+    - SST_FIELD: gender
 
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
