@@ -18,15 +18,15 @@ from recbole.model.loss import BPRLoss
 from recbole.utils import InputType
 
 
-class PersonaliedFair(FairRecommender):
-    r"""PersonaliedFair is a personalized and fair-aware recommendation algorithm
+class PFCN(FairRecommender):
+    r"""PFCN is a personalized and fair-aware recommendation algorithm
 
     which has 2 version: combination model(cm) and separated model(sm)
     """
     input_type = InputType.PAIRWISE
 
     def __init__(self, config, dataset):
-        super(PersonaliedFair, self).__init__(config, dataset)
+        super(PFCN, self).__init__(config, dataset)
 
         # load dataset info
         self.filter_mode = config['filter_mode'].lower()
