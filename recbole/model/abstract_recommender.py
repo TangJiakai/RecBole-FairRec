@@ -449,6 +449,7 @@ class FairRecommender(AbstractRecommender):
         # load dataset info
         self.USER_ID = config['USER_ID_FIELD']
         self.ITEM_ID = config['ITEM_ID_FIELD']
+        self.POS_ITEM_ID = self.ITEM_ID
         self.NEG_ITEM_ID = config['NEG_PREFIX'] + self.ITEM_ID
         self.n_users = dataset.num(self.USER_ID)
         self.n_items = dataset.num(self.ITEM_ID)

@@ -94,6 +94,9 @@ class Trainer(AbstractTrainer):
         ensure_dir(self.checkpoint_dir)
         saved_model_file = '{}-{}.pth'.format(self.config['model'], get_local_time())
         self.saved_model_file = os.path.join(self.checkpoint_dir, saved_model_file)
+        if config['save_sst_embed']:
+            saved_sst_embed_file = '{}——embed.pth'.format(self.config['model'])
+            self.saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
         self.weight_decay = config['weight_decay']
 
         self.start_epoch = 0
@@ -230,6 +233,17 @@ class Trainer(AbstractTrainer):
         torch.save(state, saved_model_file)
         if verbose:
             self.logger.info(set_color('Saving current', 'blue') + f': {saved_model_file}')
+
+    def _save_sst_embed(self, data):
+        r""" save sensitive attributes and user embeddings
+
+        Args:
+            data(dataLoader): train data
+
+        """
+        user_features = data.dataset.get_user_feature()
+        stored_dict = self.model.get_sst_embed(user_features[1:])
+        torch.save(stored_dict, self.saved_sst_embed_file)
 
     def resume_checkpoint(self, resume_file):
         r"""Load the model parameters information and training information.
@@ -385,6 +399,9 @@ class Trainer(AbstractTrainer):
                     break
 
                 valid_step += 1
+
+        # store embedding and sst if task need attacker after training
+        self._save_sst_embed(train_data)
 
         self._add_hparam_to_tensorboard(self.best_valid_score)
         return self.best_valid_score, self.best_valid_result

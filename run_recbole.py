@@ -14,9 +14,9 @@ from recbole.quick_start import run_recbole
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', '-m', type=str, default='FOCF', help='name of models')
+    parser.add_argument('--model', '-m', type=str, default='PFCN_MLP', help='name of models')
     parser.add_argument('--dataset', '-d', type=str, default='ml-1M', help='name of datasets')
-    parser.add_argument('--config_files', type=str, default='FOCF.yaml', help='config files')
+    parser.add_argument('--config_files', type=str, default='PFCN_MLP.yaml', help='config files')
 
     args, _ = parser.parse_known_args()
 

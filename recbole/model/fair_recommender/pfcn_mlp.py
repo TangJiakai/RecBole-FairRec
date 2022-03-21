@@ -18,7 +18,7 @@ from recbole.model.loss import BPRLoss
 from recbole.utils import InputType
 
 
-class PFCN_DeepModel(FairRecommender):
+class PFCN_MLP(FairRecommender):
     r"""PFCN is a personalized and fair-aware recommendation algorithm
 
     which has 2 version: combination model(cm) and separated model(sm)
@@ -26,7 +26,7 @@ class PFCN_DeepModel(FairRecommender):
     input_type = InputType.PAIRWISE
 
     def __init__(self, config, dataset):
-        super(PFCN_DeepModel, self).__init__(config, dataset)
+        super(PFCN_MLP, self).__init__(config, dataset)
 
         # load dataset info
         self.filter_mode = config['filter_mode'].lower()
@@ -38,29 +38,21 @@ class PFCN_DeepModel(FairRecommender):
 
         # load parameters info
         self.embedding_size = config['embedding_size']
-        try:
-            assert self.embedding_size % 2 == 0
-        except AssertionError:
-            raise AssertionError('embedding size must be multiples of 2')
         self.drop_out = config['dropout']
         self.dis_drop_out = config['dis_dropout']
         self.activation = config['activation']
+        self.dis_weight = config['dis_weight']
         # self.deep_model_hidden_size_list = config['deep_model_hidden_size_list']
         self.dis_hidden_size_list = config['dis_hidden_size_list']
         self.mlp_hidden_size_list = config['mlp_hidden_size_list']
-        try:
-            assert self.mlp_hidden_size_list[0] == 2 * self.embedding_size and \
-                   self.mlp_hidden_size_list[-1] == 1
-        except AssertionError:
-            raise AssertionError('the first of mlp_num_layers should be '
-                                 'equal to embedding size and the last should be 1')
 
         # define layers and loss
         self.sst_size = self._get_sst_size(dataset.get_user_feature())
         self.user_embedding = nn.Embedding(self.n_users, self.embedding_size)
         self.item_embedding = nn.Embedding(self.n_items, self.embedding_size)
         self.filter_layer = self.init_filter()
-        self.mlp_layer = MLPLayers(self.mlp_hidden_size_list, dropout=self.drop_out)
+        self.mlp_layer = MLPLayers([self.embedding_size*2]+self.mlp_hidden_size_list+[1],
+                                   dropout=self.drop_out)
         self.dis_layer_dict = self.init_dis_layer()
         self.loss_fun = BPRLoss()
         self.dis_fun = nn.CrossEntropyLoss()
@@ -97,7 +89,7 @@ class PFCN_DeepModel(FairRecommender):
         if self.filter_mode == 'cm':
             filter_num = len(self.sst_attrs)
         for _ in range(filter_num):
-            filter_model = MLPLayers([embedding_size, embedding_size//2, embedding_size],
+            filter_model = MLPLayers([embedding_size, embedding_size*2, embedding_size],
                                dropout=self.drop_out,
                                activation=self.activation,
                                bn=True)
@@ -113,12 +105,12 @@ class PFCN_DeepModel(FairRecommender):
         """
         embedding_size = self.embedding_size
         sst_size = self.sst_size
-        sst_attr = self.sst_attr
+        sst_attrs = self.sst_attrs
         dis_hidden_size_list = self.dis_hidden_size_list
         dis_layer_dict = {}
-        for sst in sst_attr:
+        for sst in sst_attrs:
             dis_layer_dict[sst] = MLPLayers([embedding_size] + dis_hidden_size_list + [sst_size[sst]],
-                                   dropout=self.drop_out,
+                                   dropout=self.dis_drop_out,
                                    activation=self.activation,
                                    bn=True).to(self.device)
 
@@ -158,14 +150,14 @@ class PFCN_DeepModel(FairRecommender):
         neg_scores = self.mlp_layer(torch.cat((user_embed, neg_item_embed), dim=1))
 
         bpr_loss = self.loss_fun(pos_scores, neg_scores)
-        # dis_loss = self.calculate_dis_loss(interaction)
+        dis_loss = self.calculate_dis_loss(interaction)
 
-        return bpr_loss
+        return bpr_loss - self.dis_weight * dis_loss
 
     def calculate_dis_loss(self, interaction):
         user = interaction[self.USER_ID]
         sst_label_dict = {}
-        for sst in self.sst_attr:
+        for sst in self.sst_attrs:
             sst_label_dict[sst] = interaction[sst]
         dis_loss = .0
 
@@ -185,3 +177,13 @@ class PFCN_DeepModel(FairRecommender):
                                                 all_item_embed.repeat(self.n_users,1))))
 
         return pred_scores.view(-1)
+
+    def get_sst_embed(self, user_data):
+        ret_dict = {}
+        indices = torch.unique(user_data[self.USER_ID])
+        for sst in self.sst_attrs:
+            ret_dict[sst] = user_data[sst][indices]
+        user_embeddings = self.forward(indices)
+        ret_dict['embedding'] = user_embeddings
+
+        return ret_dict

@@ -53,15 +53,10 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
     # trainer loading and initialization
     trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
 
-    # profile = line_profiler.LineProfiler(trainer.fit)
-    # profile.enable()
     # model training
     best_valid_score, best_valid_result = trainer.fit(
         train_data, valid_data, saved=saved, show_progress=config['show_progress']
     )
-    # profile.disable()
-    # f = open(r'C:\Users\86183\Desktop\1.txt','w')
-    # profile.print_stats(f)
 
     # model evaluation
     test_result = trainer.evaluate(test_data, load_best_model=saved, show_progress=config['show_progress'])

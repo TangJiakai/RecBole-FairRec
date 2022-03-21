@@ -10,6 +10,7 @@ checkpoint_dir: 'saved'
 dataset: ml-1M
 save_dataset: True
 save_dataloaders: True
+save_sst_embed: True
 
 # Data settings
 field_separator: "\t"
@@ -18,7 +19,6 @@ USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
 NEG_PREFIX: neg_
 ITEM_LIST_LENGTH_FIELD: item_length
-LIST_SUFFIX: _list
 user_inter_num_interval: "[4,inf)"
 sst_attr_list: ["gender","age","occupation"]
 load_col:
@@ -26,10 +26,10 @@ load_col:
   user: [user_id,gender,age,occupation]
 
 # model config
-model: PersonaliedFair
+model: PFCN_MLP
 embedding_size: 32
-mlp_hidden_size_list: [64, 32, 16, 8, 1]
-dis_hidden_size_list: [64, 128, 64, 64, 64, 32]
+mlp_hidden_size_list: [32, 16, 8]
+dis_hidden_size_list: [64, 128, 64, 64, 32, 16]
 activation: leakyrelu
 filter_mode: sm
 dropout: 0.2
@@ -45,6 +45,7 @@ train_epoch_interval: 10
 eval_step: 1
 stopping_step: 10
 weight_decay: 0.0001
+dis_weight: 10
 
 # evalution settings
 eval_args:
