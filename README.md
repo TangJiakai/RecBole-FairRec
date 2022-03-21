@@ -11,8 +11,8 @@ Implement Fair Recommendation Model In RecBole
     - embedding size: choice [2,4,8,16,32]   
 
     **best** hyper parameters:  
-    - learning rate:   
-    - emebdding size:   
+    - learning rate: 0.006  
+    - emebdding size: 4  
     - train batch size: 160000
     - learner: adam
     - regular_weight: 0.001
