@@ -1,13 +1,15 @@
 # RecBole-FairRec
 Implement Fair Recommendation Model In RecBole
 - [x] FOCF([Beyond Parity：Fairness Objectives for Collaborative Filtering](https://proceedings.neurips.cc/paper/2017/hash/e6384711491713d29bc63fc5eeb5ba4f-Abstract.html) in NIPS 2017)
+-------------------------------------------------------------
 ## Model Performance
 ### FOCF
 - **MovieLens-1M**  
+    
     hyper parameters for **hyper tuning**:   
     - learning rate: loguniform [-6,0]   
-    - embedding size: choice [2,4,8,16,32]  
-    
+    - embedding size: choice [2,4,8,16,32]   
+
     **best** hyper parameters:  
     - learning rate:   
     - emebdding size:   
