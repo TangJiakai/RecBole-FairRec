@@ -95,7 +95,7 @@ class Trainer(AbstractTrainer):
         saved_model_file = '{}-{}.pth'.format(self.config['model'], get_local_time())
         self.saved_model_file = os.path.join(self.checkpoint_dir, saved_model_file)
         if config['save_sst_embed']:
-            saved_sst_embed_file = '{}——embed.pth'.format(self.config['model'])
+            saved_sst_embed_file = '{}_embed-[{}].pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']))
             self.saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
         self.weight_decay = config['weight_decay']
 

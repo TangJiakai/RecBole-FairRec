@@ -182,8 +182,8 @@ class PFCN_MLP(FairRecommender):
         ret_dict = {}
         indices = torch.unique(user_data[self.USER_ID])
         for sst in self.sst_attrs:
-            ret_dict[sst] = user_data[sst][indices]
-        user_embeddings = self.forward(indices)
+            ret_dict[sst] = user_data[sst][indices-1]
+        user_embeddings = self.forward(indices.to(self.device))
         ret_dict['embedding'] = user_embeddings
 
         return ret_dict

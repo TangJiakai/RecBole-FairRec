@@ -27,22 +27,22 @@ load_col:
 
 # model config
 model: PFCN_MLP
-embedding_size: 32
-mlp_hidden_size_list: [32, 16, 8]
-dis_hidden_size_list: [64, 128, 64, 64, 32, 16]
+embedding_size: 64
+mlp_hidden_size_list: [64, 32, 16]
+dis_hidden_size_list: [128, 256, 128, 128, 64, 32]
 activation: leakyrelu
 filter_mode: sm
 dropout: 0.2
 dis_dropout: 0.3
 
 # training settings
-epochs: 30
+epochs: 300
 train_batch_size: 1024
 learner: adam
 learning_rate: 0.001
 training_neg_sample_num: 1
 train_epoch_interval: 10
-eval_step: 1
+eval_step: 5
 stopping_step: 10
 weight_decay: 0.0001
 dis_weight: 10
