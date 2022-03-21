@@ -18,7 +18,7 @@ from recbole.model.loss import BPRLoss
 from recbole.utils import InputType
 
 
-class PFCN(FairRecommender):
+class PFCN_DeepModel(FairRecommender):
     r"""PFCN is a personalized and fair-aware recommendation algorithm
 
     which has 2 version: combination model(cm) and separated model(sm)
@@ -26,17 +26,15 @@ class PFCN(FairRecommender):
     input_type = InputType.PAIRWISE
 
     def __init__(self, config, dataset):
-        super(PFCN, self).__init__(config, dataset)
+        super(PFCN_DeepModel, self).__init__(config, dataset)
 
         # load dataset info
         self.filter_mode = config['filter_mode'].lower()
-        self.sst_attr = config['sst_attr_list']
+        self.sst_attrs = config['sst_attr_list']
         try:
             assert self.filter_mode in ('cm','sm')
         except AssertionError:
             raise AssertionError('filter_mode must be cm or sm')
-        self.POS_ITEM_ID = self.ITEM_ID
-        self.NEG_ITEM_ID = config['NEG_PREFIX'] + self.ITEM_ID
 
         # load parameters info
         self.embedding_size = config['embedding_size']
@@ -77,7 +75,7 @@ class PFCN(FairRecommender):
             dict: every sensitive attribute and its number
         """
         sst_size = {}
-        for sst in self.sst_attr:
+        for sst in self.sst_attrs:
             try:
                 assert sst in user_feature.columns
             except AssertionError:
@@ -97,7 +95,7 @@ class PFCN(FairRecommender):
         embedding_size = self.embedding_size
         filter_num = 1
         if self.filter_mode == 'cm':
-            filter_num = len(self.sst_attr)
+            filter_num = len(self.sst_attrs)
         for _ in range(filter_num):
             filter_model = MLPLayers([embedding_size, embedding_size//2, embedding_size],
                                dropout=self.drop_out,
