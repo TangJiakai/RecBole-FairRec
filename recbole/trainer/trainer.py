@@ -401,7 +401,8 @@ class Trainer(AbstractTrainer):
                 valid_step += 1
 
         # store embedding and sst if task need attacker after training
-        self._save_sst_embed(train_data)
+        if self.config['save_sst_embed']:
+            self._save_sst_embed(train_data)
 
         self._add_hparam_to_tensorboard(self.best_valid_score)
         return self.best_valid_score, self.best_valid_result
@@ -1092,13 +1093,13 @@ class FairGOTrainer(Trainer):
         return dis_loss, filter_loss
 
 
-class PersonaliedFairTrainer(Trainer):
+class PFCNTrainer(Trainer):
     def __init__(self, config, model):
-        super(PersonaliedFairTrainer, self).__init__(config, model)
+        super(PFCNTrainer, self).__init__(config, model)
 
         self.train_epoch_interval = config['train_epoch_interval']
-        self.optimizer_dis = self._build_optimizer([{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
-        self.optimizer_filter = self._build_optimizer([{'params':self.model.user_embedding.weight.data}]
+        self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
+        self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding.weight.data}]
                                                       + [{'params':self.model.item_embedding.weight.data}]
                                                       + [{'params':_.parameters()} for _ in model.filter_layer]
                                                       + [{'params':model.mlp_layer.parameters()}])
@@ -1106,16 +1107,18 @@ class PersonaliedFairTrainer(Trainer):
     def _train_epoch(self, train_data, epoch_idx, loss_func=None, show_progress=False):
         dis_loss, filter_loss = 0., 0.
 
+        if epoch_idx % self.train_epoch_interval == 0:
+            self.logger.info('Train Filter and Base model')
+            self.optimizer = self.optimizer_filter
+            filter_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_loss,
+                                               show_progress)
+                                               
         self.logger.info('Train Discriminator')
         self.optimizer = self.optimizer_dis
         dis_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_dis_loss,
                                         show_progress)
 
-        if epoch_idx % self.train_epoch_interval == 0:
-            self.optimizer = self.optimizer_filter
-            self.logger.info('Train Filter and MLP model')
-            filter_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_loss,
-                                               show_progress)
+        
 
         return dis_loss, filter_loss
 
