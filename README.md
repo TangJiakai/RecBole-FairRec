@@ -7,20 +7,19 @@ Implement Fair Recommendation Model In RecBole
 ### FOCF
 - **MovieLens-1M**  
     
-    Common Hyper Parameters:
+    Hyper Parameters:
 
-        - train batch size: 160000
+        - train batch size: 2048
+        - epoch: 250
         - learner: adam
-        - SST_FIELD: gender
-
-    FOCF_None     
-        - learning rate: 0.006  
+        - SST_FIELD: gender 
+        - learning rate: 0.001 
         - emebdding size: 4  
         - regular_weight: 0.001
 
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
-| None | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
+| None | 1.0883 | 0.5530 | 0.4472 | 0.3864 | 0.1666 | 0.0304 |
 | Value | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
 | Absolute | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
 | Underestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
@@ -32,7 +31,7 @@ Implement Fair Recommendation Model In RecBole
 
 |   | Orgi.  | SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 | 0.3743  | 0.2203 |  |  |  | | | | | |   |   | |   |   |
-|  HIT@5 | 0.8129  | 0.6038 | | |  | | | | | | | | |   |   |
+|  NDCG@5 | 0.3743  | 0.2203 | 0.2369 |  |  | | | | | |   |   | |   |   |
+|  HIT@5 | 0.8129  | 0.6038 | 0.6258 | |  | | | | | | | | |   |   |
 |  (macro)AUC |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 
