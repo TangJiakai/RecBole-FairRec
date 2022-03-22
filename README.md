@@ -19,8 +19,6 @@ Implement Fair Recommendation Model In RecBole
         - learning rate: 0.006  
         - emebdding size: 4  
         - regular_weight: 0.001
-    
-
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
 | None | 1.2214 | 0.6882 | 0.5545 | 0.5473 | 0.1409 | 0.0705 |
@@ -31,10 +29,11 @@ Implement Fair Recommendation Model In RecBole
 | Non-Parity| 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
 
 ### PFCN_MLP
+- **MovieLens-1M**
 
 |   | Orgi.  | SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
-|  HIT@5 |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+|  NDCG@5 |   |  0.2527 |  0.2528 |  0.2568 |  0.2570 | 0.2537  | 0.2541  | 0.2543  | 0.2567  | 0.2543  | 0.2535  | 0.2541  | 0.2532  |   |   |
+|  HIT@5 |   |  0.6507 | 0.6503  | 0.6576  |  0.6573 | 0.6462  | 0.6469  | 0.6488  | 0.6548  | 0.6488  | 0.6576  | 0.6482  | 0.6469  |   |   |
 |  (macro)AUC |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 
