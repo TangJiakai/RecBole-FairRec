@@ -20,9 +20,9 @@ Implement Fair Recommendation Model In RecBole
 
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
-| None | 1.2214 | 0.6882 | 0.5545 | 0.5473 | 0.1409 | 0.0705 |
-| Value | 1.1073 | 0.5798 | 0.4693 | 0.4208 | 0.1590 | 0.0154 |
-| Absolute | 1.1073 | 0.5798 | 0.4693 | 0.4208 | 0.1590 | 0.0154 |
+| None | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
+| Value | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
+| Absolute | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
 | Underestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
 | Overestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
 | Non-Parity| 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
@@ -32,7 +32,7 @@ Implement Fair Recommendation Model In RecBole
 
 |   | Orgi.  | SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 | 0.3743  | 0.2319 |  |  |  | | | | | |   |   | |   |   |
-|  HIT@5 | 0.8129  | 0.6293 | | |  | | | | | | | | |   |   |
+|  NDCG@5 | 0.3743  | 0.2203 |  |  |  | | | | | |   |   | |   |   |
+|  HIT@5 | 0.8129  | 0.6038 | | |  | | | | | | | | |   |   |
 |  (macro)AUC |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
 
