@@ -20,9 +20,9 @@ Implement Fair Recommendation Model In RecBole
 
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
-| None | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
-| Value | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
-| Absolute | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
+| None | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
+| Value | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
+| Absolute | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
 | Underestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
 | Overestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
 | Non-Parity| 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
