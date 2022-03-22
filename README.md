@@ -13,12 +13,11 @@ Implement Fair Recommendation Model In RecBole
         - learner: adam
         - SST_FIELD: gender
 
-    FOCF_None   
-    
-        **best** hyper parameters:  
+    FOCF_None     
         - learning rate: 0.006  
         - emebdding size: 4  
         - regular_weight: 0.001
+
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
 | None | 1.2214 | 0.6882 | 0.5545 | 0.5473 | 0.1409 | 0.0705 |
