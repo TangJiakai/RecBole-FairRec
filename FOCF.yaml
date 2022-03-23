@@ -31,13 +31,13 @@ val_interval:
 
 # model config
 model: FOCF
-embedding_size: 2
+embedding_size: 4
 # none|value|absolute|under|over|nonparity
-fair_objective: value
+fair_objective: under
 
 # training settings
-epochs: 1000
-train_batch_size: 160000
+epochs: 250
+train_batch_size: 4096
 learner: adam
 learning_rate: 0.001
 eval_step: 5

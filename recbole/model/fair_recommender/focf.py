@@ -164,7 +164,7 @@ class FOCF(FairRecommender):
         return F.smooth_l1_loss(loss_input, loss_target)
 
     def nonparity_unfairness(self, pred_scores, interaction):
-        sst_unique_value = np.unique(interaction[self.SST_FIELD])
+        sst_unique_value = torch.unique(interaction[self.SST_FIELD])
         sst1 = sst_unique_value[0]
         sst2 = sst_unique_value[1]
         sst_1_num = (interaction[self.SST_FIELD] == sst1).sum()
@@ -174,7 +174,7 @@ class FOCF(FairRecommender):
         avg_score_2 = torch.where(interaction[self.SST_FIELD] == sst2, pred_scores,
                                   torch.FloatTensor([0]).to(self.device)).sum() / sst_2_num
 
-        return F.smooth_l1_loss(torch.FloatTensor(avg_score_1), torch.FloatTensor(avg_score_2))
+        return F.smooth_l1_loss(torch.tensor(avg_score_1,device=self.device), torch.tensor(avg_score_2,device=self.device))
 
     def forward(self, user, item):
 

@@ -95,7 +95,8 @@ class Trainer(AbstractTrainer):
         saved_model_file = '{}-{}.pth'.format(self.config['model'], get_local_time())
         self.saved_model_file = os.path.join(self.checkpoint_dir, saved_model_file)
         if config['save_sst_embed']:
-            saved_sst_embed_file = '{}_embed-[{}].pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']))
+            # saved_sst_embed_file = '{}_embed-[{}]-{}.pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']), get_local_time())
+            saved_sst_embed_file = '{}_embed-[{}]-{}.pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']), self.config['filter_mode'])
             self.saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
         self.weight_decay = config['weight_decay']
 
@@ -1097,30 +1098,36 @@ class PFCNTrainer(Trainer):
     def __init__(self, config, model):
         super(PFCNTrainer, self).__init__(config, model)
 
+        self.filter_mode = config['filter_mode'].lower()
         self.train_epoch_interval = config['train_epoch_interval']
-        self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
-        self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding.weight.data}]
-                                                      + [{'params':self.model.item_embedding.weight.data}]
-                                                      + [{'params':_.parameters()} for _ in model.filter_layer]
-                                                      + [{'params':model.mlp_layer.parameters()}])
+        if self.filter_mode != 'none':
+            self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
+            self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding.weight.data}]
+                                                        + [{'params':self.model.item_embedding.weight.data}]
+                                                        + [{'params':_.parameters()} for _ in model.filter_layer]
+                                                        + [{'params':model.mlp_layer.parameters()}])
 
     def _train_epoch(self, train_data, epoch_idx, loss_func=None, show_progress=False):
         dis_loss, filter_loss = 0., 0.
 
-        if epoch_idx % self.train_epoch_interval == 0:
-            self.logger.info('Train Filter and Base model')
-            self.optimizer = self.optimizer_filter
+        if self.filter_mode != 'none':
+            if epoch_idx % self.train_epoch_interval == 0:
+                self.logger.info('Train Filter and Base model')
+                self.optimizer = self.optimizer_filter
+                filter_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_loss,
+                                                show_progress)
+
+            self.logger.info('Train Discriminator')
+            self.optimizer = self.optimizer_dis
+            dis_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_dis_loss,
+                                            show_progress)
+
+            return dis_loss, filter_loss
+        else:
             filter_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_loss,
-                                               show_progress)
-                                               
-        self.logger.info('Train Discriminator')
-        self.optimizer = self.optimizer_dis
-        dis_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_dis_loss,
-                                        show_progress)
-
-        
-
-        return dis_loss, filter_loss
+                                            show_progress)
+            
+            return filter_loss
 
 
 class NCLTrainer(Trainer):

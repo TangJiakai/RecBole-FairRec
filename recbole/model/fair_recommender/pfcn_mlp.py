@@ -12,6 +12,7 @@ Reference:
 
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from recbole.model.abstract_recommender import FairRecommender
 from recbole.model.layers import MLPLayers
 from recbole.model.loss import BPRLoss
@@ -32,30 +33,33 @@ class PFCN_MLP(FairRecommender):
         self.filter_mode = config['filter_mode'].lower()
         self.sst_attrs = config['sst_attr_list']
         try:
-            assert self.filter_mode in ('cm','sm')
+            assert self.filter_mode in ('cm','sm','none')
         except AssertionError:
-            raise AssertionError('filter_mode must be cm or sm')
+            raise AssertionError('filter_mode must be cm, sm or none')
 
         # load parameters info
         self.embedding_size = config['embedding_size']
         self.drop_out = config['dropout']
-        self.dis_drop_out = config['dis_dropout']
+        if self.filter_mode != 'none':
+            self.dis_drop_out = config['dis_dropout']
+            self.dis_weight = config['dis_weight']
+            self.dis_hidden_size_list = config['dis_hidden_size_list']
         self.activation = config['activation']
-        self.dis_weight = config['dis_weight']
-        # self.deep_model_hidden_size_list = config['deep_model_hidden_size_list']
-        self.dis_hidden_size_list = config['dis_hidden_size_list']
         self.mlp_hidden_size_list = config['mlp_hidden_size_list']
 
         # define layers and loss
         self.sst_size = self._get_sst_size(dataset.get_user_feature())
+        if self.filter_mode != 'none':
+            self.filter_layer = self.init_filter()
+            self.dis_layer_dict = self.init_dis_layer()
+            self.multi_dis_fun = nn.CrossEntropyLoss()
+            self.bin_dis_fun = nn.BCELoss()
+
         self.user_embedding = nn.Embedding(self.n_users, self.embedding_size)
         self.item_embedding = nn.Embedding(self.n_items, self.embedding_size)
-        self.filter_layer = self.init_filter()
         self.mlp_layer = MLPLayers([self.embedding_size*2]+self.mlp_hidden_size_list+[1],
                                    dropout=self.drop_out)
-        self.dis_layer_dict = self.init_dis_layer()
         self.loss_fun = BPRLoss()
-        self.dis_fun = nn.CrossEntropyLoss()
 
     def _get_sst_size(self, user_feature):
         r""" calculate size of each sensitive attribute for discriminator construction
@@ -109,7 +113,10 @@ class PFCN_MLP(FairRecommender):
         dis_hidden_size_list = self.dis_hidden_size_list
         dis_layer_dict = {}
         for sst in sst_attrs:
-            dis_layer_dict[sst] = MLPLayers([embedding_size] + dis_hidden_size_list + [sst_size[sst]],
+            output_dim = sst_size[sst]
+            if output_dim == 2:
+                output_dim = 1
+            dis_layer_dict[sst] = MLPLayers([embedding_size] + dis_hidden_size_list + [output_dim],
                                    dropout=self.dis_drop_out,
                                    activation=self.activation,
                                    bn=True).to(self.device)
@@ -121,6 +128,8 @@ class PFCN_MLP(FairRecommender):
         item_embed = None
         if item is not None:
             item_embed = self.item_embedding(item)
+        if self.filter_mode == 'none':
+            return user_embed, item_embed
         user_temp = None
         for layer in self.filter_layer:
             embed = layer(user_embed)
@@ -150,9 +159,11 @@ class PFCN_MLP(FairRecommender):
         neg_scores = self.mlp_layer(torch.cat((user_embed, neg_item_embed), dim=1))
 
         bpr_loss = self.loss_fun(pos_scores, neg_scores)
-        dis_loss = self.calculate_dis_loss(interaction)
+        if self.filter_mode != 'none':
+            dis_loss = self.calculate_dis_loss(interaction)
+            return bpr_loss - self.dis_weight * dis_loss
 
-        return bpr_loss - self.dis_weight * dis_loss
+        return bpr_loss
 
     def calculate_dis_loss(self, interaction):
         user = interaction[self.USER_ID]
@@ -163,7 +174,11 @@ class PFCN_MLP(FairRecommender):
 
         user_embed, _ = self.forward(user)
         for sst, dis_layer in self.dis_layer_dict.items():
-            dis_loss += self.dis_fun(dis_layer(user_embed), sst_label_dict[sst].long())
+            if self.sst_size[sst] == 2:
+                logits = F.sigmoid(dis_layer(user_embed))
+                dis_loss += self.bin_dis_fun(logits, sst_label_dict[sst].float().unsqueeze(1))
+            else:
+                dis_loss += self.multi_dis_fun(dis_layer(user_embed), sst_label_dict[sst].long())
 
         return dis_loss
 
