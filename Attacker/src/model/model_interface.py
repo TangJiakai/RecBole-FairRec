@@ -1,8 +1,10 @@
 import pytorch_lightning as pl
 from pytorch_lightning.utilities.types import STEP_OUTPUT
 import torch.nn as nn
+import torch.nn.functional as F
 from sklearn import metrics
 from torch.optim import optimizer
+from sklearn.preprocessing import LabelBinarizer
 import torch
 
 
@@ -41,18 +43,19 @@ class ModelInterface(pl.LightningModule):
 
         if self.output_dim == 1:
             preds = self.sigmoid(preds)
-            loss = self.bce_loss_fn(preds, user_attribute)
-            result['auc'] = metrics.roc_auc_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy())
+            loss = self.bce_loss_fn(preds, user_attribute.unsqueeze(-1))
+            result['auc'] = metrics.roc_auc_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy(), average='micro')
             result['auc'] = max(result['auc'], 1-result['auc'])
 
             self.log('train/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
         else:
-            loss = self.cross_etropy_loss_fn(preds, user_attribute)
-            result['f1_micro'] = metrics.f1_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy().argmax(axis=-1), average='micro')
-            result['f1_macro'] = metrics.f1_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy().argmax(axis=-1), average='macro')
-            
-            self.log('train/f1_micro', result['f1_micro'], prog_bar=True, on_epoch=True, on_step=True)
-            self.log('train/f1_macro', result['f1_macro'], prog_bar=True, on_epoch=True, on_step=True)
+            loss = self.cross_etropy_loss_fn(preds, user_attribute.long())
+            label = F.one_hot(user_attribute.long(), self.output_dim)
+            try:
+                result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+                self.log('train/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
+            except:
+                pass
 
         result['loss'] = loss
         self.log('train/loss', loss.item(), prog_bar=True, on_epoch=True, on_step=True)
@@ -67,18 +70,19 @@ class ModelInterface(pl.LightningModule):
 
         if self.output_dim == 1:
             preds = self.sigmoid(preds)
-            loss = self.bce_loss_fn(preds, user_attribute)
-            result['auc'] = metrics.roc_auc_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy())
+            loss = self.bce_loss_fn(preds, user_attribute.unsqueeze(-1))
+            result['auc'] = metrics.roc_auc_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy(), average='micro')
             result['auc'] = max(result['auc'], 1-result['auc'])
 
             self.log('valid/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
         else:
-            loss = self.cross_etropy_loss_fn(preds, user_attribute)
-            result['f1_micro'] = metrics.f1_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy().argmax(axis=-1), average='micro')
-            result['f1_macro'] = metrics.f1_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy().argmax(axis=-1), average='macro')
-            
-            self.log('valid/f1_micro', result['f1_micro'], prog_bar=True, on_epoch=True, on_step=True)
-            self.log('valid/f1_macro', result['f1_macro'], prog_bar=True, on_epoch=True, on_step=True)
+            loss = self.cross_etropy_loss_fn(preds, user_attribute.long())
+            label = F.one_hot(user_attribute.long(), self.output_dim)
+            try:
+                result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+                self.log('valid/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
+            except:
+                pass
 
         result['loss'] = loss
         self.log('valid/loss', loss.item(), prog_bar=True, on_epoch=True, on_step=True)
@@ -92,16 +96,18 @@ class ModelInterface(pl.LightningModule):
         result = {}
 
         if self.output_dim == 1:
-            result['auc'] = metrics.roc_auc_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy())
+            preds = self.sigmoid(preds)
+            result['auc'] = metrics.roc_auc_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy(), average='micro')
             result['auc'] = max(result['auc'], 1-result['auc'])
 
             self.log('test/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
         else:
-            result['f1_micro'] = metrics.f1_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy().argmax(axis=-1), average='micro')
-            result['f1_macro'] = metrics.f1_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy().argmax(axis=-1), average='macro')
-            
-            self.log('test/f1_micro', result['f1_micro'], prog_bar=True, on_epoch=True, on_step=True)
-            self.log('test/f1_macro', result['f1_macro'], prog_bar=True, on_epoch=True, on_step=True)
+            label = F.one_hot(user_attribute.long(), self.output_dim)
+            try:
+                result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+                self.log('test/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
+            except:
+                pass
 
         return result
 

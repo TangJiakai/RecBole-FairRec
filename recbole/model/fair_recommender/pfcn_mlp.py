@@ -96,7 +96,8 @@ class PFCN_MLP(FairRecommender):
             filter_model = MLPLayers([embedding_size, embedding_size*2, embedding_size],
                                dropout=self.drop_out,
                                activation=self.activation,
-                               bn=True)
+                               bn=True,
+                               init_method='norm')
             filter_layer.append(filter_model.to(self.device))
 
         return filter_layer
@@ -119,7 +120,8 @@ class PFCN_MLP(FairRecommender):
             dis_layer_dict[sst] = MLPLayers([embedding_size] + dis_hidden_size_list + [output_dim],
                                    dropout=self.dis_drop_out,
                                    activation=self.activation,
-                                   bn=True).to(self.device)
+                                   bn=True,
+                                   init_method='norm').to(self.device)
 
         return dis_layer_dict
 
@@ -198,7 +200,7 @@ class PFCN_MLP(FairRecommender):
         indices = torch.unique(user_data[self.USER_ID])
         for sst in self.sst_attrs:
             ret_dict[sst] = user_data[sst][indices-1]
-        user_embeddings = self.forward(indices.to(self.device))
+        user_embeddings, _ = self.forward(indices.to(self.device))
         ret_dict['embedding'] = user_embeddings
 
         return ret_dict

@@ -11,17 +11,17 @@ from .data_process import Dataset
 
 
 class DataInterface(pl.LightningDataModule):
-    def __init__(self, data_path, batch_size, num_workers=8,
+    def __init__(self, data_path, sst, batch_size, num_workers=8,
     train_transforms=None, val_transforms=None, test_transforms=None, dims=None):
         super().__init__(train_transforms=train_transforms, val_transforms=val_transforms, test_transforms=test_transforms, dims=dims)
 
         self.data_path = data_path
         self.batch_size = batch_size
         self.num_workers = num_workers
-        self.dataset = Dataset(self.data_path)
+        self.dataset = Dataset(self.data_path, sst)
 
-        self.train_split_ratio = 0.6
-        self.valid_split_ratio = 0.2
+        self.train_split_ratio = 0.7
+        self.valid_split_ratio = 0.1
 
     def setup(self, stage: Optional[str] = None):
 
@@ -42,7 +42,7 @@ class DataInterface(pl.LightningDataModule):
         return DataLoader(self.dataset, self.batch_size, sampler=self.train_sampler)
 
     def val_dataloader(self) -> EVAL_DATALOADERS:
-        return DataLoader(self.dataset, self.batch_size, sampler=self.valid_sampler)
+        return DataLoader(self.dataset, self.batch_size, sampler=self.valid_sampler, shuffle=False)
     
     def test_dataloader(self) -> EVAL_DATALOADERS:
-        return DataLoader(self.dataset, self.batch_size, sampler=self.test_sampler)
+        return DataLoader(self.dataset, self.batch_size, sampler=self.test_sampler, shuffle=False)

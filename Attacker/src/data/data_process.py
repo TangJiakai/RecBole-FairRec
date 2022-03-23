@@ -4,14 +4,14 @@ from torch.utils.data.dataset import T_co
 
 
 class Dataset(Dataset):
-    def __init__(self, data_path) -> None:
+    def __init__(self, data_path, sst) -> None:
         super().__init__()
-        self.user_embeddiing, self.user_attribute = self.get_data(data_path)
+        self.user_embeddiing, self.user_attribute = self.get_data(data_path, sst)
 
-    def get_data(self, data_path):
+    def get_data(self, data_path, sst):
         checkpoint = torch.load(data_path)
 
-        return checkpoint['user_embeddings'], checkpoint['user_attribute']
+        return checkpoint['embedding'][0], checkpoint[sst]
 
     def __len__(self):
         return len(self.user_embeddiing)

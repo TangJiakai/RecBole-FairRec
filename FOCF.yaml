@@ -6,8 +6,8 @@ use_gpu: True
 state: INFO
 reproducibility: True
 data_path: 'dataset'
-checkpoint_dir: 'saved'
-dataset: ml-1M
+checkpoint_dir: 'saved_FOCF'
+dataset: FOCF_ml-1M
 save_dataset: True
 save_dataloaders: True
 
@@ -37,7 +37,7 @@ fair_objective: under
 
 # training settings
 epochs: 250
-train_batch_size: 4096
+train_batch_size: 20000
 learner: adam
 learning_rate: 0.001
 eval_step: 5
@@ -54,6 +54,6 @@ eval_args:
   mode: labeled
 metrics: ["RMSE","NonParityUnfairness","ValueUnfairness","AbsoluteUnfairness","UnderUnfairness","OverUnfairness"]
 valid_metric: RMSE
-eval_batch_size: 1024
+eval_batch_size: 20000
 loss_decimal_place: 4
 metric_decimal_place: 4
