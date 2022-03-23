@@ -19,7 +19,7 @@ Implement Fair Recommendation Model In RecBole
 
 | Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
 |:-:| :-:| :-: | :-: | :-: | :-: | :-: |
-| None | 1.0883 | 0.5530 | 0.4472 | 0.3864 | 0.1666 | 0.0304 |
+| None | 1.0890 | 0.5552 | 0.4461 | 0.3972 | 0.1579 | 0.0061 |
 | Value | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
 | Absolute | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
 | Underestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
@@ -29,9 +29,9 @@ Implement Fair Recommendation Model In RecBole
 ### PFCN_MLP
 - **MovieLens-1M**
 
-|   | Orgi.  | SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
+|   | Orgin-G |Orgin-A |Orgin-O | SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 | 0.3743  | 0.2203 | 0.2369 |  |  | | | | | |   |   | |   |   |
-|  HIT@5 | 0.8129  | 0.6038 | 0.6258 | |  | | | | | | | | |   |   |
-|  (macro)AUC |   |   |   |   |   |   |   |   |   |   |   |   |   |   |   |
+|  NDCG@5 | 0.3743  |0.3743  |0.3743  | 0.2203 | 0.2369 |  |  | | | | | |   |   | |   |   |
+|  HIT@5 | 0.8129  |0.8129  |0.8129  | 0.6038 | 0.6258 | |  | | | | | | | | |   |   |
+|  (macro)AUC |  0.7479 | 0.6861  |   |   |   |   |   |   |   |   |   |   |   |   |   |
 
