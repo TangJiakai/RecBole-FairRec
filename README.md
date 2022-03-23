@@ -24,7 +24,7 @@ Implement Fair Recommendation Model In RecBole
 | Absolute | 1.2059 | 0.6673 | 0.5543 | 0.5329 | 0.1344 | 0.0491 |
 | Underestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
 | Overestimation | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
-| Non-Parity| 单元格 | 单元格 | 单元格 | 单元格 | 单元格 | 单元格 |
+| Non-Parity| 1.0836 | 0.5443 | 0.4332 | 0.3784 | 0.1658 | 0.0082 |
 
 ### PFCN_MLP
 - **MovieLens-1M**
