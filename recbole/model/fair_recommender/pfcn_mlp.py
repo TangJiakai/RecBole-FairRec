@@ -36,10 +36,10 @@ class PFCN_MLP(FairRecommender):
             assert self.filter_mode in ('cm','sm','none')
         except AssertionError:
             raise AssertionError('filter_mode must be cm, sm or none')
+        self.filter_num, self.sst_dict = self._get_filter_info()
 
         # load parameters info
         self.embedding_size = config['embedding_size']
-        self.drop_out = config['dropout']
         if self.filter_mode != 'none':
             self.dis_drop_out = config['dis_dropout']
             self.dis_weight = config['dis_weight']
@@ -60,6 +60,23 @@ class PFCN_MLP(FairRecommender):
         self.mlp_layer = MLPLayers([self.embedding_size*2]+self.mlp_hidden_size_list+[1],
                                    dropout=self.drop_out)
         self.loss_fun = BPRLoss()
+
+    def _get_filter_info(self):
+        if self.filter_mode == 'cm':
+            filter_num = len(self.sst_attrs)
+            sst_dict = {}
+            for i, sst in enumerate(self.sst_attrs):
+                sst_dict[sst] = i + 1
+        elif self.filter_mode == 'sm':
+            filter_num = 2 ** len(self.sst_attrs) - 1
+            sst_dict = {}
+            for i, sst in zip(2 ** range(len(self.sst_attrs)), self.sst_attrs):
+                sst_dict[sst] = i
+        else:
+            filter_num = 0
+            sst_dict = {}
+
+        return filter_num, sst_dict
 
     def _get_sst_size(self, user_feature):
         r""" calculate size of each sensitive attribute for discriminator construction
@@ -87,18 +104,15 @@ class PFCN_MLP(FairRecommender):
         Returns:
             list: filter layer
         """
-        filter_layer = []
+        filter_layer = {}
         embedding_size = self.embedding_size
-        filter_num = 1
-        if self.filter_mode == 'cm':
-            filter_num = len(self.sst_attrs)
-        for _ in range(filter_num):
+        for i in range(self.filter_num):
             filter_model = MLPLayers([embedding_size, embedding_size*2, embedding_size],
                                dropout=self.drop_out,
                                activation=self.activation,
                                bn=True,
                                init_method='norm')
-            filter_layer.append(filter_model.to(self.device))
+            filter_layer[i+1] = filter_model.to(self.device)
 
         return filter_layer
 
@@ -125,36 +139,44 @@ class PFCN_MLP(FairRecommender):
 
         return dis_layer_dict
 
-    def forward(self, user, item=None):
+    def forward(self, user, item=None, sst_list=None):
         user_embed = self.user_embedding(user)
         item_embed = None
         if item is not None:
             item_embed = self.item_embedding(item)
         if self.filter_mode == 'none':
             return user_embed, item_embed
-        user_temp = None
-        for layer in self.filter_layer:
-            embed = layer(user_embed)
-            user_temp = embed if user_temp is None else user_temp + embed
+        elif self.filter_mode == 'sm':
+            idx = 0
+            for sst in sst_list:
+                idx += self.sst_dict[sst]
 
-        user_embed = user_temp / len(self.filter_layer)
+            user_embed = self.filter_layer[idx](user_embed)
+        else:
+            user_temp = None
+            for sst in sst_list:
+                idx = self.sst_dict[sst]
+                embed = self.filter_layer[idx](user_embed)
+                user_temp = embed if user_temp is None else user_temp + embed
+
+            user_embed = user_temp / len(self.filter_layer)
 
         return user_embed, item_embed
 
-    def predict(self, interaction):
+    def predict(self, interaction, sst_list=None):
         user = interaction[self.USER_ID]
         item = interaction[self.ITEM_ID]
 
-        user_all_embeddings, item_all_embeddings = self.forward(user, item)
+        user_all_embeddings, item_all_embeddings = self.forward(user, item, sst_list)
 
         return self.mlp_layer(torch.cat((user_all_embeddings, item_all_embeddings), dim=1))
 
-    def calculate_loss(self, interaction):
+    def calculate_loss(self, interaction, sst_list=None):
         user = interaction[self.USER_ID]
         pos_item = interaction[self.POS_ITEM_ID]
         neg_item = interaction[self.NEG_ITEM_ID]
 
-        user_embed, pos_item_embed = self.forward(user, pos_item)
+        user_embed, pos_item_embed = self.forward(user, pos_item, sst_list)
         neg_item_embed = self.item_embedding(neg_item)
 
         pos_scores = self.mlp_layer(torch.cat((user_embed, pos_item_embed), dim=1))
@@ -167,15 +189,16 @@ class PFCN_MLP(FairRecommender):
 
         return bpr_loss
 
-    def calculate_dis_loss(self, interaction):
+    def calculate_dis_loss(self, interaction, sst_list=None):
         user = interaction[self.USER_ID]
         sst_label_dict = {}
-        for sst in self.sst_attrs:
+        for sst in sst_list:
             sst_label_dict[sst] = interaction[sst]
         dis_loss = .0
 
-        user_embed, _ = self.forward(user)
-        for sst, dis_layer in self.dis_layer_dict.items():
+        user_embed, _ = self.forward(user,None,sst_list)
+        for sst in sst_list:
+            dis_layer = self.dis_layer_dict[sst]
             if self.sst_size[sst] == 2:
                 logits = F.sigmoid(dis_layer(user_embed))
                 dis_loss += self.bin_dis_fun(logits, sst_label_dict[sst].float().unsqueeze(1))
@@ -184,10 +207,10 @@ class PFCN_MLP(FairRecommender):
 
         return dis_loss
 
-    def full_sort_predict(self, interaction):
+    def full_sort_predict(self, interaction, sst_list=None):
         user = interaction[self.USER_ID]
 
-        user_embed = self.forward(user)
+        user_embed = self.forward(user,None,sst_list)
         all_item_embed = self.item_embedding.weight
         # dot with all item embedding to accelerate
         pred_scores = self.mlp_layer(torch.cat((user_embed.repeat_interleave(self.n_items, dim=0),
@@ -195,12 +218,12 @@ class PFCN_MLP(FairRecommender):
 
         return pred_scores.view(-1)
 
-    def get_sst_embed(self, user_data):
+    def get_sst_embed(self, user_data, sst_list=None):
         ret_dict = {}
         indices = torch.unique(user_data[self.USER_ID])
-        for sst in self.sst_attrs:
+        for sst in sst_list:
             ret_dict[sst] = user_data[sst][indices-1]
-        user_embeddings, _ = self.forward(indices.to(self.device))
+        user_embeddings, _ = self.forward(indices.to(self.device),None,sst_list)
         ret_dict['embedding'] = user_embeddings
 
         return ret_dict

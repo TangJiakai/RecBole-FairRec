@@ -16,7 +16,7 @@ r"""
 recbole.trainer.trainer
 ################################
 """
-
+import itertools
 import os
 from logging import getLogger
 from time import time
@@ -1101,6 +1101,8 @@ class PFCNTrainer(Trainer):
         self.filter_mode = config['filter_mode'].lower()
         self.train_epoch_interval = config['train_epoch_interval']
         if self.filter_mode != 'none':
+            self.sst_num = len(self.config['sst_attr_list'])
+            self.mask_label = {i:sst for i, sst in enumerate(self.config['sst_attr_list'])}
             self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
             self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding.weight.data}]
                                                         + [{'params':self.model.item_embedding.weight.data}]
@@ -1111,23 +1113,255 @@ class PFCNTrainer(Trainer):
         dis_loss, filter_loss = 0., 0.
 
         if self.filter_mode != 'none':
-            if epoch_idx % self.train_epoch_interval == 0:
-                self.logger.info('Train Filter and Base model')
-                self.optimizer = self.optimizer_filter
-                filter_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_loss,
-                                                show_progress)
+            mask = np.zeros(self.sst_num)
+            while mask.sum() == 0:
+                mask = np.random.choice([0,1], self.sst_num)
+            sst_list = [sst for i, sst in self.mask_label if i!=0]
+            self.logger.info('Train Filter and Base model')
+            self.optimizer = self.optimizer_filter
+            filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, sst_list,
+                                            show_progress)
 
             self.logger.info('Train Discriminator')
-            self.optimizer = self.optimizer_dis
-            dis_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_dis_loss,
-                                            show_progress)
+            for _ in range(self.config['train_epoch_interval']):
+                self.optimizer = self.optimizer_dis
+                dis_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_dis_loss, sst_list,
+                                                show_progress)
 
-            return dis_loss, filter_loss
+            return filter_loss, dis_loss
         else:
-            filter_loss = super()._train_epoch(train_data, epoch_idx, self.model.calculate_loss,
-                                            show_progress)
+            filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, show_progress)
             
             return filter_loss
+
+    def _train_epoch_with_mask(self, train_data, epoch_idx, loss_func=None, sst_list=None, show_progress=False):
+        self.model.train()
+        loss_func = loss_func or self.model.calculate_loss
+        total_loss = None
+        iter_data = (
+            tqdm(
+                train_data,
+                total=len(train_data),
+                ncols=100,
+                desc=set_color(f"Train {epoch_idx:>5}", 'pink'),
+            ) if show_progress else train_data
+        )
+        for batch_idx, interaction in enumerate(iter_data):
+            interaction = interaction.to(self.device)
+            self.optimizer.zero_grad()
+            losses = loss_func(interaction, sst_list)
+            if isinstance(losses, tuple):
+                loss = sum(losses)
+                loss_tuple = tuple(per_loss.item() for per_loss in losses)
+                total_loss = loss_tuple if total_loss is None else tuple(map(sum, zip(total_loss, loss_tuple)))
+            else:
+                loss = losses
+                total_loss = losses.item() if total_loss is None else total_loss + losses.item()
+            self._check_nan(loss)
+            loss.backward()
+            if self.clip_grad_norm:
+                clip_grad_norm_(self.model.parameters(), **self.clip_grad_norm)
+            self.optimizer.step()
+            if self.gpu_available and show_progress:
+                iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
+        return total_loss
+
+    def _neg_sample_batch_eval(self, batched_data, sst_list):
+        interaction, row_idx, positive_u, positive_i = batched_data
+        batch_size = interaction.length
+        if batch_size <= self.test_batch_size:
+            origin_scores = self.model.predict(interaction.to(self.device), sst_list)
+        else:
+            origin_scores = self._spilt_predict(interaction, batch_size, sst_list)
+
+        if self.config['eval_type'] == EvaluatorType.VALUE:
+            return interaction, origin_scores, positive_u, positive_i
+        elif self.config['eval_type'] == EvaluatorType.RANKING:
+            col_idx = interaction[self.config['ITEM_ID_FIELD']]
+            batch_user_num = positive_u[-1] + 1
+            scores = torch.full((batch_user_num, self.tot_item_num), -np.inf, device=self.device)
+            scores[row_idx.long(), col_idx.long()] = origin_scores.view(-1)
+            return interaction, scores, positive_u, positive_i
+
+    def _spilt_predict(self, interaction, batch_size, sst_list):
+        spilt_interaction = dict()
+        for key, tensor in interaction.interaction.items():
+            spilt_interaction[key] = tensor.split(self.test_batch_size, dim=0)
+        num_block = (batch_size + self.test_batch_size - 1) // self.test_batch_size
+        result_list = []
+        for i in range(num_block):
+            current_interaction = dict()
+            for key, spilt_tensor in spilt_interaction.items():
+                current_interaction[key] = spilt_tensor[i]
+            result = self.model.predict(Interaction(current_interaction).to(self.device), sst_list)
+            if len(result.shape) == 0:
+                result = result.unsqueeze(0)
+            result_list.append(result)
+        return torch.cat(result_list, dim=0)
+
+    @torch.no_grad()
+    def evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
+        r"""Evaluate the model based on the eval data.
+
+        Args:
+            eval_data (DataLoader): the eval data
+            load_best_model (bool, optional): whether load the best model in the training process, default: True.
+                                              It should be set True, if users want to test the model after training.
+            model_file (str, optional): the saved model file, default: None. If users want to test the previously
+                                        trained model file, they can set this parameter.
+            show_progress (bool): Show the progress of evaluate epoch. Defaults to ``False``.
+
+        Returns:
+            collections.OrderedDict: eval result, key is the eval metric and value in the corresponding metric value.
+        """
+        if not eval_data:
+            return
+
+        if load_best_model:
+            checkpoint_file = model_file or self.saved_model_file
+            checkpoint = torch.load(checkpoint_file)
+            self.model.load_state_dict(checkpoint['state_dict'])
+            self.model.load_other_parameter(checkpoint.get('other_parameter'))
+            message_output = 'Loading model structure and parameters from {}'.format(checkpoint_file)
+            self.logger.info(message_output)
+
+        self.model.eval()
+
+        if isinstance(eval_data, FullSortEvalDataLoader):
+            eval_func = self._full_sort_batch_eval
+            if self.item_tensor is None:
+                self.item_tensor = eval_data.dataset.get_item_feature().to(self.device)
+        else:
+            eval_func = self._neg_sample_batch_eval
+        if self.config['eval_type'] == EvaluatorType.RANKING:
+            self.tot_item_num = eval_data.dataset.item_num
+
+        iter_data = (
+            tqdm(
+                eval_data,
+                total=len(eval_data),
+                ncols=100,
+                desc=set_color(f"Evaluate   ", 'pink'),
+            ) if show_progress else eval_data
+        )
+        for batch_idx, batched_data in enumerate(iter_data):
+            if self.filter_mode != 'none':
+                for i in range(1, 4):
+                    sst_lists = [list(_) for _ in itertools.combinations(self.config['sst_attr_list'], i)]
+                    for sst_list in sst_lists:
+                        interaction, scores, positive_u, positive_i = eval_func(batched_data, sst_list)
+                        if self.gpu_available and show_progress:
+                            iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
+                        self.eval_collector.eval_batch_collect(scores, interaction, positive_u, positive_i)
+            else:
+                interaction, scores, positive_u, positive_i = eval_func(batched_data)
+                if self.gpu_available and show_progress:
+                    iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
+                self.eval_collector.eval_batch_collect(scores, interaction, positive_u, positive_i)
+
+        self.eval_collector.model_collect(self.model)
+        struct = self.eval_collector.get_data_struct()
+        result = self.evaluator.evaluate(struct)
+        self.wandblogger.log_eval_metrics(result, head='eval')
+
+        return result
+
+    def _valid_epoch(self, valid_data, show_progress=False):
+        r"""Valid the model with valid data
+
+        Args:
+            valid_data (DataLoader): the valid data.
+            show_progress (bool): Show the progress of evaluate epoch. Defaults to ``False``.
+
+        Returns:
+            float: valid score
+            dict: valid result
+        """
+        valid_result = self.evaluate(valid_data, load_best_model=False, show_progress=show_progress)
+        valid_score = calculate_valid_score(valid_result, self.valid_metric)
+        return valid_score, valid_result
+
+    @torch.no_grad()
+    def pfcn_evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
+        if not eval_data:
+            return
+
+        if load_best_model:
+            checkpoint_file = model_file or self.saved_model_file
+            checkpoint = torch.load(checkpoint_file)
+            self.model.load_state_dict(checkpoint['state_dict'])
+            self.model.load_other_parameter(checkpoint.get('other_parameter'))
+            message_output = 'Loading model structure and parameters from {}'.format(checkpoint_file)
+            self.logger.info(message_output)
+
+        self.model.eval()
+
+        if isinstance(eval_data, FullSortEvalDataLoader):
+            eval_func = self._full_sort_batch_eval
+            if self.item_tensor is None:
+                self.item_tensor = eval_data.dataset.get_item_feature().to(self.device)
+        else:
+            eval_func = self._neg_sample_batch_eval
+        if self.config['eval_type'] == EvaluatorType.RANKING:
+            self.tot_item_num = eval_data.dataset.item_num
+
+        iter_data = (
+            tqdm(
+                eval_data,
+                total=len(eval_data),
+                ncols=100,
+                desc=set_color(f"Evaluate   ", 'pink'),
+            ) if show_progress else eval_data
+        )
+        final_result = {}
+        if self.filter_mode != 'none':
+            for i in range(1, 4):
+                sst_lists = [list(_) for _ in itertools.combinations(self.config['sst_attr_list'], i)]
+                for sst_list in sst_lists:
+                    for batch_idx, batched_data in enumerate(iter_data):
+                        interaction, scores, positive_u, positive_i = eval_func(batched_data, sst_list)
+                        if self.gpu_available and show_progress:
+                            iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
+                        self.eval_collector.eval_batch_collect(scores, interaction, positive_u, positive_i)
+                    self.eval_collector.model_collect(self.model)
+                    struct = self.eval_collector.get_data_struct()
+                    result = self.evaluator.evaluate(struct)
+                    final_result['{}-{}'.format(self.config['filter_mode'], sst_list)] = result
+                    self.wandblogger.log_eval_metrics(result, head='eval')
+        else:
+            for batch_idx, batched_data in enumerate(iter_data):
+                interaction, scores, positive_u, positive_i = eval_func(batched_data)
+                if self.gpu_available and show_progress:
+                    iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
+                self.eval_collector.eval_batch_collect(scores, interaction, positive_u, positive_i)
+            self.eval_collector.model_collect(self.model)
+            struct = self.eval_collector.get_data_struct()
+            result = self.evaluator.evaluate(struct)
+            final_result[self.config['filter_mode']] = result
+            self.wandblogger.log_eval_metrics(result, head='eval')
+
+        return result
+
+    def _save_sst_embed(self, data):
+        user_features = data.dataset.get_user_feature()
+        stored_dict = self.model.get_sst_embed(user_features[1:])
+
+        if self.filter_mode != 'none':
+            for i in range(1,4):
+                attr_lists = [list(_) for _ in itertools.combinations(self.config['sst_attr_list'],i)]
+                for attr_list in attr_lists:
+                    self.model.get_sst_embed(data, attr_list)
+                    saved_sst_embed_file = '{}_embed-{}-[{}].pth'.format(self.config['model'],
+                                                                         self.config['filter_mode'],
+                                                                         '_'.join(attr_list),)
+                    saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
+                    torch.save(stored_dict, saved_sst_embed_file)
+        else:
+            self.model.get_sst_embed(data)
+            saved_sst_embed_file = '{}_embed-{}.pth'.format(self.config['model'],
+                                                                 self.config['filter_mode'])
+            saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
+            torch.save(stored_dict, saved_sst_embed_file)
 
 
 class NCLTrainer(Trainer):
