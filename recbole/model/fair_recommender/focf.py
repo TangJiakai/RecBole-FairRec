@@ -158,7 +158,7 @@ class FOCF(FairRecommender):
                                               avg_pred_list2, avg_true_list2):
             diff = max(0, pred1 - true1) - max(0, pred2 - true2)
             loss_input.append(diff)
-        loss_input = torch.FloatTensor(loss_input, device=self.device)
+        loss_input = torch.tensor(loss_input, device=self.device, dtype=torch.float)
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)

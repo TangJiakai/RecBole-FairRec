@@ -16,7 +16,7 @@ def load_callbacks():
     callbacks.append(plc.EarlyStopping(
         monitor='valid/auc',
         # monitor='valid/f1_micro',
-        mode='min',
+        mode='max',
         patience=5,
         min_delta=0.001,
         verbose=True,
@@ -53,21 +53,25 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--data_path', type=str, default='../dataset/PFCN_MLP_embed-[gender_age_occupation]_none.pth')
+    parser.add_argument('--data_path', type=str, default='../dataset/PFCN_MLP_embed-[age_occupation]-cm.pth')
  
     parser.add_argument('--input_dim', type=int, default=64)
-    parser.add_argument('--output_dim', type=int, default=21)
     parser.add_argument('--batch_size', type=int, default=1024)
     parser.add_argument('--weight_decay', type=float, default=1e-4)
     parser.add_argument('--lr', type=float, default=1e-3)
     parser.add_argument('--dropout', type=float, default=0.3)
-    parser.add_argument('--sst', type=str, default='occupation')
     parser.add_argument('--activation', type=str, default='leakyrelu')
+    # parser.add_argument('--sst', type=str, default='gender')
+    # parser.add_argument('--output_dim', type=int, default=1)
+    # parser.add_argument('--sst', type=str, default='age')
+    # parser.add_argument('--output_dim', type=int, default=7)
+    parser.add_argument('--sst', type=str, default='occupation')
+    parser.add_argument('--output_dim', type=int, default=21)
 
     parser = Trainer.add_argparse_args(parser)
 
     parser.set_defaults(max_epochs=300)
-    # parser.set_defaults(gpus=[0])
+    parser.set_defaults(gpus=[0])
     parser.set_defaults(log_every_n_steps=24)
     parser.set_defaults(check_val_every_n_epoch=10)
 

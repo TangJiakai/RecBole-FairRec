@@ -1,15 +1,16 @@
 accelerator: null
 accumulate_grad_batches: null
+activation: leakyrelu
 amp_backend: native
 amp_level: null
 auto_lr_find: false
 auto_scale_batch_size: false
 auto_select_gpus: false
-batch_size: 6000
+batch_size: 1024
 benchmark: false
 check_val_every_n_epoch: 10
 checkpoint_callback: null
-data_path: ../dataset/PFCN_MLP_embed-[gender_age_occupation]_none.pth
+data_path: ../dataset/PFCN_MLP_embed-[gender_age]-sm.pth
 default_root_dir: null
 detect_anomaly: false
 deterministic: false
@@ -20,8 +21,7 @@ enable_model_summary: true
 enable_progress_bar: true
 fast_dev_run: false
 flush_logs_every_n_steps: null
-gpus:
-- 0
+gpus: null
 gradient_clip_algorithm: null
 gradient_clip_val: null
 input_dim: 64

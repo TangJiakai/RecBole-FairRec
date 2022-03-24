@@ -19,20 +19,20 @@ if __name__ == '__main__':
     os.chdir(sys.path[0])
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', '-m', type=str, default='PFCN_MLP', help='name of models')
-    parser.add_argument('--dataset', '-d', type=str, default='PFCN_ml-1M', help='name of datasets')
-    parser.add_argument('--config_files', type=str, default='PFCN_MLP.yaml', help='config files')
+    parser.add_argument('--model', '-m', type=str, default='FOCF', help='name of models')
+    parser.add_argument('--dataset', '-d', type=str, default='FOCF_ml-1M', help='name of datasets')
+    parser.add_argument('--config_files', type=str, default='FOCF.yaml', help='config files')
 
     args, _ = parser.parse_known_args()
 
     config_file_list = args.config_files.strip().split(' ') if args.config_files else None
-    # fair_objective_list = ['none','value','absolute','under','over','nonparity']
+    fair_objective_list = ['under']
     config_dict = {}
-    # for fair_objective in fair_objective_list:
-    #     config_dict['fair_objective'] = fair_objective
-    #     run_recbole(model=args.model, dataset=args.dataset, config_file_list=config_file_list, config_dict=config_dict)
+    for fair_objective in fair_objective_list:
+        config_dict['fair_objective'] = fair_objective
+        run_recbole(model=args.model, dataset=args.dataset, config_file_list=config_file_list, config_dict=config_dict)
 
-    run_recbole(model=args.model, dataset=args.dataset, config_file_list=config_file_list)
+    # run_recbole(model=args.model, dataset=args.dataset, config_file_list=config_file_list)
 
     # filter_mode_list = ['sm','cm']
     # sst_attr_list = ["gender","age","occupation"]

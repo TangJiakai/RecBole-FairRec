@@ -11,7 +11,7 @@ class Dataset(Dataset):
     def get_data(self, data_path, sst):
         checkpoint = torch.load(data_path)
 
-        return checkpoint['embedding'][0], checkpoint[sst]
+        return checkpoint['embedding'], checkpoint[sst]
 
     def __len__(self):
         return len(self.user_embeddiing)

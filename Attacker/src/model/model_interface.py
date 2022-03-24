@@ -53,6 +53,7 @@ class ModelInterface(pl.LightningModule):
             label = F.one_hot(user_attribute.long(), self.output_dim)
             try:
                 result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+                result['auc'] = max(result['auc'], 1-result['auc'])    
                 self.log('train/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
             except:
                 pass
@@ -80,6 +81,7 @@ class ModelInterface(pl.LightningModule):
             label = F.one_hot(user_attribute.long(), self.output_dim)
             try:
                 result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+                result['auc'] = max(result['auc'], 1-result['auc'])    
                 self.log('valid/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
             except:
                 pass
@@ -99,12 +101,12 @@ class ModelInterface(pl.LightningModule):
             preds = self.sigmoid(preds)
             result['auc'] = metrics.roc_auc_score(user_attribute.cpu().numpy(), preds.cpu().detach().numpy(), average='micro')
             result['auc'] = max(result['auc'], 1-result['auc'])
-
             self.log('test/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
         else:
             label = F.one_hot(user_attribute.long(), self.output_dim)
             try:
                 result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+                result['auc'] = max(result['auc'], 1-result['auc'])    
                 self.log('test/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
             except:
                 pass

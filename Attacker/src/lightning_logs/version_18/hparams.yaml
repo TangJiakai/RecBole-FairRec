@@ -10,7 +10,7 @@ batch_size: 1024
 benchmark: false
 check_val_every_n_epoch: 10
 checkpoint_callback: null
-data_path: ../dataset/PFCN_MLP_embed-[gender_age_occupation]_none.pth
+data_path: ../dataset/PFCN_MLP_embed-[age_occupation]-sm.pth
 default_root_dir: null
 detect_anomaly: false
 deterministic: false
