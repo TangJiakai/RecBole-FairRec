@@ -11,6 +11,8 @@ from logging import getLogger
 
 import torch
 import pickle
+import sys
+import os
 
 from recbole.config import Config
 from recbole.data import create_dataset, data_preparation, save_split_dataloaders, load_split_dataloaders
@@ -32,9 +34,9 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
     # logger initialization
 
     config, model, dataset, train_data, valid_data, test_data = load_data_and_model(
-        model_file='saved/FairGO-Mar-01-2022_20-26-39.pth',
-        dataset_file='saved/ml-1M-dataset.pth',
-        dataloader_file='saved/ml-1M-for-FairGO-dataloader.pth',
+        model_file='saved_FOCF/FOCF-Mar-25-2022_14-38-26.pth',
+        dataset_file='saved_FOCF/FOCF_ml-1M-dataset.pth',
+        dataloader_file='saved_FOCF/FOCF_ml-1M-for-FOCF-dataloader.pth',
     )
 
     init_seed(config['seed'], config['reproducibility'])
@@ -48,7 +50,7 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
 
     # trainer loading and initialization
     trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
-    trainer.resume_checkpoint(resume_file='saved/FairGO-Mar-01-2022_20-26-39.pth')
+    trainer.resume_checkpoint(resume_file='saved_FOCF/FOCF-Mar-25-2022_14-38-26.pth')
 
     # model training
     best_valid_score, best_valid_result = trainer.fit(
@@ -108,7 +110,7 @@ def load_data_and_model(model_file, dataset_file=None, dataloader_file=None):
             dataset = pickle.load(f)
 
     if dataloader_file:
-        train_data, valid_data, test_data = load_split_dataloaders(dataloader_file)
+        train_data, valid_data, test_data = load_split_dataloaders(config)
     else:
         if dataset is None:
             dataset = create_dataset(config)
@@ -122,7 +124,7 @@ def load_data_and_model(model_file, dataset_file=None, dataloader_file=None):
 
 
 if __name__ == '__main__':
+    os.chdir(sys.path[0])
     results = run_recbole()
-    logger.info(results)
 
 

@@ -93,8 +93,6 @@ def get_trainer(model_type, model_name):
             return getattr(importlib.import_module('recbole.trainer'), 'KGTrainer')
         elif model_type == ModelType.TRADITIONAL:
             return getattr(importlib.import_module('recbole.trainer'), 'TraditionalTrainer')
-        elif model_name.startswith('PFCN'):
-            return getattr(importlib.import_module('recbole.trainer'), 'PFCNTrainer')
         else:
             return getattr(importlib.import_module('recbole.trainer'), 'Trainer')
 

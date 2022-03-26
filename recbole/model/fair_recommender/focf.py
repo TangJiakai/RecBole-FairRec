@@ -37,27 +37,15 @@ class FOCF(FairRecommender):
         self.RATING = config['RATING_FIELD']
         self.SST_FIELD = config['SST_FIELD']
         self.regular_weight = config['regular_weight']
+        self.fair_weight = config['fair_weight']
         self.require_pow = config['require_pow']
 
-        # generate intermediate data
-        self.history_user_id, self.history_user_value, _ = dataset.history_user_matrix(value_field=self.RATING)
-        self.history_item_id, self.history_item_value, _ = dataset.history_item_matrix(value_field=self.RATING)
-        self.interaction_matrix = dataset.inter_matrix(form='csr', value_field=self.RATING).astype(np.float32)
-        self.history_user_id = self.history_user_id.to(self.device)
-        self.history_user_value = self.history_user_value.to(self.device)
-        self.history_item_id = self.history_item_id.to(self.device)
-        self.history_item_value = self.history_item_value.to(self.device)
-
         # define layers and loss
-        self.user_embedding_layer = nn.Linear(in_features=self.n_items, out_features=self.embedding_size, bias=False)
-        self.item_embedding_layer = nn.Linear(in_features=self.n_users, out_features=self.embedding_size, bias=False)
+        self.user_embedding_layer = nn.Embedding(self.n_users, self.embedding_size)
+        self.item_embedding_layer = nn.Embedding(self.n_items, self.embedding_size)
         self.rating_loss_fun = nn.MSELoss()
         self.regular_loss_fun = EmbLoss()
         self.fair_loss_fun = self.get_loss_fun(config['fair_objective'])
-
-        # parameters initialization
-        self.all_item_embeddings = None
-        self.other_parameter_name = ['all_item_embeddings']
 
     def get_loss_fun(self, fair_objective):
         fair_objective = fair_objective.strip().lower()
@@ -111,12 +99,11 @@ class FOCF(FairRecommender):
         avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
             self.get_item_ratings(pred_scores, interaction)
 
-        loss_input = []
-        for pred1, true1, pred2, true2 in zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2):
+        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
+        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
+                                              avg_pred_list2, avg_true_list2)):
             diff = (pred1 - true1) - (pred2 - true2)
-            loss_input.append(diff)
-        loss_input = torch.tensor(loss_input, device=self.device)
+            loss_input[i] = diff
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
@@ -125,12 +112,11 @@ class FOCF(FairRecommender):
         avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
             self.get_item_ratings(pred_scores, interaction)
 
-        loss_input = []
-        for pred1, true1, pred2, true2 in zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2):
+        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
+        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
+                                              avg_pred_list2, avg_true_list2)):
             diff = abs(pred1 - true1) - abs(pred2 - true2)
-            loss_input.append(diff)
-        loss_input = torch.tensor(loss_input, device=self.device)
+            loss_input[i] = diff
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
@@ -139,12 +125,11 @@ class FOCF(FairRecommender):
         avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
             self.get_item_ratings(pred_scores, interaction)
 
-        loss_input = []
-        for pred1, true1, pred2, true2 in zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2):
+        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
+        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
+                                              avg_pred_list2, avg_true_list2)):
             diff = max(0, true1 - pred1) - max(0, true2 - pred2)
-            loss_input.append(diff)
-        loss_input = torch.tensor(loss_input, device=self.device)
+            loss_input[i] = diff
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
@@ -153,12 +138,11 @@ class FOCF(FairRecommender):
         avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
             self.get_item_ratings(pred_scores, interaction)
 
-        loss_input = []
-        for pred1, true1, pred2, true2 in zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2):
+        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
+        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
+                                              avg_pred_list2, avg_true_list2)):
             diff = max(0, pred1 - true1) - max(0, pred2 - true2)
-            loss_input.append(diff)
-        loss_input = torch.tensor(loss_input, device=self.device, dtype=torch.float)
+            loss_input[i] = diff
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
@@ -170,23 +154,16 @@ class FOCF(FairRecommender):
         sst_1_num = (interaction[self.SST_FIELD] == sst1).sum()
         sst_2_num = (interaction[self.SST_FIELD] == sst2).sum()
         avg_score_1 = torch.where(interaction[self.SST_FIELD] == sst1, pred_scores,
-                                  torch.FloatTensor([0]).to(self.device)).sum() / sst_1_num
+                                  torch.tensor([0], dtype=torch.float32, device=self.device)).sum() / sst_1_num
         avg_score_2 = torch.where(interaction[self.SST_FIELD] == sst2, pred_scores,
-                                  torch.FloatTensor([0]).to(self.device)).sum() / sst_2_num
+                                  torch.tensor([0], dtype=torch.float32, device=self.device)).sum() / sst_2_num
 
-        return F.smooth_l1_loss(torch.tensor(avg_score_1,device=self.device), torch.tensor(avg_score_2,device=self.device))
+        return F.smooth_l1_loss(avg_score_1, avg_score_2)
 
     def forward(self, user, item):
 
-        user_embedding = self.get_user_embedding(user)
-
-        col_indices = self.history_user_id[item].flatten()
-        row_indices = torch.arange(item.shape[0]).to(self.device).\
-            repeat_interleave(self.history_user_id.shape[1], dim=0)
-        matrix_rating = torch.zeros(1).to(self.device).repeat(item.shape[0], self.n_users)
-        matrix_rating.index_put_((row_indices, col_indices), self.history_user_value[item].flatten())
-        item_embedding = self.item_embedding_layer(matrix_rating)
-
+        user_embedding = self.user_embedding_layer(user)
+        item_embedding = self.item_embedding_layer(item)
         pred_scores = torch.mul(user_embedding, item_embedding).sum(dim=-1)
 
         return pred_scores, user_embedding, item_embedding
@@ -197,43 +174,6 @@ class FOCF(FairRecommender):
         pred_scores, _, _ = self.forward(user, item)
 
         return pred_scores
-
-    def get_user_embedding(self, user):
-        r"""Get a batch of user's embedding with the user's id and history interaction matrix.
-
-        Args:
-            user (torch.LongTensor): The input tensor that contains user's id, shape: [batch_size, ]
-
-        Returns:
-            torch.FloatTensor: The embedding tensor of a batch of user, shape: [batch_size, embedding_size]
-        """
-        col_indices = self.history_item_id[user].flatten()
-        row_indices = torch.arange(user.shape[0]).to(self.device)
-        row_indices = row_indices.repeat_interleave(self.history_item_id.shape[1], dim=0)
-        matrix_rating = torch.zeros(1).to(self.device).repeat(user.shape[0], self.n_items)
-        matrix_rating.index_put_((row_indices, col_indices), self.history_item_value[user].flatten())
-        user_embedding = self.user_embedding_layer(matrix_rating)
-
-        return user_embedding
-
-    def get_item_embedding(self):
-        r"""Get all item's embedding with history interaction matrix.
-
-        Considering the RAM of device, we use matrix multiply on sparse tensor for generalization.
-
-        Returns:
-            torch.FloatTensor: The embedding tensor of all item, shape: [n_items, embedding_size]
-        """
-        interaction_matrix = self.interaction_matrix.tocoo()
-        row = interaction_matrix.row
-        col = interaction_matrix.col
-        i = torch.LongTensor([row, col])
-        data = torch.FloatTensor(interaction_matrix.data)
-        item_matrix = torch.sparse.FloatTensor(i, data, torch.Size(interaction_matrix.shape)).to(self.device).\
-            transpose(0, 1)
-        item_embedding = torch.sparse.mm(item_matrix, self.item_embedding_layer.weight.t())
-
-        return item_embedding
 
     def calculate_loss(self, interaction):
         user = interaction[self.USER_ID]
@@ -248,18 +188,16 @@ class FOCF(FairRecommender):
             fair_loss = self.fair_loss_fun(pred_scores, interaction)
 
         # rating loss + regularization loss + fair objective loss
-        loss = rating_loss + self.regular_weight * regular_loss + fair_loss
+        loss = rating_loss + self.regular_weight * regular_loss + self.fair_weight * fair_loss
 
         return loss
 
     def full_sort_predict(self, interaction):
         user = interaction[self.USER_ID]
-        user_embedding = self.get_user_embedding(user)
+        user_embedding = self.user_embedding_layer(user)
+        all_item_embeddings = self.item_embedding_layer.weight
 
-        if self.all_item_embeddings is None:
-            self.all_item_embeddings = self.get_item_embedding()
-
-        pred_scores = torch.matmul(user_embedding, self.all_item_embeddings.t()).view(-1)
+        pred_scores = torch.matmul(user_embedding, all_item_embeddings.t()).view(-1)
 
         return pred_scores
 

@@ -58,10 +58,7 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
     )
 
     # model evaluation
-    if config['model'].lower().startswith('pfcn'):
-        test_result = trainer.pfcn_evaluate(test_data, load_best_model=saved, show_progress=config['show_progress'])
-    else:
-        test_result = trainer.evaluate(test_data, load_best_model=saved, show_progress=config['show_progress'])
+    test_result = trainer.evaluate(test_data, load_best_model=saved, show_progress=config['show_progress'])
 
     logger.info(set_color('best valid ', 'yellow') + f': {best_valid_result}')
     logger.info(set_color('test result', 'yellow') + f': {test_result}')

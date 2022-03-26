@@ -36,13 +36,14 @@ embedding_size: 4
 fair_objective: under
 
 # training settings
-epochs: 250
+epochs: 1000
 train_batch_size: 20000
 learner: adam
 learning_rate: 0.001
 eval_step: 5
 stopping_step: 10
 regular_weight: 0.001
+fair_weight: 1
 neg_sampling: ~
 require_pow: True
 

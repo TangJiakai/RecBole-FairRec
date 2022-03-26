@@ -1073,8 +1073,8 @@ class FairGOTrainer(Trainer):
         self.train_epoch_interval = config['train_epoch_interval']
         self.optimizer_dis = self._build_optimizer(list(self.model.dis_layer.parameters())
                                                    + list(self.model.aggr_layer.parameters()))
-        self.optimizer_filter = self._build_optimizer(list(self.model.user_embedding.weight.data)
-                                                      + list(self.model.item_embedding.weight.data)
+        self.optimizer_filter = self._build_optimizer(list(self.model.user_embedding.weight)
+                                                      + list(self.model.item_embedding.weight)
                                                       + list(self.model.filter_layer.parameters()))
 
     def _train_epoch(self, train_data, epoch_idx, loss_func=None, show_progress=False):
@@ -1104,10 +1104,6 @@ class PFCNTrainer(Trainer):
             self.sst_num = len(self.config['sst_attr_list'])
             self.mask_label = {i:sst for i, sst in enumerate(self.config['sst_attr_list'])}
             self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
-            self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding.weight.data}]
-                                                        + [{'params':self.model.item_embedding.weight.data}]
-                                                        + [{'params':_.parameters()} for _ in model.filter_layer]
-                                                        + [{'params':model.mlp_layer.parameters()}])
 
     def _train_epoch(self, train_data, epoch_idx, loss_func=None, show_progress=False):
         dis_loss, filter_loss = 0., 0.
@@ -1116,21 +1112,21 @@ class PFCNTrainer(Trainer):
             mask = np.zeros(self.sst_num)
             while mask.sum() == 0:
                 mask = np.random.choice([0,1], self.sst_num)
-            sst_list = [sst for i, sst in self.mask_label if i!=0]
-            self.logger.info('Train Filter and Base model')
-            self.optimizer = self.optimizer_filter
-            filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, sst_list,
-                                            show_progress)
+            sst_list = [sst for i, sst in self.mask_label.items() if mask[i]!=0]
+            if epoch_idx % self.config['train_epoch_interval'] == 0:
+                self.logger.info('Train Filter and Base model')
+                self.optimizer = self.optimizer_filter
+                filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, sst_list,
+                                                show_progress)
 
             self.logger.info('Train Discriminator')
-            for _ in range(self.config['train_epoch_interval']):
-                self.optimizer = self.optimizer_dis
-                dis_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_dis_loss, sst_list,
-                                                show_progress)
+            self.optimizer = self.optimizer_dis
+            dis_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_dis_loss, sst_list,
+                                            show_progress)
 
             return filter_loss, dis_loss
         else:
-            filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, show_progress)
+            filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, None, show_progress)
             
             return filter_loss
 
@@ -1166,7 +1162,7 @@ class PFCNTrainer(Trainer):
                 iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
         return total_loss
 
-    def _neg_sample_batch_eval(self, batched_data, sst_list):
+    def _neg_sample_batch_eval(self, batched_data, sst_list=None):
         interaction, row_idx, positive_u, positive_i = batched_data
         batch_size = interaction.length
         if batch_size <= self.test_batch_size:
@@ -1200,7 +1196,7 @@ class PFCNTrainer(Trainer):
         return torch.cat(result_list, dim=0)
 
     @torch.no_grad()
-    def evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
+    def pfcn_evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
         r"""Evaluate the model based on the eval data.
 
         Args:
@@ -1277,12 +1273,12 @@ class PFCNTrainer(Trainer):
             float: valid score
             dict: valid result
         """
-        valid_result = self.evaluate(valid_data, load_best_model=False, show_progress=show_progress)
+        valid_result = self.pfcn_evaluate(valid_data, load_best_model=False, show_progress=show_progress)
         valid_score = calculate_valid_score(valid_result, self.valid_metric)
         return valid_score, valid_result
 
     @torch.no_grad()
-    def pfcn_evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
+    def evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
         if not eval_data:
             return
 
@@ -1340,28 +1336,71 @@ class PFCNTrainer(Trainer):
             final_result[self.config['filter_mode']] = result
             self.wandblogger.log_eval_metrics(result, head='eval')
 
-        return result
+        return final_result
 
     def _save_sst_embed(self, data):
-        user_features = data.dataset.get_user_feature()
-        stored_dict = self.model.get_sst_embed(user_features[1:])
+        user_features = data.dataset.get_user_feature()[1:]
 
         if self.filter_mode != 'none':
             for i in range(1,4):
                 attr_lists = [list(_) for _ in itertools.combinations(self.config['sst_attr_list'],i)]
                 for attr_list in attr_lists:
-                    self.model.get_sst_embed(data, attr_list)
+                    stored_dict = self.model.get_sst_embed(user_features, attr_list)
                     saved_sst_embed_file = '{}_embed-{}-[{}].pth'.format(self.config['model'],
                                                                          self.config['filter_mode'],
                                                                          '_'.join(attr_list),)
                     saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
                     torch.save(stored_dict, saved_sst_embed_file)
         else:
-            self.model.get_sst_embed(data)
+            stored_dict = self.model.get_sst_embed(user_features)
             saved_sst_embed_file = '{}_embed-{}.pth'.format(self.config['model'],
                                                                  self.config['filter_mode'])
             saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
             torch.save(stored_dict, saved_sst_embed_file)
+
+
+class PFCN_MLPTrainer(PFCNTrainer):
+    def __init__(self, config, model):
+        super(PFCN_MLPTrainer, self).__init__(config, model)
+
+        if self.filter_mode != 'none':
+            self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding.weight}]
+                                                        + [{'params':self.model.item_embedding.weight}]
+                                                        + [{'params':_.parameters()} for _ in model.filter_layer.values()]
+                                                        + [{'params':model.mlp_layer.parameters()}])
+
+
+class PFCN_BiasedMFTrainer(PFCNTrainer):
+    def __init__(self, config, model):
+        super(PFCN_BiasedMFTrainer, self).__init__(config, model)
+
+        if self.filter_mode != 'none':
+            self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding_layer.weight}]
+                                                        + [{'params':self.model.item_embedding_layer.weight}]
+                                                        + [{'params':_.parameters()} for _ in model.filter_layer.values()]
+                                                        + [{'params':self.model.user_bias.weight}]
+                                                        + [{'params':self.model.item_bias.weight}]
+                                                        + [{'params':self.model.global_bias}])
+
+
+class PFCN_DMFTrainer(PFCNTrainer):
+    def __init__(self, config, model):
+        super(PFCN_DMFTrainer, self).__init__(config, model)
+
+        if self.filter_mode != 'none':
+            self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding_layer.weight}]
+                                                        + [{'params':self.model.item_embedding_layer.weight}]
+                                                        + [{'params':self.model.user_mlp.parameters()}]
+                                                        + [{'params':self.model.item_mlp.parameters()}])
+
+
+class PFCN_PMFTrainer(PFCNTrainer):
+    def __init__(self, config, model):
+        super(PFCN_PMFTrainer, self).__init__(config, model)
+
+        if self.filter_mode != 'none':
+            self.optimizer_filter = self._build_optimizer(params=[{'params':self.model.user_embedding_layer.weight}]
+                                                        + [{'params':self.model.item_embedding_layer.weight}])
 
 
 class NCLTrainer(Trainer):

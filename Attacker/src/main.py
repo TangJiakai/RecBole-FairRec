@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('--data_path', type=str, default='../dataset/PFCN_MLP_embed-[age_occupation]-cm.pth')
+    parser.add_argument('--data_path', type=str, default='../dataset/PFCN_BiasedMF_embed-cm-[age_occupation].pth')
  
     parser.add_argument('--input_dim', type=int, default=64)
     parser.add_argument('--batch_size', type=int, default=1024)

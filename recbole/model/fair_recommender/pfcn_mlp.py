@@ -13,6 +13,7 @@ Reference:
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import numpy as np
 from recbole.model.abstract_recommender import FairRecommender
 from recbole.model.layers import MLPLayers
 from recbole.model.loss import BPRLoss
@@ -45,6 +46,7 @@ class PFCN_MLP(FairRecommender):
             self.dis_weight = config['dis_weight']
             self.dis_hidden_size_list = config['dis_hidden_size_list']
         self.activation = config['activation']
+        self.dropout = config['dropout']
         self.mlp_hidden_size_list = config['mlp_hidden_size_list']
 
         # define layers and loss
@@ -58,7 +60,7 @@ class PFCN_MLP(FairRecommender):
         self.user_embedding = nn.Embedding(self.n_users, self.embedding_size)
         self.item_embedding = nn.Embedding(self.n_items, self.embedding_size)
         self.mlp_layer = MLPLayers([self.embedding_size*2]+self.mlp_hidden_size_list+[1],
-                                   dropout=self.drop_out)
+                                   dropout=self.dropout)
         self.loss_fun = BPRLoss()
 
     def _get_filter_info(self):
@@ -70,7 +72,7 @@ class PFCN_MLP(FairRecommender):
         elif self.filter_mode == 'sm':
             filter_num = 2 ** len(self.sst_attrs) - 1
             sst_dict = {}
-            for i, sst in zip(2 ** range(len(self.sst_attrs)), self.sst_attrs):
+            for i, sst in zip(2 ** np.array(range(len(self.sst_attrs))), self.sst_attrs):
                 sst_dict[sst] = i
         else:
             filter_num = 0
@@ -108,7 +110,6 @@ class PFCN_MLP(FairRecommender):
         embedding_size = self.embedding_size
         for i in range(self.filter_num):
             filter_model = MLPLayers([embedding_size, embedding_size*2, embedding_size],
-                               dropout=self.drop_out,
                                activation=self.activation,
                                bn=True,
                                init_method='norm')
@@ -184,7 +185,7 @@ class PFCN_MLP(FairRecommender):
 
         bpr_loss = self.loss_fun(pos_scores, neg_scores)
         if self.filter_mode != 'none':
-            dis_loss = self.calculate_dis_loss(interaction)
+            dis_loss = self.calculate_dis_loss(interaction, sst_list)
             return bpr_loss - self.dis_weight * dis_loss
 
         return bpr_loss
@@ -200,7 +201,7 @@ class PFCN_MLP(FairRecommender):
         for sst in sst_list:
             dis_layer = self.dis_layer_dict[sst]
             if self.sst_size[sst] == 2:
-                logits = F.sigmoid(dis_layer(user_embed))
+                logits = nn.Sigmoid()(dis_layer(user_embed))
                 dis_loss += self.bin_dis_fun(logits, sst_label_dict[sst].float().unsqueeze(1))
             else:
                 dis_loss += self.multi_dis_fun(dis_layer(user_embed), sst_label_dict[sst].long())
@@ -221,6 +222,7 @@ class PFCN_MLP(FairRecommender):
     def get_sst_embed(self, user_data, sst_list=None):
         ret_dict = {}
         indices = torch.unique(user_data[self.USER_ID])
+        sst_list = self.sst_attrs if self.filter_mode == 'none' else sst_list
         for sst in sst_list:
             ret_dict[sst] = user_data[sst][indices-1]
         user_embeddings, _ = self.forward(indices.to(self.device),None,sst_list)
