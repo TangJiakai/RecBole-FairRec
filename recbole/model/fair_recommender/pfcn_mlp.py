@@ -37,7 +37,7 @@ class PFCN_MLP(FairRecommender):
             assert self.filter_mode in ('cm','sm','none')
         except AssertionError:
             raise AssertionError('filter_mode must be cm, sm or none')
-        self.filter_num, self.sst_dict = self._get_filter_info()
+        self.sst_dict = self._get_filter_info()
 
         # load parameters info
         self.embedding_size = config['embedding_size']
@@ -221,11 +221,11 @@ class PFCN_MLP(FairRecommender):
 
     def get_sst_embed(self, user_data, sst_list=None):
         ret_dict = {}
-        indices = torch.unique(user_data[self.USER_ID])
+        user_indices = torch.arange(1,self.n_users)
         sst_list = self.sst_attrs if self.filter_mode == 'none' else sst_list
         for sst in sst_list:
-            ret_dict[sst] = user_data[sst][indices-1]
-        user_embeddings, _ = self.forward(indices.to(self.device),None,sst_list)
+            ret_dict[sst] = user_data[sst][user_indices-1]
+        user_embeddings, _ = self.forward(user_indices.to(self.device),None,sst_list)
         ret_dict['embedding'] = user_embeddings
 
         return ret_dict

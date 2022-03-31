@@ -34,9 +34,9 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
     # logger initialization
 
     config, model, dataset, train_data, valid_data, test_data = load_data_and_model(
-        model_file='saved_FOCF/FOCF-Mar-25-2022_14-38-26.pth',
-        dataset_file='saved_FOCF/FOCF_ml-1M-dataset.pth',
-        dataloader_file='saved_FOCF/FOCF_ml-1M-for-FOCF-dataloader.pth',
+        model_file='saved_FairGR_GAT_1M/BS_FairGR-Mar-29-2022_16-23-05.pth',
+        dataset_file='saved_FairGR_GAT_1M/FairGR_GAT_1M-dataset.pth',
+        dataloader_file='saved_FairGR_GAT_1M/FairGR_GAT_1M-for-BS_FairGR-dataloader.pth',
     )
 
     init_seed(config['seed'], config['reproducibility'])
@@ -50,25 +50,27 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
 
     # trainer loading and initialization
     trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
-    trainer.resume_checkpoint(resume_file='saved_FOCF/FOCF-Mar-25-2022_14-38-26.pth')
+    trainer.resume_checkpoint(resume_file='saved_FairGR_GAT_1M/BS_FairGR-Mar-29-2022_16-23-05.pth')
+
+    trainer._save_sst_embed(train_data)
 
     # model training
-    best_valid_score, best_valid_result = trainer.fit(
-        train_data, valid_data, saved=saved, show_progress=config['show_progress']
-    )
+    # best_valid_score, best_valid_result = trainer.fit(
+    #     train_data, valid_data, saved=saved, show_progress=config['show_progress']
+    # )
 
     # model evaluation
     test_result = trainer.evaluate(test_data, load_best_model=saved, show_progress=config['show_progress'])
 
-    logger.info(set_color('best valid ', 'yellow') + f': {best_valid_result}')
+    # logger.info(set_color('best valid ', 'yellow') + f': {best_valid_result}')
     logger.info(set_color('test result', 'yellow') + f': {test_result}')
 
-    return {
-        'best_valid_score': best_valid_score,
-        'valid_score_bigger': config['valid_metric_bigger'],
-        'best_valid_result': best_valid_result,
-        'test_result': test_result
-    }
+    # return {
+    #     'best_valid_score': best_valid_score,
+    #     'valid_score_bigger': config['valid_metric_bigger'],
+    #     'best_valid_result': best_valid_result,
+    #     'test_result': test_result
+    # }
 
 
 def load_data_and_model(model_file, dataset_file=None, dataloader_file=None):

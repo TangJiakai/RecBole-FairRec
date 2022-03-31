@@ -6,6 +6,7 @@ from sklearn import metrics
 from torch.optim import optimizer
 from sklearn.preprocessing import LabelBinarizer
 import torch
+import numpy as np
 
 
 class ModelInterface(pl.LightningModule):
@@ -51,12 +52,11 @@ class ModelInterface(pl.LightningModule):
         else:
             loss = self.cross_etropy_loss_fn(preds, user_attribute.long())
             label = F.one_hot(user_attribute.long(), self.output_dim)
-            try:
-                result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
-                result['auc'] = max(result['auc'], 1-result['auc'])    
-                self.log('train/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
-            except:
-                pass
+            result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+            result['auc'] = max(result['auc'], 1-result['auc'])    
+            # result['auc'] = metrics.f1_score(user_attribute.detach().cpu().numpy(), np.argmax(preds.detach().cpu().numpy(),axis=1), average='micro')
+            self.log('train/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
+
 
         result['loss'] = loss
         self.log('train/loss', loss.item(), prog_bar=True, on_epoch=True, on_step=True)
@@ -79,12 +79,11 @@ class ModelInterface(pl.LightningModule):
         else:
             loss = self.cross_etropy_loss_fn(preds, user_attribute.long())
             label = F.one_hot(user_attribute.long(), self.output_dim)
-            try:
-                result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
-                result['auc'] = max(result['auc'], 1-result['auc'])    
-                self.log('valid/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
-            except:
-                pass
+            result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+            result['auc'] = max(result['auc'], 1-result['auc'])    
+            # result['auc'] = metrics.f1_score(user_attribute.cpu().numpy(), np.argmax(preds.cpu().numpy(),axis=1), average='micro')
+            self.log('valid/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
+
 
         result['loss'] = loss
         self.log('valid/loss', loss.item(), prog_bar=True, on_epoch=True, on_step=True)
@@ -104,12 +103,10 @@ class ModelInterface(pl.LightningModule):
             self.log('test/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
         else:
             label = F.one_hot(user_attribute.long(), self.output_dim)
-            try:
-                result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
-                result['auc'] = max(result['auc'], 1-result['auc'])    
-                self.log('test/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
-            except:
-                pass
+            result['auc'] = metrics.roc_auc_score(label.cpu().numpy(), preds.cpu().detach().numpy(), average='macro', multi_class='ovo')
+            result['auc'] = max(result['auc'], 1-result['auc'])    
+            # result['auc'] = metrics.f1_score(user_attribute.cpu().numpy(), np.argmax(preds.cpu().numpy(),axis=1), average='micro')
+            self.log('test/auc', result['auc'], prog_bar=True, on_epoch=True, on_step=True)
 
         return result
 

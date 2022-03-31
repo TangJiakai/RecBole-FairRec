@@ -1,5 +1,5 @@
 import torch
+import os
 
-
-sst_embed = torch.load('../dataset/PFCN_MLP_embed-[gender_age_occupation]-none.pth')
-print(sst_embed['embedding'].shape)
+checkpoint = torch.load('../dataset/BS_FairGR_embed-cm-[age_occupation].pth')
+print(checkpoint.keys())

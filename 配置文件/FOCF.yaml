@@ -20,7 +20,7 @@ RATING_FIELD: rating
 LABEL_FIELD: rating
 user_inter_num_interval: "[50,inf)"
 SST_FIELD: gender
-sst_attr_list: ["gender"]
+sst_attr_list: ["gender","age"]
 unused_col: ~
 load_col:
   inter: [user_id,item_id,rating,timestamp]
