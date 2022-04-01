@@ -16,6 +16,7 @@ r"""
 recbole.trainer.trainer
 ################################
 """
+from distutils.command.config import config
 import itertools
 import os
 from logging import getLogger
@@ -95,7 +96,7 @@ class Trainer(AbstractTrainer):
         saved_model_file = '{}-{}.pth'.format(self.config['model'], get_local_time())
         self.saved_model_file = os.path.join(self.checkpoint_dir, saved_model_file)
         if config['save_sst_embed']:
-            saved_sst_embed_file = '{}_embed-[{}]-{}.pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']), get_local_time())
+            saved_sst_embed_file = '{}_embed-[{}].pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']))
             # saved_sst_embed_file = '{}_embed-[{}]-{}.pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']), self.config['filter_mode'])
             self.saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
         self.weight_decay = config['weight_decay']
@@ -452,7 +453,7 @@ class Trainer(AbstractTrainer):
             return interaction, scores, positive_u, positive_i
 
     @torch.no_grad()
-    def evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
+    def evaluate(self, eval_data, load_best_model=False, model_file=None, show_progress=False):
         r"""Evaluate the model based on the eval data.
 
         Args:
@@ -1078,9 +1079,137 @@ class FairGoTrainer(Trainer):
         self.train_epoch_interval = config['train_epoch_interval']
         self.sst_num = len(self.config['sst_attr_list'])
         self.mask_label = {i:sst for i, sst in enumerate(self.config['sst_attr_list'])}
-        self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()]
-                                                   + list(self.model.aggr_layer.parameters()))
-        self.optimizer_filter = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.filter_layer_dict.values()])
+        self.load_pretrain_weight = config['load_pretrain_weight']
+        if self.load_pretrain_weight:
+            self.model.train_stage = 'finetune'
+        else:
+            self.model.train_stage = 'pretrain'
+            self.pretrain_epochs = config['pretrain_epochs']
+
+        saved_sst_embed_file = '{}-{}_embed-[{}].pth'.format(self.config['model'], self.config['aggr_method'], '_'.join(self.config['sst_attr_list']))
+        # saved_sst_embed_file = '{}_embed-[{}]-{}.pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']), self.config['filter_mode'])
+        self.saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
+
+    def reset_params(self):
+        config = self.config
+        self.learner = config['learner']
+        self.learning_rate = config['learning_rate']
+        self.epochs = config['epochs']
+        self.eval_step = min(config['eval_step'], self.epochs)
+
+        self.start_epoch = 0
+        self.cur_step = 0
+        self.best_valid_score = -np.inf if self.valid_metric_bigger else np.inf
+        self.best_valid_result = None
+        self.train_loss_dict = dict()
+        self.eval_type = config['eval_type']
+        self.eval_collector = Collector(config)
+        self.evaluator = Evaluator(config)
+        self.item_tensor = None
+        self.tot_item_num = None
+
+        self.model.train_stage = 'finetune'
+
+    def fit(self, train_data, valid_data=None, verbose=True, saved=True, show_progress=False, callback_fn=None):
+        if self.model.train_stage == 'pretrain':
+            self.pretrain(train_data, valid_data, verbose, saved, show_progress)
+            self.reset_params()
+            return super().fit(train_data, valid_data, verbose, saved, show_progress, callback_fn)
+        elif self.model.train_stage == 'finetune':
+            return super().fit(train_data, valid_data, verbose, saved, show_progress, callback_fn)
+        else:
+            raise ValueError("Please make sure that the 'train_stage' is 'pretrain' or 'finetune'!")
+
+    def save_pretrained_model(self, saved_model_file):
+        r"""Store the model parameters information and training information.
+
+        Args:
+            saved_model_file (str): file name for saved pretrained model
+
+        """
+        state = {
+            'config': self.config,
+            'state_dict': self.model.state_dict(),
+            'optimizer': self.optimizer.state_dict(),
+            'other_parameter': self.model.other_parameter(),
+        }
+        torch.save(state, saved_model_file)
+
+    def pretrain(self, train_data, valid_data, verbose=True, saved=True, show_progress=False):
+        self.saved_pretrain_model_file = os.path.join(
+            self.checkpoint_dir,
+            '{}-{}-pretrain.pth'.format(self.config['model'], self.config['dataset'])
+        )
+
+        self.saved_pretrain_sst_file = os.path.join(
+            self.checkpoint_dir,
+            '{}-{}-pretrain_embed[none].pth'.format(self.config['model'], self.config['dataset'])
+        )
+        self.eval_step = min(self.config['eval_step'], self.pretrain_epochs)
+        self.logger.info(set_color('Model Pretrain', 'yellow'))
+        self.optimizer = self.optimizer_pretrain
+        valid_step = 0 
+        for epoch_idx in range(self.start_epoch, self.pretrain_epochs):
+            # train
+            training_start_time = time()
+            train_loss = self._train_epoch_with_mask(train_data, epoch_idx, show_progress=show_progress, sst_list=None)
+            self.train_loss_dict[epoch_idx] = sum(train_loss) if isinstance(train_loss, tuple) else train_loss
+            training_end_time = time()
+            train_loss_output = \
+                self._generate_train_loss_output(epoch_idx, training_start_time, training_end_time, train_loss)
+            if verbose:
+                self.logger.info(train_loss_output)
+            self._add_train_loss_to_tensorboard(epoch_idx, train_loss)
+
+            # eval
+            if self.eval_step <= 0 or not valid_data:
+                if saved:
+                    self.save_pretrained_model(self.saved_pretrain_model_file)
+                continue
+            if (epoch_idx + 1) % self.eval_step == 0:
+                valid_start_time = time()
+                valid_score, valid_result = self._valid_epoch(valid_data, show_progress=show_progress)
+                self.best_valid_score, self.cur_step, stop_flag, update_flag = early_stopping(
+                    valid_score,
+                    self.best_valid_score,
+                    self.cur_step,
+                    max_step=self.stopping_step,
+                    bigger=self.valid_metric_bigger
+                )
+                valid_end_time = time()
+                valid_score_output = (set_color("epoch %d evaluating", 'green') + " [" + set_color("time", 'blue')
+                                      + ": %.2fs, " + set_color("valid_score", 'blue') + ": %f]") % \
+                                     (epoch_idx, valid_end_time - valid_start_time, valid_score)
+                valid_result_output = set_color('valid result', 'blue') + ': \n' + dict2str(valid_result)
+                if verbose:
+                    self.logger.info(valid_score_output)
+                    self.logger.info(valid_result_output)
+                self.tensorboard.add_scalar('Vaild_score', valid_score, epoch_idx)
+                self.wandblogger.log_metrics({**valid_result, 'valid_step': valid_step}, head='valid')
+
+                if update_flag:
+                    if saved:
+                        self.save_pretrained_model(self.saved_pretrain_model_file)
+                    self.best_valid_result = valid_result
+
+                if stop_flag:
+                    stop_output = 'Finished pretraining, best eval result in epoch %d' % \
+                                  (epoch_idx - self.cur_step * self.eval_step)
+                    if verbose:
+                        self.logger.info(stop_output)
+                    break
+
+                valid_step += 1
+
+        checkpoint = torch.load(self.saved_pretrain_model_file)
+        self.model.load_state_dict(checkpoint['state_dict'])
+        self.model.load_other_parameter(checkpoint.get('other_parameter'))
+        # store embedding and sst if task need attacker after training
+        if self.config['save_sst_embed']:
+            self._save_sst_embed(train_data, self.saved_pretrain_sst_file)
+
+        self._add_hparam_to_tensorboard(self.best_valid_score)
+        return self.best_valid_score, self.best_valid_result
 
     def _train_epoch(self, train_data, epoch_idx, loss_func=None, show_progress=False):
         dis_loss, filter_loss = 0., 0.
@@ -1089,15 +1218,15 @@ class FairGoTrainer(Trainer):
             mask = np.random.choice([0,1], self.sst_num)
         sst_list = [sst for i, sst in self.mask_label.items() if mask[i]!=0]        
         self.optimizer = self.optimizer_dis
-        self.logger.info('Train Discriminator')
-        dis_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_dis_loss, sst_list,
-                                        show_progress)
-
         if epoch_idx % self.train_epoch_interval == 0:
             self.optimizer = self.optimizer_filter
             self.logger.info('Train Filter')
-            filter_loss = self._train_epoch(train_data, epoch_idx, self.model.calculate_loss, sst_list,
+            filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, sst_list,
                                                show_progress)
+
+        self.logger.info('Train Discriminator')
+        dis_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_dis_loss, sst_list,
+                                        show_progress)
 
         return dis_loss, filter_loss
     
@@ -1150,142 +1279,76 @@ class FairGoTrainer(Trainer):
         return torch.cat(result_list, dim=0)
 
     @torch.no_grad()
-    def fairgo_evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
-        r"""Evaluate the model based on the eval data.
-
-        Args:
-            eval_data (DataLoader): the eval data
-            load_best_model (bool, optional): whether load the best model in the training process, default: True.
-                                              It should be set True, if users want to test the model after training.
-            model_file (str, optional): the saved model file, default: None. If users want to test the previously
-                                        trained model file, they can set this parameter.
-            show_progress (bool): Show the progress of evaluate epoch. Defaults to ``False``.
-
-        Returns:
-            collections.OrderedDict: eval result, key is the eval metric and value in the corresponding metric value.
-        """
-        if not eval_data:
-            return
-
-        if load_best_model:
-            checkpoint_file = model_file or self.saved_model_file
-            checkpoint = torch.load(checkpoint_file)
-            self.model.load_state_dict(checkpoint['state_dict'])
-            self.model.load_other_parameter(checkpoint.get('other_parameter'))
-            message_output = 'Loading model structure and parameters from {}'.format(checkpoint_file)
-            self.logger.info(message_output)
-
-        self.model.eval()
-
-        if isinstance(eval_data, FullSortEvalDataLoader):
-            eval_func = self._full_sort_batch_eval
-            if self.item_tensor is None:
-                self.item_tensor = eval_data.dataset.get_item_feature().to(self.device)
-        else:
-            eval_func = self._neg_sample_batch_eval
-        if self.config['eval_type'] == EvaluatorType.RANKING:
-            self.tot_item_num = eval_data.dataset.item_num
-
-        iter_data = (
-            tqdm(
-                eval_data,
-                total=len(eval_data),
-                ncols=100,
-                desc=set_color(f"Evaluate   ", 'pink'),
-            ) if show_progress else eval_data
-        )
-        for batch_idx, batched_data in enumerate(iter_data):
-            for sst in self.mask_label.values():
-                interaction, scores, positive_u, positive_i = eval_func(batched_data, [sst])
-                if self.gpu_available and show_progress:
-                    iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
-                self.eval_collector.eval_batch_collect(scores, interaction, positive_u, positive_i)
-
-        self.eval_collector.model_collect(self.model)
-        struct = self.eval_collector.get_data_struct()
-        result = self.evaluator.evaluate(struct)
-        self.wandblogger.log_eval_metrics(result, head='eval')
-
-        return result
-
-    def _valid_epoch(self, valid_data, show_progress=False):
-        r"""Valid the model with valid data
-
-        Args:
-            valid_data (DataLoader): the valid data.
-            show_progress (bool): Show the progress of evaluate epoch. Defaults to ``False``.
-
-        Returns:
-            float: valid score
-            dict: valid result
-        """
-        valid_result = self.fairgo_evaluate(valid_data, load_best_model=False, show_progress=show_progress)
-        valid_score = calculate_valid_score(valid_result, self.valid_metric)
-        return valid_score, valid_result
-
-    @torch.no_grad()
     def evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):
         if not eval_data:
             return
 
+        result = {}
+        if not load_best_model:
+            result = super().evaluate(eval_data, show_progress=show_progress)
+            return result
+
+        if load_best_model and not self.load_pretrain_weight:
+            checkpoint_file = self.saved_pretrain_model_file
+            checkpoint = torch.load(checkpoint_file)
+            self.model.load_state_dict(checkpoint['state_dict'])
+            self.model.load_other_parameter(checkpoint.get('other_parameter'))
+            self.model.train_stage = 'pretrain'
+            message_output = 'Loading pretrain model structure and parameters from {}'.format(checkpoint_file)
+            self.logger.info(message_output)
+            result_tmp = super().evaluate(eval_data)
+            for key, value in result_tmp.items():
+                result[f'pretrain-{key}'] = value
+
         if load_best_model:
             checkpoint_file = model_file or self.saved_model_file
             checkpoint = torch.load(checkpoint_file)
             self.model.load_state_dict(checkpoint['state_dict'])
             self.model.load_other_parameter(checkpoint.get('other_parameter'))
+            self.model.train_stage = 'finetune'
             message_output = 'Loading model structure and parameters from {}'.format(checkpoint_file)
             self.logger.info(message_output)
+            result_tmp = super().evaluate(eval_data)
+            for key, value in result_tmp.items():
+                result[f'finetune-{key}'] = value
 
-        self.model.eval()
+        return result
 
-        if isinstance(eval_data, FullSortEvalDataLoader):
-            eval_func = self._full_sort_batch_eval
-            if self.item_tensor is None:
-                self.item_tensor = eval_data.dataset.get_item_feature().to(self.device)
-        else:
-            eval_func = self._neg_sample_batch_eval
-        if self.config['eval_type'] == EvaluatorType.RANKING:
-            self.tot_item_num = eval_data.dataset.item_num
-
-        iter_data = (
-            tqdm(
-                eval_data,
-                total=len(eval_data),
-                ncols=100,
-                desc=set_color(f"Evaluate   ", 'pink'),
-            ) if show_progress else eval_data
-        )
-        final_result = {}
-        for sst in self.mask_label.values():
-            for batch_idx, batched_data in enumerate(iter_data):
-                interaction, scores, positive_u, positive_i = eval_func(batched_data, [sst])
-                if self.gpu_available and show_progress:
-                    iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
-                self.eval_collector.eval_batch_collect(scores, interaction, positive_u, positive_i)
-            self.eval_collector.model_collect(self.model)
-            struct = self.eval_collector.get_data_struct()
-            result = self.evaluator.evaluate(struct)
-            if len(self.mask_label) > 1:
-                final_result['com_'+sst] = result
-            else:
-                final_result[sst] = result
-            self.wandblogger.log_eval_metrics(result, head='eval')
-
-        return final_result
-
-    def _save_sst_embed(self, data):
-        checkpoint_file = self.saved_model_file
-        checkpoint = torch.load(checkpoint_file)
-        self.model.load_state_dict(checkpoint['state_dict'])
-        self.model.load_other_parameter(checkpoint.get('other_parameter'))
+    def _save_sst_embed(self, data, saved_sst_embed_file=None):
         self.model.eval()
         user_features = data.dataset.get_user_feature()[1:]
 
         attr_list = [_ for _ in self.mask_label.values()]
         stored_dict = self.model.get_sst_embed(user_features, attr_list)
-        saved_sst_embed_file = '_'.join(attr_list)
-        saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
+        if saved_sst_embed_file is None:
+            saved_sst_embed_file = self.saved_sst_embed_file
         torch.save(stored_dict, saved_sst_embed_file)
+
+
+class FairGo_PMFTrainer(FairGoTrainer):
+    def __init__(self, config, model):
+        super(FairGo_PMFTrainer, self).__init__(config, model)
+        if not self.load_pretrain_weight:
+            self.optimizer_pretrain = self._build_optimizer(params=[model.user_embedding_layer.weight]+[model.item_embedding_layer.weight])
+        if config['aggr_method'] == 'LBA':
+            self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()]
+                                                    + [{'params':list(self.model.aggr_layer.parameters())}])
+        else:
+            self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
+        self.optimizer_filter = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.filter_layer_dict.values()])
+
+
+class FairGo_GCNTrainer(FairGoTrainer):
+    def __init__(self, config, model):
+        super(FairGo_GCNTrainer, self).__init__(config, model)
+        if not self.load_pretrain_weight:
+            self.optimizer_pretrain = self._build_optimizer(params=[model.user_embedding_layer.weight]+[model.item_embedding_layer.weight]+[model.gcn.parameters()])
+        if config['aggr_method'] == 'LBA':
+            self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()]
+                                                    + [{'params':list(self.model.aggr_layer.parameters())}])
+        else:
+            self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()])
+        self.optimizer_filter = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.filter_layer_dict.values()])
 
 
 class PFCNTrainer(Trainer):
