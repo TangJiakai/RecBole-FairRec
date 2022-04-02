@@ -55,9 +55,9 @@ class FairGo_GCN(FairRecommender):
 
         # load dataset info
         self.rating_matrix = dataset.inter_matrix(form='coo', value_field=self.RATING).astype(np.float32)
-        edge_indice1 = torch.cat((self.rating_matrix.row, self.rating_matrix.col+self.n_users))
-        edge_indice2 = torch.cat((self.rating_matrix.col+self.n_users, self.rating_matrix.row))
-        edge_weights = self.rating_matrix.data
+        edge_indice1 = torch.from_numpy(np.concatenate((self.rating_matrix.row, self.rating_matrix.col+self.n_users))).to(self.device).long()
+        edge_indice2 = torch.from_numpy(np.concatenate((self.rating_matrix.col+self.n_users, self.rating_matrix.row))).to(self.device).long()
+        edge_weights = torch.from_numpy(self.rating_matrix.data).to(self.device)
         self.edge_indices = torch.stack([edge_indice1, edge_indice2], dim=0).to(self.device)
         self.edge_weights = torch.cat([edge_weights, edge_weights])
 

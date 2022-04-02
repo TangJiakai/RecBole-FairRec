@@ -14,6 +14,7 @@ save_dataloaders: True
 dataloaders_save_path: ~
 log_wandb: False
 save_sst_embed: True
+pretrain_model_file_path: 'saved/saved_FairGo_GCN/FairGo_GCN-FairGo_ml-1M-pretrain.pth'
 
 # Data settings
 field_separator: "\t"
@@ -40,7 +41,7 @@ load_col:
 
 # model config
 model: FairGo_GCN
-sst_attr_list: ['gender','age','occupation']
+sst_attr_list: ['occupation']
 aggr_method: 'WAP'
 vs_weights: [4,1]
 embedding_size: 64
@@ -59,7 +60,7 @@ gcn_act: relu
 # training settings
 pretrain_epochs: 600
 epochs: 300
-train_batch_size: 5120
+train_batch_size: 6048
 learner: adam
 learning_rate: 0.005
 training_neg_sample_num: ~
@@ -73,7 +74,7 @@ weight_decay: 0.0001
 eval_args:
   split: {'RS':[8,1,1]}
   group_by: user
-  order: TO
+  order: RO
   mode: labeled
 metrics: ["RMSE"]
 valid_metric: RMSE

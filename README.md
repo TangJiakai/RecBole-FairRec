@@ -2,6 +2,13 @@
 Implement Fair Recommendation Model In RecBole
 - [x] FOCF([Beyond Parity：Fairness Objectives for Collaborative Filtering](https://proceedings.neurips.cc/paper/2017/hash/e6384711491713d29bc63fc5eeb5ba4f-Abstract.html) in NIPS 2017)
 - [x] PFCN([Towards Personalized Fairness based on Causal Notion](https://dl.acm.org/doi/abs/10.1145/3404835.3462966?casa_token=zzHePKuKP6AAAAAA:YzZp_qUbzsgd3TXWCAGSRAfEHO2oM0_BuWZ5uZlfj_rudqKGYq8douOaZ0GoizxP54jtz3JDFw725xo) in SIGIR 2021)
+  - [x] PFCN_MLP 
+  - [x] PFCN_BiasedMF
+  - [x] PFCN_DMF
+  - [x] PFCN_PMF
+- [x] FairGo([Learning Fair Representations for Recommendation: A Graph-based Perspective](https://dl.acm.org/doi/abs/10.1145/3442381.3450015?casa_token=MACP_5U-E6sAAAAA:L-dsEbdusWfmzF06OnATJhF2OXbjfu6el37nC-cGMjev4jGH_TBUedXyAhpfcBMyCyhyxOxLQkxqe_w) in WWW 2021) 
+  - [x] FairGo_PMF
+  - [x] FairGo_GCN
 -------------------------------------------------------------
 ## Model Performance
 ### FOCF
@@ -47,9 +54,47 @@ Implement Fair Recommendation Model In RecBole
 ### PFCN_PMF
 - **MovieLens-1M**
 
-
 |   | Orgin| SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 |  NDCG@5 |  0.2619 |0.2626 | 0.2643 |0.2619  | 0.2620|0.2615 | 0.2622 |0.2602 |0.2632 | 0.2618 | 0.2633  | 0.2626  | 0.2625 | 0.2623  | 0.2620  |
 |  HIT@5 | 0.6469   | 0.6568 | 0.6656 | 0.6641 | 0.6599 | 0.6598 |0.6649  | 0.6603 | 0.6649 | 0.6589 | 0.6636  | 0.6609  | 0.6627 | 0.6669  | 0.6644 |
 |  AUC<br/>(mul:macro) |  G0.5221<br/>A0.5671<br/>O0.5128 | 0.5710 | 0.5119  | 0.5337 | 0.5127 | 0.7551  | 0.6667 |  G0.5013<br/>A0.5318 | G0.5140<br/>A0.5016 | G0.5093<br/>O0.7438  | G0.5199<br/>O0.6538 |  A0.6428<br/>O0.7498 | A0.5010<br/>O0.5087  |  G0.5413<br/>A0.6296<br/>O0.7550 | G0.5126<br/>A0.5150<br/>O0.5763  |
+
+### FairGo_PMF
+- **MovieLens-1M**
+
+||PMF|FairGo_PMF<br>(G-1O)|FairGo_PMF<br>(A-1O)|FairGo_PMF<br>(O-1O)|FairGo_PMF<br>(Com.-1O)|FairGo_PMF<br>(LVA-G-2O)|FairGo_PMF<br>(LVA-A-2O)|FairGo_PMF<br>(LVA-O-2O)|FairGo_PMF<br>(LVA-Com.-2O)|FairGo_PMF<br>(LBA-G-2O)|FairGo_PMF<br>(LBA-A-2O)|FairGo_PMF<br>(LBA-O-2O)|FairGo_PMF<br>(LBA-Com.-2O)|
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|RMSE| | | | | | | | | | | | | |
+|AUC-G| | | | | | | | | | | | | |
+|F1-A<br>(micro)| | | | | | | | | | | | | |
+|F1-O<br>(micro)| | | | | | | | | | | | | |
+
+
+- **Lastfm-360K**
+  
+||PMF|FairGo_PMF<br>(G-1O)|FairGo_PMF<br>(A-1O)|FairGo_PMF<br>(O-1O)|FairGo_PMF<br>(Com.-1O)|FairGo_PMF<br>(LVA-G-2O)|FairGo_PMF<br>(LVA-A-2O)|FairGo_PMF<br>(LVA-O-2O)|FairGo_PMF<br>(LVA-Com.-2O)|FairGo_PMF<br>(LBA-G-2O)|FairGo_PMF<br>(LBA-A-2O)|FairGo_PMF<br>(LBA-O-2O)|FairGo_PMF<br>(LBA-Com.-2O)|
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|RMSE| | | | | | | | | | | | | |
+|AUC-G| | | | | | | | | | | | | |
+|F1-A<br>(micro)| | | | | | | | | | | | | |
+|F1-O<br>(micro)| | | | | | | | | | | | | |
+
+### FairGo_GCN
+- **MovieLens-1M**
+
+||PMF|FairGo_GCN<br>(G-1O)|FairGo_GCN<br>(A-1O)|FairGo_GCN<br>(O-1O)|FairGo_GCN<br>(Com.-1O)|FairGo_GCN<br>(LVA-G-2O)|FairGo_GCN<br>(LVA-A-2O)|FairGo_GCN<br>(LVA-O-2O)|FairGo_GCN<br>(LVA-Com.-2O)|FairGo_GCN<br>(LBA-G-2O)|FairGo_GCN<br>(LBA-A-2O)|FairGo_GCN<br>(LBA-O-2O)|FairGo_GCN<br>(LBA-Com.-2O)|
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|RMSE| | | | | | | | | | | | | |
+|AUC-G| | | | | | | | | | | | | |
+|F1-A<br>(micro)| | | | | | | | | | | | | |
+|F1-O<br>(micro)| | | | | | | | | | | | | |
+
+- **Lastfm-360K**
+  
+||PMF|FairGo_GCN<br>(G-1O)|FairGo_GCN<br>(A-1O)|FairGo_GCN<br>(O-1O)|FairGo_GCN<br>(Com.-1O)|FairGo_GCN<br>(LVA-G-2O)|FairGo_GCN<br>(LVA-A-2O)|FairGo_GCN<br>(LVA-O-2O)|FairGo_GCN<br>(LVA-Com.-2O)|FairGo_GCN<br>(LBA-G-2O)|FairGo_GCN<br>(LBA-A-2O)|FairGo_GCN<br>(LBA-O-2O)|FairGo_GCN<br>(LBA-Com.-2O)|
+|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
+|RMSE| | | | | | | | | | | | | |
+|AUC-G| | | | | | | | | | | | | |
+|F1-A<br>(micro)| | | | | | | | | | | | | |
+|F1-O<br>(micro)| | | | | | | | | | | | | |

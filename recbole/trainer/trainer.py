@@ -95,10 +95,6 @@ class Trainer(AbstractTrainer):
         ensure_dir(self.checkpoint_dir)
         saved_model_file = '{}-{}.pth'.format(self.config['model'], get_local_time())
         self.saved_model_file = os.path.join(self.checkpoint_dir, saved_model_file)
-        if config['save_sst_embed']:
-            saved_sst_embed_file = '{}_embed-[{}].pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']))
-            # saved_sst_embed_file = '{}_embed-[{}]-{}.pth'.format(self.config['model'], '_'.join(self.config['sst_attr_list']), self.config['filter_mode'])
-            self.saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
         self.weight_decay = config['weight_decay']
 
         self.start_epoch = 0
@@ -1080,7 +1076,16 @@ class FairGoTrainer(Trainer):
         self.sst_num = len(self.config['sst_attr_list'])
         self.mask_label = {i:sst for i, sst in enumerate(self.config['sst_attr_list'])}
         self.load_pretrain_weight = config['load_pretrain_weight']
-        if self.load_pretrain_weight:
+        if config['pretrain_model_file_path'] is not None:
+            self.saved_pretrain_model_file = config['pretrain_model_file_path'] 
+            checkpoint_file = config['pretrain_model_file_path']
+            checkpoint = torch.load(checkpoint_file)
+            self.model.load_state_dict(checkpoint['state_dict'])
+            self.model.load_other_parameter(checkpoint.get('other_parameter'))
+            message_output = 'Loading pretrain model structure and parameters from {}'.format(checkpoint_file)
+            self.logger.info(message_output)
+            self.model.train_stage = 'finetune'
+        elif self.load_pretrain_weight:
             self.model.train_stage = 'finetune'
         else:
             self.model.train_stage = 'pretrain'
@@ -1189,6 +1194,9 @@ class FairGoTrainer(Trainer):
 
                 if update_flag:
                     if saved:
+                        update_output = set_color('Saving current best', 'blue') + ': %s' % self.saved_model_file
+                        if verbose:
+                            self.logger.info(update_output)
                         self.save_pretrained_model(self.saved_pretrain_model_file)
                     self.best_valid_result = valid_result
 
@@ -1217,13 +1225,13 @@ class FairGoTrainer(Trainer):
         while mask.sum() == 0:
             mask = np.random.choice([0,1], self.sst_num)
         sst_list = [sst for i, sst in self.mask_label.items() if mask[i]!=0]        
-        self.optimizer = self.optimizer_dis
         if epoch_idx % self.train_epoch_interval == 0:
             self.optimizer = self.optimizer_filter
             self.logger.info('Train Filter')
             filter_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_loss, sst_list,
                                                show_progress)
-
+        
+        self.optimizer = self.optimizer_dis
         self.logger.info('Train Discriminator')
         dis_loss = self._train_epoch_with_mask(train_data, epoch_idx, self.model.calculate_dis_loss, sst_list,
                                         show_progress)
@@ -1342,7 +1350,9 @@ class FairGo_GCNTrainer(FairGoTrainer):
     def __init__(self, config, model):
         super(FairGo_GCNTrainer, self).__init__(config, model)
         if not self.load_pretrain_weight:
-            self.optimizer_pretrain = self._build_optimizer(params=[model.user_embedding_layer.weight]+[model.item_embedding_layer.weight]+[model.gcn.parameters()])
+            self.optimizer_pretrain = self._build_optimizer(params=[{'params':model.user_embedding_layer.weight}]
+                                                        +[{'params':model.item_embedding_layer.weight}]
+                                                        +[{'params':model.gcn.parameters()}])
         if config['aggr_method'] == 'LBA':
             self.optimizer_dis = self._build_optimizer(params=[{'params':_.parameters()} for _ in model.dis_layer_dict.values()]
                                                     + [{'params':list(self.model.aggr_layer.parameters())}])
