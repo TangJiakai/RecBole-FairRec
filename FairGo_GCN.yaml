@@ -9,12 +9,10 @@ data_path: 'dataset'
 checkpoint_dir: 'saved/saved_FairGo_GCN'
 dataset: ml-1M
 save_dataset: True
-dataset_save_path: ~
 save_dataloaders: True
-dataloaders_save_path: ~
 log_wandb: False
 save_sst_embed: True
-pretrain_model_file_path: 'saved/saved_FairGo_GCN/FairGo_GCN-FairGo_ml-1M-pretrain.pth'
+# pretrain_model_file_path: 'saved/saved_FairGo_GCN/FairGo_GCN-FairGo_ml-1M-pretrain.pth'
 
 # Data settings
 field_separator: "\t"
@@ -22,9 +20,10 @@ seq_separator: " "
 USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
 RATING_FIELD: rating
-LABEL_FIELD: rating
-threshold: ~
+LABEL_FIELD: label
+threshold: {'rating': 3.0}
 TIME_FIELD: timestamp
+sst_attr_list: ['gender']
 NEG_PREFIX: neg_
 ITEM_LIST_LENGTH_FIELD: item_length
 LIST_SUFFIX: _list
@@ -41,18 +40,17 @@ load_col:
 
 # model config
 model: FairGo_GCN
-sst_attr_list: ['occupation']
-aggr_method: 'WAP'
+aggr_method: 'LBA'
 vs_weights: [4,1]
 embedding_size: 64
-n_layers: 1
+n_layers: 2
 dis_hidden_size_list: [16,8,4]
 filter_hidden_size_list: [128,64]
 activation: leakyrelu
 fair_weight: 0.1
 
 # gcn
-gcn_n_layers: 1
+gcn_n_layers: 2
 hidden_channels: 32
 gcn_dropout: 0.2
 gcn_act: relu
@@ -60,11 +58,10 @@ gcn_act: relu
 # training settings
 pretrain_epochs: 600
 epochs: 300
-train_batch_size: 6048
+train_batch_size: 8192
 learner: adam
-learning_rate: 0.005
-training_neg_sample_num: ~
-neg_sampling: ~
+learning_rate: 0.001
+neg_sampling: {'uniform': 1}
 train_epoch_interval: 5
 eval_step: 10
 stopping_step: 5
@@ -75,9 +72,12 @@ eval_args:
   split: {'RS':[8,1,1]}
   group_by: user
   order: RO
-  mode: labeled
-metrics: ["RMSE"]
-valid_metric: RMSE
-eval_batch_size: 1024
+  mode: uni100
+metrics: ["NDCG","Recall","Hit","MRR","DifferentialFairness","GiniIndex","PopularityPercentage",
+        "ValueUnfairness","AbsoluteUnfairness","UnderUnfairness","OverUnfairness","NonParityUnfairness"]
+valid_metric: NDCG@5
+topk: [5]
+popularity_ratio: 0.1
+eval_batch_size: 8192
 loss_decimal_place: 4
 metric_decimal_place: 4

@@ -15,9 +15,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
+from recbole.model.init import xavier_normal_initialization
 
 from recbole.model.abstract_recommender import FairRecommender
-from recbole.model.loss import EmbLoss
 from recbole.utils import InputType
 
 
@@ -35,17 +35,20 @@ class FOCF(FairRecommender):
         # load dataset info
         self.embedding_size = config['embedding_size']
         self.RATING = config['RATING_FIELD']
-        self.SST_FIELD = config['SST_FIELD']
-        self.regular_weight = config['regular_weight']
+        # self.LABEL = config['LABEL_FIELD']
+        self.SST_FIELD = config['sst_attr_list'][0]
         self.fair_weight = config['fair_weight']
-        self.require_pow = config['require_pow']
+        self.max_rating = dataset.inter_feat[self.RATING].max()
 
         # define layers and loss
         self.user_embedding_layer = nn.Embedding(self.n_users, self.embedding_size)
         self.item_embedding_layer = nn.Embedding(self.n_items, self.embedding_size)
         self.rating_loss_fun = nn.MSELoss()
-        self.regular_loss_fun = EmbLoss()
+        # self.sigmoid = nn.Sigmoid()
+        # self.rec_loss_fun = nn.BCELoss()
         self.fair_loss_fun = self.get_loss_fun(config['fair_objective'])
+
+        self.apply(xavier_normal_initialization)
 
     def get_loss_fun(self, fair_objective):
         fair_objective = fair_objective.strip().lower()
@@ -65,84 +68,60 @@ class FOCF(FairRecommender):
         else:
             raise ValueError("you must set config['fair_objective'] be one of (none,"
                              "value,absolute,under,over,nonparity)")
+    def get_average_score(self, scores):
+        res_score = 0.
+        if len(scores) > 0:
+            res_score = scores.mean()
+
+        return res_score
 
     def get_item_ratings(self, pred_scores, interaction):
-        avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = [], [], [], []
 
         sst_unique_value, sst_indices = torch.unique(interaction[self.SST_FIELD], return_inverse=True)
         iid_unique_value, iid_indices = torch.unique(interaction[self.ITEM_ID], return_inverse=True)
-        sst1_index = sst_indices == sst_unique_value[0]
-        sst2_index = sst_indices == sst_unique_value[1]
-        for iid in iid_unique_value:
-            pred_score1 = pred_scores[(iid_indices == iid) * sst1_index]
-            true1 = interaction[self.RATING][(iid_indices == iid) * sst1_index]
-            avg_pred1 = 0
-            avg_true1 = 0
-            if len(pred_score1) > 0:
-                avg_pred1 = pred_score1.mean()
-                avg_true1 = true1.mean()
-            avg_pred_list1.append(avg_pred1)
-            avg_true_list1.append(avg_true1)
-            pred_score2 = pred_scores[(iid_indices == iid) * sst2_index]
-            true2 = interaction[self.RATING][(iid_indices == iid) * sst2_index]
-            avg_pred2 = 0
-            avg_true2 = 0
-            if len(pred_score2) > 0:
-                avg_pred2 = pred_score2.mean()
-                avg_true2 = true2.mean()
-            avg_pred_list2.append(avg_pred2)
-            avg_true_list2.append(avg_true2)
+        avg_pred_list1 = torch.zeros(len(iid_indices), device=self.device)
+        avg_pred_list2 = torch.zeros(len(iid_indices), device=self.device)
 
-        return avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2
+        sst1_index = sst_indices == 0
+        sst2_index = sst_indices == 1
+        avg_true_score1 = self.get_average_score(pred_scores[sst1_index])
+        avg_true_score2 = self.get_average_score(pred_scores[sst2_index])
+
+        for i in range(len(iid_unique_value)):
+            indices = iid_indices==i
+            avg_pred_list1[i] = self.get_average_score(pred_scores[indices*sst1_index])
+            avg_pred_list2[i] = self.get_average_score(pred_scores[indices*sst2_index])
+
+        return avg_pred_list1, avg_true_score1, avg_pred_list2, avg_true_score2
 
     def value_unfairness(self, pred_scores, interaction):
-        avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
-            self.get_item_ratings(pred_scores, interaction)
-
-        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
-        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2)):
-            diff = (pred1 - true1) - (pred2 - true2)
-            loss_input[i] = diff
+        avg_pred_list1, avg_true_score1, avg_pred_list2, avg_true_score2 = self.get_item_ratings(pred_scores, interaction)
+        diff1, diff2 = avg_pred_list1 - avg_true_score1, avg_pred_list2 - avg_true_score2 
+        loss_input = torch.abs(diff1 - diff2)
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
 
     def absolute_unfairness(self, pred_scores, interaction):
-        avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
-            self.get_item_ratings(pred_scores, interaction)
-
-        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
-        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2)):
-            diff = abs(pred1 - true1) - abs(pred2 - true2)
-            loss_input[i] = diff
+        avg_pred_list1, avg_true_score1, avg_pred_list2, avg_true_score2 = self.get_item_ratings(pred_scores, interaction)
+        diff1, diff2 = avg_pred_list1 - avg_true_score1, avg_pred_list2 - avg_true_score2 
+        loss_input = torch.abs(torch.abs(diff1) - torch.abs(diff2))
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
 
     def under_unfairness(self, pred_scores, interaction):
-        avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
-            self.get_item_ratings(pred_scores, interaction)
-
-        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
-        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2)):
-            diff = max(0, true1 - pred1) - max(0, true2 - pred2)
-            loss_input[i] = diff
+        avg_pred_list1, avg_true_score1, avg_pred_list2, avg_true_score2 = self.get_item_ratings(pred_scores, interaction)
+        diff1, diff2 = avg_true_score1 - avg_pred_list1, avg_true_score2 - avg_pred_list2
+        loss_input = torch.abs(torch.where(diff1>0, diff1, torch.tensor(0.,device=self.device)) - torch.where(diff2>0, diff2, torch.tensor(0.,device=self.device)))
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
 
     def over_unfairness(self, pred_scores, interaction):
-        avg_pred_list1, avg_true_list1, avg_pred_list2, avg_true_list2 = \
-            self.get_item_ratings(pred_scores, interaction)
-
-        loss_input = torch.zeros(len(avg_pred_list1), device=self.device)
-        for i, (pred1, true1, pred2, true2) in enumerate(zip(avg_pred_list1, avg_true_list1,
-                                              avg_pred_list2, avg_true_list2)):
-            diff = max(0, pred1 - true1) - max(0, pred2 - true2)
-            loss_input[i] = diff
+        avg_pred_list1, avg_true_score1, avg_pred_list2, avg_true_score2 = self.get_item_ratings(pred_scores, interaction)
+        diff1, diff2 = avg_pred_list1 - avg_true_score1, avg_pred_list2 - avg_true_score2 
+        loss_input = torch.abs(torch.where(diff1>0, diff1, torch.tensor(0.,device=self.device)) - torch.where(diff2>0, diff2, torch.tensor(0.,device=self.device)))
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
@@ -151,13 +130,9 @@ class FOCF(FairRecommender):
         sst_unique_value = torch.unique(interaction[self.SST_FIELD])
         sst1 = sst_unique_value[0]
         sst2 = sst_unique_value[1]
-        sst_1_num = (interaction[self.SST_FIELD] == sst1).sum()
-        sst_2_num = (interaction[self.SST_FIELD] == sst2).sum()
-        avg_score_1 = torch.where(interaction[self.SST_FIELD] == sst1, pred_scores,
-                                  torch.tensor([0], dtype=torch.float32, device=self.device)).sum() / sst_1_num
-        avg_score_2 = torch.where(interaction[self.SST_FIELD] == sst2, pred_scores,
-                                  torch.tensor([0], dtype=torch.float32, device=self.device)).sum() / sst_2_num
-
+        avg_score_1 = pred_scores[torch.where(interaction[self.SST_FIELD] == sst1)[0]].mean()
+        avg_score_2 = pred_scores[torch.where(interaction[self.SST_FIELD] == sst2)[0]].mean()
+ 
         return F.smooth_l1_loss(avg_score_1, avg_score_2)
 
     def forward(self, user, item):
@@ -165,6 +140,7 @@ class FOCF(FairRecommender):
         user_embedding = self.user_embedding_layer(user)
         item_embedding = self.item_embedding_layer(item)
         pred_scores = torch.mul(user_embedding, item_embedding).sum(dim=-1)
+        # pred_scores = self.sigmoid(torch.mul(user_embedding, item_embedding).sum(dim=-1))
 
         return pred_scores, user_embedding, item_embedding
 
@@ -173,22 +149,26 @@ class FOCF(FairRecommender):
         item = interaction[self.ITEM_ID]
         pred_scores, _, _ = self.forward(user, item)
 
-        return pred_scores
+        return torch.clamp(pred_scores, min=0., max=self.max_rating) / self.max_rating
+        # return pred_scores
 
     def calculate_loss(self, interaction):
         user = interaction[self.USER_ID]
         item = interaction[self.ITEM_ID]
         scores = interaction[self.RATING]
+        # scores = interaction[self.LABEL]
 
         pred_scores, user_embeddings, item_embeddings = self.forward(user, item)
         rating_loss = self.rating_loss_fun(pred_scores, scores)
-        regular_loss = self.regular_loss_fun(user_embeddings, item_embeddings, require_pow=self.require_pow)
+        # rec_loss = self.rec_loss_fun(pred_scores, scores)
+
         fair_loss = 0.
         if self.fair_loss_fun:
             fair_loss = self.fair_loss_fun(pred_scores, interaction)
 
-        # rating loss + regularization loss + fair objective loss
-        loss = rating_loss + self.regular_weight * regular_loss + self.fair_weight * fair_loss
+        # rating loss + fair objective loss
+        loss = rating_loss + self.fair_weight * fair_loss
+        # loss = rec_loss + self.fair_weight * fair_loss
 
         return loss
 
@@ -198,7 +178,9 @@ class FOCF(FairRecommender):
         all_item_embeddings = self.item_embedding_layer.weight
 
         pred_scores = torch.matmul(user_embedding, all_item_embeddings.t()).view(-1)
+        # pred_scores = self.sigmoid(torch.matmul(user_embedding, all_item_embeddings.t()).view(-1))
 
-        return pred_scores
+        return torch.clamp(pred_scores, min=0., max=self.max_rating) / self.max_rating
+        # return pred_scores
 
 

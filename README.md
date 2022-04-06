@@ -11,6 +11,10 @@ Implement Fair Recommendation Model In RecBole
   - [x] FairGo_GCN
 -------------------------------------------------------------
 ## Model Performance
+
+各模型性能对比
+https://shimo.im/sheets/KrkEVLwoYDcpaoAJ/MODOC/
+
 ### FOCF
 - **MovieLens-1M**  
 
@@ -65,7 +69,7 @@ Implement Fair Recommendation Model In RecBole
 
 ||PMF|FairGo_PMF<br>(G-1O)|FairGo_PMF<br>(A-1O)|FairGo_PMF<br>(O-1O)|FairGo_PMF<br>(Com.-1O)|FairGo_PMF<br>(LVA-G-2O)|FairGo_PMF<br>(LVA-A-2O)|FairGo_PMF<br>(LVA-O-2O)|FairGo_PMF<br>(LVA-Com.-2O)|FairGo_PMF<br>(LBA-G-2O)|FairGo_PMF<br>(LBA-A-2O)|FairGo_PMF<br>(LBA-O-2O)|FairGo_PMF<br>(LBA-Com.-2O)|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|RMSE| | | | | | | | | | | | | |
+|RMSE|0.9336 | 0.8993|0.9022 |0.8689 |6.3037 |6.3037 |6.3037 | | | | | | |
 |AUC-G| | | | | | | | | | | | | |
 |F1-A<br>(micro)| | | | | | | | | | | | | |
 |F1-O<br>(micro)| | | | | | | | | | | | | |
@@ -85,7 +89,7 @@ Implement Fair Recommendation Model In RecBole
 
 ||PMF|FairGo_GCN<br>(G-1O)|FairGo_GCN<br>(A-1O)|FairGo_GCN<br>(O-1O)|FairGo_GCN<br>(Com.-1O)|FairGo_GCN<br>(LVA-G-2O)|FairGo_GCN<br>(LVA-A-2O)|FairGo_GCN<br>(LVA-O-2O)|FairGo_GCN<br>(LVA-Com.-2O)|FairGo_GCN<br>(LBA-G-2O)|FairGo_GCN<br>(LBA-A-2O)|FairGo_GCN<br>(LBA-O-2O)|FairGo_GCN<br>(LBA-Com.-2O)|
 |:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|RMSE| | | | | | | | | | | | | |
+|RMSE|0.9705 |1.0809 |1.0703 | 1.0834| 6.3037|6.3037 |6.3037 | | | | | | |
 |AUC-G| | | | | | | | | | | | | |
 |F1-A<br>(micro)| | | | | | | | | | | | | |
 |F1-O<br>(micro)| | | | | | | | | | | | | |

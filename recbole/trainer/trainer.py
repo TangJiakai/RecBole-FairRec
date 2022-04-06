@@ -1154,6 +1154,8 @@ class FairGoTrainer(Trainer):
         self.logger.info(set_color('Model Pretrain', 'yellow'))
         self.optimizer = self.optimizer_pretrain
         valid_step = 0 
+        self.eval_collector.data_collect(train_data)
+
         for epoch_idx in range(self.start_epoch, self.pretrain_epochs):
             # train
             training_start_time = time()
@@ -1269,22 +1271,6 @@ class FairGoTrainer(Trainer):
             if self.gpu_available and show_progress:
                 iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
         return total_loss
-
-    def _spilt_predict(self, interaction, batch_size, sst_list):
-        spilt_interaction = dict()
-        for key, tensor in interaction.interaction.items():
-            spilt_interaction[key] = tensor.split(self.test_batch_size, dim=0)
-        num_block = (batch_size + self.test_batch_size - 1) // self.test_batch_size
-        result_list = []
-        for i in range(num_block):
-            current_interaction = dict()
-            for key, spilt_tensor in spilt_interaction.items():
-                current_interaction[key] = spilt_tensor[i]
-            result = self.model.predict(Interaction(current_interaction).to(self.device), sst_list)
-            if len(result.shape) == 0:
-                result = result.unsqueeze(0)
-            result_list.append(result)
-        return torch.cat(result_list, dim=0)
 
     @torch.no_grad()
     def evaluate(self, eval_data, load_best_model=True, model_file=None, show_progress=False):

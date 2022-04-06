@@ -39,11 +39,14 @@ class FairGo_PMF(FairRecommender):
         self.load_pretrain_weight = config['load_pretrain_weight']
         self.train_stage = None
         self.aggr_method = config['aggr_method'].upper()
-        if self.aggr_method == 'LVA':
+        if config['vs_weights'] is not None:
             self.vs_weights = config['vs_weights']
             self.vs_weights = torch.tensor(self.vs_weights, device=self.device, dtype=torch.float32)
             self.vs_weights /= sum(self.vs_weights)
-            assert self.n_layers == len(self.vs_weights), 'n_layers should be equal to length of vs_weights'
+            if self.aggr_method == 'LVA':
+                assert self.n_layers == len(self.vs_weights), 'n_layers should be equal to length of vs_weights'
+
+        self.max_rating = dataset.inter_feat[self.RATING].max()
 
         # load dataset info
         self.rating_matrix = dataset.inter_matrix(form='coo', value_field=self.RATING).astype(np.float32)
@@ -60,12 +63,11 @@ class FairGo_PMF(FairRecommender):
             self.item_embedding_layer.weight.data.copy_(torch.from_numpy(item_emb))
         self.dis_layer_dict = self.init_dis_layers()
         self.filter_layer_dict = self.init_filter_layers()
-        if self.aggr_method == 'LBA':
-            self.aggr_layer = nn.Sequential(nn.Linear(self.n_layers*self.embedding_size, self.embedding_size),
-                                            activation_layer(self.act),
-                                            nn.Linear(self.embedding_size, self.embedding_size),
-                                            activation_layer(self.act),
-                                            nn.Linear(self.embedding_size, self.embedding_size))
+        self.aggr_layer = nn.Sequential(nn.Linear(self.n_layers*self.embedding_size, self.embedding_size),
+                                        activation_layer(self.act),
+                                        nn.Linear(self.embedding_size, self.embedding_size),
+                                        activation_layer(self.act),
+                                        nn.Linear(self.embedding_size, self.embedding_size))
 
         self.bin_dis_fun = nn.BCELoss()
         self.multi_dis_fun = nn.CrossEntropyLoss()
@@ -241,8 +243,9 @@ class FairGo_PMF(FairRecommender):
 
         u_embeddings = user_all_embeddings[user]
         i_embeddings = item_all_embeddings[item]
+        
         scores = torch.mul(u_embeddings, i_embeddings).sum(dim=1)
-        return scores
+        return torch.clamp(scores, min=0., max=self.max_rating) / self.max_rating
 
     def full_sort_predict(self, interaction):
         user = interaction[self.USER_ID]
@@ -251,7 +254,7 @@ class FairGo_PMF(FairRecommender):
         # dot with all item embedding to accelerate
         pred_ratings = torch.matmul(user_embedding, all_item_embedding.transpose(0, 1))
 
-        return pred_ratings.view(-1)
+        return torch.clamp(pred_ratings.view(-1), min=0., max=self.max_rating) / self.max_rating
 
     def get_sst_embed(self, user_data, sst_list=None):
         ret_dict = {}

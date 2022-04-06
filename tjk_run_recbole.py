@@ -34,9 +34,9 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
     # logger initialization
 
     config, model, dataset, train_data, valid_data, test_data = load_data_and_model(
-        model_file='saved_FairGR_GAT_1M/BS_FairGR-Mar-29-2022_16-23-05.pth',
-        dataset_file='saved_FairGR_GAT_1M/FairGR_GAT_1M-dataset.pth',
-        dataloader_file='saved_FairGR_GAT_1M/FairGR_GAT_1M-for-BS_FairGR-dataloader.pth',
+        model_file='saved/saved_FairGo_PMF/FairGo_PMF-Apr-04-2022_19-16-23.pth',
+        dataset_file='saved/saved_FairGo_PMF/ml-1M-dataset.pth',
+        dataloader_file='saved/saved_FairGo_PMF/ml-1M-for-FairGo_PMF-dataloader.pth',
     )
 
     init_seed(config['seed'], config['reproducibility'])
@@ -50,9 +50,9 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
 
     # trainer loading and initialization
     trainer = get_trainer(config['MODEL_TYPE'], config['model'])(config, model)
-    trainer.resume_checkpoint(resume_file='saved_FairGR_GAT_1M/BS_FairGR-Mar-29-2022_16-23-05.pth')
+    trainer.resume_checkpoint(resume_file='saved/saved_FairGo_PMF/FairGo_PMF-Apr-04-2022_19-16-23.pth')
 
-    trainer._save_sst_embed(train_data)
+    # trainer._save_sst_embed(train_data)
 
     # model training
     # best_valid_score, best_valid_result = trainer.fit(

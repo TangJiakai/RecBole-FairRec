@@ -46,6 +46,7 @@ class PFCN_BiasedMF(FairRecommender):
         self.item_bias = nn.Embedding(self.n_items, 1)
         self.global_bias = nn.Parameter(torch.tensor(0.1))
         self.loss_fun = BPRLoss()
+        self.sigmoid = nn.Sigmoid()
 
         if self.filter_mode != 'none':
             self.filter_layer = self.init_filter()
@@ -164,7 +165,7 @@ class PFCN_BiasedMF(FairRecommender):
 
         pred_scores = torch.mul(user_embeddings, item_embeddings).sum(dim=-1, keepdim=True) + user_bias + item_bias + global_bias
 
-        return pred_scores
+        return self.sigmoid(pred_scores)
 
     def calculate_loss(self, interaction, sst_list):
         user = interaction[self.USER_ID]
@@ -217,7 +218,7 @@ class PFCN_BiasedMF(FairRecommender):
         # dot with all item embedding to accelerate
         pred_scores = torch.mm(user_embed, all_item_embed.t()) + user_bias + item_bias + global_bias
 
-        return pred_scores.view(-1)
+        return self.sigmoid(pred_scores.view(-1))
 
     def get_sst_embed(self, user_data, sst_list=None):
         ret_dict = {}

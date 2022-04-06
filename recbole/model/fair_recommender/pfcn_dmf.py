@@ -51,6 +51,7 @@ class PFCN_DMF(FairRecommender):
                         dropout=self.mlp_dropout, activation=self.mlp_activation, init_method='norm')
         self.loss_fun = BPRLoss()
         self.cosine_similarity = nn.CosineSimilarity()
+        self.sigmoid = nn.Sigmoid()
 
         if self.filter_mode != 'none':
             self.filter_layer = self.init_filter()
@@ -168,7 +169,7 @@ class PFCN_DMF(FairRecommender):
 
         pred_scores = self.cosine_similarity(user_embeddings, item_embeddings)
 
-        return pred_scores
+        return self.sigmoid(pred_scores)
 
     def calculate_loss(self, interaction, sst_list):
         user = interaction[self.USER_ID]
@@ -217,7 +218,7 @@ class PFCN_DMF(FairRecommender):
         pred_scores = self.cosine_similarity(torch.repeat_interleave(user_embed,self.n_items,dim=0), 
                                             all_item_embed.repeat(self.n_users,1))
 
-        return pred_scores.view(-1)
+        return self.sigmoid(pred_scores.view(-1))
 
     def get_sst_embed(self, user_data, sst_list=None):
         ret_dict = {}

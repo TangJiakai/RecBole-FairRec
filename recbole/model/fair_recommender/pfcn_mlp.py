@@ -50,6 +50,7 @@ class PFCN_MLP(FairRecommender):
         self.mlp_hidden_size_list = config['mlp_hidden_size_list']
 
         # define layers and loss
+        self.filter_num, self.sst_dict = self._get_filter_info()
         self.sst_size = self._get_sst_size(dataset.get_user_feature())
         if self.filter_mode != 'none':
             self.filter_layer = self.init_filter()
@@ -62,6 +63,7 @@ class PFCN_MLP(FairRecommender):
         self.mlp_layer = MLPLayers([self.embedding_size*2]+self.mlp_hidden_size_list+[1],
                                    dropout=self.dropout)
         self.loss_fun = BPRLoss()
+        self.sigmoid = nn.Sigmoid()
 
     def _get_filter_info(self):
         if self.filter_mode == 'cm':
@@ -170,7 +172,7 @@ class PFCN_MLP(FairRecommender):
 
         user_all_embeddings, item_all_embeddings = self.forward(user, item, sst_list)
 
-        return self.mlp_layer(torch.cat((user_all_embeddings, item_all_embeddings), dim=1))
+        return self.sigmoid(self.mlp_layer(torch.cat((user_all_embeddings, item_all_embeddings), dim=1)))
 
     def calculate_loss(self, interaction, sst_list=None):
         user = interaction[self.USER_ID]
@@ -217,7 +219,7 @@ class PFCN_MLP(FairRecommender):
         pred_scores = self.mlp_layer(torch.cat((user_embed.repeat_interleave(self.n_items, dim=0),
                                                 all_item_embed.repeat(self.n_users,1))))
 
-        return pred_scores.view(-1)
+        return self.sigmoid(pred_scores.view(-1))
 
     def get_sst_embed(self, user_data, sst_list=None):
         ret_dict = {}

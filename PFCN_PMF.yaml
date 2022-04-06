@@ -1,0 +1,62 @@
+# Environment settings
+show_progress: True
+gpu_id: 0
+seed: 2022
+use_gpu: True
+state: INFO
+reproducibility: True
+data_path: 'dataset'
+checkpoint_dir: 'saved/saved_PFCN_PMF'
+dataset: PFCN_ml-1M
+save_dataset: True
+save_dataloaders: True
+save_sst_embed: True
+
+# Data settings
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+NEG_PREFIX: neg_
+LABEL_FIELD: label
+threshold: {'rating': 3.0}
+ITEM_LIST_LENGTH_FIELD: item_length
+sst_attr_list: ["gender"]
+load_col:
+  inter: [user_id,item_id,rating]
+  user: [user_id,gender,age,occupation]
+
+# model config
+model: PFCN_PMF
+embedding_size: 64
+dis_hidden_size_list: [128, 256, 128, 128, 64, 32]
+activation: leakyrelu
+filter_mode: sm
+dis_dropout: 0.3
+
+# training settings
+epochs: 1000
+train_epoch_interval: 5
+eval_step: 10
+train_batch_size: 4096
+learner: adam
+learning_rate: 0.001
+training_neg_sample_num: 1
+stopping_step: 5
+weight_decay: 0.0001
+dis_weight: 10
+
+# evalution settings
+eval_args:
+  split: {'RS':[8,1,1]}
+  group_by: user
+  order: RO
+  mode: uni100
+metrics: ["NDCG","Recall","Hit","MRR","DifferentialFairness","GiniIndex","PopularityPercentage",
+        "ValueUnfairness","AbsoluteUnfairness","UnderUnfairness","OverUnfairness","NonParityUnfairness"]
+valid_metric: NDCG@5
+topk: [5]
+popularity_ratio: 0.1
+eval_batch_size: 2048
+loss_decimal_place: 4
+metric_decimal_place: 4
