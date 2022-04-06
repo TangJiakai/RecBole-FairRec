@@ -1196,7 +1196,7 @@ class FairGoTrainer(Trainer):
 
                 if update_flag:
                     if saved:
-                        update_output = set_color('Saving current best', 'blue') + ': %s' % self.saved_model_file
+                        update_output = set_color('Saving current best', 'blue') + ': %s' % self.saved_pretrain_model_file
                         if verbose:
                             self.logger.info(update_output)
                         self.save_pretrained_model(self.saved_pretrain_model_file)

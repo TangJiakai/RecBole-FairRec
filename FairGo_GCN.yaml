@@ -12,7 +12,7 @@ save_dataset: True
 save_dataloaders: True
 log_wandb: False
 save_sst_embed: True
-# pretrain_model_file_path: 'saved/saved_FairGo_GCN/FairGo_GCN-FairGo_ml-1M-pretrain.pth'
+pretrain_model_file_path: 'saved/saved_FairGo_GCN/FairGo_GCN-ml-1M-pretrain.pth'
 
 # Data settings
 field_separator: "\t"

@@ -1,3 +1,4 @@
+from email.policy import strict
 from tabnanny import check
 import torch
 import torch.nn as nn
@@ -39,7 +40,8 @@ class NFCF(GeneralRecommender):
 
     def reset_params(self, pretrain_path, user_data):
         checkpoint = torch.load(pretrain_path)
-        self.load_state_dict(checkpoint['state_dict'])
+        self.item_embedding.weight.data = torch.zeros_like(checkpoint['state_dict']['item_embedding.weight'])
+        self.load_state_dict(checkpoint['state_dict'], strict=False)
 
         sst_value = user_data[self.sst_attr]
         sst_unique_value = torch.unique(sst_value)

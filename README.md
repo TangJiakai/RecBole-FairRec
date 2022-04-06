@@ -9,6 +9,7 @@ Implement Fair Recommendation Model In RecBole
 - [x] FairGo([Learning Fair Representations for Recommendation: A Graph-based Perspective](https://dl.acm.org/doi/abs/10.1145/3442381.3450015?casa_token=MACP_5U-E6sAAAAA:L-dsEbdusWfmzF06OnATJhF2OXbjfu6el37nC-cGMjev4jGH_TBUedXyAhpfcBMyCyhyxOxLQkxqe_w) in WWW 2021) 
   - [x] FairGo_PMF
   - [x] FairGo_GCN
+- [x] NFCF([Debiasing career recommendations with neural fair collaborative filtering](https://dl.acm.org/doi/abs/10.1145/3442381.3449904?casa_token=ZzbZbC-Fn_oAAAAA:6KCSThLs7UsT9s0ZzeSryT3Mry067KeTiNdurfa9Q9UHWY7fLGgmjPtQy9i1zU1Yqm4Xf46NVYVuu40) in WWW 2021) 
 -------------------------------------------------------------
 ## Model Performance
 
