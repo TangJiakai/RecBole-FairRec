@@ -179,6 +179,16 @@ class Collector(object):
         if self.register.need('data.positive_i'):
             self.data_struct.update_tensor('data.positive_i', positive_i)
 
+        if self.register.need('rec.negative_score'):
+            pos_len = len(positive_u)
+            neg_items = interaction[self.config['ITEM_ID_FIELD']][pos_len: pos_len*2]
+            neg_score = scores_tensor[positive_u, neg_items]
+            self.data_struct.update_tensor('rec.negative_score', neg_score)
+
+        if self.register.need('data.negative_i'):
+            pos_len = len(positive_u)
+            self.data_struct.update_tensor('data.negative_i', interaction[self.config['ITEM_ID_FIELD']][pos_len: pos_len*2])
+
         if self.register.need('data.sst'):
             for sst in self.config['sst_attr_list']:
                 assert sst in interaction.columns, f'{sst} is not in interaction'
@@ -211,7 +221,7 @@ class Collector(object):
             And reset some of outdated resource.
         """
         returned_struct = copy.deepcopy(self.data_struct)
-        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.label', 'rec.positive_score', 'data.positive_i']:
+        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.label', 'rec.positive_score', 'data.positive_i', 'rec.negative_score', 'data.negative_i']:
             if key in self.data_struct:
                 del self.data_struct[key]
         if self.register.need('data.sst'):

@@ -185,6 +185,7 @@ def get_dataloader(config, phase):
         'ENMF': _get_AE_dataloader,
         'RaCT': _get_AE_dataloader,
         'RecVAE': _get_AE_dataloader,
+        'FOCF': _get_FOCF_dataloader,
     }
 
     if config['model'] in register_table:
@@ -216,6 +217,16 @@ def _get_AE_dataloader(config, phase):
     """
     if phase == 'train':
         return UserDataLoader
+    else:
+        eval_strategy = config['eval_neg_sample_args']['strategy']
+        if eval_strategy in {'none', 'by'}:
+            return NegSampleEvalDataLoader
+        elif eval_strategy == 'full':
+            return FullSortEvalDataLoader
+
+def _get_FOCF_dataloader(config, phase):
+    if phase == 'train':
+        return FOCFDataLoader
     else:
         eval_strategy = config['eval_neg_sample_args']['strategy']
         if eval_strategy in {'none', 'by'}:

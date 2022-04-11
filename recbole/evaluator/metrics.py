@@ -889,57 +889,66 @@ class ValueUnfairness(AbstractMetric):
         """
     smaller = True
     metric_type = EvaluatorType.RANKING
-    metric_need = ['data.positive_i', 'rec.positive_score', 'data.sst']
+    metric_need = ['data.positive_i', 'rec.positive_score', 'data.negative_i', 'rec.negative_score','data.sst']
 
     def __init__(self, config):
         super().__init__(config)
         self.sst_key = config['sst_attr_list'][0]
 
     def used_info(self, dataobject):
-        score = dataobject.get('rec.positive_score').numpy()
-        iids = dataobject.get('data.positive_i').numpy()
+        pos_score = dataobject.get('rec.positive_score').numpy()
+        pos_iids = dataobject.get('data.positive_i').numpy()
+        neg_score = dataobject.get('rec.negative_score').numpy()
+        neg_iids = dataobject.get('data.negative_i').numpy()
         sst_value = dataobject.get('data.' + self.sst_key).numpy()
 
-        return score, iids, sst_value
+        return pos_score, pos_iids, neg_score, neg_iids, sst_value
 
     def calculate_metric(self, dataobject):
-        score, iids, sst_value = self.used_info(dataobject)
+        pos_score, pos_iids, neg_score, neg_iids, sst_value = self.used_info(dataobject)
         metric_dict = {}
         key = 'Value Unfairness of sensitive attribute {}'.format(self.sst_key)
-        metric_dict[key] = round(self.get_value_unfairness(score, iids, sst_value), self.decimal_place)
+        metric_dict[key] = round(self.get_value_unfairness(pos_score, pos_iids, neg_score, neg_iids, sst_value), self.decimal_place)
 
         return metric_dict
 
-    def get_average_score(self, scores):
-        res_score = 0.
-        if len(scores) > 0:
-            res_score = scores.mean()
-
-        return res_score
-
-    def get_value_unfairness(self, score, iids, sst_value):
+    def get_value_unfairness(self, pos_score, pos_iids, neg_score, neg_iids, sst_value):
         r"""
 
         Args:
             score(numpy.array): score prediction for user-item pairs
             iids(numpy.array): item_id array of interaction ITEM_FIELD
-            sst_value(numpy.array): sensitive attribute's value of corresponding users/items
+            sst_value(numpy.array): sensitive attribute's value of corresponding users
         Return:
             Value Unfairness
         """
         sst_unique_values, sst_indices = np.unique(sst_value, return_inverse=True)
-        iid_unique_values, iid_indices = np.unique(iids, return_inverse=True)
+        iid_unique_values, iid_indices = np.unique(np.concatenate((pos_iids, neg_iids)), return_inverse=True)
         if len(sst_unique_values) != 2:
             raise ValueError(f'sensitive attribute must be binary')
-        sst1_index = sst_indices == 0
-        sst2_index = sst_indices == 1
-        diff = 0.
-        for iid in iid_unique_values:
-            sst1_diff = self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst1_index]) - self.get_average_score(score[sst1_index])
-            sst2_diff = self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst2_index]) - self.get_average_score(score[sst2_index])
-            diff += abs(sst1_diff - sst2_diff)
 
-        diff /= len(iid_unique_values)
+        pos_len = len(pos_iids)
+        iids_len = len(iid_unique_values)
+        avg_pred_list = np.zeros((iids_len,2))
+        sst_num = np.zeros((iids_len,2))
+        avg_true_list = np.zeros((iids_len,2))
+
+        for iid_indice, sst_indice, score in zip(iid_indices[:pos_len], sst_indices, pos_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+            avg_true_list[iid_indice][sst_indice] += 1
+        
+        for iid_indice, sst_indice, score in zip(iid_indices[pos_len:], sst_indices, neg_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+        
+        sst_num += 1e-5
+
+        avg_pred_list /= sst_num
+        avg_true_list /= sst_num
+
+        diff = avg_pred_list - avg_true_list
+        diff = np.mean(np.abs(diff[:,0] - diff[:, 1]))
 
         return diff
 
@@ -958,57 +967,66 @@ class AbsoluteUnfairness(AbstractMetric):
         """
     smaller = True
     metric_type = EvaluatorType.RANKING
-    metric_need = ['data.positive_i', 'rec.positive_score', 'data.sst']
+    metric_need = ['data.positive_i', 'rec.positive_score', 'data.negative_i', 'rec.negative_score','data.sst']
 
     def __init__(self, config):
         super().__init__(config)
         self.sst_key = config['sst_attr_list'][0]
 
     def used_info(self, dataobject):
-        score = dataobject.get('rec.positive_score').numpy()
-        iids = dataobject.get('data.positive_i').numpy()
+        pos_score = dataobject.get('rec.positive_score').numpy()
+        pos_iids = dataobject.get('data.positive_i').numpy()
+        neg_score = dataobject.get('rec.negative_score').numpy()
+        neg_iids = dataobject.get('data.negative_i').numpy()
         sst_value = dataobject.get('data.' + self.sst_key).numpy()
 
-        return score, iids, sst_value
+        return pos_score, pos_iids, neg_score, neg_iids, sst_value
 
     def calculate_metric(self, dataobject):
-        score, iids, sst_value = self.used_info(dataobject)
+        pos_score, pos_iids, neg_score, neg_iids, sst_value = self.used_info(dataobject)
         metric_dict = {}
         key = 'Absolute Unfairness of sensitive attribute {}'.format(self.sst_key)
-        metric_dict[key] = round(self.get_absolute_unfairness(score, iids, sst_value), self.decimal_place)
+        metric_dict[key] = round(self.get_absolute_unfairness(pos_score, pos_iids, neg_score, neg_iids, sst_value), self.decimal_place)
 
         return metric_dict
 
-    def get_average_score(self, scores):
-        res_score = 0.
-        if len(scores) > 0:
-            res_score = scores.mean()
-
-        return res_score
-
-    def get_absolute_unfairness(self, score, iids, sst_value):
+    def get_absolute_unfairness(self, pos_score, pos_iids, neg_score, neg_iids, sst_value):
         r"""
 
         Args:
             score(numpy.array): score prediction for user-item pairs
             iids(numpy.array): item_id array of interaction ITEM_FIELD
-            sst_value(numpy.array): sensitive attribute's value of corresponding users/items
+            sst_value(numpy.array): sensitive attribute's value of corresponding users
         Return:
             Absolute Unfairness
         """
         sst_unique_values, sst_indices = np.unique(sst_value, return_inverse=True)
-        iid_unique_values, iid_indices = np.unique(iids, return_inverse=True)
+        iid_unique_values, iid_indices = np.unique(np.concatenate((pos_iids, neg_iids)), return_inverse=True)
         if len(sst_unique_values) != 2:
             raise ValueError(f'sensitive attribute must be binary')
-        sst1_index = sst_indices == 0
-        sst2_index = sst_indices == 1
-        diff = 0.
-        for iid in iid_unique_values:
-            sst1_diff = self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst1_index]) - self.get_average_score(score[sst1_index])
-            sst2_diff = self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst2_index]) - self.get_average_score(score[sst2_index])
-            diff += np.abs(np.abs(sst1_diff) - np.abs(sst2_diff))
 
-        diff /= len(iid_unique_values)
+        pos_len = len(pos_iids)
+        iids_len = len(iid_unique_values)
+        avg_pred_list = np.zeros((iids_len,2))
+        sst_num = np.zeros((iids_len,2))
+        avg_true_list = np.zeros((iids_len,2))
+
+        for iid_indice, sst_indice, score in zip(iid_indices[:pos_len], sst_indices, pos_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+            avg_true_list[iid_indice][sst_indice] += 1
+        
+        for iid_indice, sst_indice, score in zip(iid_indices[pos_len:], sst_indices, neg_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+        
+        sst_num += 1e-5
+
+        avg_pred_list /= sst_num
+        avg_true_list /= sst_num
+
+        diff = np.abs(avg_pred_list - avg_true_list)
+        diff = np.mean(np.abs(diff[:,0] - diff[:, 1]))
 
         return diff
 
@@ -1027,57 +1045,66 @@ class UnderUnfairness(AbstractMetric):
         """
     smaller = True
     metric_type = EvaluatorType.RANKING
-    metric_need = ['data.positive_i', 'rec.positive_score', 'data.sst']
+    metric_need = ['data.positive_i', 'rec.positive_score', 'data.negative_i', 'rec.negative_score','data.sst']
 
     def __init__(self, config):
         super().__init__(config)
         self.sst_key = config['sst_attr_list'][0]
 
     def used_info(self, dataobject):
-        score = dataobject.get('rec.positive_score').numpy()
-        iids = dataobject.get('data.positive_i').numpy()
+        pos_score = dataobject.get('rec.positive_score').numpy()
+        pos_iids = dataobject.get('data.positive_i').numpy()
+        neg_score = dataobject.get('rec.negative_score').numpy()
+        neg_iids = dataobject.get('data.negative_i').numpy()
         sst_value = dataobject.get('data.' + self.sst_key).numpy()
 
-        return score, iids, sst_value
+        return pos_score, pos_iids, neg_score, neg_iids, sst_value
 
     def calculate_metric(self, dataobject):
-        score, iids, sst_value = self.used_info(dataobject)
+        pos_score, pos_iids, neg_score, neg_iids, sst_value = self.used_info(dataobject)
         metric_dict = {}
         key = 'Underestimation Unfairness of sensitive attribute {}'.format(self.sst_key)
-        metric_dict[key] = round(self.get_under_unfairness(score, iids, sst_value), self.decimal_place)
+        metric_dict[key] = round(self.get_under_unfairness(pos_score, pos_iids, neg_score, neg_iids, sst_value), self.decimal_place)
 
         return metric_dict
 
-    def get_average_score(self, scores):
-        res_score = 0.
-        if len(scores) > 0:
-            res_score = scores.mean()
-
-        return res_score
-
-    def get_under_unfairness(self, score, iids, sst_value):
+    def get_under_unfairness(self, pos_score, pos_iids, neg_score, neg_iids, sst_value):
         r"""
 
         Args:
             score(numpy.array): score prediction for user-item pairs
             iids(numpy.array): item_id array of interaction ITEM_FIELD
-            sst_value(numpy.array): sensitive attribute's value of corresponding users/items
+            sst_value(numpy.array): sensitive attribute's value of corresponding users
         Return:
-            Under Unfairness
+            Underestimation Unfairness
         """
         sst_unique_values, sst_indices = np.unique(sst_value, return_inverse=True)
-        iid_unique_values, iid_indices = np.unique(iids, return_inverse=True)
+        iid_unique_values, iid_indices = np.unique(np.concatenate((pos_iids, neg_iids)), return_inverse=True)
         if len(sst_unique_values) != 2:
             raise ValueError(f'sensitive attribute must be binary')
-        sst1_index = sst_indices == 0
-        sst2_index = sst_indices == 1
-        diff = 0.
-        for iid in iid_unique_values:
-            sst1_diff = self.get_average_score(score[sst1_index]) - self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst1_index]) 
-            sst2_diff = self.get_average_score(score[sst2_index]) - self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst2_index]) 
-            diff += np.abs(max(0, sst1_diff) - max(0, sst2_diff))
 
-        diff /= len(iid_unique_values)
+        pos_len = len(pos_iids)
+        iids_len = len(iid_unique_values)
+        avg_pred_list = np.zeros((iids_len,2))
+        sst_num = np.zeros((iids_len,2))
+        avg_true_list = np.zeros((iids_len,2))
+
+        for iid_indice, sst_indice, score in zip(iid_indices[:pos_len], sst_indices, pos_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+            avg_true_list[iid_indice][sst_indice] += 1
+        
+        for iid_indice, sst_indice, score in zip(iid_indices[pos_len:], sst_indices, neg_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+        
+        sst_num += 1e-5
+
+        avg_pred_list /= sst_num
+        avg_true_list /= sst_num
+
+        diff = np.where((avg_true_list-avg_pred_list)>0, avg_true_list-avg_pred_list, 0)
+        diff = np.mean(np.abs(diff[:,0] - diff[:, 1]))
 
         return diff
 
@@ -1096,57 +1123,66 @@ class OverUnfairness(AbstractMetric):
         """
     smaller = True
     metric_type = EvaluatorType.RANKING
-    metric_need = ['data.positive_i', 'rec.positive_score', 'data.sst']
+    metric_need = ['data.positive_i', 'rec.positive_score', 'data.negative_i', 'rec.negative_score','data.sst']
 
     def __init__(self, config):
         super().__init__(config)
         self.sst_key = config['sst_attr_list'][0]
 
     def used_info(self, dataobject):
-        score = dataobject.get('rec.positive_score').numpy()
-        iids = dataobject.get('data.positive_i').numpy()
+        pos_score = dataobject.get('rec.positive_score').numpy()
+        pos_iids = dataobject.get('data.positive_i').numpy()
+        neg_score = dataobject.get('rec.negative_score').numpy()
+        neg_iids = dataobject.get('data.negative_i').numpy()
         sst_value = dataobject.get('data.' + self.sst_key).numpy()
 
-        return score, iids, sst_value
+        return pos_score, pos_iids, neg_score, neg_iids, sst_value
 
     def calculate_metric(self, dataobject):
-        score, iids, sst_value = self.used_info(dataobject)
+        pos_score, pos_iids, neg_score, neg_iids, sst_value = self.used_info(dataobject)
         metric_dict = {}
         key = 'Overestimation Unfairness of sensitive attribute {}'.format(self.sst_key)
-        metric_dict[key] = round(self.get_over_unfairness(score, iids, sst_value), self.decimal_place)
+        metric_dict[key] = round(self.get_over_unfairness(pos_score, pos_iids, neg_score, neg_iids, sst_value), self.decimal_place)
 
         return metric_dict
 
-    def get_average_score(self, scores):
-        res_score = 0.
-        if len(scores) > 0:
-            res_score = scores.mean()
-
-        return res_score
-
-    def get_over_unfairness(self, score, iids, sst_value):
+    def get_over_unfairness(self, pos_score, pos_iids, neg_score, neg_iids, sst_value):
         r"""
 
         Args:
             score(numpy.array): score prediction for user-item pairs
             iids(numpy.array): item_id array of interaction ITEM_FIELD
-            sst_value(numpy.array): sensitive attribute's value of corresponding users/items
+            sst_value(numpy.array): sensitive attribute's value of corresponding users
         Return:
-            Over Unfairness
+            Overestimation Unfairness
         """
         sst_unique_values, sst_indices = np.unique(sst_value, return_inverse=True)
-        iid_unique_values, iid_indices = np.unique(iids, return_inverse=True)
+        iid_unique_values, iid_indices = np.unique(np.concatenate((pos_iids, neg_iids)), return_inverse=True)
         if len(sst_unique_values) != 2:
             raise ValueError(f'sensitive attribute must be binary')
-        sst1_index = sst_indices == 0
-        sst2_index = sst_indices == 1
-        diff = 0.
-        for iid in iid_unique_values:
-            sst1_diff = self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst1_index]) - self.get_average_score(score[sst1_index])
-            sst2_diff = self.get_average_score(score[(iid_indices==np.where(iid_unique_values==iid)[0])*sst2_index]) - self.get_average_score(score[sst2_index])
-            diff += np.abs(max(0, sst1_diff) - max(0, sst2_diff))
 
-        diff /= len(iid_unique_values)
+        pos_len = len(pos_iids)
+        iids_len = len(iid_unique_values)
+        avg_pred_list = np.zeros((iids_len,2))
+        sst_num = np.zeros((iids_len,2))
+        avg_true_list = np.zeros((iids_len,2))
+
+        for iid_indice, sst_indice, score in zip(iid_indices[:pos_len], sst_indices, pos_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+            avg_true_list[iid_indice][sst_indice] += 1
+        
+        for iid_indice, sst_indice, score in zip(iid_indices[pos_len:], sst_indices, neg_score):
+            avg_pred_list[iid_indice][sst_indice] += score
+            sst_num[iid_indice][sst_indice] += 1
+        
+        sst_num += 1e-5
+
+        avg_pred_list /= sst_num
+        avg_true_list /= sst_num
+
+        diff = np.where((avg_pred_list-avg_true_list)>0, avg_pred_list-avg_true_list, 0)
+        diff = np.mean(np.abs(diff[:,0] - diff[:, 1]))
 
         return diff
 

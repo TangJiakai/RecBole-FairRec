@@ -6,7 +6,7 @@ use_gpu: True
 state: INFO
 reproducibility: True
 data_path: 'dataset'
-checkpoint_dir: 'saved/saved_BPR'
+checkpoint_dir: 'saved/saved_NeuMF'
 dataset: ml-1M
 save_dataset: False
 save_dataloaders: False
@@ -27,7 +27,7 @@ load_col:
 
 
 # model config
-model: BPR
+model: NeuMF
 
 # training settings
 epochs: 400
