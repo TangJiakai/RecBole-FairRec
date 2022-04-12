@@ -6,45 +6,38 @@ use_gpu: True
 state: INFO
 reproducibility: True
 data_path: 'dataset'
-checkpoint_dir: 'saved/saved_PFCN_PMF'
-dataset: PFCN_ml-1M
-save_dataset: True
-save_dataloaders: True
-save_sst_embed: True
+checkpoint_dir: 'saved/saved_DMF'
+dataset: ml-1M
+save_dataset: False
+save_dataloaders: False
 
 # Data settings
 field_separator: "\t"
 seq_separator: " "
 USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
-NEG_PREFIX: neg_
 LABEL_FIELD: label
 threshold: {'rating': 3.0}
-ITEM_LIST_LENGTH_FIELD: item_length
 sst_attr_list: ["gender"]
+unused_col: ~
 load_col:
   inter: [user_id,item_id,rating]
-  user: [user_id,gender,age,occupation]
+  user: [user_id,gender]
+  item: [item_id]
+
 
 # model config
-model: PFCN_PMF
-embedding_size: 64
-dis_hidden_size_list: [128, 256, 128, 128, 64, 32]
-activation: leakyrelu
-filter_mode: sm
-dis_dropout: 0.3
+model: DMF
 
 # training settings
-epochs: 1000
-train_epoch_interval: 5
-eval_step: 10
-train_batch_size: 4096
+epochs: 400
+train_batch_size: 16384
 learner: adam
 learning_rate: 0.001
-training_neg_sample_num: 1
-stopping_step: 5
+eval_step: 5
+stopping_step: 10
+neg_sampling: {'uniform': 1}
 weight_decay: 0.0001
-dis_weight: 10
 
 # evalution settings
 eval_args:
@@ -57,6 +50,6 @@ metrics: ["NDCG","Recall","Hit","MRR","DifferentialFairness",
 valid_metric: NDCG@5
 topk: [5]
 popularity_ratio: 0.1
-eval_batch_size: 2048
+eval_batch_size: 16384
 loss_decimal_place: 4
 metric_decimal_place: 4

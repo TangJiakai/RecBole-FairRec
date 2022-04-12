@@ -1,6 +1,6 @@
 # Environment settings
 show_progress: True
-gpu_id: 1
+gpu_id: 0
 seed: 2022
 use_gpu: True
 state: INFO

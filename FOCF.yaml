@@ -7,7 +7,7 @@ state: INFO
 reproducibility: True
 data_path: 'dataset'
 checkpoint_dir: 'saved/saved_FOCF'
-dataset: FOCF_ml-1M
+dataset: ml-1M
 save_dataset: False
 save_dataloaders: False
 
@@ -32,7 +32,7 @@ load_col:
 model: FOCF
 embedding_size: 64
 # none|value|absolute|under|over|nonparity
-fair_objective: value
+fair_objective: nonparity
 fair_weight: 10.0
 
 # training settings
