@@ -34,11 +34,11 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
     # logger initialization
 
     config, model, dataset, train_data, valid_data, test_data = load_data_and_model(
-        model_file='saved/saved_PFCN_BiasedMF/PFCN_BiasedMF-Apr-04-2022_09-45-41.pth',
-        dataset_file='saved/saved_PFCN_BiasedMF/ml-1M-dataset.pth',
+        model_file='saved/saved_FOCF/FOCF-Apr-03-2022_20-07-02.pth',
+        dataset_file=None,
         dataloader_file=None,
     )
-    config = Config(model='PFCN_BiasedMF', dataset='ml-1M', config_file_list=['PFCN_BiasedMF.yaml'])
+    config = Config(model='FOCF', dataset='ml-1M', config_file_list=['FOCF.yaml'])
     train_data, valid_data, test_data = data_preparation(config, dataset)
 
     init_seed(config['seed'], config['reproducibility'])
@@ -62,7 +62,7 @@ def run_recbole(model=None, dataset=None, config_file_list=None, config_dict=Non
     # )
 
     # model evaluation
-    test_result = trainer.evaluate(test_data, load_best_model=saved, model_file='saved/saved_PFCN_BiasedMF/PFCN_BiasedMF-Apr-04-2022_09-45-41.pth', show_progress=config['show_progress'])
+    test_result = trainer.evaluate(test_data, load_best_model=saved, model_file='saved/saved_FOCF/FOCF-Apr-03-2022_20-07-02.pth', show_progress=config['show_progress'])
 
     # logger.info(set_color('best valid ', 'yellow') + f': {best_valid_result}')
     logger.info(set_color('test result', 'yellow') + f': {test_result}')

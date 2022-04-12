@@ -52,7 +52,7 @@ eval_args:
   group_by: user
   order: RO
   mode: uni100
-metrics: ["NDCG","Recall","Hit","MRR","DifferentialFairness","GiniIndex","PopularityPercentage",
+metrics: ["NDCG","Recall","Hit","MRR","DifferentialFairness",
         "ValueUnfairness","AbsoluteUnfairness","UnderUnfairness","OverUnfairness","NonParityUnfairness"]
 valid_metric: NDCG@5
 topk: [5]
