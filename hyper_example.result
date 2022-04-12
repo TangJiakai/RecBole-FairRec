@@ -1,0 +1,30 @@
+embedding_size:16, learning_rate:0.006593021187378019
+Valid result:
+rmse : 1.858    NonParity Unfairness of sensitive attribute gender : 0.2554    Value Unfairness of sensitive attribute gender : 0.9411    Absolute Unfairness of sensitive attribute gender : 0.8359    Under Unfairness of sensitive attribute gender : 0.8365    Over Unfairness of sensitive attribute gender : 0.1046
+Test result:
+rmse : 1.8625    NonParity Unfairness of sensitive attribute gender : 0.2401    Value Unfairness of sensitive attribute gender : 0.9424    Absolute Unfairness of sensitive attribute gender : 0.8059    Under Unfairness of sensitive attribute gender : 0.8112    Over Unfairness of sensitive attribute gender : 0.1312
+
+embedding_size:2, learning_rate:0.7628214303581342
+Valid result:
+rmse : 72.2721    NonParity Unfairness of sensitive attribute gender : 1.401    Value Unfairness of sensitive attribute gender : 17.0001    Absolute Unfairness of sensitive attribute gender : 15.255    Under Unfairness of sensitive attribute gender : 8.2243    Over Unfairness of sensitive attribute gender : 8.7758
+Test result:
+rmse : 72.8455    NonParity Unfairness of sensitive attribute gender : 0.5067    Value Unfairness of sensitive attribute gender : 17.9196    Absolute Unfairness of sensitive attribute gender : 16.0891    Under Unfairness of sensitive attribute gender : 9.082    Over Unfairness of sensitive attribute gender : 8.8376
+
+embedding_size:4, learning_rate:0.006032666579991711
+Valid result:
+rmse : 1.2202    NonParity Unfairness of sensitive attribute gender : 0.0808    Value Unfairness of sensitive attribute gender : 0.7051    Absolute Unfairness of sensitive attribute gender : 0.5704    Under Unfairness of sensitive attribute gender : 0.5602    Over Unfairness of sensitive attribute gender : 0.1449
+Test result:
+rmse : 1.2214    NonParity Unfairness of sensitive attribute gender : 0.0705    Value Unfairness of sensitive attribute gender : 0.6882    Absolute Unfairness of sensitive attribute gender : 0.5545    Under Unfairness of sensitive attribute gender : 0.5473    Over Unfairness of sensitive attribute gender : 0.1409
+
+embedding_size:32, learning_rate:0.013574576890765763
+Valid result:
+rmse : 2.7255    NonParity Unfairness of sensitive attribute gender : 0.0994    Value Unfairness of sensitive attribute gender : 1.1281    Absolute Unfairness of sensitive attribute gender : 0.9428    Under Unfairness of sensitive attribute gender : 0.8721    Over Unfairness of sensitive attribute gender : 0.256
+Test result:
+rmse : 2.7238    NonParity Unfairness of sensitive attribute gender : 0.1193    Value Unfairness of sensitive attribute gender : 1.1413    Absolute Unfairness of sensitive attribute gender : 0.9661    Under Unfairness of sensitive attribute gender : 0.8908    Over Unfairness of sensitive attribute gender : 0.2505
+
+embedding_size:2, learning_rate:0.041430329919432976
+Valid result:
+rmse : 2.0035    NonParity Unfairness of sensitive attribute gender : 0.3142    Value Unfairness of sensitive attribute gender : 0.934    Absolute Unfairness of sensitive attribute gender : 0.8861    Under Unfairness of sensitive attribute gender : 0.8858    Over Unfairness of sensitive attribute gender : 0.0482
+Test result:
+rmse : 2.0049    NonParity Unfairness of sensitive attribute gender : 0.3012    Value Unfairness of sensitive attribute gender : 0.9042    Absolute Unfairness of sensitive attribute gender : 0.8558    Under Unfairness of sensitive attribute gender : 0.8494    Over Unfairness of sensitive attribute gender : 0.0547
+

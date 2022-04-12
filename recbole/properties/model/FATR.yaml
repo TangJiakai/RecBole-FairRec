@@ -1,0 +1,4 @@
+embedding_size: 20
+neg_sampling: ~
+learning_rate: 1
+gamma: 0.05

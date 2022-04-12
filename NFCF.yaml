@@ -1,0 +1,63 @@
+# Environment settings
+show_progress: True
+gpu_id: 0
+seed: 2022
+use_gpu: True
+state: INFO
+reproducibility: True
+data_path: 'dataset'
+checkpoint_dir: 'saved/saved_NFCF'
+# dataset: ml-1M
+dataset: NCFC_ml-1M
+save_dataset: True
+save_dataloaders: True
+load_pretrain_path: 'saved/saved_NFCF/NFCF-Apr-04-2022_14-22-02.pth'
+
+# Data settings
+field_separator: "\t"
+seq_separator: " "
+USER_ID_FIELD: user_id
+ITEM_ID_FIELD: item_id
+LABEL_FIELD: label
+# threshold: {'rating': 3.0}
+sst_attr_list: ["gender"]
+unused_col: ~
+# load_col:
+#   inter: [user_id,item_id,rating]
+#   user: [user_id,gender]
+load_col:
+  inter: [user_id,item_id]
+  user: [user_id,gender]
+
+# model config
+model: NFCF
+dropout: 0.2
+fair_weight: 0.1
+embedding_size: 64
+mlp_hidden_size: [128,64]
+
+# training settings
+epochs: 400
+train_batch_size: 2048
+learner: adam
+learning_rate: 0.001
+eval_step: 5
+stopping_step: 10
+neg_sampling: {'uniform': 1}
+weight_decay: 0.0001
+
+# evalution settings
+eval_args:
+  split: {'RS':[8,1,1]}
+  group_by: user
+  order: RO
+  # mode: uni100
+  mode: full
+metrics: ["NDCG","Recall","Hit","MRR","DifferentialFairness","GiniIndex","PopularityPercentage",
+        "ValueUnfairness","AbsoluteUnfairness","UnderUnfairness","OverUnfairness","NonParityUnfairness"]
+valid_metric: NDCG@5
+topk: [5]
+popularity_ratio: 0.1
+eval_batch_size: 16384
+loss_decimal_place: 4
+metric_decimal_place: 4
