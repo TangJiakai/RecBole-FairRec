@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Communication Options</TITLE>
+<META NAME="description" CONTENT="Communication Options">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="forming_a_cluster.html">
+<LINK REL="next" HREF="enabling_https.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="enabling_https.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cluster_setup_and_administ.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="processing_state_and_scali.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="enabling_https.html">Enabling HTTPS</A>
+<B> Up:</B> <A
+ HREF="cluster_setup_and_administ.html">Cluster Setup and Administration</A>
+<B> Previous:</B> <A
+ HREF="processing_state_and_scali.html">Processing State and Scaling</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00026000000000000000"></A>
+<A ID="sec:RSMCommunicationOptions"></A>
+<BR>
+Communication Options
+</H2>
+
+<P>
+The Cluster Manager and the nodes running Gurobi Remote Services
+communicate through a REST API using HTTP by default.  If you are
+using a Cluster Manager, you have a few options for a more secure
+deployment with HTTPS:
+
+<UL>
+<LI>Use a load balancer listening on HTTPS in front of the Cluster Manager. The load balancer can
+terminates TLS encryption, and forward the communication to the Cluster Manager as HTTP.
+</LI>
+<LI>Enable HTTPS on the Cluster Manager and then let it forward the communication to the
+nodes using HTTP. The nodes themselves will continue to communicate over HTTP only.
+</LI>
+<LI>End-to-end HTTPS by enabling HTTPS on the Cluster Manager and the nodes.
+</LI>
+</UL>
+
+<P>
+If you are not using a Cluster Manager, you still have a few options:
+
+<UL>
+<LI>Enable HTTPS for all of the nodes.
+</LI>
+<LI>Set up a Gurobi Router and enable HTTPS for the router only.
+</LI>
+<LI>End-to-end HTTPS by enabling HTTPS on the Router and the nodes.
+</LI>
+</UL>
+
+<P>
+Enabling HTTPS on the different components follows the same
+<A HREF="enabling_https.html#sec:RSMHTTPS">principles</A>.  Remote
+Services also support <A HREF="using_https_with_self_sign.html#sec:RSMHTTPSInsecure">self-signed
+  certificates</A> for testing your deployment.
+Finally, <A HREF="firewalls.html#sec:RSMFirewalls">firewalls</A> may have to be
+configured to let clients connect to the Cluster Manager or the Cluster nodes.
+In some cases, a Remote Services <A HREF="using_a_router_without_a_c.html#sec:Router">router</A> can be used instead
+of a Cluster Manager.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html198"
+  HREF="enabling_https.html">Enabling HTTPS</A>
+<LI><A ID="tex2html199"
+  HREF="using_https_with_self_sign.html">Using HTTPS with Self-Signed Certificates</A>
+<LI><A ID="tex2html200"
+  HREF="firewalls.html">Firewalls</A>
+<LI><A ID="tex2html201"
+  HREF="using_a_router_without_a_c.html">Using a Router without a Cluster Manager</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="enabling_https.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cluster_setup_and_administ.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="processing_state_and_scali.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="enabling_https.html">Enabling HTTPS</A>
+<B> Up:</B> <A
+ HREF="cluster_setup_and_administ.html">Cluster Setup and Administration</A>
+<B> Previous:</B> <A
+ HREF="processing_state_and_scali.html">Processing State and Scaling</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

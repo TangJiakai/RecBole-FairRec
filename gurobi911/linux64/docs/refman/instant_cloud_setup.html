@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Instant Cloud Setup</TITLE>
+<META NAME="description" CONTENT="Instant Cloud Setup">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="client_setup.html">
+<LINK REL="next" HREF="guidelines_for_numerical_i.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="grb_instant_cloud.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Up:</B> <A
+ HREF="grb_instant_cloud.html">Gurobi Instant Cloud</A>
+<B> Previous:</B> <A
+ HREF="client_setup.html">Client Setup</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000332000000000000000"></A>
+<A ID="sec:InstantCloudSetup"></A>
+<BR>
+Instant Cloud Setup
+</H2>
+
+<P>
+As noted previously, cloud configuration is done via the
+<A ID="tex2html56"
+  HREF="https://cloud.gurobi.com">Instant Cloud Manager</A>.
+The client program requests that a cloud machine be launched, but the
+Instant Cloud Manager determines exactly how to respond to that
+request.
+
+<P>
+One essential concept when configuring your Instant Cloud license is
+the notion of a <SPAN  CLASS="textit">cloud pool</SPAN>.  Pools allow you to create multiple
+configurations within a single cloud license.  For example, you may
+set up one pool for jobs in the US and another for jobs in Europe, or
+one for short-running jobs and another for long-running jobs, or one
+for single-machine jobs and another for distributed parallel jobs.
+For each of the available cloud configuration options (which will be
+discussed below), you can select different values for different pools.
+Every license always has a default pool, which comes pre-configured
+with what we consider to be reasonable default values.  Thus, you
+always have the option of ignoring cloud pools and simply using the
+default pool if you don't need multiple configurations.
+
+<P>
+The main things that a user may want to configure on the Instant Cloud
+website are the idle shutdown time, the number of machines to launch,
+the number of distributed workers to launch, the machine region, and
+the machine type.  These can take different values in different pools.
+
+<P>
+The idle shutdown time is a vital concept in the Instant Cloud.  When
+a client program requests a cloud server, it takes some time
+(typically less than 2 minutes) to launch that server.  Rather than
+forcing client programs to incur this delay each time they run, the
+Gurobi Instant Cloud leaves a server running until is has been idle
+for the specified idle shutdown time.  In this way, later client
+programs may find a cloud server already available.  You can set this
+to a small value if you want your server to shut down immediately
+after your job finishes, or to a very large value if you want your
+server to always be available.
+
+<P>
+Another configuration option is the number of machines associated with
+the pool.  Gurobi Compute Server automatically handles queuing and
+load balancing between servers, so launching multiple machines allows
+you to distribute the work of many simultaneous client programs among
+them.  A pool can also be configured to launch any number of
+distributed workers, if you want to use distributed computing.
+
+<P>
+Cloud machines can be launched in multiple geographic regions,
+including the US, Europe, Asia, and South America.  You should visit
+the website to see the full list.  We offer several options for
+machine type, although we've chosen what we believe is the best
+general-purpose machine for running Gurobi as the default, so you are
+unlikely to want to change this setting.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="grb_instant_cloud.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Up:</B> <A
+ HREF="grb_instant_cloud.html">Gurobi Instant Cloud</A>
+<B> Previous:</B> <A
+ HREF="client_setup.html">Client Setup</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

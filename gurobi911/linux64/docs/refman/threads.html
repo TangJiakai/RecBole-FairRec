@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Threads</TITLE>
+<META NAME="description" CONTENT="Threads">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="timelimit.html">
+<LINK REL="previous" HREF="symmetry.html">
+<LINK REL="next" HREF="timelimit.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="timelimit.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="symmetry.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="timelimit.html">TimeLimit</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="symmetry.html">Symmetry</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00018214700000000000000"></A>
+<A ID="parameter:Threads"></A>
+<BR>
+Threads
+</H3>
+Thread count
+
+<TABLE class="PAD " style="">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Default value:</SPAN></TD>
+<TD CLASS="LEFT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Minimum value:</SPAN></TD>
+<TD CLASS="LEFT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Maximum value:</SPAN></TD>
+<TD CLASS="LEFT">NProc</TD>
+</TR>
+</TABLE>
+
+<P>
+Controls the number of threads to apply to parallel algorithms
+(concurrent LP, parallel barrier, parallel MIP, etc.).  The default
+value of 0 is an automatic setting.  It will generally use all of the
+cores in the machine, but it may choose to use fewer.
+
+<P>
+While you will generally get the best performance by using all
+available cores in your machine, there are a few exceptions.  One is
+of course when you are sharing a machine with other jobs.  In this
+case, you should select a thread count that doesn't oversubscribe the
+machine.
+
+<P>
+We have also found that certain classes of MIP models benefit from
+reducing the thread count, often all the way down to one thread.
+Starting multiple threads introduces contention for machine resources.
+For classes of models where the first solution found by the MIP solver
+is almost always optimal, and that solution isn't found at the root,
+it is often better to allow a single thread to explore the search tree
+uncontended.
+
+<P>
+Another situation where reducing the thread count can be helpful is
+when memory is tight.  Each thread can consume a significant amount of
+memory.
+
+<P>
+We've made the pragmatic choice to impose a soft limit of 32 threads
+for the automatic setting (0).  If your machine has more, and you find
+that using more increases performance, you should feel free to set the
+parameter to a larger value.
+
+<P>
+For examples of how to query or modify parameter values from
+our different APIs, refer to our
+<A HREF="parameter_examples.html#sec:ParameterExamples">Parameter Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="timelimit.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="symmetry.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="timelimit.html">TimeLimit</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="symmetry.html">Symmetry</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

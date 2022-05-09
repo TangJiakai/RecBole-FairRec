@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>SELinux</TITLE>
+<META NAME="description" CONTENT="SELinux">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="previous" HREF="software_installation_guid.html">
+<LINK REL="next" HREF="retrieving_and_setting_up_.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="retrieving_and_setting_up_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="software_installation_guid.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="software_installation_guid.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="retrieving_and_setting_up_.html">Retrieving and Setting Up</A>
+<B> Up:</B> <A
+ HREF="software_installation_guid.html">Software Installation Guide</A>
+<B> Previous:</B> <A
+ HREF="software_installation_guid.html">Software Installation Guide</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00021000000000000000"></A>
+<A ID="subsection:SELinux"></A>
+<BR>
+SELinux
+</H2>
+
+<P>
+When you run a program that uses Gurobi on some SELinux systems, you
+may run into the following error message:
+
+<P>
+<TT>error while loading shared libraries: libgurobi91.so:
+<BR>
+cannot restore segment prot after reloc: Permission denied</TT>
+
+<P>
+The simplest workaround is to set <code>alloc_execmod</code> on your system
+(as root):
+
+<PRE>
+&gt; setsebool -P allow_execmod on
+</PRE>
+The <code>on</code> setting is the default on most SELinux systems, but it
+may be off in some cases.  Note that this is a system-wide setting, so
+you should consult your system administrator before making this
+change.
+
+<P>
+A more local workaround is to modify the security context for the
+Gurobi shared library:
+
+<P>
+<TT>&gt; chcon -t textrel_shlib_t libgurobi91.so</TT>
+
+<P>
+You can also use the <code>semanage</code> command to set SELinux policy for
+this library.
+
+<P>
+Please consult the SELinux documentation for more information on
+these commands.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="retrieving_and_setting_up_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="software_installation_guid.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="software_installation_guid.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="retrieving_and_setting_up_.html">Retrieving and Setting Up</A>
+<B> Up:</B> <A
+ HREF="software_installation_guid.html">Software Installation Guide</A>
+<B> Previous:</B> <A
+ HREF="software_installation_guid.html">Software Installation Guide</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

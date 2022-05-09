@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Multiple optimal solutions</TITLE>
+<META NAME="description" CONTENT="Multiple optimal solutions">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="dealing_with_epsilon_optim.html">
+<LINK REL="previous" HREF="the_geometry_of_linear_opt.html">
+<LINK REL="next" HREF="dealing_with_epsilon_optim.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="dealing_with_epsilon_optim.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="instability_and_the_geomet.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="the_geometry_of_linear_opt.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="dealing_with_epsilon_optim.html">Dealing with epsilon-optimal solutions</A>
+<B> Up:</B> <A
+ HREF="instability_and_the_geomet.html">Instability and the geometry</A>
+<B> Previous:</B> <A
+ HREF="the_geometry_of_linear_opt.html">The geometry of linear</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000346300000000000000">
+Multiple optimal solutions</A>
+</H3>
+
+<P>
+A common misconception among beginners in optimization is the idea
+that optimization problems really have just one solution.
+Surprisingly, this is typically not true. For many practical problems,
+the objective (whether it is cost or revenue or ...) is dominated by a
+handful of variables, while most variables are just there to ensure
+that the actual <EM>operation</EM> of the solution is possible.  Consider
+a staffing problem, for example, where cost is typically driven by the
+number of people who work on a given day, not by the specific people.
+
+<P>
+These kind of situations naturally lead to problems similar to
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{lrrl}
+\max & y &  \vec{c}=&(0,1)\\
+s.t. & -x \leq 0 & A_{1\cdot}=&(-1,0)\\
+     & x  \leq 1 & A_{2\cdot}=&(1,0)\\
+     & -y \leq 0 & A_{3\cdot}=&(0,-1)\\
+     & y  \leq 1 & A_{4\cdot}=&(0,1).\\
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 14.12ex; vertical-align: -6.50ex; " SRC="img380.svg"
+ ALT="$\begin{array}{lrrl}
+\max &amp; y &amp; \vec{c}=&amp;(0,1)\\
+s.t. &amp; -x \leq 0 &amp; A_{1\cdot}=...
+... \leq 0 &amp; A_{3\cdot}=&amp;(0,-1)\\
+&amp; y \leq 1 &amp; A_{4\cdot}=&amp;(0,1).\\
+\end{array}$"></SPAN>
+</DIV>
+Graphically this can be depicted as
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=4in]{refman_misc/codedraw5.pdf}}$
+ -->
+<IMG STYLE=""
+ SRC="img381.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=4in]{refman_misc/codedraw5.pdf}}">
+</DIV>
+In this situation is clear that <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img382.svg"
+ ALT="$x^1$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img383.svg"
+ ALT="$x^3$"></SPAN>, and all solutions lying
+on the line between these two points are optimal.  The simplex
+algorithm will return either <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img382.svg"
+ ALT="$x^1$"></SPAN> or <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img383.svg"
+ ALT="$x^3$"></SPAN> (and may switch if you
+change parameters).  The barrier algorithm (without crossover) will
+return <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img384.svg"
+ ALT="$x^2$"></SPAN>.  These solutions are all correct; the problem as stated
+has no reason to prefer one over the other.  If you do have a
+preference, you'll need to state it in your objective function.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="dealing_with_epsilon_optim.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="instability_and_the_geomet.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="the_geometry_of_linear_opt.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="dealing_with_epsilon_optim.html">Dealing with epsilon-optimal solutions</A>
+<B> Up:</B> <A
+ HREF="instability_and_the_geomet.html">Instability and the geometry</A>
+<B> Previous:</B> <A
+ HREF="the_geometry_of_linear_opt.html">The geometry of linear</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

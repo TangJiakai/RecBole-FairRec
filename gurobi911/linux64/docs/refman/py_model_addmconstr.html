@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.addMConstr()</TITLE>
+<META NAME="description" CONTENT="Model.addMConstr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_addmqconstr.html">
+<LINK REL="previous" HREF="py_model_addlconstr.html">
+<LINK REL="next" HREF="py_model_addmqconstr.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_addmqconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_addlconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addmqconstr.html">Model.addMQConstr()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_addlconstr.html">Model.addLConstr()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001022200000000000000"></A>
+<A ID="pythonmethod:Model.addMConstr"></A>
+<BR>
+Model.addMConstr()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addMConstr</SPAN></FONT></SPAN> ( A, x, sense, b, name="" )
+
+<P>
+Add a set of linear constraints to the model using matrix semantics.
+  The added constraints are <SPAN CLASS="MATH"><IMG STYLE="height: 1.84ex; vertical-align: -0.12ex; " SRC="img75.svg"
+ ALT="$A x = b$"></SPAN> (except that the constraint
+  sense is determined by the <code>sense</code> argument).
+  The <code>A</code> argument must be a NumPy dense ndarray or a SciPy sparse
+  matrix.
+
+<P>
+Note that you will typically use overloaded operators to build and
+  add constraints using matrix semantics.  The overloaded <code>@</code>
+  operator can be used to build a <A HREF="py_mlex.html#pythonclass:MLinExpr">linear matrix
+    expression</A>, which can then be used with
+  an overloaded comparison operator to build a
+  <A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A> object.  This can
+  then be passed to
+  <A HREF="py_model_addconstr.html#pythonmethod:Model.addConstr">addConstr</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">A</SPAN>: The constraint matrix - a NumPy 2-D dense ndarray or a
+  SciPy sparse matrix.
+
+<P>
+ <SPAN  CLASS="textbf">x</SPAN>: Decision variables.  Argument can be an
+  <A HREF="py_mvar.html#pythonclass:MVar">MVar</A> object, a list of
+  <A HREF="py_var.html#pythonclass:Var">Var</A> objects, or <SPAN  CLASS="texttt">None</SPAN>
+  (<SPAN  CLASS="texttt">None</SPAN> uses all variables in the model).  The length
+  of the argument must match the size of the second dimension of
+  <SPAN  CLASS="texttt">A</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">sense</SPAN>: Constraint senses, provided as a NumPy 1-D ndarray
+  or as a single character.  Valid values are <SPAN CLASS="MATH"><IMG STYLE="height: 1.57ex; vertical-align: -0.21ex; " SRC="img76.svg"
+ ALT="$&lt;$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 1.57ex; vertical-align: -0.21ex; " SRC="img77.svg"
+ ALT="$&gt;$"></SPAN>, or <SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img38.svg"
+ ALT="$=$"></SPAN>.
+  The length of the array must be equal the size of the first
+  dimension of <SPAN  CLASS="texttt">A</SPAN>.  A character will be promoted to
+  an ndarray of the appropriate length.
+
+<P>
+ <SPAN  CLASS="textbf">b</SPAN>: Right-hand side vector, stored as a NumPy 1-D ndarray.
+  The length of the array must be equal the size of the first
+  dimension of <SPAN  CLASS="texttt">A</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Names for new constraints.  The given name will
+  be subscripted by the index of the constraint in the matrix.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+<A HREF="py_mconstr.html#pythonclass:MConstr">MConstr</A> object.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  A = np.full((5, 10), 1)
+  x = model.addMVar(10)
+  b = np.full(5, 1)
+
+  model.addMConstr(A, x, '=', b)
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_addmqconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_addlconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addmqconstr.html">Model.addMQConstr()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_addlconstr.html">Model.addLConstr()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

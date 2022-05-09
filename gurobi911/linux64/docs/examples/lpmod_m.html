@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>lpmod.m</TITLE>
+<META NAME="description" CONTENT="lpmod.m">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="mip1_m.html">
+<LINK REL="previous" HREF="lpmethod_m.html">
+<LINK REL="next" HREF="mip1_m.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="mip1_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lpmethod_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="mip1_m.html">mip1.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="lpmethod_m.html">lpmethod.m</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000271400000000000000"></A>
+<A ID="subsubsection:lpmod.m"></A>
+<BR>
+lpmod.m
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function lpmod(filename)
+
+% Copyright 2020, Gurobi Optimization, LLC
+%
+% This example reads an LP model from a file and solves it.
+% If the model can be solved, then it finds the smallest positive variable,
+% sets its upper bound to zero, and resolves the model two ways:
+% first with an advanced start, then without an advanced start
+% (i.e. 'from scratch').
+
+% Read model
+fprintf('Reading model %s\n', filename);
+
+model = gurobi_read(filename);
+
+if (isfield(model, 'multiobj')  &amp;&amp; ~isempty(model.multiobj))  || ...
+   (isfield(model, 'sos')       &amp;&amp; ~isempty(model.sos))       || ...
+   (isfield(model, 'pwlobj')    &amp;&amp; ~isempty(model.pwlobj))    || ...
+   (isfield(model, 'quadcon')   &amp;&amp; ~isempty(model.quadcon))   || ...
+   (isfield(model, 'genconstr') &amp;&amp; ~isempty(model.genconstr)) || ...
+    isfield(model, 'Q')
+    fprintf('The model is not a linear program, quit\n');
+    return;
+end
+
+ivars = find(model.vtype ~= 'C');
+ints = length(ivars);
+
+if ints &gt; 0
+    fprintf('problem is a MIP, quit\n');
+    return;
+end
+
+result = gurobi(model);
+if ~strcmp(result.status, 'OPTIMAL')
+    fprintf('This model cannot be solved because its optimization status is %s\n', result.status);
+    return;
+end
+
+cols = size(model.A,2);
+
+% create lb if they do not exists, and set them to default values
+if ~isfield(model, 'lb') || isempty(model.lb)
+    model.lb = zeros(cols, 1);
+end
+
+% Find the smallest variable value
+minVal = inf;
+minVar = -1;
+for j = 1:cols
+    if result.x(j) &gt; 0.0001 &amp;&amp; result.x(j) &lt; minVal &amp;&amp; model.lb(j) == 0.0
+        minVal = result.x(j);
+        minVar = j;
+    end
+end
+
+fprintf('\n*** Setting %s from %d to zero ***\n', model.varnames{minVar}, minVar);
+model.ub(minVar) = 0;
+
+model.vbasis = result.vbasis;
+model.cbasis = result.cbasis;
+
+% Solve from this starting point
+result = gurobi(model);
+
+% Save iteration &amp; time info
+warmCount = result.itercount;
+warmTime = result.runtime;
+
+% Remove warm start basis and resolve
+model = rmfield(model, 'vbasis');
+model = rmfield(model, 'cbasis');
+result = gurobi(model);
+
+coldCount = result.itercount;
+coldTime = result.runtime;
+
+fprintf('\n');
+fprintf('*** Warm start: %g iterations, %g seconds\n', warmCount, warmTime);
+fprintf('*** Cold start: %g iterations, %g seconds\n', coldCount, coldTime);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="mip1_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lpmethod_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="mip1_m.html">mip1.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="lpmethod_m.html">lpmethod.m</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

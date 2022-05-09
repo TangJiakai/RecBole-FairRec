@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>custom.py</TITLE>
+<META NAME="description" CONTENT="custom.py">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="dense_py.html">
+<LINK REL="previous" HREF="cb_py.html">
+<LINK REL="next" HREF="dense_py.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="dense_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cb_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="dense_py.html">dense.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="cb_py.html">callback.py</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00026400000000000000"></A>
+<A ID="subsubsection:custom.py"></A>
+<BR>
+custom.py
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#
+# Copyright 2020, Gurobi Optimization, LLC
+#
+# Interactive shell customization example
+#
+# Define a set of customizations for the Gurobi shell.
+# Type 'from custom import *' to import them into your shell.
+#
+
+from gurobipy import *
+
+
+# custom read command -- change directory as appropriate
+
+def myread(name):
+    return read('/home/jones/models/' + name)
+
+
+# Custom termination criterion: Quit optimization
+# - after  5s if a high quality (1% gap) solution has been found, or
+# - after 10s if a feasible solution has been found.
+
+def mycallback(model, where):
+    if where == GRB.Callback.MIP:
+        time = model.cbGet(GRB.Callback.RUNTIME)
+        best = model.cbGet(GRB.Callback.MIP_OBJBST)
+        bound = model.cbGet(GRB.Callback.MIP_OBJBND)
+
+        if best &lt; GRB.INFINITY:
+            # We have a feasible solution
+            if time &gt; 5 and abs(bound - best) &lt; 0.01 * abs(bound):
+                model.terminate()
+
+            if time &gt; 10:
+                model.terminate()
+
+
+# custom optimize() function that uses callback
+
+def myopt(model):
+    model.optimize(mycallback)
+
+
+if __name__ == "__main__":
+    # Use as customized command line tool
+    import sys
+    if len(sys.argv) != 2:
+        print("Usage: python custom.py &lt;model&gt;")
+
+    m = read(sys.argv[1])
+    myopt(m)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="dense_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cb_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="dense_py.html">dense.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="cb_py.html">callback.py</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

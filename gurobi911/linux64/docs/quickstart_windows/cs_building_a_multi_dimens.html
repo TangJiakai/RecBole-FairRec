@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Building a multi-dimensional array of variables</TITLE>
+<META NAME="description" CONTENT="Building a multi-dimensional array of variables">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="cs_arc_capacity_constraint.html">
+<LINK REL="previous" HREF="cs_netflow_py_example_deta.html">
+<LINK REL="next" HREF="cs_arc_capacity_constraint.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_arc_capacity_constraint.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_netflow_py_example_deta.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_arc_capacity_constraint.html">Arc capacity constraints</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_netflow_py_example_deta.html">netflow.py example details</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000116900000000000000">
+Building a multi-dimensional array of variables</A>
+</H3>
+
+<P>
+The next step in our example (after creating an empty <code>Model</code>
+object) is to add decision variables to the model.  The variables are created
+using <code>addVars</code>, and are returned in a <code>tupledict</code> which
+we'll call <code>flow</code>:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Create optimization model
+m = gp.Model('netflow')
+
+# Create variables
+flow = m.addVars(commodities, arcs, obj=cost, name="flow")
+</PRE>
+
+<P>
+The first, positional arguments to <code>addVars</code> give the index set.
+In this case, we'll be indexing <code>flow</code> by <code>commodities</code> and
+<code>arcs</code>.  In other words, <code>flow[c,i,j]</code> will capture the flow
+of commodity <code>c</code> from node <code>i</code> to node <code>j</code>.  Note that
+<code>flow</code> only contains variables for source, destination pairs
+that are present in <code>arcs</code>.
+Note also that <code>flow[c,i,j]</code> is a continuous decision variable;
+variables are assumed to be continuous unless you state otherwise.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_arc_capacity_constraint.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_netflow_py_example_deta.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_arc_capacity_constraint.html">Arc capacity constraints</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_netflow_py_example_deta.html">netflow.py example details</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

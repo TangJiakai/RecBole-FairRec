@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Tips and Tricks</TITLE>
+<META NAME="description" CONTENT="Tips and Tricks">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="limitations_and_additional.html">
+<LINK REL="previous" HREF="retrieving_solutions_for_m.html">
+<LINK REL="next" HREF="limitations_and_additional.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="limitations_and_additional.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="retrieving_solutions_for_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="limitations_and_additional.html">Limitations and Additional Considerations</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="retrieving_solutions_for_m.html">Retrieving Solutions for Multiple</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000285000000000000000"></A>
+<A ID="heading:MultiScenarioTricks"></A>
+<BR>
+Tips and Tricks
+</H2>
+
+<P>
+Through clever use of the features provided in the multi-scenario
+interface, it is actually possible to do a lot more than it may first
+appear.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Adding or Deleting Variables or Constraints</SPAN></SPAN>
+
+<P>
+The multi-scenario interface provides no way to add or remove
+variables or constraints in a scenario, but the same effect can be
+achieved by changing variable bounds and constraint right-hand side
+values.  To remove a variable in a scenario, simply change its lower
+and upper bounds to zero.  To add a variable, set its bounds to zero
+in the base model and change them to their true values in the
+scenario.  To remove a less-than constraint, change the
+right-hand-value in the scenario to <code>GRB.INFINITY</code>.  To add one,
+set its right-hand side to <code>GRB.INFINITY</code> in the base model and
+change it to its true value in the scenario.
+
+<P>
+Changing the sense of a constraint can also be done using similar
+tricks.  For example, you can transform an equality constraint in the
+base model into an inequality in a scenario by splitting the equality
+into a pair of inequalities.  The right-hand side values for both
+inequalities in the base model would be equal to the true value in the
+equality.  The right-hand side value on one of the two inequalities
+can then be relaxed to <code>GRB.INFINITY</code> in the scenario.
+
+<P>
+You can also change the type of a variable.  For example, to transform
+an integer variable in the base model into a continuous variable in a
+scenario, you can add both variables in the base model, along with a
+split equality constraint that sets them equal to each other.  That
+equality constraint could then be relaxed in the scenario (using the
+techniques just described).
+
+<P>
+This isn't meant to be an exhaustive list of all of the ways that you
+can use supported multi-scenario features to achieve seemingly
+unsupported outcomes.  The set of building blocks that we have
+provided can be assembled in a variety of different ways.
+
+<P>
+If all scenarios in your multi-scenario model are infeasible, your
+<code>optimize</code> call will produce an <code>INFEASIBLE</code> (or
+<code>INF_OR_UNBD</code>) status code.  While you can't compute an IIS on a
+multi-scenario model, you can extract individual scenarios as Gurobi
+model objects using the <code>singleScenarioModel</code> method (see below)
+and then compute an IIS on each scenario individually.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Solving The Base Model</SPAN></SPAN>
+
+<P>
+As noted earlier, an <code>optimize</code> call on a multi-scenario model
+will not solve the base model.  If you'd like to solve that model too,
+include an empty scenario among your scenarios.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Extracting One Scenario</SPAN></SPAN>
+
+<P>
+If you'd like to extract one scenario from a multi-scenario model,
+you can use the <code>singleScenarioModel</code> method
+(in
+<A HREF="c_singlescenariomodel.html#routine:GRBsinglescenariomodel">C</A>,
+<A HREF="cpp_model_singlescenariomo.html#cppmethod:GRBModel::singleScenarioModel">C++</A>,
+<A HREF="java_model_singlescenariom.html#javamethod:GRBModel.singleScenarioModel">Java</A>,
+<A HREF="cs_model_singlescenariomod.html#dotnetmethod:GRBModel.SingleScenarioModel">.NET</A>, and
+<A HREF="py_model_singlescenariomod.html#pythonmethod:Model.singleScenarioModel">Python</A>).
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Performance Considerations</SPAN></SPAN>
+
+<P>
+While it may appear to be important to minimize the number of
+scenarios in your model, note that some scenarios are trivial to solve
+and thus have no impact on overall solution cost.  The main thing to
+keep in mind is that, if (1) the solution for one scenario is feasible
+for another scenario, and (2) the bounds and right-hand side values
+for the first scenario are never tighter than the bounds for the other
+scenario, then the optimal solution for the first scenario is also
+optimal for the other scenario.  This means that some scenarios won't
+increase solution cost significantly.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="limitations_and_additional.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="retrieving_solutions_for_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="limitations_and_additional.html">Limitations and Additional Considerations</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="retrieving_solutions_for_m.html">Retrieving Solutions for Multiple</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

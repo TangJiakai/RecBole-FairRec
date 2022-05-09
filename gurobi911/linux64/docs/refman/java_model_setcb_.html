@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.setCallback()</TITLE>
+<META NAME="description" CONTENT="GRBModel.setCallback()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_set.html">
+<LINK REL="previous" HREF="java_model_reset.html">
+<LINK REL="next" HREF="java_model_set.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_set.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_reset.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_set.html">GRBModel.set()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_reset.html">GRBModel.reset()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000624600000000000000"></A>
+<A ID="javamethod:GRBModel.setCallback"></A>
+<BR>
+GRBModel.setCallback()
+</H3>
+
+<P>
+Set the callback object for a model.  The <code>callback()</code> method on
+this object will be called periodically from the Gurobi solver.  You
+will have the opportunity to obtain more detailed information about
+the state of the optimization from this callback.  See the
+documentation for <A HREF="java_cb_.html#javaclass:GRBCallback">GRBCallback</A>
+for additional information.
+
+<P>
+Note that a model can only have a single callback method, so this call
+will replace an existing callback.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">setCallback</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBCallback</TD>
+<TD CLASS="LEFT">cb )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">cb</SPAN>: New callback object. To disable a previously set
+callback, call this method with a <TT>null</TT> argument.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_set.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_reset.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_set.html">GRBModel.set()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_reset.html">GRBModel.reset()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

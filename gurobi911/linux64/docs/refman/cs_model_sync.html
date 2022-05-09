@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.Sync()</TITLE>
+<META NAME="description" CONTENT="GRBModel.Sync()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_terminate.html">
+<LINK REL="previous" HREF="cs_model_singlescenariomod.html">
+<LINK REL="next" HREF="cs_model_terminate.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_terminate.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_singlescenariomod.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_terminate.html">GRBModel.Terminate()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_singlescenariomod.html">GRBModel.SingleScenarioModel()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000825300000000000000"></A>
+<A ID="dotnetmethod:GRBModel.Sync"></A>
+<BR>
+GRBModel.Sync()
+</H3>
+
+<P>
+Wait for a previous asynchronous optimization call to complete.
+
+<P>
+Calling <A HREF="cs_model_optimizeasync.html#dotnetmethod:GRBModel.OptimizeAsync">OptimizeAsync</A>
+returns control to the calling routine immediately.  The caller can
+perform other computations while optimization proceeds, and can check
+on the progress of the optimization by querying various model
+attributes.  The <code>sync</code> call forces the calling program to wait
+until the asynchronous optimization call completes.  You <EM>must</EM>
+call <code>sync</code> before the corresponding model object is deleted.
+
+<P>
+The <code>sync</code> call throws an exception if the optimization itself
+ran into any problems.  In other words, exceptions thrown by this
+method are those that <code>optimize</code> itself would have thrown, had
+the original method not been asynchronous.
+
+<P>
+Note that you need to call <code>sync</code> even if you know that the
+asynchronous optimization has already completed.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Sync</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_terminate.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_singlescenariomod.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_terminate.html">GRBModel.Terminate()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_singlescenariomod.html">GRBModel.SingleScenarioModel()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

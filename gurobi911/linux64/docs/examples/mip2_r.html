@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>mip2.R</TITLE>
+<META NAME="description" CONTENT="mip2.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="multiobj_r.html">
+<LINK REL="previous" HREF="mip_r.html">
+<LINK REL="next" HREF="multiobj_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="multiobj_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="mip_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multiobj_r.html">multiobj.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="mip_r.html">mip.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000281400000000000000"></A>
+<A ID="subsubsection:mip2.R"></A>
+<BR>
+mip2.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# This example reads a MIP model from a file, solves it and
+# prints the objective values from all feasible solutions
+# generated while solving the MIP. Then it creates the fixed
+# model and solves that model.
+
+library(Matrix)
+library(gurobi)
+
+args &lt;- commandArgs(trailingOnly = TRUE)
+if (length(args) &lt; 1) {
+  stop('Usage: Rscript mip2.R filename\n')
+}
+
+# Read model
+cat('Reading model',args[1],'...')
+model &lt;- gurobi_read(args[1])
+cat('... done\n')
+
+# Detect set of non-continous variables
+numvars    &lt;- dim(model$A)[[2]]
+intvars    &lt;- which(model$vtype != 'C')
+numintvars &lt;- length(intvars)
+if (numintvars &lt; 1) {
+  stop('All model\'s variables are continuous, nothing to do\n')
+}
+
+# Optimize
+params               &lt;- list()
+params$poolsolutions &lt;- 20
+result               &lt;- gurobi(model, params)
+
+# Capture solution information
+if (result$status != 'OPTIMAL') {
+  cat('Optimization finished with status', result$status, '\n')
+  stop('Stop now\n')
+}
+
+# Iterate over the solutions
+if ('pool' %in% names(result)) {
+  solcount &lt;- length(result$pool)
+  for (k in 1:solcount) {
+    cat('Solution', k, 'has objective:', result$pool[[k]]$objval, '\n')
+  }
+} else {
+  solcount &lt;- 1
+  cat('Solution 1 has objective:', result$objval, '\n')
+}
+
+# Convert to fixed model
+for (j in 1:numvars) {
+  if (model$vtype[j] != 'C') {
+    t &lt;- floor(result$x[j]+0.5)
+    model$lb[j] &lt;- t
+    model$ub[j] &lt;- t
+  }
+}
+
+# Solve the fixed model
+result2 &lt;- gurobi(model, params)
+if (result2$status != 'OPTIMAL') {
+  stop('Error: fixed model isn\'t optimal\n')
+}
+
+if (abs(result$objval - result2$objval) &gt; 1e-6 * (1 + abs(result$objval))) {
+  stop('Error: Objective values differ\n')
+}
+
+# Print values of non-zero variables
+for (j in 1:numvars) {
+  if (abs(result2$x[j]) &lt; 1e-6) next
+  varnames &lt;- ''
+  if ('varnames' %in% names(model)) {
+    varnames &lt;- model$varnames[j]
+  } else {
+    varnames &lt;- sprintf('X%d', j)
+  }
+  cat(format(varnames, justify='left', width=10),':',
+      format(result2$x[j], justify='right', digits=2, width=10), '\n')
+}
+
+# Clear space
+rm(model, params, result, result2)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="multiobj_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="mip_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multiobj_r.html">multiobj.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="mip_r.html">mip.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

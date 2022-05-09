@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>feasopt.py</TITLE>
+<META NAME="description" CONTENT="feasopt.py">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="fixanddive_py.html">
+<LINK REL="previous" HREF="facility_py.html">
+<LINK REL="next" HREF="fixanddive_py.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="fixanddive_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="facility_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="fixanddive_py.html">fixanddive.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="facility_py.html">facility.py</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000261200000000000000"></A>
+<A ID="subsubsection:feasopt.py"></A>
+<BR>
+feasopt.py
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#!/usr/bin/env python3.7
+
+# Copyright 2020, Gurobi Optimization, LLC
+
+# This example reads a MIP model from a file, adds artificial
+# variables to each constraint, and then minimizes the sum of the
+# artificial variables.  A solution with objective zero corresponds
+# to a feasible solution to the input model.
+#
+# We can also use FeasRelax feature to do it. In this example, we
+# use minrelax=1, i.e. optimizing the returned model finds a solution
+# that minimizes the original objective, but only from among those
+# solutions that minimize the sum of the artificial variables.
+
+import sys
+import gurobipy as gp
+
+if len(sys.argv) &lt; 2:
+    print('Usage: feasopt.py filename')
+    sys.exit(0)
+
+feasmodel = gp.read(sys.argv[1])
+
+# create a copy to use FeasRelax feature later
+
+feasmodel1 = feasmodel.copy()
+
+# clear objective
+
+feasmodel.setObjective(0.0)
+
+# add slack variables
+
+for c in feasmodel.getConstrs():
+    sense = c.sense
+    if sense != '&gt;':
+        feasmodel.addVar(obj=1.0, name="ArtN_" + c.constrName,
+                         column=gp.Column([-1], [c]))
+    if sense != '&lt;':
+        feasmodel.addVar(obj=1.0, name="ArtP_" + c.constrName,
+                         column=gp.Column([1], [c]))
+
+# optimize modified model
+
+feasmodel.optimize()
+
+feasmodel.write('feasopt.lp')
+
+# use FeasRelax feature
+
+feasmodel1.feasRelaxS(0, True, False, True)
+
+feasmodel1.write("feasopt1.lp")
+
+feasmodel1.optimize()
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="fixanddive_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="facility_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="fixanddive_py.html">fixanddive.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="facility_py.html">facility.py</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

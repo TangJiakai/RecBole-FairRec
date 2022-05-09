@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Performance Considerations on a Wide-Area Network (WAN)</TITLE>
+<META NAME="description" CONTENT="Performance Considerations on a Wide-Area Network (WAN)">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="cb_s.html">
+<LINK REL="previous" HREF="using_an_api_to_create_a_b.html">
+<LINK REL="next" HREF="cb_s.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cb_s.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_an_api_to_create_a_b.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cb_s.html">Callbacks</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="using_an_api_to_create_a_b.html">Using an API to</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00043000000000000000"></A>
+<A ID="sec:CSPerformance"></A>
+<BR>
+Performance Considerations on a Wide-Area Network (WAN)
+</H2>
+
+<P>
+While using Gurobi Compute Server doesn't typically require you to
+make any modifications to your code, performance considerations can
+sometimes force you to do some tuning when your client and server are
+connected by a slow network (e.g., the internet).  We'll briefly talk
+about the source of the issue, and the changes required to work around
+it.
+
+<P>
+In a Gurobi Compute Server, a call to a Gurobi routine can result in a
+network message between the client and the server.  An individual
+message is not that expensive, but sending hundreds or thousands of
+messages could be quite time-consuming.  Compute Server does a few
+things to reduce the number of such messages.  First, it makes heavy
+use of caching.  If you request an attribute on a single variable, for
+example, the client library will retrieve and store the value of that
+attribute for all variables, so subsequent requests won't require
+additional communication.  In addition, our <EM>lazy update</EM>
+approach to model building allows us to buffer additions and
+modifications to the model, You can feel free to build your model one
+constraint at a time, for example.  Your changes are communicated to
+the server in one large message when you request a model update.
+
+<P>
+Having said that, we should add that not all methods are cached or
+buffered.  As a result, we suggest that you avoid doing the following
+things:
+
+<UL>
+<LI>Retrieving the non-zero values for individual rows and columns
+  of the constraint matrix (using, for example, <TT>GRBgetconstrs</TT>
+  in C, <TT>GRBModel::getRow</TT> in C++, <TT>GBModel.getRow</TT> in Java,
+  <TT>GRBModel.GetRow</TT> in .NET, and <TT>Model.getRow</TT> in Python).
+</LI>
+<LI>Retrieving individual string-valued attributes.
+</LI>
+</UL>
+
+<P>
+Of course, network overhead depends on both the number of messages
+that are sent and the sizes of these messages.  We automatically
+perform data compression to reduce the time spent transferring very
+large messages.  However, as you may expect, you will notice some lag
+when solving very large models over slow networks.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cb_s.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_an_api_to_create_a_b.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cb_s.html">Callbacks</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="using_an_api_to_create_a_b.html">Using an API to</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

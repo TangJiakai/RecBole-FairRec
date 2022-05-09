@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>bilinear.m</TITLE>
+<META NAME="description" CONTENT="bilinear.m">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="diet_m.html">
+<LINK REL="previous" HREF="matlab_examples.html">
+<LINK REL="next" HREF="diet_m.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="diet_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="diet_m.html">diet.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00027100000000000000"></A>
+<A ID="subsubsection:bilinear.m"></A>
+<BR>
+bilinear.m
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function bilinear
+% This example formulates and solves the following simple bilinear model:
+%  maximize    x
+%  subject to  x + y + z &lt;= 10
+%              x * y &lt;= 2         (bilinear inequality)
+%              x * z + y * z = 1  (bilinear equality)
+%              x, y, z non-negative (x integral in second version)
+
+% Copyright 2020, Gurobi Optimization, LLC
+
+% Linear constraint matrix
+m.A = sparse([1, 1, 1]);
+m.sense = '&lt;';
+m.rhs = 10;
+
+% Variable names
+m.varnames = {'x', 'y', 'z'};
+
+% Objective function max 1.0 * x
+m.obj = [1; 0; 0];
+m.modelsense = 'max';
+
+% Bilinear inequality constraint: x * y &lt;= 2
+m.quadcon(1).Qrow = 1;
+m.quadcon(1).Qcol = 2;
+m.quadcon(1).Qval = 1.0;
+m.quadcon(1).q = sparse(3,1);
+m.quadcon(1).rhs = 2.0;
+m.quadcon(1).sense = '&lt;';
+m.quadcon(1).name = 'bilinear0';
+
+% Bilinear equality constraint: x * z + y * z == 1
+m.quadcon(2).Qrow = [1, 2];
+m.quadcon(2).Qcol = [3, 3];
+m.quadcon(2).Qval = [1.0, 1.0];
+m.quadcon(2).q = sparse(3,1);
+m.quadcon(2).rhs = 1.0;
+m.quadcon(2).sense = '=';
+m.quadcon(2).name = 'bilinear1';
+
+% Solve bilinear model, display solution.  The problem is non-convex,
+% we need to set the parameter 'NonConvex' in order to solve it.
+params.NonConvex = 2;
+result = gurobi(m, params);
+disp(result.x);
+
+% Constrain 'x' to be integral and solve again
+m.vtype = 'ICC';
+result = gurobi(m, params);
+disp(result.x);
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="diet_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="diet_m.html">diet.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

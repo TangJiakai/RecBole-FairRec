@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>C API Overview</TITLE>
+<META NAME="description" CONTENT="C API Overview">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_api_details.html">
+<LINK REL="previous" HREF="refman.html">
+<LINK REL="next" HREF="c_api_details.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_api_details.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_api_details.html">C API Details</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00010000000000000000"></A>
+<A ID="sec:C"></A>
+<BR>
+C API Overview
+</H1>
+
+<P>
+This section documents the Gurobi C interface.  This manual begins
+with a quick overview of the functions in the interface, and continues
+with <A HREF="c_api_details.html#sec:C-details">detailed descriptions of all of the available interface
+  routines</A>.
+
+<P>
+If you are new to the Gurobi Optimizer, we suggest that you start with
+the
+<A ID="tex2html5"
+  HREF="../quickstart_windows/index.html">Quick Start Guide</A>
+or the
+<A ID="tex2html6"
+  HREF="../examples/examples.html">Example Tour</A>.
+These
+documents provide concrete examples of how to use the routines
+described here.
+
+<P>
+<SPAN  CLASS="textbf">Environments</SPAN>
+
+<P>
+The first step in using the Gurobi C optimizer is to create an
+environment, using the <A HREF="c_loadenv.html#routine:GRBloadenv">GRBloadenv</A>
+call.  The environment acts as a container for all data associated
+with a set of optimization runs.  You will generally only need one
+environment in your program, even if you wish to work with multiple
+optimization models.  Once you are done with an environment, you
+should call <A HREF="c_freeenv.html#routine:GRBfreeenv">GRBfreeenv</A> to release
+the associated resources.
+
+<P>
+For more advanced use cases, you can use the
+<A HREF="c_emptyenv.html#routine:GRBemptyenv">GRBemptyenv</A> routine to create
+an uninitialized environment and then, programmatically, set all
+required options for your specific requirements. For further details
+see the <A HREF="environments.html#sec:Environment">Environment</A> section.
+
+<P>
+<SPAN  CLASS="textbf">Models</SPAN>
+
+<P>
+You can create one or more optimization models within an environment.
+A model consists of a set of variables, a linear, quadratic, or
+piecewise-linear objective function on those variables, and a set of
+constraints.  Each variable has an associated lower bound, upper
+bound, type (continuous, binary, integer, semi-continuous, or
+semi-integer), and linear objective coefficient.  Each linear
+constraint has an associated sense (less-than-or-equal,
+greater-than-or-equal, or equal), and right-hand side value.  Refer to
+<A HREF="variables_and_constraints_.html#sec:VarsConstraintsObjectives">this section</A> for more
+information on variables and constraints.
+
+<P>
+An optimization model may be specified all at once, through the
+<A HREF="c_loadmodel.html#routine:GRBloadmodel">GRBloadmodel</A> routine, or built
+incrementally, by first calling
+<A HREF="c_newmodel.html#routine:GRBnewmodel">GRBnewmodel</A> and then calling
+<A HREF="c_addvars.html#routine:GRBaddvars">GRBaddvars</A> to add variables and
+<A HREF="c_addconstr.html#routine:GRBaddconstr">GRBaddconstr</A>,
+<A HREF="c_addqconstr.html#routine:GRBaddqconstr">GRBaddqconstr</A>,
+<A HREF="c_addsos.html#routine:GRBaddsos">GRBaddsos</A>, or any of the
+<A HREF="c_agc_xxx.html#routine:GRBaddgenconstrXxx">GRBaddgenconstrXxx</A> methods to add
+constraints. Models are dynamic entities; you can always add or delete
+variables or constraints.
+
+<P>
+Specific variables and constraints are referred to throughout the
+Gurobi C interface using their indices.  Variable indices are assigned
+as variables are added to the model, in a contiguous fashion.  The
+same is true for constraints.  In adherence to C language conventions,
+indices all start at 0.
+
+<P>
+We often refer to the <EM>class</EM> of an optimization model.  A
+model with a linear objective function, linear constraints, and
+continuous variables is a <EM>Linear Program (LP)</EM>.  If the
+objective is quadratic, the model is a <EM>Quadratic Program
+(QP)</EM>.  If any of the constraints are quadratic, the model is a
+<EM>Quadratically-Constrained Program (QCP)</EM>.  We will
+sometimes refer to a few special cases of QCP:
+QCPs with convex constraints,
+QCPs with non-convex constraints,
+<EM>bilinear programs</EM>,
+and <EM>Second-Order Cone Programs (SOCP)</EM>.
+If the model contains any integer variables,
+semi-continuous variables, semi-integer variables, Special Ordered Set
+(SOS) constraints, or general constraints, the model is a
+<EM>Mixed Integer Program (MIP)</EM>.  We'll also sometimes discuss
+special cases of MIP, including <EM>Mixed Integer Linear Programs
+(MILP)</EM>, <EM>Mixed Integer Quadratic Programs (MIQP)</EM>,
+<EM>Mixed Integer Quadratically-Constrained Programs (MIQCP)</EM>, and
+<EM>Mixed Integer Second-Order Cone Programs (MISOCP)</EM>.  The
+Gurobi Optimizer handles all of these model classes.
+
+<P>
+<SPAN  CLASS="textbf">Solving a Model</SPAN>
+
+<P>
+Once you have built a model, you can call
+<A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A> to compute a solution.
+By default, <code>GRBoptimize()</code> will use the
+<A HREF="concurrent_optimizer.html#sec:Concurrent">concurrent optimizer</A>
+to solve LP models, the barrier algorithm to solve QP models
+with convex objectives and
+QCP models with convex constraints,
+and the branch-and-cut algorithm otherwise.
+The solution is stored as a set of
+<EM>attributes</EM> of the model.  The C interface contains an extensive
+set of routines for querying these attributes.
+
+<P>
+The Gurobi algorithms keep careful track of the state of the model,
+so calls to <code>GRBoptimize()</code> will only perform further
+optimization if relevant data has changed since the model was last
+optimized.  If you would like to discard previously computed solution
+information and restart the optimization from scratch without changing
+the model, you can call
+<A HREF="c_reset.html#routine:GRBreset">GRBreset</A>.
+
+<P>
+After a MIP model has been solved, you can call
+<A HREF="c_fixmodel.html#routine:GRBfixmodel">GRBfixmodel</A> to compute the
+associated <EM>fixed</EM> model.  This model is identical to the
+original, except that the integer variables are fixed to their values
+in the MIP solution.  If your model contains SOS constraints, some
+continuous variables that appear in these constraints may be fixed as
+well.  In some applications, it can be useful to compute information
+on this fixed model (e.g., dual variables, sensitivity information,
+etc.), although you should be careful in how you interpret this
+information.
+
+<P>
+<SPAN  CLASS="textbf">Multiple Solutions, Objectives, and Scenarios</SPAN>
+
+<P>
+By default, the Gurobi Optimizer assumes that your goal is to find one
+proven optimal solution to a single model with a single objective
+function.  Gurobi provides the following features that allow you to
+relax these assumptions:
+
+<UL>
+<LI><A HREF="solution_pool.html#sec:SolutionPool">Solution Pool</A>: Allows you to
+  find more solutions.
+</LI>
+<LI><A HREF="multiple_scenarios.html#sec:MultipleScenarios">Multiple Scenarios</A>: Allows
+  you to find solutions to multiple, related models.
+</LI>
+<LI><A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple Objectives</A>: Allows
+  you to specify multiple objective functions and control the
+  trade-off between them.
+</LI>
+</UL>
+
+<P>
+<SPAN  CLASS="textbf">Infeasible Models</SPAN>
+
+<P>
+You have a few options if a model is found to be infeasible.  You can
+try to diagnose the cause of the infeasibility, attempt to repair the
+infeasibility, or both.  To obtain information that can be useful for
+diagnosing the cause of an infeasibility, call
+<A HREF="c_computeiis.html#routine:GRBcomputeIIS">GRBcomputeIIS</A> to compute an
+Irreducible Inconsistent Subsystem (IIS).  This routine can be used
+for both continuous and MIP models, but you should be aware that the
+MIP version can be quite expensive.  This routine populates a set of
+IIS attributes.
+
+<P>
+To attempt to repair an infeasibility, call
+<A HREF="c_feasrelax.html#routine:GRBfeasrelax">GRBfeasrelax</A> to compute a
+feasibility relaxation for the model.  This relaxation allows you to
+find a solution that minimizes the magnitude of the constraint
+violation.
+
+<P>
+<SPAN  CLASS="textbf">Querying and Modifying Attributes</SPAN>
+
+<P>
+Most of the information associated with a Gurobi model is stored in a
+set of attributes.  Some attributes are associated with the variables
+of the model, some with the constraints of the model, and some with
+the model itself.  To give a simple example, solving an optimization
+model causes the <code>X</code> variable attribute to be populated.
+Attributes such as <code>X</code> that are computed by the Gurobi optimizer
+cannot be modified directly by the user, while others, such as the
+variable lower bound array (the <code>LB</code> attribute) can.
+
+<P>
+The Gurobi C interface contains an extensive set of routines for
+querying or modifying attribute values.  The exact routine to use for
+a particular attribute depends on the type of the attribute.  As
+mentioned earlier, attributes can be either variable attributes,
+constraint attributes, or model attributes.  Variable and constraint
+attributes are arrays, and use a set of array attribute routines.
+Model attributes are scalars, and use a set of scalar routines.
+Attribute values can additionally be of type <EM>char</EM>,
+<EM>int</EM>, <EM>double</EM>, or <EM>string</EM> (really <EM>char *</EM>).
+
+<P>
+Scalar model attributes are accessed through a set of
+<code>GRBget*attr()</code> routines (e.g.,
+<A HREF="c_getintattr.html#routine:GRBgetintattr">GRBgetintattr</A>).  In addition,
+those model attributes that can be set directly by the user (e.g., the
+objective sense) may be modified through the <code>GRBset*attr()</code>
+routines (e.g.,
+<A HREF="c_setdblattr.html#routine:GRBsetdblattr">GRBsetdblattr</A>).
+
+<P>
+Array attributes are accessed through three sets of routines.  The
+first set, the <code>GRBget*attrarray()</code> routines (e.g.,
+<A HREF="c_getcharattrarray.html#routine:GRBgetcharattrarray">GRBgetcharattrarray</A>)
+return a contiguous sub-array of the attribute array, specified using
+the index of the first member and the length of the desired sub-array.
+The second set, the <code>GRBget*attrelement()</code> routines (e.g.,
+<A HREF="c_getcharattrelement.html#routine:GRBgetcharattrelement">GRBgetcharattrelement</A>)
+return a single entry from the attribute array.  Finally, the
+<code>GRBget*attrlist()</code> routines (e.g.,
+<A HREF="c_getdblattrlist.html#routine:GRBgetdblattrlist">GRBgetdblattrlist</A>) retrieve
+attribute values for a list of indices.
+
+<P>
+Array attributes that can be set by the user are modified through the
+<code>GRBset*attrarray()</code>, <code>GRBset*attrelement()</code>, and
+<code>GRBset*attrlist()</code> routines.
+
+<P>
+The full list of Gurobi attributes can be found in the
+<A HREF="attributes.html#sec:Attributes">Attributes</A> section.
+
+<P>
+<SPAN  CLASS="textbf">Additional Model Modification Information</SPAN>
+
+<P>
+Most modifications to an existing model are done through the attribute
+interface (e.g., changes to variable bounds, constraint right-hand
+sides, etc.).  The main exceptions are modifications to the
+constraints themselves, and to the quadratic and piecewise-linear
+portions of the objective function.
+
+<P>
+The constraint matrix can be modified in a few ways.  The first is to
+call <A HREF="c_chgcoeffs.html#routine:GRBchgcoeffs">GRBchgcoeffs</A> to change
+individual matrix coefficients.  This routine can be used to modify
+the value of an existing non-zero, to set an existing non-zero to
+zero, or to create a new non-zero.  The constraint matrix is also
+modified when you remove constraints (through
+<A HREF="c_delconstrs.html#routine:GRBdelconstrs">GRBdelconstrs</A>) or variables
+(through <A HREF="c_delvars.html#routine:GRBdelvars">GRBdelvars</A>).  The non-zero
+values associated with the deleted constraints or variables are
+removed along with the constraints or variables themselves.
+
+<P>
+Quadratic objective terms are added to the objective function using the
+<A HREF="c_addqpterms.html#routine:GRBaddqpterms">GRBaddqpterms</A> routine.  You can
+add a list of quadratic terms in one call, or you can add terms
+incrementally through multiple calls.  The
+<A HREF="c_delq.html#routine:GRBdelq">GRBdelq</A> routine allows you to delete
+all quadratic terms from the model.  Note that quadratic models will
+typically have both quadratic and linear terms.  Linear terms are
+entered and modified through the <code>Obj</code> attribute, in the same
+way that they are handled for models with purely linear objective
+functions.
+
+<P>
+If your variables have piecewise-linear objectives, you can specify
+them using the <A HREF="c_setpwlobj.html#routine:GRBsetpwlobj">GRBsetpwlobj</A>
+routine.  Call this routine once for each relevant variable.  The
+Gurobi simplex solver includes algorithmic support for convex
+piecewise-linear objective functions, so for continuous models you
+should see a substantial performance benefit from using this feature.
+To clear a previously specified piecewise-linear objective function,
+simply set the <code>Obj</code> attribute on the corresponding variable to
+0.
+
+<P>
+<SPAN  CLASS="textbf">Lazy Updates</SPAN>
+
+<P>
+One important item to note about model modification in the Gurobi
+optimizer is that it is performed in a <EM>lazy</EM> fashion, meaning
+that modifications don't affect the model immediately.  Rather, they
+are queued and applied later.  If your program simply creates a model
+and solves it, you will probably never notice this behavior.  However,
+if you ask for information about the model before your modifications
+have been applied, the details of the lazy update approach may be
+relevant to you.
+
+<P>
+As we just noted, model modifications (bound changes, right-hand side
+changes, objective changes, etc.) are placed in a queue.  These queued
+modifications can be applied to the model in three different ways.
+The first is by an explicit call to
+<A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>.  The second is
+by a call to <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>.  The
+third is by a call to <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A> to
+write out the model.  The first case gives you fine-grained control
+over when modifications are applied.  The second and third make the
+assumption that you want all pending modifications to be applied
+before you optimize your model or write it to disk.
+
+<P>
+Why does the Gurobi interface behave in this manner?  There are a few
+reasons.  The first is that this approach makes it much easier to
+perform multiple modifications to a model, since the model remains
+unchanged between modifications.  The second is that processing model
+modifications can be expensive, particularly in a Compute Server
+environment, where modifications require communication between
+machines.  Thus, it is useful to have visibility into exactly when
+these modifications are applied.  In general, if your program needs to
+make multiple modifications to the model, you should aim to make them
+in phases, where you make a set of modifications, then update, then
+make more modifications, then update again, etc.  Updating after each
+individual modification can be extremely expensive.
+
+<P>
+If you forget to call update, your program won't crash.  Your query
+will simply return the value of the requested data from the point of
+the last update.  If the object you tried to query didn't exist then,
+you'll get an <SPAN  CLASS="texttt">INDEX_OUT_OF_RANGE</SPAN> error instead.
+
+<P>
+The semantics of lazy updates have changed since earlier Gurobi
+versions.  While the vast majority of programs are unaffected by this
+change, you can use the <A HREF="updatemode.html#parameter:UpdateMode">UpdateMode</A>
+parameter to revert to the earlier behavior if you run into an issue.
+
+<P>
+<SPAN  CLASS="textbf">Managing Parameters</SPAN>
+
+<P>
+The Gurobi optimizer provides a set of parameters that allow you to
+control many of the details of the optimization process.  Factors like
+feasibility and optimality tolerances, choices of algorithms,
+strategies for exploring the MIP search tree, etc., can be controlled
+by modifying Gurobi parameters before beginning the optimization.
+Parameters are set using the <code>GRBset*param()</code> routines (e.g.,
+<A HREF="c_setintparam.html#routine:GRBsetintparam">GRBsetintparam</A>).  Current
+values can be retrieved with the <code>GRBget*param()</code> routines
+(e.g., <A HREF="c_getdblparam.html#routine:GRBgetdblparam">GRBgetdblparam</A>).
+Parameters can be of type <EM>int</EM>, <EM>double</EM>, or <EM>char
+  *</EM> (string).  You can also read a set of parameter settings from a
+file using <A HREF="c_readparams.html#routine:GRBreadparams">GRBreadparams</A>, or
+write the set of changed parameters using
+<A HREF="c_writeparams.html#routine:GRBwriteparams">GRBwriteparams</A>.
+
+<P>
+We also include an automated parameter tuning tool that explores many
+different sets of parameter changes in order to find a set that
+improves performance.  You can call
+<A HREF="c_tunemodel.html#routine:GRBtunemodel">GRBtunemodel</A>
+to invoke the tuning tool on a model.
+Refer to the
+<A HREF="parameter_tuning_tool.html#sec:Tuning">parameter tuning tool</A>
+section for more information.
+
+<P>
+One thing we should note is that each model gets its own copy of the
+environment when it is created.  Parameter changes to the original
+environment therefore have no effect on existing models.  Use
+<A HREF="c_getenv.html#routine:GRBgetenv">GRBgetenv</A> to retrieve the
+environment associated with a particular model if you want to change a
+parameter for that model.
+
+<P>
+<SPAN  CLASS="textbf">Monitoring Progress - Logging and Callbacks</SPAN>
+
+<P>
+Progress of the optimization can be monitored through Gurobi logging.
+By default, Gurobi will send output to the screen.  A few simple
+controls are available for modifying the default logging behavior.  If
+you would like to direct output to a file as well as to the screen,
+specify the log file name in
+<A HREF="c_loadenv.html#routine:GRBloadenv">GRBloadenv</A> when you create your
+environment.  You can modify the
+<A HREF="logfile.html#parameter:LogFile">LogFile</A>
+parameter if you
+wish to redirect the log to a different file after creating the
+environment.  The frequency of logging output can be controlled with
+the
+<A HREF="displayinterval.html#parameter:DisplayInterval">DisplayInterval</A>
+parameter, and logging can be turned off
+entirely with the
+<A HREF="outputflag.html#parameter:OutputFlag">OutputFlag</A>
+parameter.  A detailed
+description of the Gurobi log file can be found in the
+<A HREF="logging.html#sec:Logging">Logging</A> section.
+
+<P>
+More detailed progress monitoring can be done through the Gurobi
+callback function.  The
+<A HREF="c_setcb_func.html#routine:GRBsetcallbackfunc">GRBsetcallbackfunc</A>
+routine allows you to install a function that the Gurobi optimizer
+will call regularly during the optimization process.  You can call
+<A HREF="c_cbget.html#routine:GRBcbget">GRBcbget</A> from within the callback
+to obtain additional information about the state of the optimization.
+
+<P>
+<SPAN  CLASS="textbf">Modifying Solver Behavior - Callbacks</SPAN>
+
+<P>
+Callbacks can also be used to modify the behavior of the Gurobi
+optimizer.  If you call routine
+<A HREF="c_terminate.html#routine:GRBterminate">GRBterminate</A> from within a
+callback, for example, the optimizer will terminate at the earliest
+convenient point.  Routine
+<A HREF="c_cbsolution.html#routine:GRBcbsolution">GRBcbsolution</A> allows you to
+inject a feasible solution (or partial solution) during the solution
+of a MIP model.  Routines <A HREF="c_cbcut.html#routine:GRBcbcut">GRBcbcut</A>
+and <A HREF="c_cblazy.html#routine:GRBcblazy">GRBcblazy</A>
+allow you to add <EM>cutting planes</EM> and <EM>lazy constraints</EM>
+during a MIP optimization, respectively.
+Routine
+<A HREF="c_cbstoponemultiobj.html#routine:GRBcbstoponemultiobj">GRBcbstoponemultiobj</A>
+allows you to interrupt the optimization process of one of the optimization steps in
+a multi-objective MIP problem without stopping the hierarchical
+optimization process.
+
+<P>
+<SPAN  CLASS="textbf">Batch Optimization</SPAN>
+
+<P>
+Gurobi Compute Server enables programs to offload
+  optimization computations onto dedicated servers.
+  The Gurobi Cluster Manager adds a number of additional
+  capabilities on top of this.  One important one,
+  <SPAN  CLASS="textit">batch optimization</SPAN>, allows you to build an
+  optimization model with your client program,
+  submit it to a Compute Server cluster (through the Cluster
+  Manager), and later check on the status of the model
+  and retrieve its solution.  You can use a
+  <A HREF="c_getbatch.html#routine:GRBgetbatch">Batch object</A> to make it easier to
+  work with batches.
+  For details on batches, please refer to the
+  <A HREF="batch_optimization.html#sec:BatchOptimization">Batch Optimization</A>
+  section.
+
+<P>
+<SPAN  CLASS="textbf">Error Handling</SPAN>
+
+<P>
+Most of the Gurobi C library routines return an integer error code.  A
+zero return value indicates that the routine completed successfully,
+while a non-zero value indicates that an error occurred.  The list of
+possible error return codes can be found in the <A HREF="error_codes.html#sec:ErrorCodes">Error
+  Codes</A> section.
+
+<P>
+When an error occurs, additional information on the error can be
+obtained by calling
+<A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_api_details.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_api_details.html">C API Details</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

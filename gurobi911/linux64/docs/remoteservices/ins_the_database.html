@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Installing the Database</TITLE>
+<META NAME="description" CONTENT="Installing the Database">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="cluster_manager_server__rs.html">
+<LINK REL="previous" HREF="ins_a_cluster_manager.html">
+<LINK REL="next" HREF="cluster_manager_server__rs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cluster_manager_server__rs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_manager_server__rs.html">Cluster Manager Server (grb_rsm)</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023100000000000000"></A>
+<A ID="sec:RSMDatabase"></A>
+<BR>
+Installing the Database
+</H3>
+
+<P>
+The Cluster Manager uses a MongoDB database to store the data
+associated with several important features: user profiles, API keys,
+job history, batch definitions, and batch data.  You will need to
+install version 4.0 or later.  MongoDB offers various configuration
+options, including clustering and encryption over the wire and at
+rest.  Please follow the steps as explained in the official
+<A ID="tex2html7"
+  HREF="https://docs.mongodb.com/manual/installation/">MongoDB
+  documentation</A>.  The
+installation steps are well explained for each platform.  When the
+installation is complete, the MongoDB daemon <TT>mongod</TT> should
+be running and ready for connections on port 27017 (the default).
+
+<P>
+One other option, if you want to avoid installing the database
+yourself, would be to sign up for a hosted solution in the Cloud.
+
+<P>
+Once MongDB is installed or provisioned in the Cloud, please make a
+note of the connection string (which is a
+<A ID="tex2html8"
+  HREF="https://docs.mongodb.com/manual/reference/connection-string/">URL</A>
+that will be provided to you during installation).
+We will need this URL to connect the Cluster Manager to the database.
+The URL has the following form.  You should of course substitute the
+MongoDB username and password that you chose when installing the
+database:
+
+<PRE>
+mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[database][?options]]
+</PRE>
+
+<P>
+If you have installed MongoDB on your personal machine for testing purposes,
+the connection string URL should be the following:
+
+<PRE>
+mongodb://localhost:27017
+</PRE>
+
+<P>
+You can check that your connection string is correct by using the mongo shell
+and providing the connection string as the first argument:
+
+<PRE>
+&gt; mongo mongodb://localhost:27017
+MongoDB shell version v4.0.4
+connecting to: mongodb://localhost:27017
+MongoDB server version: 4.0.4
+</PRE>
+
+<P>
+As noted earlier, you need to install version 4.0 or later. If you try
+an earlier version, you may see connection error messages like the
+following when you try to start the Cluster Manager:
+
+<P>
+
+<PRE>
+fatal : Failed to connect to database: server selection error: server selection timeout
+current topology: Type: Unknown
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cluster_manager_server__rs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_manager_server__rs.html">Cluster Manager Server (grb_rsm)</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>IsMultiObj</TITLE>
+<META NAME="description" CONTENT="IsMultiObj">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="iisminimal.html">
+<LINK REL="previous" HREF="isqcp.html">
+<LINK REL="next" HREF="iisminimal.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="iisminimal.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="isqcp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="iisminimal.html">IISMinimal</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="isqcp.html">IsQCP</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001713200000000000000"></A>
+<A ID="attr:IsMultiObj"></A>
+<BR>
+IsMultiObj
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">No</TD>
+</TR>
+</TABLE>
+
+<P>
+Indicates whether the model has multiple objectives.
+
+<P>
+Note that the case where the model has a single objective
+(<A HREF="numobj.html#attr:NumObj">NumObj</A> = 1) is slightly ambiguous.  If
+you used <code>setObjectiveN</code> to set your objective, or if you set any
+of the multi-objective attributes
+(e.g., <A HREF="objnpriority.html#attr:ObjNPriority">ObjNPriority</A>), then the model
+is considered to be a multi-objective model.  Otherwise, it is not.
+
+<P>
+To reset a multi-objective model back to a single objective model, you
+should set the <code>NumObj</code> attribute to 0, call model update, and then set a
+new single objective.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="iisminimal.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="isqcp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="iisminimal.html">IISMinimal</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="isqcp.html">IsQCP</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

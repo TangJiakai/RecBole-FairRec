@@ -1,0 +1,1195 @@
+\batchmode
+%
+\providecommand{\GRBcNUMBER}{\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces}%
+\providecommand{\GRBcVERSION}{\GRBcMAYOR.\GRBcMINOR.\GRBcTECHNICAL\ignorespaces}%
+\providecommand{\GRBcBPATHL}{{\ttfamily/opt/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /linux64}}%
+\providecommand{\GRBcRSPATHL}{\mbox{{\ttfamily/opt/gurobi\_server\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /linux64}}}%
+\providecommand{\GRBcRSPATHM}{{\ttfamily/Library/gurobi\_server\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /mac64}}%
+\providecommand{\GRBcRSPATHW}{{\ttfamily{c:/gurobi\_server\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /win64}}}%
+\providecommand{\GRBcBPATHM}{{\ttfamily/Library/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /mac64}}%
+\providecommand{\GRBcMPATHW}{{\ttfamily{c:/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /win64}}}%
+\providecommand{\GRBcBPATHW}{{\ttfamily{c:{\textbackslash}gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces {\textbackslash}win64}}}%
+\providecommand{\GRBcBPATHWW}{{\ttfamily{c:{\textbackslash}gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces {\textbackslash}win32}}}%
+\providecommand{\GRBcBPATHWF}{{\ttfamily{c:/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /win64}}}%
+\providecommand{\GRBcMPATH}{\GRBplatform{{\ttfamily/opt/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /linux64}}{{\ttfamily/Library/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /mac64}}{{\ttfamily{c:/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /win64}}}\ignorespaces}%
+\providecommand{\GRBcBPATH}{\GRBplatform{{\ttfamily/opt/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /linux64}}{{\ttfamily/Library/gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /mac64}}{{\ttfamily{c:{\textbackslash}gurobi\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces {\textbackslash}win64}}}\ignorespaces}%
+\providecommand{\GRBcCSPATHL}{{\ttfamily/opt/gurobi\_server\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /linux64}}%
+\providecommand{\GRBcCSPATHM}{{\ttfamily/Library/gurobi\_server\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /mac64}}%
+\providecommand{\GRBcCSPATHW}{{\ttfamily{c:/gurobi\_server\GRBcMAYOR\GRBcMINOR\GRBcTECHNICAL\ignorespaces /win64}}}%
+\providecommand{\GRBcDPATHL}{{\ttfamily/examples/data/}}%
+\providecommand{\GRBcDPATHM}{{\ttfamily/examples/data/}}%
+\providecommand{\GRBcDPATHW}{{\ttfamily{\textbackslash}examples{\textbackslash}data{\textbackslash}}}%
+\providecommand{\GRBcDPATH}{\GRBplatform{{\ttfamily/examples/data/}}{{\ttfamily/examples/data/}}{{\ttfamily{\textbackslash}examples{\textbackslash}data{\textbackslash}}}\ignorespaces}%
+\providecommand{\GRBcOS}{\GRBplatform{Linux}{Mac}{64-bit Windows}\ignorespaces}%
+\providecommand{\GRBcPlatform}{\GRBplatform{linux64}{mac64}{win64}\ignorespaces}%
+\providecommand{\tagformat}[1]{%
+  Tag for #1s.
+
+
+If you will be retrieving the solution to your
+  model in JSON format, you should define a tag for every #1 that you plan
+  to retrieve solution information for.  Each #1 tag must be unique,
+  and only tagged #1s will appear in the
+  \hyperref{JSON solution string}{}{}{format:JSON}.
+  Tags must consist of printable US-ASCII characters.  Using
+  extended characters or escaped characters will result in an
+  error. The maximum supported length for a tag is 10240 characters.} 
+
+%
+\providecommand{\EnvargPool}{%
+The machine pool.  Machine pools allow you to create fixed
+configurations on the Instant Cloud website (capturing things
+like type of machine, geographic region, etc.), and then launch
+and share machines from client programs without having to
+restart the configuration information each time you launch a
+machine.  May be \vurb{NULL} (or an empty string), in which case
+your job will be launched in the default pool associated with
+your cloud license.} 
+
+%
+\providecommand{\EnvargSecretKey}{%
+The secret key for your Gurobi Instant Cloud license.  This can
+be retrieved from the Gurobi Instant Cloud website.  When used in
+combination with your \vurb{accessID}, this allows you to launch
+Instant Cloud instances and submit jobs to them.  Note that you
+should keep your secret key private.} 
+
+%
+\providecommand{\EnvargAccessID}{%
+The access ID for your Gurobi Instant Cloud license.  This can be
+retrieved from the Gurobi Instant Cloud website.  When used in
+combination with your \vurb{secretKey}, this allows you to launch
+Instant Cloud instances and submit jobs to them.} 
+
+%
+\providecommand{\EnvargTlsInsecure}{%
+Indicates whether to use insecure mode in the TLS (Transport
+Layer Security).  Set this to 0 unless your server administrator
+tells you otherwise.} 
+
+%
+\providecommand{\EnvargGroup}{The name of the Compute Server group.} 
+
+%
+\providecommand{\EnvargPassword}{%
+The password for gaining access to the specified Compute Server
+cluster.  Pass an empty string if no password is required.} 
+
+%
+\providecommand{\EnvargComputeServer}{%
+A Compute Server.  You can refer to the server using its name or
+its IP address.  If you are using a non-default port, the server
+name should be followed by the port number (e.g.,
+\vurb{server1:61000})} 
+
+%
+\providecommand{\EnvargTimeout}{%
+Queue timeout (in seconds).  If the job doesn't reach the front of
+the queue before the specified timeout, the call will exit with a
+\vurb{JOB\_REJECTED} error.  Use -1 to indicate
+that the call should never timeout.} 
+
+%
+\providecommand{\EnvargRouter}{%
+The router for a Compute Server cluster.  A router can be used to
+improve the robustness of a Compute Server deployment.  You
+should refer to the router using either its name or its IP
+address.  If no router is used (which is the typical case), pass
+an empty string.} 
+
+%
+\providecommand{\EnvargPriorityCloud}{%
+The priority of the job.  Priorities must be between -100 and
+100, with a default value of 0 (by convention).  Higher priority
+jobs are chosen from the server job queue before lower priority
+jobs.} 
+
+%
+\providecommand{\EnvargPriorityCS}{%
+The priority of the job.  Priorities must be between -100 and
+100, with a default value of 0 (by convention).  Higher priority
+jobs are chosen from the server job queue before lower priority
+jobs.\ Depending on the configuration of the
+server, a job with priority 100 runs immediately, bypassing the
+job queue and ignoring the job limit on the server. You should
+exercise caution with priority 100 jobs, since they can severely
+overload a server, which can cause jobs to fail, and in extreme
+cases can cause the server to crash.  This behavior is managed by
+the {\ttfamily HARDJOBLIMIT}, and is disabled by default. Refer
+to the \htmladdnormallink{Gurobi Remote Services Reference
+Manual}{../remoteservices/remoteservices.html} for more
+information on starting Compute Server options.} 
+
+%
+\providecommand{\envreadprm}[1]{%
+This #1 will also check the current working directory for a file
+named {\ttfamily gurobi.env}, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in \hyperref{PRM}{}{}{format:PRM} format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).} 
+
+%
+\providecommand{\envreadlicparam}[1]{%
+This #1 will also populate any
+parameter ({\ttfamily ComputeServer}, {\ttfamily TokenServer},
+{\ttfamily ServerPassword}, etc.) specified in your {\ttfamily
+gurobi.lic} file.} 
+
+%
+\providecommand{\envrecommendeduse}{%
+In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.} 
+
+%
+\providecommand{\CbStopMultiobjStub}{%
+the optimization process of one of the optimization steps in
+a multi-objective MIP problem without stopping the hierarchical
+optimization process} 
+
+%
+\providecommand{\CbStopMultiobjDesc}[1]{%
+Interrupt the optimization process of one of the optimization steps in
+a multi-objective MIP problem without stopping the hierarchical
+optimization process.
+Only available for multi-objective MIP models and when the {\ttfamily
+where} member variable is not equal to {\ttfamily #1} (see the
+\hyperref{Callback Codes}{}{}{sec:CallbackCodes} section for more
+information).} 
+
+%
+\providecommand{\CbStopMultiobjUsage}{%
+You would typically stop a multi-objective optimization step
+by querying the last finished number of multi-objectives steps,
+and using that number to stop the current step and move
+on to the next hierarchical objective (if any) as shown in the
+following example:} 
+
+%
+\providecommand{\CbStopMultiobjMOS}{%
+You should refer to the section on \hyperref{Multiple
+Objectives}{}{}{sec:MultipleObjectives} for information on how to
+specify multiple objective functions and control the trade-off between
+them.} 
+
+%
+\providecommand{\CbStopMultiobjObjnumArg}{%
+\argument{objnum}{The number of the multi-objective optimization step
+to interrupt. For processes running locally, this argument can have the
+special value -1, meaning to stop the current step.}} 
+
+%
+\providecommand{\CbArgumentDetail}[2]{%
+\argument{#1}{The \vurb{#1} argument that was passed into the user
+callback by the Gurobi optimizer. This argument must be passed
+unmodified from the user callback to \vurb{#2()}.}} 
+
+%
+\providecommand{\EnvCreationDescNolic}[1]{%
+This #1 will also check the current working directory for a file
+named {\ttfamily gurobi.env}, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in \hyperref{PRM}{}{}{format:PRM} format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).
+
+
+ In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.} 
+
+%
+\providecommand{\EnvCreationDescStart}[1]{%
+This #1 will also populate any
+parameter ({\ttfamily ComputeServer}, {\ttfamily TokenServer},
+{\ttfamily ServerPassword}, etc.) specified in your {\ttfamily
+gurobi.lic} file.\ This #1 will also check the current working directory for a file
+named {\ttfamily gurobi.env}, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in \hyperref{PRM}{}{}{format:PRM} format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).
+After that, it will apply all parameter changes specified by the user
+prior to this call. Note that this might overwrite parameters set in
+the license file, or in the {\ttfamily gurobi.env} file, if present.
+
+
+After all these changes are performed, the code will actually
+activate the environment, and make it ready to work with models.
+
+
+ In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.} 
+
+%
+\providecommand{\EnvCreationDesc}[1]{%
+This #1 will also populate any
+parameter ({\ttfamily ComputeServer}, {\ttfamily TokenServer},
+{\ttfamily ServerPassword}, etc.) specified in your {\ttfamily
+gurobi.lic} file.\ This #1 will also check the current working directory for a file
+named {\ttfamily gurobi.env}, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in \hyperref{PRM}{}{}{format:PRM} format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).
+
+
+ In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.} 
+
+%
+\providecommand{\EmptyEnvDesc}[1]{%
+You should use #1 if you want to set parameters before actually
+starting the environment.  This can be useful if you want to
+connect to a Compute Server, a Token Server, the Gurobi
+Instant Cloud or a Cluster Manager. See the
+\hyperref{Environment}{}{}{sec:Environment}~Section for more details.} 
+
+%
+\providecommand{\GRBBatchOptimizationDesc}[5]{%
+  Gurobi Compute Server enables programs to offload
+  optimization computations onto dedicated servers.
+  The Gurobi Cluster Manager adds a number of additional
+  capabilities on top of this.  One important one,
+  \emph{batch optimization}, allows you to build an
+  optimization model with your client program,
+  submit it to a Compute Server cluster (through the Cluster
+  Manager), and later check on the status of the model
+  and retrieve its solution.  You can use a
+  \hyperref{Batch object}{}{}{#4} to make it easier to
+  work with batches.
+  For details on batches, please refer to the
+  \hyperref{Batch Optimization}{}{}{sec:BatchOptimization}
+  section.} 
+
+%
+\providecommand{\GrbMaxintNote}{%
+One important note about integer-valued parameters: while the maximum
+value that can be stored in a signed integer is $2^{31}-1$, we use a
+{\ttfamily MAXINT} value of 2,000,000,000.  Attempting to set an integer
+parameter to a value larger than this maximum will produce an error.} 
+
+%
+\providecommand{\GRBwarmstartwarning}{%
+Note that if you provide a valid starting extreme point, either through
+{\ttfamily \hyperref{PStart}{}{}{attr:PStart},
+\hyperref{DStart}{}{}{attr:DStart}}, or through {\ttfamily
+\hyperref{VBasis}{}{}{attr:VBasis}, \hyperref{CBasis}{}{}{attr:CBasis}},
+then LP presolve will be disabled. For models where presolve
+greatly reduces the problem size, this might hurt performance.} 
+
+%
+\providecommand{\Farkasdesc}{%
+Together, attributes \hyperref{FarkasDual}{}{}{attr:FarkasDual} and
+\hyperref{FarkasProof}{}{}{attr:FarkasProof} provide a certificate of
+infeasibility for the given problem.  Specifically, they can
+be used to form the following inequality from the original
+constraints that is trivially infeasible:
+
+
+\begin{center}$
+\bar{a}x = \lambda^tAx \leq \lambda^tb = -\beta + \sum\limits_{j:\bar{a}_j<0}\bar{a}_jU_j + \sum\limits_{j:\bar{a}_j>0}\bar{a}_jL_j,
+$\end{center}
+
+
+where $\beta>0$, $L_j$\  is the lower bound of variable $x_j$, $U_j$\  is the upper
+bound of variable $x_j$, $\lambda_i \geq 0$\  if the $i$-th constraint
+has a $\leq$\  sense, $\lambda_i \leq 0$\  if the $i$-th constraint has a
+$\geq$\  sense, $\bar{a}_j \geq 0$\  if $U_j =  \infty$, and $\bar{a}_j
+\leq 0$\  if $L_j = -\infty$.
+This constraint can not be satisfied for any $\beta>0$.
+The FarkasProof attribute provides $\beta$, and the FarkasDual attributes
+provide $\lambda$\  multipliers for the original constraints.
+
+
+This attribute is only available when parameter
+\hyperref{InfUnbdInfo}{}{}{parameter:InfUnbdInfo} is set to 1.
+} 
+
+%
+\providecommand{\pythonname}{%
+Note that \vurb{name} will be stored as an ASCII string. Thus, a name
+like {\ttfamily 'A${\rightarrow}$B'} will produce an error, because
+'${\rightarrow}$' can not be represented as an ASCII character. Note
+also that names that contain spaces are strongly discouraged,
+because they can't be written to LP format files.} 
+
+%
+\providecommand{\pythonnames}{%
+The given name will be subscripted by the index of the generator
+expression, so if the index is an integer, \vurb{c} would become
+\vurb{c[0]}, \vurb{c[1]}, etc.
+Note that the generated names will be stored as ASCII strings, so you
+should avoid using names that contain non-ASCII characters. In
+addition, names that contain spaces are strongly discouraged, because
+they can't be written to LP format files.} 
+
+%
+\providecommand{\getmultiobjenvdesc}{%
+Create/retrieve a multi-objective
+environment for the objective with the given index. This
+environment enables fine-grained control over the multi-objective
+optimization process. Specifically, by changing parameters on this
+environment, you modify the behavior of the optimization that
+occurs during the corresponding pass of the multi-objective
+optimization.
+
+
+Each multi-objective environment starts with a copy of the current
+model environment.
+
+
+Please refer to the discussion of
+\hyperref{Multiple Objectives}{}{}{sec:MultipleObjectives} for
+information on how to specify multiple objective functions and control
+the trade-off between them.} 
+
+%
+\providecommand{\discardmultiobjenvsdesc}{%
+Discard all multi-objective environments associated with the model,
+thus restoring multi objective optimization to its default behavior.
+
+
+Please refer to the discussion of
+\hyperref{Multiple Objectives}{}{}{sec:MultipleObjectives} for
+information on how to specify multiple objective functions and control
+the trade-off between them.} 
+
+%
+\providecommand{\pythonlazynote}{%
+ Note that, due to our lazy update approach, the change won't actually
+ take effect until you update the model
+ (using \hyperref{Model.update}{}{}{pythonmethod:Model.update}),
+ optimize the model
+ (using \hyperref{Model.optimize}{}{}{pythonmethod:Model.optimize}),
+ or write the model to disk
+ (using \hyperref{Model.write}{}{}{pythonmethod:Model.write}).} 
+
+%
+\providecommand{\dotnetlazynote}{%
+ Note that, due to our lazy update approach, the change won't actually
+ take effect until you update the model
+ (using \hyperref{GRBModel.Update}{}{}{dotnetmethod:GRBModel.Update}),
+ optimize the model
+ (using \hyperref{GRBModel.Optimize}{}{}{dotnetmethod:GRBModel.Optimize}),
+ or write the model to disk
+ (using \hyperref{GRBModel.Write}{}{}{dotnetmethod:GRBModel.Write}).} 
+
+%
+\providecommand{\javalazynote}{%
+ Note that, due to our lazy update approach, the change won't actually
+ take effect until you update the model
+ (using \hyperref{GRBModel.update}{}{}{javamethod:GRBModel.update}),
+ optimize the model
+ (using \hyperref{GRBModel.optimize}{}{}{javamethod:GRBModel.optimize}),
+ or write the model to disk
+ (using \hyperref{GRBModel.write}{}{}{javamethod:GRBModel.write}).} 
+
+%
+\providecommand{\cpplazynote}{%
+ Note that, due to our lazy update approach, the change won't actually
+ take effect until you update the model
+ (using \hyperref{GRBModel::update}{}{}{cppmethod:GRBModel::update}),
+ optimize the model
+ (using \hyperref{GRBModel::optimize}{}{}{cppmethod:GRBModel::optimize}),
+ or write the model to disk
+ (using \hyperref{GRBModel::write}{}{}{cppmethod:GRBModel::write}).} 
+
+%
+\providecommand{\clazynote}[2]{
+ Note that, due to our lazy update approach, the #1 won't actually be #2
+ until you update the model
+ (using \hyperref{GRBupdatemodel}{}{}{routine:GRBupdatemodel}),
+ optimize the model
+ (using \hyperref{GRBoptimize}{}{}{routine:GRBoptimize}),
+ or write the model to disk
+ (using \hyperref{GRBwrite}{}{}{routine:GRBwrite}).} 
+
+%
+\providecommand{\parameterpointer}{
+Please consult the \hyperref{parameter section}{}{}{sec:Parameters}
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.} 
+
+%
+\providecommand{\GCfunction}{
+A piecewise-linear approximation of the function is
+added to the model.  The details of the approximation are controlled
+using the following four attributes (or using the
+parameters with the same names):
+\hyperref{FuncPieces}{}{}{attr:FuncPieces},
+\hyperref{FuncPieceError}{}{}{attr:FuncPieceError},
+\hyperref{FuncPiecesLength}{}{}{attr:FuncPieceLength}, and
+\hyperref{FuncPieceRatio}{}{}{attr:FuncPieceRatio}.
+For details, consult the
+\hyperref{General Constraint}{}{}{subsubsection:GenConstrFunction}
+discussion.
+} 
+
+%
+\providecommand{\GCoptionstring}{
+A string that can be used to set the attributes that control
+the piecewise-linear approximation of this function constraint.
+To assign a value to an attribute, follow the attribute
+name with an equal sign and the desired value (with no spaces).
+Assignments for different attributes should be separated by spaces
+(e.g. "FuncPieces=-1 FuncPieceError=0.001").} 
+
+%
+\providecommand{\GCget}[1]{
+Retrieve the data associated with a general constraint of type #1.
+Calling this method for a general constraint of a different type
+leads to an exception.
+You can query the \hyperref{GenConstrType}{}{}{attr:GenConstrType}
+attribute to determine the type of the general constraint.} 
+
+%
+\providecommand{\GCgetC}[1]{
+Retrieve the data associated with a general constraint of type #1.
+Calling this method for a general constraint of a different type
+leads to an error return code.
+You can query the \hyperref{GenConstrType}{}{}{attr:GenConstrType}
+attribute to determine the type of the general constraint.} 
+
+%
+\providecommand{\MRlogicalvec}[1]{A logical vector that indicates whether a #1\ appears in the computed IIS.}%
+\providecommand{\MRspace}{\ }%
+\providecommand{\MRhlink}[3]{\htmladdnormallink{#1}{#2}}%
+\providecommand{\MRhrefH}[3]{\hyperref{#1}{}{}{#2}}%
+\providecommand{\MRrefremoteservices}{\htmladdnormallink{Gurobi Remote Services Reference Manual}{../remoteservices/remoteservices.html}}%
+\providecommand{\MRcode}[1]{{\ttfamily #1}}%
+\providecommand{\MRdescription}[1]{#1}%
+\providecommand{\MRdetail}{}%
+\providecommand{\MRdeqn}[2]{\begin{center}$#1$\end{center}}%Must be in one line for the Rd code to work%
+\providecommand{\MReqn}[2]{$#1$}%Must be in one line....%
+\providecommand{\MRendargs}{}%
+\providecommand{\MRenddetail}{}%
+\providecommand{\MRendheading}{}%
+\providecommand{\MRemph}[1]{{\em #1}}%
+\providecommand{\MRexample}[1]{{\ttfamily #1}}%
+\providecommand{\MRapi}{\MRalternative{MATLAB}{R}}%
+\providecommand{\MRapiR}{\MRalternative{MATLAB\GRBtextregistered}{R}}%
+\providecommand{\MRlang}{\MRalternative{matlab}{r}}%
+\providecommand{\MRext}{\MRalternative{m}{R}}%
+\providecommand{\MRarray}{\MRalternative{array}{list}}%
+\providecommand{\MRarrays}{\MRalternative{arrays}{of lists}}%
+\providecommand{\MRarraystructs}{\MRalternative{struct array}{list of lists}}%
+\providecommand{\MRassign}{\MRalternative{=}{<-}}%
+\providecommand{\MRcendl}{\MRalternative{;}{}}%
+\providecommand{\MRfalse}{\MRalternative{false}{False}}%
+\providecommand{\MRfield}{\MRalternative{field}{named component}}%
+\providecommand{\MRfields}{\MRalternative{fields}{named components}}%
+\providecommand{\MRfieldsep}{\MRalternative{.}{\$}}%
+\providecommand{\MRfieldsepstr}{\MRalternative{period}{dollar sign}}%
+\providecommand{\MRinitstruct}[1]{\MRalternative{}{#1 <- list()\\}}%
+\providecommand{\MRnan}{\MRalternative{nan}{NA}}%
+\providecommand{\MRnulldefault}{\MRalternative{}{=NULL}}%
+\providecommand{\MRpos}[1]{\MRalternative{(#1)}{[[#1]]}}%
+\providecommand{\MRrepone}[1]{\MRalternative{ones(#1,1)}{rep(1,#1)}}%
+\providecommand{\MRstringtype}{\MRalternative{cell array}{character vector}}%
+\providecommand{\MRsection}{\section}%
+\providecommand{\MRsubsection}{\subsection}%
+\providecommand{\MRsubsubsection}{\subsubsection}%
+\providecommand{\MRstruct}{\MRalternative{struct}{list}}%
+\providecommand{\MRstructs}{\MRalternative{structs}{lists}}%
+\providecommand{\MRtwoarray}[2]{\MRalternative{c(#1,#2)}{[#1\ #2]}}%
+\providecommand{\MRvpos}[1]{\MRalternative{(#1)}{[#1]}}%
+\providecommand{\MRmodelarg}{%
+\argument{model}{The model {\ttfamily\MRalternative{struct}{list}} must contain a valid Gurobi model.
+See the \MRhrefI{model}{\MRrefname:model}{gurobi_model}\ argument section
+for more information.}
+} 
+
+%
+\providecommand{\MRparamsarg}{%
+\argument{params}{The params {\ttfamily\MRalternative{struct}{list}}, when provided, contains a list of modified Gurobi parameters. See the
+\MRhrefI{params}{\MRrefname:params}{gurobi_params}\ argument section
+for more information.}
+} 
+
+%
+\providecommand{\MRenvarg}{%
+\argument{env}{The env {\ttfamily\MRalternative{struct}{list}}, when provided, allows you to
+use Gurobi Compute Server or Gurobi Instant Cloud. See the
+\MRhrefI{env}{\MRrefname:env}{gurobi_env}\ argument section
+for more information.}
+} 
+
+%
+\providecommand{\MRGCitem}[2]{\item[#2] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}#2}} 
+
+%
+\providecommand{\MRGCOitem}[2]{\item[#2 (optional)] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}#2}} 
+
+%
+\providecommand{\MRGCresvar}[1]{\item[resvar] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}resvar}. Index of the
+variable in the left-hand side of the constraint.} 
+
+%
+\providecommand{\MRGCindex}[1]{\item[vars] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}vars}, it is a vector of
+indices of variables in the right-hand side of the constraint.} 
+
+%
+\providecommand{\MRGCname}[2]{\item[name (optional)] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}name}. When present,
+specifies the name of the $i$-th #2\ general constraint.} 
+
+%
+\providecommand{\MRGCfuncxvar}[1]{\item[xvar] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}xvar}. Index of the
+variable in the right-hand side of the constraint.} 
+
+%
+\providecommand{\MRGCfuncyvar}[1]{\item[yvar] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}yvar}. Index of the
+variable in the left-hand side of the constraint.} 
+
+%
+\providecommand{\MRGCfuncname}[2]{\item[name (optional)] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}name}. When present,
+specifies the name of the $i$-th #2\ function constraint.} 
+
+%
+\providecommand{\MRGCfuncoptions}[2]{%
+  \item[funcpieces (optional)] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}funcpieces}. When present, specifies the
+  \hyperref{FuncPieces}{}{}{attr:FuncPieces} attribute of the $i$-th
+  #2\ function constraint.
+  \item[funcpiecelength (optional)] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}funcpiecelength}. When present, specifies the
+  \hyperref{FuncPieceLength}{}{}{attr:FuncPieceLength} attribute of the $i$-th
+  #2\ function constraint.
+  \item[funcpieceerror (optional)] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}funcpieceerror}. When present, specifies the
+  \hyperref{FuncPieceError}{}{}{attr:FuncPieceError} attribute of the $i$-th
+  #2\ function constraint.
+  \item[funcpieceratio (optional)] Specified via {\ttfamily
+model{\MRalternative{.}{\$}}#1{\MRalternative{(i)}{[[i]]}}{\MRalternative{.}{\$}}funcpieceratio}. When present, specifies the
+  \hyperref{FuncPieceRatio}{}{}{attr:FuncPieceRatio} attribute of the $i$-th
+  #2\ function constraint.
+} 
+
+%
+\providecommand{\GRBwriteDescription}[1]{%
+This #1~is the general entry point for writing optimization data
+to a file.  It can be used to write optimization models, solutions
+vectors, basis vectors, start vectors, or parameter settings.  The
+type of data written is determined by the file suffix.
+File formats are described in the
+\hyperref{File Format}{}{}{sec:FileFormats} section.
+
+
+Note that writing a model to a file will process all pending model
+modifications.  However, writing other model information (solutions,
+bases, etc.)  will not.
+
+
+Note also that when you write a Gurobi parameter file (PRM), both
+integer or double parameters not at their default value will be
+saved, but no string parameter will be saved into the file.
+} 
+
+%
+\providecommand{\GRBwriteFilenameArgument}[2]{%
+\argument{filename}{The name of the file to be written.  The file
+type is encoded in the file name suffix.  Valid suffixes are
+\vurb{.mps}, \vurb{.rew}, \vurb{.lp}, or \vurb{.rlp} for writing
+the model itself, \vurb{.ilp} for writing just the IIS associated
+with an infeasible model (see \hyperref{#1}{}{}{#2} for further
+information), \vurb{.sol} for writing the current solution,
+\vurb{.mst} for writing a start vector, \vurb{.hnt} for writing a
+hint file, \vurb{.bas} for writing an LP basis, \vurb{.prm}
+for writing modified parameter settings, \vurb{.attr} for writing
+model attributes, or \vurb{.json} for writing solution
+information in JSON format. If your system has compression
+utilities installed (e.g., {\ttfamily 7z} or {\ttfamily zip} for Windows,
+and {\ttfamily gzip}, {\ttfamily bzip2}, or {\ttfamily unzip} for
+Linux or Mac OS), then the files can be compressed, so additional
+suffixes of \vurb{.gz}, \vurb{.bz2}, or \vurb{.7z} are
+accepted.}} 
+
+%
+\providecommand{\GRBgetJSONSolutionDescription}[2]{%
+After a call to \hyperref{#1}{}{}{#2}, this method returns the
+resulting solution and related model attributes as a JSON
+string.  Please refer to the
+\hyperref{JSON solution format}{}{}{format:JSON} section for details.} 
+
+%
+\providecommand{\GRBoptimizebatchDescription}{%
+Submit a new batch request to the Cluster Manager.
+Returns the {\ttfamily BatchID} (a string), which
+uniquely identifies the job in the Cluster Manager and
+can be used to query the status of this request (from this
+program or from any other).  Once the request has completed,
+the \vurb{BatchID} can also be used to retrieve the associated
+solution.  To submit a batch request, you must tag at
+least one element of the model by setting one of the
+\hyperref{VTag}{}{}{attr:VTag}, \hyperref{CTag}{}{}{attr:CTag} or
+\hyperref{QCTag}{}{}{attr:QCTag} attributes. For more details on
+batch optimization, please refer to the \hyperref{Batch
+Optimization}{}{}{sec:BatchOptimization} section.
+
+
+Note that this routine will process all pending model modifications.} 
+
+%
+\providecommand{\GRBgetbatchDescription}[2]{%
+  Given a {\ttfamily BatchID}, as returned by {#1}, and a Gurobi
+  environment that can connect to the appropriate
+  Cluster Manager (i.e., one where parameters
+  \hyperref{CSManager}{}{}{parameter:CSManager},
+  \hyperref{UserName}{}{}{parameter:UserName}, and
+  \hyperref{ServerPassword}{}{}{parameter:ServerPassword}
+  have been set appropriately), this function returns a {#2}.
+  With it, you can query the current status
+  of the associated batch request and, once the batch request has
+  been processed, you can query its solution. Please refer to the
+  \hyperref{Batch Optimization}{}{}{sec:BatchOptimization} section for
+  details and examples.} 
+
+%
+\providecommand{\GRBabortbatchDescription}[1]{%
+This {#1}\ instructs the Cluster Manager to abort the processing of this
+batch request, changing its status to
+{\ttfamily ABORTED}.  Please refer to the \hyperref{Batch
+Status Codes}{}{}{sec:BatchStatusCodes} section for further details.} 
+
+%
+\providecommand{\GRBdiscardbatchDescription}[1]{%n
+This {#1}\ instructs the Cluster Manager to remove all information
+related to the batch request in question, including the stored
+solution if available. Further queries for the associated batch
+request will fail with error code {\ttfamily
+GRB\_ERROR\_DATA\_NOT\_AVAILABLE}. Use this function with
+care, as the removed information can not be recovered later on.} 
+
+%
+\providecommand{\GRBretrybatchDescription}[1]{%
+This {#1}\ instructs the Cluster Manager to retry optimization of a failed
+or aborted batch request, changing its status to
+{\ttfamily SUBMITTED}. Please refer to the \hyperref{Batch
+Status Codes}{}{}{sec:BatchStatusCodes} section for further details.} 
+
+%
+\providecommand{\GRBgetbatchjsonsolutionDescription}[1]{%
+This {#1}\ retrieves the solution of a
+completed batch request from a Cluster Manager. The solution is returned as a
+\hyperref{JSON solution string}{}{}{format:JSON}. For this call to
+succeed, the status of the batch request must be {\ttfamily COMPLETED}.
+Please refer to the \hyperref{Batch Status
+Codes}{}{}{sec:BatchStatusCodes} section for further details.} 
+
+%
+\providecommand{\GRBwritebatchjsonsolutionDescription}[1]{%
+This {#1}\ returns the stored solution of a completed
+batch request from a Cluster Manager. The solution is returned in
+a gzip-compressed JSON file. The file name you provide must end with a {\ttfamily
+.json.gz} extension. The JSON format is described in the
+\hyperref{JSON solution format}{}{}{format:JSON} section. Note that
+for this call to succeed, the status of the batch request must be
+{\ttfamily COMPLETED}. Please refer to the \hyperref{Batch
+Status Codes}{}{}{sec:BatchStatusCodes} section for further details.} 
+
+%
+\providecommand{\GRBupdatebatchDescription}[1]{%
+All Batch attribute values are cached locally, so queries
+return the value received during the last communication with the
+Cluster Manager.  This {#1}\ refreshes the values of all attributes with
+the values currently available in the Cluster Manager (which involves
+network communication).} 
+
+%
+\providecommand{\GRBbatchattrdetail}{%
+Note that all Batch attributes are cached locally, and are only
+updated when you create a client-side batch object or when you
+explicitly update this cache (by calling the appropriate
+{\ttfamily update} function -
+\hyperref{GRBupdatebatch}{}{}{routine:GRBupdatebatch} for {\bf C},
+\hyperref{update}{}{}{pythonmethod:Batch.update} for {\bf Python}, etc.).} 
+
+%
+\providecommand{\GRBcallbackWarning}{%
+Note that changing parameters from within a callback is not supported,
+doing so may lead to undefined behavior.
+} 
+
+%
+\providecommand{\GRBvarindexDescription}[1]{%
+This {#1}\ returns the current index, or order, of the variable in the
+underlying constraint matrix.
+
+
+\returnval{%
+-2: removed, -1: not in model, otherwise: index of the variable in the model
+}
+
+
+Note that the index of a variable may change after
+subsequent model modifications.} 
+
+%
+\providecommand{\GRBconstrindexDescription}[1]{%
+This {#1}\ returns the current index, or order, of the constraint in
+the underlying constraint matrix.
+
+
+Note that the index of a constraint may change after
+subsequent model modifications.
+
+
+\returnval{%
+-2: removed, -1: not in model, otherwise: index of the constraint in the model
+}
+} 
+
+%
+\providecommand{\GRBscaledimage}[1]{%
+\scalebox{1.0}{\includegraphics[width=4in]{refman_misc/#1.pdf}}} 
+
+%
+\providecommand{\GRBlogo}{%
+
+
+\scalebox{1.0}{\includegraphics[width=3in]{logo.png}}} 
+\documentclass{article}
+\RequirePackage{ifthen}
+
+
+\usepackage{html}
+\usepackage{graphicx}
+\usepackage{alltt}
+\usepackage{verbatim}
+\usepackage{fancyvrb}
+\usepackage{gurobidoc}
+
+%
+\providecommand{\heading}[1]{{\large \textbf{#1}}}%
+\providecommand{\subheading}[1]{\textbf{#1}}%
+\providecommand{\Verbatiminput}[1]{\verbatiminput{#1}} 
+
+
+
+
+\usepackage{xcolor}
+
+\usepackage[latin1]{inputenc}
+
+
+
+\makeatletter
+
+\makeatletter
+\count@=\the\catcode`\_ \catcode`\_=8 
+\newenvironment{tex2html_wrap}{}{}%
+\catcode`\<=12\catcode`\_=\count@
+\newcommand{\providedcommand}[1]{\expandafter\providecommand\csname #1\endcsname}%
+\newcommand{\renewedcommand}[1]{\expandafter\providecommand\csname #1\endcsname{}%
+  \expandafter\renewcommand\csname #1\endcsname}%
+\newcommand{\newedenvironment}[1]{\newenvironment{#1}{}{}\renewenvironment{#1}}%
+\let\newedcommand\renewedcommand
+\let\renewedenvironment\newedenvironment
+\makeatother
+\let\mathon=$
+\let\mathoff=$
+\ifx\AtBeginDocument\undefined \newcommand{\AtBeginDocument}[1]{}\fi
+\newbox\sizebox
+\setlength{\hoffset}{0pt}\setlength{\voffset}{0pt}
+\addtolength{\textheight}{\footskip}\setlength{\footskip}{0pt}
+\addtolength{\textheight}{\topmargin}\setlength{\topmargin}{0pt}
+\addtolength{\textheight}{\headheight}\setlength{\headheight}{0pt}
+\addtolength{\textheight}{\headsep}\setlength{\headsep}{0pt}
+\setlength{\textwidth}{349pt}
+\newwrite\lthtmlwrite
+\makeatletter
+\let\realnormalsize=\normalsize
+\global\topskip=2sp
+\def\preveqno{}\let\real@float=\@float \let\realend@float=\end@float
+\def\@float{\let\@savefreelist\@freelist\real@float}
+\def\liih@math{\ifmmode$\else\bad@math\fi}
+\def\end@float{\realend@float\global\let\@freelist\@savefreelist}
+\let\real@dbflt=\@dbflt \let\end@dblfloat=\end@float
+\let\@largefloatcheck=\relax
+\let\if@boxedmulticols=\iftrue
+\def\@dbflt{\let\@savefreelist\@freelist\real@dbflt}
+\def\adjustnormalsize{\def\normalsize{\mathsurround=0pt \realnormalsize
+ \parindent=0pt\abovedisplayskip=0pt\belowdisplayskip=0pt}%
+ \def\phantompar{\csname par\endcsname}\normalsize}%
+\def\lthtmltypeout#1{{\let\protect\string \immediate\write\lthtmlwrite{#1}}}%
+\usepackage[tightpage,active]{preview}
+\newbox\lthtmlPageBox
+\newdimen\lthtmlCropMarkHeight
+\newdimen\lthtmlCropMarkDepth
+\long\def\lthtmlTightVBox#1#2{%
+    \setbox\lthtmlPageBox\vbox{\hbox{\catcode`\_=8 #2}}%
+    \lthtmlCropMarkHeight=\ht\lthtmlPageBox \advance \lthtmlCropMarkHeight 6pt
+    \lthtmlCropMarkDepth=\dp\lthtmlPageBox
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkHeight:=\the\lthtmlCropMarkHeight}%
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkDepth:=\the\lthtmlCropMarkDepth:1ex:=\the \dimexpr 1ex}%
+    \begin{preview}\copy\lthtmlPageBox\end{preview}}}%
+\long\def\lthtmlTightFBox#1#2{%
+    \adjustnormalsize\setbox\lthtmlPageBox=\vbox\bgroup %
+    \let\ifinner=\iffalse \let\)\liih@math %
+    {\catcode`\_=8 #2}%
+    \@next\next\@currlist{}{\def\next{\voidb@x}}%
+    \expandafter\box\next\egroup %
+    \lthtmlCropMarkHeight=\ht\lthtmlPageBox \advance \lthtmlCropMarkHeight 6pt
+    \lthtmlCropMarkDepth=\dp\lthtmlPageBox
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkHeight:=\the\lthtmlCropMarkHeight}%
+    \lthtmltypeout{^^J:#1:lthtmlCropMarkDepth:=\the\lthtmlCropMarkDepth:1ex:=\the \dimexpr 1ex}%
+    \begin{preview}\copy\lthtmlPageBox\end{preview}}%
+    \long\def\lthtmlinlinemathA#1#2\lthtmlindisplaymathZ{\lthtmlTightVBox{#1}{#2}}
+    \def\lthtmlinlineA#1#2\lthtmlinlineZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmldisplayA#1#2\lthtmldisplayZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmlinlinemathA#1#2\lthtmlindisplaymathZ{\lthtmlTightVBox{#1}{#2}}
+    \def\lthtmlinlineA#1#2\lthtmlinlineZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmldisplayA#1#2\lthtmldisplayZ{\lthtmlTightVBox{#1}{#2}}
+    \long\def\lthtmldisplayB#1#2\lthtmldisplayZ{\\edef\preveqno{(\theequation)}%
+        \lthtmlTightVBox{#1}{\let\@eqnnum\relax#2}}
+    \long\def\lthtmlfigureA#1#2\lthtmlfigureZ{\let\@savefreelist\@freelist
+        \lthtmlTightFBox{#1}{#2}\global\let\@freelist\@savefreelist}
+    \long\def\lthtmlpictureA#1#2\lthtmlpictureZ{\let\@savefreelist\@freelist
+        \lthtmlTightVBox{#1}{#2}\global\let\@freelist\@savefreelist}
+\def\lthtmlcheckvsize{\ifdim\ht\sizebox<\vsize 
+  \ifdim\wd\sizebox<\hsize\expandafter\hfill\fi \expandafter\vfill
+  \else\expandafter\vss\fi}%
+\providecommand{\selectlanguage}[1]{}%
+\makeatletter \tracingstats = 1 
+
+
+\begin{document}
+\pagestyle{empty}\thispagestyle{empty}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength hsize=\the\hsize}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength vsize=\the\vsize}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength hoffset=\the\hoffset}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength voffset=\the\voffset}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength topmargin=\the\topmargin}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength topskip=\the\topskip}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength headheight=\the\headheight}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength headsep=\the\headsep}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength parskip=\the\parskip}\lthtmltypeout{}%
+\lthtmltypeout{latex2htmlLength oddsidemargin=\the\oddsidemargin}\lthtmltypeout{}%
+\makeatletter
+\if@twoside\lthtmltypeout{latex2htmlLength evensidemargin=\the\evensidemargin}%
+\else\lthtmltypeout{latex2htmlLength evensidemargin=\the\oddsidemargin}\fi%
+\lthtmltypeout{}%
+\makeatother
+\setcounter{page}{1}
+\onecolumn
+
+% !!! IMAGES START HERE !!!
+
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap1618}%
+\scalebox{1.0}{\includegraphics[width=3in]{logo.png}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+
+%
+\providecommand{\RSdefaultLocation}{%
+\begin{itemize}
+\item {\ttfamily C:{\textbackslash}gurobi{\textbackslash}} on Windows
+\item {\ttfamily /opt/gurobi/}  on Linux
+\item  {\ttfamily /Library/gurobi/}  on Mac OS
+\item The user's home directory
+\end{itemize}
+You can also set the environment variable {\ttfamily GRB\_LICENSE\_FILE} to
+point to this file.}%
+
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2046}%
+\scalebox{1.0}{\includegraphics[width=4in]{graphics/csgraphics/compute_server}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2052}%
+\scalebox{1.0}{\includegraphics[width=6in]{graphics/csgraphics/cluster_manager}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2064}%
+\scalebox{1.0}{\includegraphics[width=8in]{graphics/csapi}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2078}%
+\scalebox{1.0}{\includegraphics[width=4in]{graphics/cs_queue}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2088}%
+\scalebox{1.0}{\includegraphics[width=6in]{graphics/csgraphics/jobs}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2120}%
+\scalebox{1.0}{\includegraphics[width=6in]{graphics/csgraphics/csmanager_multiple}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2200}%
+\scalebox{1.0}{\includegraphics[width=7.5in]{graphics/csgraphics/csmanager_scalable}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap2210}%
+\scalebox{1.0}{\includegraphics[width=4in]{graphics/csgraphics/cscluster}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap3444}%
+\scalebox{1.0}{\includegraphics[width=10in]{graphics/download}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap6086}%
+\scalebox{1.0}{\includegraphics[width=2.5in]{graphics/distributed2}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+{\newpage\clearpage
+\lthtmlpictureA{tex2html_wrap6092}%
+\scalebox{1.0}{\includegraphics[width=3in]{graphics/distributed}}%
+\lthtmlpictureZ
+\lthtmlcheckvsize\clearpage}
+
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{subsubsection}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\stepcounter{subsection}
+\appendix
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+\stepcounter{section}
+
+\end{document}

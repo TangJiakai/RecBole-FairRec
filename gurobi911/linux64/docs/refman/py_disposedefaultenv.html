@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>disposeDefaultEnv()</TITLE>
+<META NAME="description" CONTENT="disposeDefaultEnv()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_multidict.html">
+<LINK REL="previous" HREF="py_models.html">
+<LINK REL="next" HREF="py_multidict.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_multidict.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_global_functions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_models.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_multidict.html">multidict()</A>
+<B> Up:</B> <A
+ HREF="py_global_functions.html">Global Functions</A>
+<B> Previous:</B> <A
+ HREF="py_models.html">models()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000101200000000000000"></A>
+<A ID="pythonmethod:disposeDefaultEnv"></A>
+<BR>
+disposeDefaultEnv()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">disposeDefaultEnv</SPAN></FONT></SPAN> (  )
+
+
+<P>
+Dispose of the default environment.
+
+<P>
+Calling this function releases the default environment created by the
+Gurobi Python module. This function is particularly useful in a
+long-running Python session (e.g., within a Jupyter notebook), where
+the Gurobi environment would otherwise continue to exist for the full
+duration of the session.
+
+<P>
+Note that models built with the default environment must be garbage
+collected before the default environment can be freed. You can force a
+model <code>m</code> to be garbage collected with the statement <code>del m</code>.
+If no references to the default environment remain,
+<code>disposeDefaultEnv</code> prints the message
+<PRE>
+Freed default Gurobi environment
+</PRE>
+to confirm it was able to dispose of the default environment.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+disposeDefaultEnv()
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_multidict.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_global_functions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_models.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_multidict.html">multidict()</A>
+<B> Up:</B> <A
+ HREF="py_global_functions.html">Global Functions</A>
+<B> Previous:</B> <A
+ HREF="py_models.html">models()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

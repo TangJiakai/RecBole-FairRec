@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Starting a Cluster Node as a Process</TITLE>
+<META NAME="description" CONTENT="Starting a Cluster Node as a Process">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="sta_a_cluster_node_as_a_se.html">
+<LINK REL="previous" HREF="configuring_a_cluster_node.html">
+<LINK REL="next" HREF="sta_a_cluster_node_as_a_se.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sta_a_cluster_node_as_a_se.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuring_a_cluster_node.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_a_cluster_node_as_a_se.html">Starting a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="configuring_a_cluster_node.html">Configuring a Cluster Node</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00024400000000000000"></A>
+<A ID="sec:RSMNodeStartProcess"></A>
+<BR>
+Starting a Cluster Node as a Process
+</H3>
+
+<P>
+Once you have installed the Remote Services package (including retrieving
+and installing your license file and, for Linux users, setting your <TT>PATH</TT> variable),
+starting <TT>grb_rs</TT> as a standard process is quite straightforward.
+From a terminal window with administrator privileges, simply issue the following command:
+
+<PRE>
+&gt; grb_rs
+</PRE>
+
+<P>
+If you are using a Cluster Manager and you did not set the <TT>MANAGER</TT>
+configuration property you can specify it on the command-line:
+
+<PRE>
+&gt; grb_rs --manager=http://mymanager:61080
+</PRE>
+
+<P>
+Both commands will start the Remote Services agent on the default port
+(port 80), and you should see output like the following:
+
+<P>
+
+<TT>info  : Reading configuration file: /home/jones/gurobi_server910/linux64/bin/grb_rs.cnf
+<BR>
+info  : Gurobi Remote Services starting...
+<BR>
+info  : Platform is linux
+<BR>
+info  : Version is 9.1.0 (build v9.1.0rc0)
+<BR>
+info  : Variable GRB_LICENSE_FILE is not set
+<BR>
+info  : License file found at /home/jones/gurobi.lic
+<BR>
+info  : Node address is server1
+<BR>
+info  : Node FQN is server1
+<BR>
+info  : Node has 8 cores
+<BR>
+info  : Using data directory /home/jones/gurobi_server910/linux64/bin/data
+<BR>
+info  : Data store created
+<BR>
+info  : Available runtimes: [... 9.1.0]
+<BR>
+info  : Public root is /home/jones/gurobi_server910/linux64/resources/grb_rs/public
+<BR>
+info  : Starting API server (HTTP) on port 80...
+<BR></TT>
+
+<P>
+If you do not have administrator privileges or if the default port is
+already in use, you will see an error about opening the port.  For
+example, on Linux you might see an error like this:
+
+<PRE>
+fatal : Gurobi Remote Services terminated, listen tcp :80: bind: permission denied
+</PRE>
+or
+
+<PRE>
+fatal : Gurobi Remote Services terminated, listen tcp :80: bind: address already in use
+</PRE>
+Note that <TT>grb_rs</TT> does not have to be run with elevated
+privileges, but it does need elevated privileges to use the default
+port 80.
+
+<P>
+If you would like to run <TT>grb_rs</TT> on a non-default port, use the
+<TT>--port</TT> flag or set the <TT>PORT</TT> property in the
+configuration file.  For example:
+
+<PRE>
+&gt; grb_rs --manager=http://mymanager:61080 --port=61000
+</PRE>
+
+<P>
+The Remote Services agent (<TT>grb_rs</TT>) needs a directory to
+store various files, including the runtimes, job metadata, job log
+files, etc. The default location is a directory named <TT>  data</TT>, located in the same directory as the <TT>grb_rs</TT>
+executable (<TT>&lt;installdir&gt;/bin/data</TT>).  If you have a
+directory named <TT>data</TT> in your current directory, it will
+use that location instead.
+
+<P>
+If starting
+<TT>grb_rs</TT> produces an error message that indicates that there was
+a problem creating the storage service (as shown below), a likely
+cause is that another <TT>grb_rs</TT> process is already running.
+
+<PRE>
+fatal : Error creating storage service: Error opening data store: timeout
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sta_a_cluster_node_as_a_se.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuring_a_cluster_node.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_a_cluster_node_as_a_se.html">Starting a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="configuring_a_cluster_node.html">Configuring a Cluster Node</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

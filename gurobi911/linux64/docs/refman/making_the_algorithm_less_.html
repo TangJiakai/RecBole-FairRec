@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Making the algorithm less sensitive</TITLE>
+<META NAME="description" CONTENT="Making the algorithm less sensitive">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="choosing_the_right_algorit.html">
+<LINK REL="next" HREF="instability_and_the_geomet.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="instability_and_the_geomet.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solver_parameters_to_manag.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="choosing_the_right_algorit.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="instability_and_the_geomet.html">Instability and the geometry</A>
+<B> Up:</B> <A
+ HREF="solver_parameters_to_manag.html">Solver parameters to manage</A>
+<B> Previous:</B> <A
+ HREF="choosing_the_right_algorit.html">Choosing the right algorithm</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000345300000000000000">
+Making the algorithm less sensitive</A>
+</H3>
+
+<P>
+When all else fails, try the following parameters to make the
+algorithms more robust:
+<BR>
+<P>
+<DL>
+<DT><STRONG><TT>ScaleFlag, ObjScale</TT> (All models)</STRONG></DT>
+<DD>It is always best to reformulate a model yourself. However, for cases
+when that is not possible, these two parameters provide some of the
+same benefits. Set <TT>ScaleFlag=2</TT> for aggressive scaling of
+the coefficient matrix. <TT>ObjScale</TT> rescales the objective
+row; a negative value will use the largest
+objective coefficient to choose the scaling. For example, <TT>ObjScale=-0.5</TT> will divide all objective coefficients by the square
+root of the largest objective coefficient.
+
+<P>
+</DD>
+<DT><STRONG><TT>NumericFocus</TT> (All models)</STRONG></DT>
+<DD>The <TT>  NumericFocus</TT> parameter controls how the solver manages numerical
+  issues. Settings 1-3 increasingly shift the focus towards more care
+  in numerical computations, which can impact performance.  The
+  <TT>NumericFocus</TT> parameter employs a number of strategies to
+  improve numerical behavior, including the use of quad precision and
+  a tighter <TT>Markowitz</TT> tolerance.  It is generally
+  sufficient to try different values of <TT>    NumericFocus</TT>. However, when <TT>NumericFocus</TT> helps
+  numerics but makes everything much slower, you can try setting
+  <TT>Quad=1</TT> and/or larger values of <TT>MarkowitzTol</TT>
+  such as 0.1 or 0.5.
+
+<P>
+</DD>
+<DT><STRONG><TT>NormAdjust</TT> (Simplex)</STRONG></DT>
+<DD>In some cases, the solver can be more robust with different values of
+the simplex pricing norm. Try setting <TT>NormAdjust</TT> to 0, 1,
+2 or 3.
+
+<P>
+</DD>
+<DT><STRONG><TT>BarHomogeneous</TT> (Barrier)</STRONG></DT>
+<DD>For models that are infeasible or unbounded, the default barrier
+algorithm may have numerical issues. Try setting <TT>BarHomogeneous=1</TT>.
+
+<P>
+</DD>
+<DT><STRONG><TT>CrossoverBasis</TT> (Barrier)</STRONG></DT>
+<DD>Setting <TT>CrossoverBasis=1</TT> takes more time but can be more robust when creating
+the initial crossover basis.
+
+<P>
+</DD>
+<DT><STRONG><TT>GomoryPasses</TT> (MIP)</STRONG></DT>
+<DD>In some MIP models, Gomory cuts can contribute to numerical issues.
+Setting <TT>GomoryPasses=0</TT> may help numerics, but it may make the MIP
+more difficult to solve.
+
+<P>
+</DD>
+<DT><STRONG><TT>Cuts</TT> (MIP)</STRONG></DT>
+<DD>In some MIP models, various cuts can contribute to numerical issues.
+Setting <TT>Cuts=1</TT> or <TT>Cuts=0</TT> may help numerics,
+but it may make the MIP more difficult to solve.
+</DD>
+</DL>
+Tolerance values (<TT>FeasibilityTol, OptimalityTol,
+IntFeasTol</TT>) are generally not helpful for addressing numerical
+issues. Numerical issues are better handled through model
+model reformulation.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="instability_and_the_geomet.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solver_parameters_to_manag.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="choosing_the_right_algorit.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="instability_and_the_geomet.html">Instability and the geometry</A>
+<B> Up:</B> <A
+ HREF="solver_parameters_to_manag.html">Solver parameters to manage</A>
+<B> Previous:</B> <A
+ HREF="choosing_the_right_algorit.html">Choosing the right algorithm</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

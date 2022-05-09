@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>quicksum()</TITLE>
+<META NAME="description" CONTENT="quicksum()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_read.html">
+<LINK REL="previous" HREF="py_paramhelp.html">
+<LINK REL="next" HREF="py_read.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_read.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_global_functions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_paramhelp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_read.html">read()</A>
+<B> Up:</B> <A
+ HREF="py_global_functions.html">Global Functions</A>
+<B> Previous:</B> <A
+ HREF="py_paramhelp.html">paramHelp()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000101500000000000000"></A>
+<A ID="pythonmethod:quicksum"></A>
+<BR>
+quicksum()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">quicksum</SPAN></FONT></SPAN> ( data )
+
+
+<P>
+A version of the Python <code>sum</code> function that is much more
+efficient for building large Gurobi expressions
+(<A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A> or
+<A HREF="py_qex.html#pythonclass:QuadExpr">QuadExpr</A> objects).  The function
+takes a list of terms as its argument.
+
+<P>
+Note that while <code>quicksum</code> is much faster than <code>sum</code>, it
+isn't the fastest approach for building a large expression.  Use
+<A HREF="py_lex_addterms.html#pythonmethod:LinExpr.addTerms">addTerms</A> or the
+<A HREF="py_lex2.html#pythonmethod:LinExpr">LinExpr()</A> constructor if you want
+the quickest possible expression construction.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">data</SPAN>: List of terms to add.  The terms can be constants,
+                <A HREF="py_var.html#pythonclass:Var">Var</A> objects,
+                <A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A> objects, or
+                 <A HREF="py_qex.html#pythonclass:QuadExpr">QuadExpr</A> objects.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+An expression that represents the sum of the terms
+                   in the input list.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  expr = quicksum([2*x, 3*y+1, 4*z*z])
+  expr = quicksum(model.getVars())
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_read.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_global_functions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_paramhelp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_read.html">read()</A>
+<B> Up:</B> <A
+ HREF="py_global_functions.html">Global Functions</A>
+<B> Previous:</B> <A
+ HREF="py_paramhelp.html">paramHelp()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

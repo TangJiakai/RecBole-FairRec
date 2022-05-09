@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Deleting a File from the Repository</TITLE>
+<META NAME="description" CONTENT="Deleting a File from the Repository">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="using_a_file_from_the_repo.html">
+<LINK REL="next" HREF="node_commands.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_a_file_from_the_repo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Up:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Previous:</B> <A
+ HREF="using_a_file_from_the_repo.html">Using a File from</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00034300000000000000"></A>
+<A ID="sec:grbclusterRepoDelete"></A>
+<BR>
+Deleting a File from the Repository
+</H3>
+
+<P>
+You can delete a file from the repository once you are done with it,
+but only if no batch is referencing it.  If the file is still in use,
+you will be notified as in the following example:
+
+<PRE>
+grbcluster repo delete @training/glass4.mps
+fatal : Object is in use by [7fe26af5-fbec-4e23-ad58-9ab4539f98f3]
+</PRE>
+
+<P>
+The file may still be in use because a batch is running, or because
+the client did not yet download the results and discard the batch.
+Once there are no more references, the file will be deleted and you
+can check the container again:
+
+<PRE>
+&gt; grbcluster repo delete @training/glass4.mps
+&gt; grbcluster repo list --container=training
+ID CONTAINER NAME CREATED             SIZE USER USERID
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_a_file_from_the_repo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Up:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Previous:</B> <A
+ HREF="using_a_file_from_the_repo.html">Using a File from</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

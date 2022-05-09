@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Reporting results - attributes</TITLE>
+<META NAME="description" CONTENT="Reporting results - attributes">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_error_handling3.html">
+<LINK REL="previous" HREF="cs_optimizing_the_model3.html">
+<LINK REL="next" HREF="cs_error_handling3.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_error_handling3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_matrix_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_optimizing_the_model3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_error_handling3.html">Error handling</A>
+<B> Up:</B> <A
+ HREF="cs_python_matrix_example.html">Python Matrix Example</A>
+<B> Previous:</B> <A
+ HREF="cs_optimizing_the_model3.html">Optimizing the model</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000115800000000000000">
+Reporting results - attributes</A>
+</H3>
+
+<P>
+Once the optimization is complete, we can query the values of the
+attributes.  In particular, we can query the <code>X</code>
+variable attributes to obtain the solution value for each
+variable:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    print(x.X)
+</PRE>
+
+<P>
+We can also query the <code>objVal</code> attribute on the model
+to obtain the objective value for the current solution:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    print('Obj: %g' % m.objVal)
+</PRE>
+
+<P>
+The names and types of all model, variable, and constraint attributes
+can be found in the online Python documentation.  Type
+<code>help(GRB.Attr)</code> in the Gurobi Shell for details.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_error_handling3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_matrix_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_optimizing_the_model3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_error_handling3.html">Error handling</A>
+<B> Up:</B> <A
+ HREF="cs_python_matrix_example.html">Python Matrix Example</A>
+<B> Previous:</B> <A
+ HREF="cs_optimizing_the_model3.html">Optimizing the model</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

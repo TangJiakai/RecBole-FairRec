@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Remote Services Agent (grb_rs)</TITLE>
+<META NAME="description" CONTENT="Remote Services Agent (grb_rs)">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="configuring_a_cluster_node.html">
+<LINK REL="previous" HREF="licensing.html">
+<LINK REL="next" HREF="configuring_a_cluster_node.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="configuring_a_cluster_node.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="licensing.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuring_a_cluster_node.html">Configuring a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="licensing.html">Licensing</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00024200000000000000"></A>
+<A ID="sec:RSMNodeAgent"></A>
+<BR>
+Remote Services Agent (grb_rs)
+</H3>
+
+<P>
+To form a Remote Services cluster, you need to run the <EM>Remote
+  Services agent</EM> (<TT>grb_rs</TT>) on all of the nodes that make up the
+cluster.  These agents communicate amongst themselves, and also with
+the Cluster Manager or the clients.
+
+<P>
+The primary task of the Remote Services agents is to collectively
+manage the queueing and the execution of jobs.  The agents work
+together to balance the load by assigning a new job to the node
+with the fewest running jobs whenever possible.
+If all nodes are at capacity, newly
+submitted jobs will be queued, and the first node with available
+capacity will later execute the job.  If a new node is added to the
+cluster, it will immediately start processing queued jobs.
+
+<P>
+The <TT>grb_rs</TT> executable provides several commands and flags to help
+in the configuration and execution of the agent.  We will review these
+commands step by step in the following sections.  You can see the full
+list of commands in the <A HREF="appendix_a_rs.html#sec:RSMNodeAgentRef">reference
+  section</A> or by using the command-line help:
+
+<PRE>
+&gt; grb_rs --help
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="configuring_a_cluster_node.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="licensing.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuring_a_cluster_node.html">Configuring a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="licensing.html">Licensing</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

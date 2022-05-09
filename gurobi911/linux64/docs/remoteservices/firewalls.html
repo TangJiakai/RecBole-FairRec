@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Firewalls</TITLE>
+<META NAME="description" CONTENT="Firewalls">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="using_a_router_without_a_c.html">
+<LINK REL="previous" HREF="using_https_with_self_sign.html">
+<LINK REL="next" HREF="using_a_router_without_a_c.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="using_a_router_without_a_c.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_https_with_self_sign.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_a_router_without_a_c.html">Using a Router without</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="using_https_with_self_sign.html">Using HTTPS with Self-Signed</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00026300000000000000"></A>
+<A ID="sec:RSMFirewalls"></A>
+<BR>
+Firewalls
+</H3>
+
+<P>
+When a Cluster Manager is used, clients communicate with the Cluster Manager only.
+The Cluster Manager then communicates with the cluster nodes.
+If there is a firewall between the clients and the Cluster Manager,
+the port used by the Cluster Manager will have to be open. The default port
+is 61080 but you can choose an arbitrary port through the <TT>PORT</TT>
+configuration property.
+
+<P>
+In a self-managed cluster, clients communicate directly with the nodes.
+They use port 80 for HTTP or 443 for HTTPS by default,
+but you can choose an arbitrary port through the <TT>PORT</TT>
+configuration property. If there is a firewall between the clients and the nodes of the
+cluster, the chosen port will have to be open. In this case, another option
+is to set up a <A HREF="using_a_router_without_a_c.html#sec:Router">Gurobi Router</A>.
+
+<P>
+The command-line tools and the libraries are also
+compatible with standard proxy settings using environment
+variables <TT>HTTP_PROXY</TT> and <TT>HTTPS_PROXY</TT>. <TT>HTTPS_PROXY</TT> takes precedence over
+<TT>HTTP_PROXY</TT> for https requests. The values may be either a complete URL or
+a <TT>host[:port]</TT>, in which case the <TT>http</TT> scheme is assumed.
+
+<P>
+If you face connectivity issues with firewalls or proxy servers, we suggest you share
+this section with your network administrator.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="using_a_router_without_a_c.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_https_with_self_sign.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_a_router_without_a_c.html">Using a Router without</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="using_https_with_self_sign.html">Using HTTPS with Self-Signed</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

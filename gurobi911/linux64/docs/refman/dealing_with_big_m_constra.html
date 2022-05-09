@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Dealing with big-M constraints</TITLE>
+<META NAME="description" CONTENT="Dealing with big-M constraints">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="avoid_hiding_large_coeffic.html">
+<LINK REL="next" HREF="does_my_model_have_numeric.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="does_my_model_have_numeric.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="avoid_hiding_large_coeffic.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="does_my_model_have_numeric.html">Does my model have</A>
+<B> Up:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Previous:</B> <A
+ HREF="avoid_hiding_large_coeffic.html">Avoid hiding large coefficients</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000343700000000000000">
+Dealing with big-M constraints</A>
+</H3>
+
+<P>
+Big-M constraints are a regular source of instability for optimization
+problems.  They are so named because they typically involve a large
+coefficient <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img116.svg"
+ ALT="$M$"></SPAN> that is chosen to be larger than any reasonable value
+that a continuous variable or expression may take.  Here's a simple
+example:
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x&\leq&10^6y\\
+x&\geq&0\\
+y&\in& \{0,1\},
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 8.56ex; vertical-align: -3.72ex; " SRC="img340.svg"
+ ALT="$\begin{array}{rcl}
+x&amp;\leq&amp;10^6y\\
+x&amp;\geq&amp;0\\
+y&amp;\in&amp; \{0,1\},
+\end{array}$"></SPAN>
+</DIV>
+Big-M constraints are typically used to propagate the implications of
+a binary, on-off decision to a continuous variable.  For example, a
+big-M might be used to enforce the condition that an edge can
+only admit flow if you pay the fixed charge associated with opening
+the edge, or a facility can only produce products if you build it.  In
+our example, note that the <!-- MATH
+ $y = 0.0000099999$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img341.svg"
+ ALT="$y = 0.0000099999$"></SPAN> satisfies the default
+integrality tolerance (<TT>IntFeasTol</TT>=<SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img307.svg"
+ ALT="$10^{-5}$"></SPAN>), which allows
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> to take a value of <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img342.svg"
+ ALT="$9.999$"></SPAN>.  In other words, <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> can take a
+positive value without incurring an expensive fixed charge on <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>,
+which subverts the intent of only allowing a non-zero value
+for <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> when the binary variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> has the value of 1.  You can reduce
+the effect of this behavior by adjusting the <TT>IntFeasTol</TT>
+parameter, but you can't avoid it entirely.
+
+<P>
+However, if the modeler has additional information that the <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN>
+variable will never be larger than <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img308.svg"
+ ALT="$10^3$"></SPAN>, then you could reformulate
+the earlier constraint as:
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x&\leq&10^3y\\
+x &\geq& 0\\
+y &\in & \{0,1\}
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 8.56ex; vertical-align: -3.72ex; " SRC="img343.svg"
+ ALT="$\begin{array}{rcl}
+x&amp;\leq&amp;10^3y\\
+x &amp;\geq&amp; 0\\
+y &amp;\in &amp; \{0,1\}
+\end{array}$"></SPAN>
+</DIV>
+And now, <!-- MATH
+ $y = 0.0000099999$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img341.svg"
+ ALT="$y = 0.0000099999$"></SPAN> would only allow for <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.43ex; " SRC="img344.svg"
+ ALT="$x \leq 0.01$"></SPAN>.
+
+<P>
+For cases when it is not possible to either rescale variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN>
+or tighten its bounds, an SOS constraints or an indicator constraint
+(of the form <!-- MATH
+ $y = 0 \Rightarrow x = 0$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img345.svg"
+ ALT="$y = 0 \Rightarrow x = 0$"></SPAN>) may produce more accurate
+solutions, but often at the expense of additional processing time.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="does_my_model_have_numeric.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="avoid_hiding_large_coeffic.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="does_my_model_have_numeric.html">Does my model have</A>
+<B> Up:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Previous:</B> <A
+ HREF="avoid_hiding_large_coeffic.html">Avoid hiding large coefficients</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

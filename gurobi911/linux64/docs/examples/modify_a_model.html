@@ -1,0 +1,386 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Modify a model</TITLE>
+<META NAME="description" CONTENT="Modify a model">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="change_parameters.html">
+<LINK REL="previous" HREF="additional_modeling_elemen.html">
+<LINK REL="next" HREF="change_parameters.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="change_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="example_tour.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="additional_modeling_elemen.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="change_parameters.html">Change parameters</A>
+<B> Up:</B> <A
+ HREF="example_tour.html">Example tour</A>
+<B> Previous:</B> <A
+ HREF="additional_modeling_elemen.html">Additional modeling elements</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00015000000000000000"></A>
+<A ID="subsection:Modification"></A>
+<BR>
+Modify a model
+</H2>
+<B>Examples:</B> diet, feasopt, fixanddive, gc_pwl_func, lpmod, sensitivity, workforce3, workforce4, workforce5
+
+<P>
+This section considers model modification.  Modification can take many
+forms, including adding constraints or variables, deleting constraints
+or variables, modifying constraint and variable attributes, changing
+constraint coefficients, etc.  The Gurobi examples don't cover all
+possible modifications, but they cover the most common types.
+
+<P>
+<SPAN  CLASS="textbf">diet</SPAN>
+
+<P>
+This example builds a linear model that solves the classic diet
+problem: to find the minimum cost diet that satisfies a set of daily
+nutritional requirements.  Once the model has been formulated and
+solved, it adds an additional constraint to limit the number of
+servings of dairy products and solves the model again.  Let's focus
+on the model modification.
+
+<P>
+Adding constraints to a model that has already been solved is no
+different from adding constraints when constructing an initial model.
+In C, we can introduce a limit of 6 dairy servings through the
+following constraint (where variables 6 and 7 capture the
+number of servings of milk and ice cream, respectively):
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  printf("\nAdding constraint: at most 6 servings of dairy\n");
+  cind[0] = 7;
+  cval[0] = 1.0;
+  cind[1] = 8;
+  cval[1] = 1.0;
+  error = GRBaddconstr(model, 2, cind, cval, GRB_LESS_EQUAL, 6.0,
+                       "limit_dairy");
+</PRE>
+In C++:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    cout &lt;&lt; "\nAdding constraint: at most 6 servings of dairy" &lt;&lt; endl;
+    model.addConstr(buy[7] + buy[8] &lt;= 6.0, "limit_dairy");
+</PRE>
+In Java:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      lhs.addTerm(1.0, buy[8]);
+      model.addConstr(lhs, GRB.LESS_EQUAL, 6.0, "limit_dairy");
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      Console.WriteLine("\nAdding constraint: at most 6 servings of dairy");
+      model.AddConstr(buy[7] + buy[8] &lt;= 6.0, "limit_dairy");
+</PRE>
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">print('\nAdding constraint: at most 6 servings of dairy')
+m.addConstr(buy.sum(['milk', 'ice cream']) &lt;= 6, "limit_dairy")
+</PRE>
+
+<P>
+For linear models, the previously computed solution can be used as an
+efficient <EM>warm start</EM> for the modified model.  The Gurobi
+solver retains the previous solution, so the next <code>optimize</code> call
+automatically starts from the previous solution.
+
+<P>
+<SPAN  CLASS="textbf">lpmod</SPAN>
+
+<P>
+Changing a variable bound is also straightforward.  The
+<code>lpmod</code> example changes a single variable bound, then
+re-solves the model
+in two different ways.  A variable bound can be changed by modifying
+the <code>UB</code> or <code>LB</code> attribute of the variable.  In C:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  error = GRBsetdblattrelement(model, "UB", minVar, 0.0);
+</PRE>
+In C++:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    v[minVar].set(GRB_DoubleAttr_UB, 0.0);
+</PRE>
+In Java:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      minVar.set(GRB.DoubleAttr.UB, 0.0);
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      minVar.UB = 0.0;
+</PRE>
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">minVar.ub = 0.0
+</PRE>
+The model is re-solved simply by calling the <code>optimize</code> method
+again.  For a continuous model, this starts the optimization from the
+previous solution.  To illustrate the difference when solving the
+model from an initial, unsolved state, the <code>lpmod</code> example calls
+the <code>reset</code> function.
+In C:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  error = GRBreset(model, 0);
+</PRE>
+In C++, Java, and Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    model.reset();
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      model.Reset();
+</PRE>
+When we call the optimize method after resetting the model,
+optimization starts from scratch.  Although the difference in
+computation time is insignificant for this tiny example, a warm start
+can make a big difference for larger models.
+
+<P>
+<SPAN  CLASS="textbf">fixanddive</SPAN>
+
+<P>
+The <code>fixanddive</code> example provides another example of bound
+modification.  In this case, we repeatedly modify a set of variable
+bounds, utilizing warm starts each time.  In C, variables are fixed
+as follows:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    for (j = 0; j &lt; nfix; ++j)
+    {
+      fixval = floor(fractional[j].X + 0.5);
+      error = GRBsetdblattrelement(model, "LB", fractional[j].index, fixval);
+      if (error) goto QUIT;
+      error = GRBsetdblattrelement(model, "UB", fractional[j].index, fixval);
+      if (error) goto QUIT;
+      error = GRBgetstrattrelement(model, "VarName",
+                                   fractional[j].index, &amp;vname);
+      if (error) goto QUIT;
+      printf("  Fix %s to %f ( rel %f )\n", vname, fixval, fractional[j].X);
+    }
+</PRE>
+In C++:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      for (int i = 0; i &lt; nfix; ++i)
+      {
+        GRBVar* v = fractional[i];
+        double fixval = floor(v-&gt;get(GRB_DoubleAttr_X) + 0.5);
+        v-&gt;set(GRB_DoubleAttr_LB, fixval);
+        v-&gt;set(GRB_DoubleAttr_UB, fixval);
+        cout &lt;&lt; "  Fix " &lt;&lt; v-&gt;get(GRB_StringAttr_VarName) &lt;&lt; " to " &lt;&lt;
+        fixval &lt;&lt; " ( rel " &lt;&lt; v-&gt;get(GRB_DoubleAttr_X) &lt;&lt; " )" &lt;&lt;
+        endl;
+      }
+</PRE>
+In Java:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        for (int i = 0; i &lt; nfix; ++i) {
+          GRBVar v = fractional.get(i);
+          double fixval = Math.floor(v.get(GRB.DoubleAttr.X) + 0.5);
+          v.set(GRB.DoubleAttr.LB, fixval);
+          v.set(GRB.DoubleAttr.UB, fixval);
+          System.out.println("  Fix " + v.get(GRB.StringAttr.VarName) +
+              " to " + fixval + " ( rel " + v.get(GRB.DoubleAttr.X) + " )");
+        }
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        for (int i = 0; i &lt; nfix; ++i) {
+          GRBVar v = fractional[i];
+          double fixval = Math.Floor(v.X + 0.5);
+          v.LB = fixval;
+          v.UB = fixval;
+          Console.WriteLine("  Fix " + v.VarName +
+              " to " + fixval + " ( rel " + v.X + " )");
+        }
+</PRE>
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    for i in range(nfix):
+        v = fractional[i]
+        fixval = int(v.x+0.5)
+        v.lb = fixval
+        v.ub = fixval
+        print('  Fix %s to %g (rel %g)' % (v.varName, fixval, v.x))
+</PRE>
+Again, the subsequent call to <code>optimize</code> starts from the
+previous solution.
+
+<P>
+<SPAN  CLASS="textbf">sensitivity</SPAN>
+
+<P>
+The <code>sensitivity</code> example computes the optimal objective value
+associated with fixing each binary variable to 0 or 1.  It first
+solves the given model to optimality.  It then constructs a
+multi-scenario model, where in each scenario a binary variable is
+fixed to the complement of the value it took in the optimal
+solution. The resulting multi-scenario model is solved, giving the
+objective degradation associated with forcing each binary variable off
+of its optimal value.
+
+<P>
+<SPAN  CLASS="textbf">feasopt</SPAN>
+
+<P>
+The last modification example we consider is <code>feasopt</code>, which
+adds variables to existing constraints and also changes the
+optimization objective.  Setting the objective to zero is
+straightforward.  In C, set the <code>Obj</code> attribute to 0:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  for (j = 0; j &lt; numvars; ++j)
+  {
+    error = GRBsetdblattrelement(model, "Obj", j, 0.0);
+    if (error) goto QUIT;
+  }
+</PRE>
+In the object-oriented interfaces, call <code>setObjective</code> with an
+empty linear expression.
+In C++:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    // clear objective
+    feasmodel.setObjective(GRBLinExpr(0.0));
+</PRE>
+In Java:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      // Clear objective
+      feasmodel.setObjective(new GRBLinExpr());
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      // Clear objective
+      feasmodel.SetObjective(new GRBLinExpr());
+</PRE>
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># clear objective
+
+feasmodel.setObjective(0.0)
+</PRE>
+Adding new variables is somewhat more complex.  In the example, we
+want to add artificial variable(s) to each constraint in order to
+allow the constraint to be relaxed.  We use two artificial variables
+for equality constraints and one for inequality constraints.  The
+Python code for adding a single artificial variable to constraint
+<code>c</code> in C is:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      error = GRBgetstrattrelement(model, "ConstrName", i, &amp;cname);
+      if (error) goto QUIT;
+      vname = malloc(sizeof(char) * (6 + strlen(cname)));
+      if (!vname) goto QUIT;
+      strcpy(vname, "ArtN_");
+      strcat(vname, cname);
+      vind[0] = i;
+      vval[0] = -1.0;
+      error = GRBaddvar(model, 1, vind, vval, 1.0, 0.0, GRB_INFINITY,
+                        GRB_CONTINUOUS, vname);
+      if (error) goto QUIT;
+</PRE>
+In C++:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        double coef = -1.0;
+        feasmodel.addVar(0.0, GRB_INFINITY, 1.0, GRB_CONTINUOUS, 1,
+                         &amp;c[i], &amp;coef, "ArtN_" +
+                         c[i].get(GRB_StringAttr_ConstrName));
+</PRE>
+In Java:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">          GRBConstr[] constrs = new GRBConstr[] { c[i] };
+          double[] coeffs = new double[] { -1 };
+          feasmodel.addVar(0.0, GRB.INFINITY, 1.0, GRB.CONTINUOUS, constrs,
+                           coeffs, "ArtN_" +
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">          GRBConstr[] constrs = new GRBConstr[] { c[i] };
+          double[] coeffs = new double[] { -1 };
+          feasmodel.AddVar(0.0, GRB.INFINITY, 1.0, GRB.CONTINUOUS, constrs,
+                           coeffs, "ArtN_" + c[i].ConstrName);
+</PRE>
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        feasmodel.addVar(obj=1.0, name="ArtN_" + c.constrName,
+                         column=gp.Column([-1], [c]))
+</PRE>
+We use the <code>column</code> argument of the <code>addVar</code> method to
+specify the set of constraints in which the new variable participates,
+as well as the associated coefficients.  In this example, the new
+variable only participates in the constraint to be relaxed.  Default
+values are used here for all variables attributes except the objective
+and the variable name.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="change_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="example_tour.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="additional_modeling_elemen.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="change_parameters.html">Change parameters</A>
+<B> Up:</B> <A
+ HREF="example_tour.html">Example tour</A>
+<B> Previous:</B> <A
+ HREF="additional_modeling_elemen.html">Additional modeling elements</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

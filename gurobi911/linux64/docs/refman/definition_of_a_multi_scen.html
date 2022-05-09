@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Definition of a Multi-Scenario Model</TITLE>
+<META NAME="description" CONTENT="Definition of a Multi-Scenario Model">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="specifying_multiple_scenar.html">
+<LINK REL="previous" HREF="multiple_scenarios.html">
+<LINK REL="next" HREF="specifying_multiple_scenar.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="specifying_multiple_scenar.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="specifying_multiple_scenar.html">Specifying Multiple Scenarios</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000281000000000000000">
+Definition of a Multi-Scenario Model</A>
+</H2>
+
+<P>
+Before diving into the details of working with multiple scenarios, we
+first need to explain exactly what we mean by the term.  Let us start
+by claiming that it only makes sense to consider a set of models as
+being different scenarios for the same underlying model if they have a
+lot in common.  They should definitely share the same set of
+variables.  They should also have similar sets of constraints and
+similar objectives.  In our approach, scenarios are described as a set
+of changes from a single <code>base</code> model.  More specifically,
+scenarios can only modify model features that are present in the base
+model.  We should add that other modifications, including addition and
+deletion of variables or constraints, can be achieved through the
+clever use of various
+<A HREF="tips_and_tricks.html#heading:MultiScenarioTricks">tricks</A>.  For now, though,
+it is best to think of scenarios as being small variations on the same
+base.
+
+<P>
+What variations do we allow from this base model?  Scenarios can
+differ in the following attributes:
+
+<UL>
+<LI>Linear objective function coefficients.
+</LI>
+<LI>Variable lower and upper bounds.
+</LI>
+<LI>Constraint right-hand side values.
+</LI>
+</UL>
+A single scenario can have multiple changes from the base, so for
+example you could change an objective coefficient, two variable
+bounds, and a right-hand side value in the same scenario.
+
+<P>
+After you have defined a set of scenarios (the specific mechanics for
+doing so will be described
+<A HREF="specifying_multiple_scenar.html#heading:DefiningScenarios">shortly</A>), the next step is
+to find solutions for all of the scenarios.  A single call to the
+standard Gurobi <code>optimize</code> method is all that is needed.  This
+will of course be much more expensive than finding an optimal solution
+for a single model, but our goal is for it to be faster and more
+convenient than formulating and solving separate models for each
+scenario.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="specifying_multiple_scenar.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="specifying_multiple_scenar.html">Specifying Multiple Scenarios</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

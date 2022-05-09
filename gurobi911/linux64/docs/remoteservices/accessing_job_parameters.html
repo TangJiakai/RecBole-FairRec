@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Accessing Job Parameters</TITLE>
+<META NAME="description" CONTENT="Accessing Job Parameters">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="aborting_jobs.html">
+<LINK REL="previous" HREF="accessing_job_logs.html">
+<LINK REL="next" HREF="aborting_jobs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="aborting_jobs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="accessing_job_logs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="aborting_jobs.html">Aborting Jobs</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="accessing_job_logs.html">Accessing Job Logs</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00032400000000000000">
+Accessing Job Parameters</A>
+</H3>
+
+<P>
+The Gurobi Optimizer provides a number of parameters that can be
+modified by the user.  The <TT>job params</TT> command allows you to inspect
+the values of these parameters in a Compute Server job:
+
+<P>
+
+<PRE>
+&gt; grbcluster job params 58780a22
+info  : Found matching job is 58780a22-8acc-499e-b73c-da6f2df59669
+ComputeServer=server1
+TimeLimit=60
+</PRE>
+
+<P>
+The argument to this command is the <TT>JOBID</TT> for the job of
+interest (which can be retrieved using the <TT>jobs</TT> command).
+You can use the full ID or the short ID.  If you don't specify a
+<TT>JOBID</TT>, the command will display the changed parameters of
+the last job submitted.
+
+<P>
+The following example illustrates how the <TT>grbcluster job
+  params</TT> command can be used in practice.  The first step is to start
+an optimization job on a Compute Server cluster with one modified
+parameter:
+
+<P>
+
+<PRE>
+&gt; gurobi_cl TimeLimit=120 glass4.mps
+</PRE>
+
+<P>
+Once the job starts, you can use the <TT>grbcluster jobs</TT> command to
+retrieve the associated <TT>JOBID</TT> (or you can read it off from the
+output of <TT>gurobi_cl</TT>). For jobs that have been already processed, you
+would run the <TT>job recent</TT> command instead.
+
+<P>
+
+<PRE>
+&gt; grbcluster jobs
+JOBID    ADDRESS STATUS  #Q  STIME               USER  PRIO API
+7c51bf74 server1 RUNNING     2019-04-07 14:50:56 jones 0    gurobi_cl
+</PRE>
+
+<P>
+Once you obtain the <TT>JOBID</TT>, the <TT>job params</TT> command shows
+the modified parameter settings for the job:
+
+<P>
+
+<PRE>
+&gt; grbcluster job params 7c51bf74
+info  : Found matching job is 7c51bf74-ba02-4239-875e-c8ea388f9427
+ComputeServer=server1
+TimeLimit=120
+</PRE>
+
+<P>
+The full list of Gurobi parameters can be found in the
+<EM>Parameters</EM> section of the
+<A ID="tex2html10"
+  HREF="../refman/refman.html">Gurobi Reference Manual</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="aborting_jobs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="accessing_job_logs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="aborting_jobs.html">Aborting Jobs</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="accessing_job_logs.html">Accessing Job Logs</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

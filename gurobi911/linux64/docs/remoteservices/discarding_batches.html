@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Discarding Batches</TITLE>
+<META NAME="description" CONTENT="Discarding Batches">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="retrying_batches.html">
+<LINK REL="next" HREF="repository_commands.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="retrying_batches.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Up:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Previous:</B> <A
+ HREF="retrying_batches.html">Retrying Batches</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00033500000000000000">
+Discarding Batches</A>
+</H3>
+
+<P>
+A batch has a set of input files and a set of result files that are
+stored in the Cluster Manager database. This enables the client to
+submit and disconnect while the batch is processed. Also, the results
+can be downloaded later when the client is ready.  One consequence of
+this is that batches can consume significant space in the database.
+We may need to be careful to clean up data.  It is important to
+discard batch data when you are done with it, to free up space in the
+database.  Note that batch metadata is small and will still remain in
+the batch history for monitoring purposes even after you discard the
+batch.
+
+<P>
+By default, when using the <TT>grbcluster</TT> command to download
+the results, the batch will be discarded automatically. You can change
+the default behavior by using the <TT>--discard</TT> flag
+if you may want to download the results again later:
+
+<P>
+
+<PRE>
+&gt; grbcluster batch solve misc07.mps ResultFile=solution.sol --download --discard=false
+info  : Batch 076225d7-a1c9-462f-bfef-8e23c81d9f16 created
+info  : Uploading misc07.mps...
+info  : Batch 076225d7-a1c9-462f-bfef-8e23c81d9f16 submitted with job ef0861e9...
+info  : Batch 076225d7-a1c9-462f-bfef-8e23c81d9f16 status is SUBMITTED
+info  : Batch 076225d7-a1c9-462f-bfef-8e23c81d9f16 status is COMPLETED
+info  : Results will be stored in directory 076225d7-a1c9-462f-bfef-8e23c81d9f16
+info  : Downloading solution.sol...
+info  : Downloading gurobi.log...
+</PRE>
+
+<P>
+You can check the space used by this batch by looking in the
+<TT>SIZE</TT> column in the output of the <TT>batches</TT>
+command:
+
+<PRE>
+&gt; grbcluster batches --batchId=076225d7
+ID       JOB      CREATED  Status    STIME   USER  PRIO API        D SIZE   INPUT      OUTPUT
+076225d7 ef0861e9 2019...  COMPLETED 2019... jones 0    grbcluster   288960 misc07.mps solution.sol
+</PRE>
+
+<P>
+In order to discard a batch manually, you can use the <TT>batch
+  discard</TT> command.  You can verify that the size of the batch is 0
+afterwards.  You will also notice that the <TT>D</TT> column is
+flagged, indicating that the batch was discarded.
+
+<PRE>
+&gt; grbcluster batch discard 076225d7
+info  : Batch 076225d7-a1c9-462f-bfef-8e23c81d9f16 discarded
+
+&gt; ./grbcluster batches --batchId=076225d7
+ID       JOB      CREATED  Status    STIME   USER  PRIO API        D SIZE INPUT      OUTPUT
+076225d7 ef0861e9 2019...  COMPLETED 2019... jones 0    grbcluster X 0    misc07.mps solution.sol
+</PRE>
+
+<P>
+Note that the Cluster Manager will automatically discard and delete
+batches when they are older than the maximum age, as specified in the
+cluster retention policy.  Developers submitting a batch with a
+programming language API should call the appropriate discard function
+once results have been retrieved.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="retrying_batches.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Up:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Previous:</B> <A
+ HREF="retrying_batches.html">Retrying Batches</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

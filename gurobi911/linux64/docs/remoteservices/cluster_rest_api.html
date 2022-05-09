@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Cluster REST API</TITLE>
+<META NAME="description" CONTENT="Cluster REST API">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="distributed_algorithm_cons.html">
+<LINK REL="next" HREF="using_remote_services_with.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="using_remote_services_with.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_algorithm_cons.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_remote_services_with.html">Using Remote Services with</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="distributed_algorithm_cons.html">Distributed Algorithm Considerations</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00047000000000000000"></A>
+<A ID="sec:RESTAPI"></A>
+<BR>
+Cluster REST API
+</H2>
+
+<P>
+Gurobi Remote Services also expose a REST API to support advanced
+integration and monitoring.  The API follows standard REST principles
+and can be used from a variety languages and tools (Java, Python,
+Node, curl, ...).
+
+<P>
+If you are using a self-managed cluster (without a Cluster Manager),
+the REST API is provided by the nodes of the cluster and is fairly
+basic.  It covers monitoring functions only, providing
+information on the nodes and the jobs processed by the cluster.
+
+<P>
+To access an API endpoint, you will also need to provide the access
+password in the header <TT>X-GUROBI-CSPASSWORD</TT>.  Some
+endpoints are restricted and the administrator password will be
+required.  Detailed, interactive documentation is available in Swagger
+format, and can be accessed directly from a cluster node. For example:
+
+<PRE>
+http://server1/swagger.html
+</PRE>
+
+<P>
+If you are using a Cluster Manager, a more extensive REST API is
+provided that covers not only the monitoring of nodes and jobs, but
+also the management of users, batches and repository files.  In fact,
+all of the functions exposed by <TT>grbcluster</TT> are supported.
+Some endpoints are restricted, and administrator or system
+administrator authentication will be required.  You can generate API
+keys and pass the access ID and the secret key in the <TT>  X-GUROBI-ACCESS-ID</TT> <TT>X-GUROBI-SECRET-KEY</TT> headers
+respectively.  Complete Swagger documentation is available in the
+Cluster Manager Web User Interface (in the <code>Help</code> section).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="using_remote_services_with.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_algorithm_cons.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_remote_services_with.html">Using Remote Services with</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="distributed_algorithm_cons.html">Distributed Algorithm Considerations</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

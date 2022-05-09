@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Change parameters</TITLE>
+<META NAME="description" CONTENT="Change parameters">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="diagnose_and_cope_with_inf.html">
+<LINK REL="previous" HREF="modify_a_model.html">
+<LINK REL="next" HREF="diagnose_and_cope_with_inf.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="diagnose_and_cope_with_inf.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="example_tour.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="modify_a_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="diagnose_and_cope_with_inf.html">Diagnose and cope with</A>
+<B> Up:</B> <A
+ HREF="example_tour.html">Example tour</A>
+<B> Previous:</B> <A
+ HREF="modify_a_model.html">Modify a model</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00016000000000000000"></A>
+<A ID="subsection:Parameters"></A>
+<BR>
+Change parameters
+</H2>
+<B>Examples:</B> batchmode, callback, fixanddive, gc_pwl_func, lp, lpmethod, mip2, multiscenario, params, sensitivity, workforce_batchmode
+
+<P>
+This section illustrates the use of Gurobi parameters.  Example
+<code>params</code> reads a MIP model from a file, then solves the model using
+four different values of the <code>MIPFocus</code> parameter, running for
+five seconds per value (<code>MIPFocus</code> chooses the high-level
+strategy that the MIP solver uses to solve the problem).  It then
+chooses the parameter value that produced the smallest MIP gap, and
+continues solving the model until it achieves optimality.
+
+<P>
+The mechanics of setting a parameter are quite simple.  To set
+the <code>MIPFocus</code> parameter in C, do the following:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    error = GRBsetintparam(modelenv, "MIPFocus", i);
+</PRE>
+In C++:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      m-&gt;set(GRB_IntParam_MIPFocus, i);
+</PRE>
+In Java:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        m.set(GRB.IntParam.MIPFocus, i);
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        m.Parameters.MIPFocus = i;
+</PRE>
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    m.Params.MIPFocus = i
+</PRE>
+
+<P>
+We should add one quick comment about how parameter settings propagate between
+different models.  When we set the <code>TimeLimit</code> parameter on a
+model, then make a copy of that model, the parameter setting is
+carried over to the copy.  When we set the <code>MIPFocus</code> parameter
+on the copy, that parameter change has no effect on the other copies,
+nor on the original model.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="diagnose_and_cope_with_inf.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="example_tour.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="modify_a_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="diagnose_and_cope_with_inf.html">Diagnose and cope with</A>
+<B> Up:</B> <A
+ HREF="example_tour.html">Example tour</A>
+<B> Previous:</B> <A
+ HREF="modify_a_model.html">Modify a model</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>User Roles</TITLE>
+<META NAME="description" CONTENT="User Roles">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="authentication.html">
+<LINK REL="previous" HREF="security.html">
+<LINK REL="next" HREF="authentication.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="authentication.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="authentication.html">Authentication</A>
+<B> Up:</B> <A
+ HREF="security.html">Security</A>
+<B> Previous:</B> <A
+ HREF="security.html">Security</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00013100000000000000"></A>
+<A ID="sec:RemoteServicesRoles"></A>
+<BR>
+User Roles
+</H3>
+
+<P>
+Users of Gurobi Remote Services will fall into one of three possible
+roles:
+<A HREF="#sec:ClusterAdminRole">system administrator</A>,
+<A HREF="#sec:AdminRole">administrator</A>, or
+<A HREF="#sec:ClientRole">standard user</A>.
+The system administrator is in charge of setting up the cluster,
+adding and removing nodes, etc.  Administrators monitor usage of the
+cluster.  They can monitor the length of the server queue, kill jobs,
+etc.  Standard users are the programs running on client
+machines that ultimately submit jobs or batches to the cluster.
+
+<P>
+The Gurobi distribution includes a number of tools that are relevant
+to the people in these roles.  These are all covered in much more
+detail later on, but we will briefly describe how they fit with the
+various roles here.
+
+<P>
+<SPAN  CLASS="textbf">System Administrator</SPAN>
+<A ID="sec:ClusterAdminRole"></A>
+<P>
+The system administrator installs and manages a Remote Services
+cluster and the different components.  Gurobi Remote Services provides
+the following tools to help with this:
+
+<P>
+
+<UL>
+<LI><A HREF="remote_services_agent__rs.html#sec:RSMNodeAgent">grb_rs</A> is the program that runs on
+  the Compute Server and Distributed Worker nodes.  The system
+  administrator will need to configure and start it on all of the
+  nodes of a Remote Services cluster.
+</LI>
+<LI><A HREF="cluster_manager_server__rs.html#sec:RSMAgent">grb_rsm</A> is the program that runs
+  the Cluster Manager.  The system administrator will need to
+  configure and start it on one or more machines, as needed. The
+  system administrator will also need to set up the Database and
+  configure its connection.
+</LI>
+<LI><A HREF="appendix_e_cluster.html#sec:RSClusterRef">grbcluster</A> is used to issue
+  commands to an already-running cluster.  Examples of system
+  administrator commands include adding or removing nodes, and
+  enabling or disabling job processing on a cluster.  This tool
+  provides a number of commands; type <TT>grbcluster
+    --help</TT> for a full list.
+</LI>
+<LI>Finally, most of the important responsibilities of the system
+  administrator, including user management and cluster health
+  monitoring, can also be performed through the Web User Interface of
+  the Cluster Manager.
+</LI>
+</UL>
+
+<P>
+For more details, please refer to the section on
+<A HREF="cluster_setup_and_administ.html#sec:RSMClusterSetup">setting up and administering a cluster</A>.
+
+<P>
+<SPAN  CLASS="textbf">Administrator</SPAN>
+<A ID="sec:AdminRole"></A>
+<P>
+An administrator monitors and manages the flow of jobs through a
+Remote Services cluster. Examples of administrator commands include
+aborting jobs, changing cluster parameters and checking licenses.  The
+primary tool for doing so is
+<A HREF="appendix_e_cluster.html#sec:RSClusterRef">grbcluster</A>.  You can get a full list
+of available commands by typing
+<TT>grbcluster --help</TT>.
+All of these functions are also exposed in the Web User Interface of
+the Cluster Manager.
+
+<P>
+<SPAN  CLASS="textbf">Standard Client</SPAN>
+<A ID="sec:ClientRole"></A>
+<P>
+A Remote Services client submits jobs or batches to the cluster.  This is done
+through a user application or through the Gurobi command-line tool
+<A HREF="appendix_f_grb_cl.html#sec:gurobi_cl">gurobi_cl</A> (which is documented in
+the <TT>Gurobi Command-Line Tool</TT> section of the
+<A ID="tex2html1"
+  HREF="../refman/refman.html">Gurobi Reference Manual</A>).
+Submitting a job to a Remote Services cluster is typically just a
+matter of running the appropriate program.  We will provide a simple
+example in the next section.
+
+<P>
+Clients can also use the <A HREF="appendix_e_cluster.html#sec:RSClusterRef">grbcluster</A>
+command to monitor the state of their jobs and of the Remote Services
+queue.  Example commands include listing active jobs, listing recently
+executed jobs, displaying the log of a recent job, etc.  You can get a
+full list of available commands by typing <TT>grbcluster --help</TT>.
+<TT>grbcluster</TT> can also be used to submit batches.
+
+<P>
+Finally, clients can access the Web User Interface of the Cluster
+Manager.  All of the functions provided by <TT>grbcluster</TT> are
+available in the web application, including submitting batches using a
+drag-and-drop interface.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="authentication.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="authentication.html">Authentication</A>
+<B> Up:</B> <A
+ HREF="security.html">Security</A>
+<B> Previous:</B> <A
+ HREF="security.html">Security</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

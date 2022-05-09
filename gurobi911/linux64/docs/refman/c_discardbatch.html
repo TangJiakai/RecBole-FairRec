@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBdiscardbatch</TITLE>
+<META NAME="description" CONTENT="GRBdiscardbatch">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_freebatch.html">
+<LINK REL="previous" HREF="c_abortbatch.html">
+<LINK REL="next" HREF="c_freebatch.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_freebatch.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_abortbatch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_freebatch.html">GRBfreebatch</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_abortbatch.html">GRBabortbatch</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000210200000000000000"></A>
+<A ID="routine:GRBdiscardbatch"></A>
+<BR>
+GRBdiscardbatch
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBdiscardbatch</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBbatch</TD>
+<TD CLASS="LEFT">*batch )</TD>
+</TR>
+</TABLE>
+
+<P>
+This function instructs the Cluster Manager to remove all information
+related to the batch request in question, including the stored
+solution if available. Further queries for the associated batch
+request will fail with error code <TT>GRB_ERROR_DATA_NOT_AVAILABLE</TT>. Use this function with
+care, as the removed information can not be recovered later on.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while discarding the batch.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">batch</SPAN>: The batch that will be discarded.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  /* discard the batch object in the manager */
+  error = GRBdiscardbatch(batch);
+  if (error) goto QUIT;
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_freebatch.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_abortbatch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_freebatch.html">GRBfreebatch</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_abortbatch.html">GRBabortbatch</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

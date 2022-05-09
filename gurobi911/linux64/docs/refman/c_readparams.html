@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBreadparams</TITLE>
+<META NAME="description" CONTENT="GRBreadparams">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_writeparams.html">
+<LINK REL="previous" HREF="c_getstrparaminfo.html">
+<LINK REL="next" HREF="c_writeparams.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_writeparams.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_parameter_management_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getstrparaminfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_writeparams.html">GRBwriteparams</A>
+<B> Up:</B> <A
+ HREF="c_parameter_management_and.html">Parameter Management and Tuning</A>
+<B> Previous:</B> <A
+ HREF="c_getstrparaminfo.html">GRBgetstrparaminfo</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000271200000000000000"></A>
+<A ID="routine:GRBreadparams"></A>
+<BR>
+GRBreadparams
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBreadparams</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBenv</TD>
+<TD CLASS="LEFT">*env,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*filename )</TD>
+</TR>
+</TABLE>
+
+<P>
+Import a set of parameter modifications from a file.
+
+<P>
+Please consult the <A HREF="parameters.html#sec:Parameters">parameter section</A>
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while reading the parameter file.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">env</SPAN>: The environment into which the parameter changes should be imported.
+
+<P>
+ <SPAN  CLASS="textbf">filename</SPAN>: The path to the file to be read.  The suffix on a
+  parameter file should be <SPAN  CLASS="texttt">.prm</SPAN>, optionally followed by <SPAN  CLASS="texttt">.zip</SPAN>,
+  <SPAN  CLASS="texttt">.gz</SPAN>, <SPAN  CLASS="texttt">.bz2</SPAN>, or <SPAN  CLASS="texttt">.7z</SPAN>.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  error = GRBreadparams(env, "/tmp/model.prm.bz2");
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_writeparams.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_parameter_management_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getstrparaminfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_writeparams.html">GRBwriteparams</A>
+<B> Up:</B> <A
+ HREF="c_parameter_management_and.html">Parameter Management and Tuning</A>
+<B> Previous:</B> <A
+ HREF="c_getstrparaminfo.html">GRBgetstrparaminfo</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

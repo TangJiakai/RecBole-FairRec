@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>LinExpr()</TITLE>
+<META NAME="description" CONTENT="LinExpr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_lex_add.html">
+<LINK REL="previous" HREF="py_lex.html">
+<LINK REL="next" HREF="py_lex_add.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_lex_add.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_lex.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_lex.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_lex_add.html">LinExpr.add()</A>
+<B> Up:</B> <A
+ HREF="py_lex.html">LinExpr</A>
+<B> Previous:</B> <A
+ HREF="py_lex.html">LinExpr</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001010100000000000000"></A>
+<A ID="pythonmethod:LinExpr"></A>
+<BR>
+LinExpr()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">LinExpr</SPAN></FONT></SPAN> ( arg1=0.0, arg2=None )
+
+
+<P>
+Linear expression constructor.  Note that you should generally use
+overloaded operators instead of the explicit constructor to build
+linear expression objects.
+
+<P>
+This constructor takes multiple forms.  You can initialize a
+linear expression using a constant (<code>LinExpr(2.0)</code>),
+a variable (<code>LinExpr(x)</code>), an expression (<code>LinExpr(2*x)</code>),
+a pair of lists containing coefficients and variables, respectively
+(<code>LinExpr([1.0, 2.0], [x, y])</code>), or a list of coefficient-variable
+tuples (<code>LinExpr([(1.0, x), (2.0, y), (1.0, z)])</code>).
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A linear expression object.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  expr = LinExpr(2.0)
+  expr = LinExpr(2*x)
+  expr = LinExpr([1.0, 2.0], [x, y])
+  expr = LinExpr([(1.0, x), (2.0, y), (1.0, z)])
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_lex_add.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_lex.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_lex.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_lex_add.html">LinExpr.add()</A>
+<B> Up:</B> <A
+ HREF="py_lex.html">LinExpr</A>
+<B> Previous:</B> <A
+ HREF="py_lex.html">LinExpr</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,201 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBaddqpterms</TITLE>
+<META NAME="description" CONTENT="GRBaddqpterms">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_addrangeconstr.html">
+<LINK REL="previous" HREF="c_addqconstr.html">
+<LINK REL="next" HREF="c_addrangeconstr.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_addrangeconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addqconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_addrangeconstr.html">GRBaddrangeconstr</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addqconstr.html">GRBaddqconstr</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000222400000000000000"></A>
+<A ID="routine:GRBaddqpterms"></A>
+<BR>
+GRBaddqpterms
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBaddqpterms</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">numqnz,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*qrow,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*qcol,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*qval )</TD>
+</TR>
+</TABLE>
+
+<P>
+Add new quadratic objective terms into an existing model.  Note that
+new terms are (numerically) added into existing terms, and that adding
+a term in row <code>i</code> and column <code>j</code> is equivalent to adding a
+term in row <code>j</code> and column <code>i</code>.  You can add all quadratic
+objective terms in a single call, or you can add them incrementally in
+multiple calls.
+
+<P>
+Note that, due to our lazy update approach, the new quadratic terms won't actually be added
+  until you update the model
+  (using <A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>),
+  optimize the model
+  (using <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>),
+  or write the model to disk
+  (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+
+<P>
+To build an objective that contains both linear and quadratic terms,
+use this routine to add the quadratic terms and use the
+<A HREF="obj.html#attr:Obj">Obj</A>
+attribute to add the linear terms.
+
+<P>
+If you wish to change a quadratic term, you can either add the
+difference between the current term and the desired term using this
+routine, or you can call <A HREF="c_delq.html#routine:GRBdelq">GRBdelq</A> to
+delete all quadratic terms, and then rebuild your new quadratic
+objective from scratch.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while adding the quadratic terms.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to which the new quadratic objective terms
+should be added.
+
+<P>
+ <SPAN  CLASS="textbf">numqnz</SPAN>: The number of new quadratic objective terms to add.
+
+<P>
+ <SPAN  CLASS="textbf">qrow</SPAN>: Row indices associated with quadratic terms.
+A quadratic term is represented using three values: a pair of indices
+  (stored in <SPAN  CLASS="texttt">qrow</SPAN> and <SPAN  CLASS="texttt">qcol</SPAN>), and a coefficient (stored in
+  <SPAN  CLASS="texttt">qval</SPAN>). The three argument arrays provide the corresponding values
+  for each quadratic term. To give an example, to represent
+  <!-- MATH
+ $2 x_0^2 + x_0 x_1 + x_1^2$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.69ex; vertical-align: -0.69ex; " SRC="img50.svg"
+ ALT="$2 x_0^2 + x_0 x_1 +
+x_1^2$"></SPAN>, you would have <SPAN  CLASS="texttt">numqnz=3</SPAN>,
+  <SPAN  CLASS="texttt">qrow[] = {0, 0, 1}</SPAN>, <SPAN  CLASS="texttt">qcol[] = {0, 1, 1}</SPAN>, and
+  <SPAN  CLASS="texttt">qval[] = {2.0, 1.0, 1.0}</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">qcol</SPAN>: Column indices associated with quadratic terms.
+  See the description of the <SPAN  CLASS="texttt">qrow</SPAN> argument for more information.
+
+<P>
+ <SPAN  CLASS="textbf">qval</SPAN>: Numerical values associated with quadratic terms.
+  See the description of the <SPAN  CLASS="texttt">qrow</SPAN> argument for more information.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Important notes:</SPAN></SPAN>
+
+<P>
+Note that building quadratic objectives requires some care,
+particularly if you are migrating an application from another solver.
+Some solvers require you to specify the entire <SPAN CLASS="MATH"><IMG STYLE="height: 2.26ex; vertical-align: -0.57ex; " SRC="img51.svg"
+ ALT="$Q$"></SPAN> matrix, while others
+only accept the lower triangle.  In addition, some solvers include an
+implicit 0.5 multiplier on <SPAN CLASS="MATH"><IMG STYLE="height: 2.26ex; vertical-align: -0.57ex; " SRC="img51.svg"
+ ALT="$Q$"></SPAN>, while others do not.  The Gurobi
+interface is built around quadratic terms, rather than a <SPAN CLASS="MATH"><IMG STYLE="height: 2.26ex; vertical-align: -0.57ex; " SRC="img51.svg"
+ ALT="$Q$"></SPAN>
+matrix.  If your quadratic objective contains a term <code>2 x y</code>,
+you can enter it as a single term, <code>2 x y</code>, or as a pair of
+terms, <code>x y</code> and <code>y x</code>.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int    qrow[] = {0, 0, 1};
+  int    qcol[] = {0, 1, 1};
+  double qval[] = {2.0, 1.0, 3.0};
+  /* minimize 2 x^2 + x*y + 3 y^2 */
+  error = GRBaddqpterms(model, 3, qrow, qcol, qval);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_addrangeconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addqconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_addrangeconstr.html">GRBaddrangeconstr</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addqconstr.html">GRBaddqconstr</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

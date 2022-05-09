@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Reporting results - attributes</TITLE>
+<META NAME="description" CONTENT="Reporting results - attributes">
+<META NAME="keywords" CONTENT="quickstart_mac">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_mac.css">
+
+<LINK REL="next" HREF="cs_cleaning_up.html">
+<LINK REL="previous" HREF="cs_optimizing_the_model.html">
+<LINK REL="next" HREF="cs_cleaning_up.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_cleaning_up.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_optimizing_the_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_cleaning_up.html">Cleaning up</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_optimizing_the_model.html">Optimizing the model</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000109000000000000000">
+Reporting results - attributes</A>
+</H2>
+
+<P>
+Once the optimization is complete, we can query the values of the
+attributes (which are implemented as .NET <EM>properties</EM>).  In
+particular, we can query the <code>VarName</code> and <code>X</code> attributes to
+obtain the name and solution value for each variable:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+      Console.WriteLine(x.VarName + " " + x.X);
+      Console.WriteLine(y.VarName + " " + y.X);
+</PRE>
+
+<P>
+We can also query the <code>ObjVal</code> attribute on the model
+to obtain the objective value for the current solution:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+      Console.WriteLine("Obj: " + model.ObjVal);
+</PRE>
+
+<P>
+The names and types of all model, variable, and constraint attributes
+can be found in the <EM>Attributes</EM> section of the
+<A ID="tex2html48"
+  HREF="../refman/refman.html">Gurobi Reference Manual</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_cleaning_up.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_optimizing_the_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_cleaning_up.html">Cleaning up</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_optimizing_the_model.html">Optimizing the model</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,359 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Gurobi Remote Services </TITLE>
+<META NAME="description" CONTENT="Gurobi Remote Services ">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="overview.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="overview.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev_g.png">   
+<BR>
+<B> Next:</B> <A
+ HREF="overview.html">Overview</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<P>
+
+<P>
+<H1 class="CENTER">Gurobi Remote Services
+<BR>
+<BR>
+<BR><P>
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=3in]{logo.png}}$
+ -->
+<IMG STYLE=""
+ SRC="img1.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=3in]{logo.png}}"></H1>
+<DIV CLASS="author_info">
+
+<P class="CENTER"><STRONG>Version 9.1, Copyright &#169; 2020, Gurobi Optimization, LLC</STRONG></P>
+</DIV>
+
+<P>
+
+<P>
+Gurobi Remote Services is a set of Gurobi features that enables a
+cluster of one or more machines to perform Gurobi computations on
+behalf of other machines.  The key components of Remote Services are:
+
+<UL>
+<LI>Compute Server, which allows you to offload all Gurobi computations
+  from a client machine onto a remote cluster.
+</LI>
+<LI>Distributed Workers, which can be used to perform parallel
+  computation on multiple machines.
+</LI>
+<LI>The Cluster Manager, a new (optional) application server that
+  provides secured access to your Remote Services cluster, as well
+  as providing a Web User Interface and a command-line tool that make it
+  easier to manage and monitor your cluster.
+</LI>
+</UL>
+
+<P>
+This document is organized into a number of sections.
+The first section provides an
+<A HREF="overview.html#sec:ComputeServerOverview">overview of Gurobi Compute Server and Remote Services</A>.
+The next section, meant for
+system administrators, provides details on
+<A HREF="cluster_setup_and_administ.html#sec:RSMClusterSetup">setting up Remote Services</A>.
+The next sections provide details on
+<A HREF="using_remote_services.html#sec:UsingRemoteServices">using Remote Services</A> and
+<A HREF="programming_with_remote_se.html#sec:ProgrammingWithRemoteServices">programming with Remote Services</A>.
+Finally, we discuss
+<A HREF="using_remote_services_with.html#sec:RemoteServicesWithInstantCloud">using Remote Services with Gurobi Instant Cloud</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html18"
+  HREF="overview.html">Overview</A>
+<UL>
+<LI><A ID="tex2html19"
+  HREF="client_server_optimization.html">Client-Server Optimization</A>
+<UL>
+<LI><A ID="tex2html20"
+  HREF="client_api.html">Client API</A>
+<LI><A ID="tex2html21"
+  HREF="queuing_and_load_balancing.html">Queuing and Load Balancing</A>
+<LI><A ID="tex2html22"
+  HREF="cluster_manager.html">Cluster Manager</A>
+<LI><A ID="tex2html23"
+  HREF="interactive_and_non_intera.html">Interactive and Non-Interactive Optimization</A>
+<LI><A ID="tex2html24"
+  HREF="distributed_algorithms.html">Distributed Algorithms</A>
+</UL>
+<LI><A ID="tex2html25"
+  HREF="architecture.html">Architecture</A>
+<UL>
+<LI><A ID="tex2html26"
+  HREF="architecture_topologies.html">Architecture Topologies</A>
+</UL>
+<LI><A ID="tex2html27"
+  HREF="security.html">Security</A>
+<UL>
+<LI><A ID="tex2html28"
+  HREF="user_roles.html">User Roles</A>
+<LI><A ID="tex2html29"
+  HREF="authentication.html">Authentication</A>
+<LI><A ID="tex2html30"
+  HREF="encryption.html">Encryption</A>
+<LI><A ID="tex2html31"
+  HREF="security_in_a_self_managed.html">Security in a Self-Managed Cluster</A>
+</UL>
+<LI><A ID="tex2html32"
+  HREF="simple_example.html">Simple Example</A>
+<UL>
+<LI><A ID="tex2html33"
+  HREF="log_in_to_the_cluster.html">Log In to the Cluster</A>
+<LI><A ID="tex2html34"
+  HREF="sub_an_interactive_job.html">Submitting an Interactive Job</A>
+<LI><A ID="tex2html35"
+  HREF="sub_a_non_interactive_job.html">Submitting a Non-Interactive Job</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html36"
+  HREF="cluster_setup_and_administ.html">Cluster Setup and Administration</A>
+<UL>
+<LI><A ID="tex2html37"
+  HREF="quick_cluster_manager_inst.html">Quick Cluster Manager Installation</A>
+<LI><A ID="tex2html38"
+  HREF="ins_the_remote_services_pa.html">Installing the Remote Services Package</A>
+<UL>
+<LI><A ID="tex2html39"
+  HREF="linux_installation.html">Linux Installation</A>
+<LI><A ID="tex2html40"
+  HREF="mac_os_installation.html">Mac OS Installation</A>
+<LI><A ID="tex2html41"
+  HREF="windows_installation.html">Windows Installation</A>
+</UL>
+<LI><A ID="tex2html42"
+  HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<UL>
+<LI><A ID="tex2html43"
+  HREF="ins_the_database.html">Installing the Database</A>
+<LI><A ID="tex2html44"
+  HREF="cluster_manager_server__rs.html">Cluster Manager Server (grb_rsm)</A>
+<LI><A ID="tex2html45"
+  HREF="configuring_the_cluster_ma.html">Configuring the Cluster Manager</A>
+<LI><A ID="tex2html46"
+  HREF="sta_the_cluster_manager_as.html">Starting the Cluster Manager as a Process</A>
+<LI><A ID="tex2html47"
+  HREF="sta_the_cluster_manager_as2.html">Starting the Cluster Manager as a Service</A>
+<LI><A ID="tex2html48"
+  HREF="verification.html">Verification</A>
+</UL>
+<LI><A ID="tex2html49"
+  HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<UL>
+<LI><A ID="tex2html50"
+  HREF="licensing.html">Licensing</A>
+<LI><A ID="tex2html51"
+  HREF="remote_services_agent__rs.html">Remote Services Agent (grb_rs)</A>
+<LI><A ID="tex2html52"
+  HREF="configuring_a_cluster_node.html">Configuring a Cluster Node</A>
+<LI><A ID="tex2html53"
+  HREF="sta_a_cluster_node_as_a_pr.html">Starting a Cluster Node as a Process</A>
+<LI><A ID="tex2html54"
+  HREF="sta_a_cluster_node_as_a_se.html">Starting a Cluster Node as a Service</A>
+<LI><A ID="tex2html55"
+  HREF="verification2.html">Verification</A>
+</UL>
+<LI><A ID="tex2html56"
+  HREF="forming_a_cluster.html">Forming a Cluster</A>
+<UL>
+<LI><A ID="tex2html57"
+  HREF="connecting_nodes.html">Connecting Nodes</A>
+<LI><A ID="tex2html58"
+  HREF="compute_servers_and_distri.html">Compute Servers and Distributed Workers</A>
+<LI><A ID="tex2html59"
+  HREF="grouping.html">Grouping</A>
+<LI><A ID="tex2html60"
+  HREF="processing_state_and_scali.html">Processing State and Scaling</A>
+</UL>
+<LI><A ID="tex2html61"
+  HREF="communication_options.html">Communication Options</A>
+<UL>
+<LI><A ID="tex2html62"
+  HREF="enabling_https.html">Enabling HTTPS</A>
+<LI><A ID="tex2html63"
+  HREF="using_https_with_self_sign.html">Using HTTPS with Self-Signed Certificates</A>
+<LI><A ID="tex2html64"
+  HREF="firewalls.html">Firewalls</A>
+<LI><A ID="tex2html65"
+  HREF="using_a_router_without_a_c.html">Using a Router without a Cluster Manager</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html66"
+  HREF="using_remote_services.html">Using Remote Services</A>
+<UL>
+<LI><A ID="tex2html67"
+  HREF="client_configuration.html">Client Configuration</A>
+<UL>
+<LI><A ID="tex2html68"
+  HREF="client_license_file.html">Client License File</A>
+<LI><A ID="tex2html69"
+  HREF="generating_a_client_licens.html">Generating a Client License with grbcluster</A>
+<LI><A ID="tex2html70"
+  HREF="queueing_load_balancing_an.html">Queueing, Load Balancing, and Job Priorities</A>
+</UL>
+<LI><A ID="tex2html71"
+  HREF="job_commands.html">Job Commands</A>
+<UL>
+<LI><A ID="tex2html72"
+  HREF="sub_interactive_jobs.html">Submitting Interactive Jobs</A>
+<LI><A ID="tex2html73"
+  HREF="listing_jobs.html">Listing Jobs</A>
+<LI><A ID="tex2html74"
+  HREF="accessing_job_logs.html">Accessing Job Logs</A>
+<LI><A ID="tex2html75"
+  HREF="accessing_job_parameters.html">Accessing Job Parameters</A>
+<LI><A ID="tex2html76"
+  HREF="aborting_jobs.html">Aborting Jobs</A>
+<LI><A ID="tex2html77"
+  HREF="accessing_the_job_history.html">Accessing the Job History</A>
+</UL>
+<LI><A ID="tex2html78"
+  HREF="batch_commands.html">Batch Commands</A>
+<UL>
+<LI><A ID="tex2html79"
+  HREF="creating_batches.html">Creating Batches</A>
+<LI><A ID="tex2html80"
+  HREF="listing_batches.html">Listing Batches</A>
+<LI><A ID="tex2html81"
+  HREF="aborting_batches.html">Aborting Batches</A>
+<LI><A ID="tex2html82"
+  HREF="retrying_batches.html">Retrying Batches</A>
+<LI><A ID="tex2html83"
+  HREF="discarding_batches.html">Discarding Batches</A>
+</UL>
+<LI><A ID="tex2html84"
+  HREF="repository_commands.html">Repository Commands</A>
+<UL>
+<LI><A ID="tex2html85"
+  HREF="uploading_a_file_to_the_re.html">Uploading a File to the Repository</A>
+<LI><A ID="tex2html86"
+  HREF="using_a_file_from_the_repo.html">Using a File from the Repository</A>
+<LI><A ID="tex2html87"
+  HREF="deleting_a_file_from_the_r.html">Deleting a File from the Repository</A>
+</UL>
+<LI><A ID="tex2html88"
+  HREF="node_commands.html">Node Commands</A>
+<UL>
+<LI><A ID="tex2html89"
+  HREF="listing_cluster_nodes.html">Listing Cluster Nodes</A>
+<LI><A ID="tex2html90"
+  HREF="troubleshooting_connectivi.html">Troubleshooting Connectivity Issues</A>
+<LI><A ID="tex2html91"
+  HREF="listing_cluster_licenses.html">Listing Cluster Licenses</A>
+<LI><A ID="tex2html92"
+  HREF="changing_the_job_limit.html">Changing the Job Limit</A>
+</UL>
+<LI><A ID="tex2html93"
+  HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<UL>
+<LI><A ID="tex2html94"
+  HREF="distributed_workers_and_th.html">Distributed Workers and the Distributed Manager</A>
+<LI><A ID="tex2html95"
+  HREF="configuration.html">Configuration</A>
+<LI><A ID="tex2html96"
+  HREF="running_a_distributed_algo.html">Running a Distributed Algorithm as an Interactive Job</A>
+<LI><A ID="tex2html97"
+  HREF="sub_a_distributed_algorith.html">Submitting a Distributed Algorithm as a Batch</A>
+<LI><A ID="tex2html98"
+  HREF="using_a_separate_distribut.html">Using a Separate Distributed Manager</A>
+</UL>
+</UL>
+<BR>
+<LI><A ID="tex2html99"
+  HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<UL>
+<LI><A ID="tex2html100"
+  HREF="using_an_api_to_create_a_c.html">Using an API to Create a Compute Server Job</A>
+<LI><A ID="tex2html101"
+  HREF="using_an_api_to_create_a_b.html">Using an API to Create a Batch</A>
+<LI><A ID="tex2html102"
+  HREF="performance_considerations.html">Performance Considerations on a Wide-Area Network (WAN)</A>
+<LI><A ID="tex2html103"
+  HREF="cb_s.html">Callbacks</A>
+<LI><A ID="tex2html104"
+  HREF="developing_for_compute_ser.html">Developing for Compute Server</A>
+<LI><A ID="tex2html105"
+  HREF="distributed_algorithm_cons.html">Distributed Algorithm Considerations</A>
+<LI><A ID="tex2html106"
+  HREF="cluster_rest_api.html">Cluster REST API</A>
+</UL>
+<BR>
+<LI><A ID="tex2html107"
+  HREF="using_remote_services_with.html">Using Remote Services with Gurobi Instant Cloud</A>
+<UL>
+<LI><A ID="tex2html108"
+  HREF="client_setup.html">Client Setup</A>
+<LI><A ID="tex2html109"
+  HREF="client_commands.html">Client Commands</A>
+<LI><A ID="tex2html110"
+  HREF="administrative_commands.html">Administrative Commands</A>
+<LI><A ID="tex2html111"
+  HREF="region_router.html">Region Router</A>
+</UL>
+<BR>
+<LI><A ID="tex2html112"
+  HREF="appendix_a_rs.html">Appendix A: grb_rs</A>
+<LI><A ID="tex2html113"
+  HREF="appendix_b_rs_configuratio.html">Appendix B: grb_rs - Configuration Properties</A>
+<LI><A ID="tex2html114"
+  HREF="appendix_c_rsm.html">Appendix C: grb_rsm</A>
+<LI><A ID="tex2html115"
+  HREF="appendix_d_rsm_configurati.html">Appendix D: grb_rsm - Configuration Properties</A>
+<LI><A ID="tex2html116"
+  HREF="appendix_e_cluster.html">Appendix E: grbcluster</A>
+<LI><A ID="tex2html117"
+  HREF="appendix_f_grb_cl.html">Appendix F: gurobi_cl</A>
+<LI><A ID="tex2html118"
+  HREF="appendix_g_acknowledgement.html">Appendix G: Acknowledgement of 3rd Party Icons</A>
+<LI><A ID="tex2html119"
+  HREF="appendix_h_open_component_.html">Appendix H: Open Source Component Licenses</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="overview.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev_g.png">   
+<BR>
+<B> Next:</B> <A
+ HREF="overview.html">Overview</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

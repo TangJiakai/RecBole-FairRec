@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>netflow.py example details</TITLE>
+<META NAME="description" CONTENT="netflow.py example details">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_building_a_multi_dimens.html">
+<LINK REL="previous" HREF="cs_netflow_py_example.html">
+<LINK REL="next" HREF="cs_building_a_multi_dimens.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_building_a_multi_dimens.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_netflow_py_example.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_building_a_multi_dimens.html">Building a multi-dimensional array</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_netflow_py_example.html">netflow.py example</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000116800000000000000">
+netflow.py example details</A>
+</H3>
+
+<P>
+Let us now walk through the example, line by line, to understand how
+it achieves the desired result of computing the optimal network flow.
+As with the simple Python example presented earlier, this example
+begins by importing the Gurobi functions and classes:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">import gurobipy as gp
+from gurobipy import GRB
+</PRE>
+
+<P>
+We then create a few lists that contain model data:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Base data
+commodities = ['Pencils', 'Pens']
+nodes = ['Detroit', 'Denver', 'Boston', 'New York', 'Seattle']
+
+arcs, capacity = gp.multidict({
+    ('Detroit', 'Boston'):   100,
+    ('Detroit', 'New York'):  80,
+    ('Detroit', 'Seattle'):  120,
+    ('Denver',  'Boston'):   120,
+    ('Denver',  'New York'): 120,
+    ('Denver',  'Seattle'):  120})
+</PRE>
+
+<P>
+The model works with two commodities (Pencils and Pens), and the
+network contains 5 nodes and 6 arcs.  We initialize <code>commodities</code>
+and <code>nodes</code> as simple Python lists.  We use the Gurobi
+<code>multidict</code> function to initialize <code>arcs</code> (the <code>list</code>
+of keys) and <code>capacity</code> (a <code>dictionary</code>).
+
+<P>
+The model also requires cost data for each commodity-arc pair:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Cost for triplets commodity-source-destination
+cost = {
+    ('Pencils', 'Detroit', 'Boston'):   10,
+    ('Pencils', 'Detroit', 'New York'): 20,
+    ('Pencils', 'Detroit', 'Seattle'):  60,
+    ('Pencils', 'Denver',  'Boston'):   40,
+    ('Pencils', 'Denver',  'New York'): 40,
+    ('Pencils', 'Denver',  'Seattle'):  30,
+    ('Pens',    'Detroit', 'Boston'):   20,
+    ('Pens',    'Detroit', 'New York'): 20,
+    ('Pens',    'Detroit', 'Seattle'):  80,
+    ('Pens',    'Denver',  'Boston'):   60,
+    ('Pens',    'Denver',  'New York'): 70,
+    ('Pens',    'Denver',  'Seattle'):  30}
+</PRE>
+
+<P>
+Once this dictionary has been created, the cost of moving one unit of commodity
+<code>h</code> from node <code>i</code> to <code>j</code> can be queried as
+<code>cost[(h,i,j)]</code>.  Recall that Python allows you to omit the
+parenthesis when using a tuple to index a dictionary, so this can be
+shortened to just <code>cost[h,i,j]</code>.
+
+<P>
+A similar construct is used to initialize node demand/supply data:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Demand for pairs of commodity-city
+inflow = {
+    ('Pencils', 'Detroit'):   50,
+    ('Pencils', 'Denver'):    60,
+    ('Pencils', 'Boston'):   -50,
+    ('Pencils', 'New York'): -50,
+    ('Pencils', 'Seattle'):  -10,
+    ('Pens',    'Detroit'):   60,
+    ('Pens',    'Denver'):    40,
+    ('Pens',    'Boston'):   -40,
+    ('Pens',    'New York'): -30,
+    ('Pens',    'Seattle'):  -30}
+</PRE>
+
+<P>
+A positive value indicates demand, while a negative value indicates
+supply.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_building_a_multi_dimens.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_netflow_py_example.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_building_a_multi_dimens.html">Building a multi-dimensional array</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_netflow_py_example.html">netflow.py example</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

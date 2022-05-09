@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Distributed Algorithm Considerations</TITLE>
+<META NAME="description" CONTENT="Distributed Algorithm Considerations">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="cluster_rest_api.html">
+<LINK REL="previous" HREF="developing_for_compute_ser.html">
+<LINK REL="next" HREF="cluster_rest_api.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cluster_rest_api.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="developing_for_compute_ser.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_rest_api.html">Cluster REST API</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="developing_for_compute_ser.html">Developing for Compute Server</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00046000000000000000"></A>
+<A ID="sec:DistributedConsiderations"></A>
+<BR>
+Distributed Algorithm Considerations
+</H2>
+
+<P>
+The distributed algorithms have been designed to be nearly
+indistinguishable from the single machine versions.  Our hope is that,
+if you know how to use the single machine version, you'll find it
+straightforward to use the distributed version.  The distributed
+algorithms respect all of the usual parameters.  For distributed MIP,
+you can adjust strategies, adjust tolerances, set limits, etc.  For
+concurrent MIP, you can allow Gurobi to choose the settings for each
+machine automatically or you can use <TT>concurrent
+  environments</TT> to make your own choices.  For distributed tuning, you
+can use the usual tuning parameters, including <TT>  TuneTimeLimit</TT>, <TT>TuneTrials</TT>, and <TT>TuneOutput</TT>.
+
+<P>
+<SPAN  CLASS="textbf">Performance Across Distributed Workers</SPAN>
+
+<P>
+There are a few things to be aware of when using distributed
+algorithms, though.  One relates to relative machine performance.  As
+we noted earlier, distributed algorithms work best if all of the
+workers give very similar performance.  For example, if one machine in
+your worker pool were much slower than the others in a distributed
+tuning run, any parameter sets tested on the slower machine would
+appear to be less effective than if they were run on a faster machine.
+Similar considerations apply for distributed MIP and distributed
+concurrent.  We strongly recommend that you use machines with very
+similar performance.  Note that if your machines have similarly
+performing cores but different numbers of cores, we suggest that you
+use the <TT>Threads</TT> parameter to make
+sure that all machines use the same number of cores.
+
+<P>
+<SPAN  CLASS="textbf">Callbacks</SPAN>
+
+<P>
+Another difference between the distributed algorithms and our
+single-machine algorithms is in the callbacks.  The
+distributed MIP and distributed concurrent solvers do not
+provide the full range of callbacks that are available with our
+standard solvers.  They will only provide the <TT>MIP</TT>,
+<TT>MIPNODE</TT>, and <TT>POLLING</TT> callbacks.
+See the
+<TT>Callback</TT> section of the
+<A ID="tex2html14"
+  HREF="../refman/refman.html">Gurobi Reference Manual</A>)
+for details on the different callback types.
+
+<P>
+<SPAN  CLASS="textbf">Logging</SPAN>
+
+<P>
+The distributed algorithms provide slightly different logging
+information from the standard algorithms.  Consult the
+<TT>Distributed MIP Logging</TT>
+section of the
+<A ID="tex2html15"
+  HREF="../refman/refman.html">Gurobi Reference Manual</A>)
+for details.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cluster_rest_api.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="developing_for_compute_ser.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_rest_api.html">Cluster REST API</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="developing_for_compute_ser.html">Developing for Compute Server</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

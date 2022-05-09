@@ -1,0 +1,178 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Real numbers are not real</TITLE>
+<META NAME="description" CONTENT="Real numbers are not real">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="tolerances_and_user_scalin.html">
+<LINK REL="previous" HREF="avoid_rounding_of_input.html">
+<LINK REL="next" HREF="tolerances_and_user_scalin.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="avoid_rounding_of_input.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Up:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Previous:</B> <A
+ HREF="avoid_rounding_of_input.html">Avoid rounding of input</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000342000000000000000">
+Real numbers are not real</A>
+</H2>
+
+<P>
+To say that real numbers aren't real is not just a play on words, but
+a computational reality.  Let's do a simple experiment: try the
+following in your favorite number-crunching tool. In Excel:
+<PRE>
+=IF(1+1E-016 = 1,1,0)
+</PRE>
+will print 1.
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">&gt;&gt;&gt; 1 == 1+1e-16
+True
+</PRE>
+In C, the code
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#include&lt;stdio.h&gt;
+int main(void)
+{
+  if (1+1e-16 == 1) printf("True\n");
+  else              printf("False\n");
+  return 0;
+}
+</PRE>
+will print <TT>True</TT>.
+In R:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">&gt; 1 == 1+1e-16
+[1] TRUE
+</PRE>
+
+<P>
+Note that this behavior is not restricted to <EM>small</EM> numbers; it
+also happens with larger numbers.  For example:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">&gt;&gt;&gt; 1+1e16 == 1e16
+True
+</PRE>
+This shows that the <EM>precision</EM> of the result depends on the
+relative scale of the involved numbers.
+
+<P>
+Although this behavior is typical, there are some exceptions.  One is
+the
+<A ID="tex2html57"
+  HREF="https://www.gnu.org/software/bc/manual/html_mono/bc.html">GNU-bc</A>
+command line tool:
+<PRE>
+&gt; bc
+1.0 == 1.0+10^(-16)
+1
+scale=20
+1.0 == 1.0+10^(-16)
+0
+1.0 == 1.0+10^(-21)
+1
+</PRE>
+When we set the <TT>scale</TT> parameter to <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img287.svg"
+ ALT="$20$"></SPAN>,
+the code is able to recognize that the numbers are different.
+This just shifts the bar, though; <TT>bc</TT> still fails to recognize the
+difference between the last two numbers.
+Another library that allows for extended, or even <EM>unlimited</EM> (up
+to memory) precision is the <A ID="tex2html58"
+  HREF="https://gmplib.org">GNU Multiple
+Precision Arithmetic Library</A>, but its details are
+beyond the scope of this document.
+
+<P>
+The reason for these <EM>failures</EM> is that computers must store
+numbers as a sequence of bits, and most common implementations adhere
+to the
+<A ID="tex2html59"
+  HREF="https://en.wikipedia.org/wiki/IEEE_754">IEEE&nbsp;754</A>
+standard.  In particular, IEEE-754 sets the standard for <EM>  double-precision</EM> format. This standard is so pervasive that almost
+all computers have specialized hardware to improve performance for
+operations on numbers represented as such.  One consequence is that
+mathematical operations on alternative extended number representations
+tend to be significantly slower than operations on numbers represented
+following the IEEE&nbsp;754 standard.  Degradation of 10X or even 100X are
+common.
+
+<P>
+Due to the performance obtained from hardware support for
+double-precision arithmetic, Gurobi relies on this standard (as does
+most software).  However, this speed comes at a cost: computed results
+often differ from what mathematics may dictate.  For example, the
+associative property (<TT>a + (b + c) = (a + b) + c</TT>) is a
+fundamental property of arithmetic, but double-precision arithmetic
+gives (in Python): <SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">&gt;&gt;&gt; (1+1e-16)+1e-16 == 1 + (1e-16 + 1e-16)
+False
+</PRE>
+Furthermore, many common numbers (e.g. 0.1) cannot be represented
+exactly.
+
+<P>
+Consequently, simple questions like whether two numbers are equal, or
+whether a number is equal zero, or whether a number is integral,
+can be quite complicated when using floating-point arithmetic.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="avoid_rounding_of_input.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Up:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Previous:</B> <A
+ HREF="avoid_rounding_of_input.html">Avoid rounding of input</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

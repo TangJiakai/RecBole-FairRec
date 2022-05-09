@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Licensing</TITLE>
+<META NAME="description" CONTENT="Licensing">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="remote_services_agent__rs.html">
+<LINK REL="previous" HREF="ins_a_cluster_node.html">
+<LINK REL="next" HREF="remote_services_agent__rs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="remote_services_agent__rs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="remote_services_agent__rs.html">Remote Services Agent (grb_rs)</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00024100000000000000"></A>
+<A ID="sec:RSMLicensing"></A>
+<BR>
+Licensing
+</H3>
+
+<P>
+You will need to
+download and install a license file on all Compute Server nodes (no license
+file is required for a Distributed Worker node).
+You will find detailed instructions for downloading a
+license in the <EM>Retrieving and Setting Up a Gurobi License</EM>
+section of the <EM>Gurobi Optimizer Quick Start Guide</EM>.
+
+<P>
+We will just provide a quick summary of the process here.  Your first
+step is to locate and download your license file from the
+<A ID="tex2html9"
+  HREF="https://www.gurobi.com/download/licenses/current">Gurobi License Center</A>.
+When you download the license file, we strongly recommend that you place it
+in the default location:
+
+<UL>
+<LI><TT>C:&#92;gurobi&#92;</TT> on Windows
+</LI>
+<LI><TT>/opt/gurobi/</TT>  on Linux
+</LI>
+<LI><TT>/Library/gurobi/</TT>  on Mac OS
+</LI>
+<LI>The user's home directory
+</LI>
+</UL>
+You can also set the environment variable <TT>GRB_LICENSE_FILE</TT> to
+point to this file.
+
+<P>
+In order to use the Cluster Manager, you will need to connect at least
+one Compute Server node to the cluster.  When certain operations
+are requested such as submitting a job or a batch, the Cluster Manager
+will check the licenses available on the nodes.  If none of the nodes have
+a valid Compute Server license, the operation will not be authorized.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="remote_services_agent__rs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="remote_services_agent__rs.html">Remote Services Agent (grb_rs)</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

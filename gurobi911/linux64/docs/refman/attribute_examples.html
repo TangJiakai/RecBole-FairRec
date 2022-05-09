@@ -1,0 +1,212 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Attribute Examples</TITLE>
+<META NAME="description" CONTENT="Attribute Examples">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="batch_attributes.html">
+<LINK REL="next" HREF="c_attribute_examples.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_attribute_examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batchstatus.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_attribute_examples.html">C Attribute Examples</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="batchstatus.html">BatchStatus</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0001711000000000000000"></A>
+<A ID="sec:AttributeExamples"></A>
+<BR>
+Attribute Examples
+</H2>
+
+<P>
+Gurobi attribute handling is designed to be orthogonal, meaning that
+you only need to use a small number of routines to work with a large
+number attributes.  In particular:
+
+<UL>
+<LI>The names and meanings of the various Gurobi attributes remain
+  constant across the different programming language APIs, although
+  some decoration is required in each language.
+</LI>
+<LI>Given the type of an attribute (double, integer, etc.) and the
+  programming language you wish to use it from, you simply need to
+  identify the appropriate routine for that attribute type in that
+  language in order to query or modify that attribute.
+</LI>
+</UL>
+
+<P>
+Consider the <code>LB</code> attribute, which captures the lower bound on a
+variable.  You would refer to this attribute as follows in the
+different Gurobi APIs:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Language</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Attribute</SPAN></TH>
+</TR>
+<TR><TD CLASS="LEFT">C</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_DBL_ATTR_LB</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">C++</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_DoubleAttr_LB</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Java</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.DoubleAttr.LB</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">.NET</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.DoubleAttr.LB</SPAN>, or just <SPAN  CLASS="texttt">var.LB</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Python</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.Attr.LB</SPAN>, or just <SPAN  CLASS="texttt">var.lb</SPAN></TD>
+</TR>
+</TABLE>
+
+<P>
+To query the value of this attribute for an individual variable in
+the different APIs, you would do the following:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Language</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Attribute Query Example</SPAN></TH>
+</TR>
+<TR><TD CLASS="LEFT">C</TD>
+<TD CLASS="LEFT"><A HREF="c_getdblattrelement.html#routine:GRBgetdblattrelement">GRBgetdblattrelement</A><SPAN  CLASS="texttt">(model, GRB_DBL_ATTR_LB, var_index, &amp;value);</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">C++</TD>
+<TD CLASS="LEFT"><A HREF="cpp_var_get.html#cppmethod:GRBVar::get">var.get</A><SPAN  CLASS="texttt">(GRB_DoubleAttr_LB)</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Java</TD>
+<TD CLASS="LEFT"><A HREF="java_var_get.html#javamethod:GRBVar.get">var.get</A><SPAN  CLASS="texttt">(GRB.DoubleAttr.LB)</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">.NET</TD>
+<TD CLASS="LEFT"><A HREF="cs_var_get.html#dotnetmethod:GRBVar.Get">var.Get</A><SPAN  CLASS="texttt">(GRB.DoubleAttr.LB)</SPAN>, or just <SPAN  CLASS="texttt">var.LB</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Python</TD>
+<TD CLASS="LEFT"><A HREF="py_var_getattr.html#pythonmethod:Var.getAttr">var.getAttr</A><SPAN  CLASS="texttt">(GRB.Attr.LB)</SPAN>, or just <SPAN  CLASS="texttt">var.lb</SPAN></TD>
+</TR>
+</TABLE>
+
+<P>
+Our APIs also include routines for querying attribute values for
+multiple variables or constraints at once, which is more
+efficient.
+
+<P>
+Attributes are referred to using a set of <code>enum</code> types in C++,
+Java, and .NET (one enum for double-valued attributes, one for
+int-valued attributes, etc.).  In C and Python, the names listed above
+are simply constants that take string values.  For example,
+<code>GRB_DBL_ATTR_LB</code> is defined in the C layer as:
+<PRE>
+#define GRB_DBL_ATTR_LB "LB"
+</PRE>
+In C and Python, you have the option of using the strings directly
+when calling attribute methods.  If you wish to do so, note that
+character case and underscores are ignored.  Thus, <code>MIN_COEFF</code>
+and <code>MinCoeff</code> are equivalent.
+
+<P>
+One important point to note about attributes modification is that it
+is done in a <EM>lazy</EM> fashion.  Modifications don't actually
+affect the model until the next request to either update or optimize
+the model (<A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A> or
+<A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A> in C).
+
+<P>
+Refer to the following sections for more detailed examples of how to
+query or modify attributes from our various APIs:
+
+<UL>
+<LI><A HREF="c_attribute_examples.html#CAttributeExamples">C</A>
+</LI>
+<LI><A HREF="cpp_attribute_examples.html#C++AttributeExamples">C++</A>
+</LI>
+<LI><A HREF="cs_attribute_examples.html#CSAttributeExamples">C#</A>
+</LI>
+<LI><A HREF="java_attribute_examples.html#JavaAttributeExamples">Java</A>
+</LI>
+<LI><A HREF="python_attribute_examples.html#PythonAttributeExamples">Python</A>
+</LI>
+<LI><A HREF="visual_basic_attribute_exa.html#VBAttributeExamples">Visual Basic</A>
+</LI>
+</UL>
+You can also also browse our
+<A ID="tex2html32"
+  HREF="../examples/examples.html">Examples</A>
+to get a better sense of how to use our attribute interface.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html4093"
+  HREF="c_attribute_examples.html">C Attribute Examples</A>
+<LI><A ID="tex2html4094"
+  HREF="cpp_attribute_examples.html">C++ Attribute Examples</A>
+<LI><A ID="tex2html4095"
+  HREF="cs_attribute_examples.html">C# Attribute Examples</A>
+<LI><A ID="tex2html4096"
+  HREF="java_attribute_examples.html">Java Attribute Examples</A>
+<LI><A ID="tex2html4097"
+  HREF="python_attribute_examples.html">Python Attribute Examples</A>
+<LI><A ID="tex2html4098"
+  HREF="visual_basic_attribute_exa.html">Visual Basic Attribute Examples</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_attribute_examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batchstatus.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_attribute_examples.html">C Attribute Examples</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="batchstatus.html">BatchStatus</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

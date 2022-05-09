@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Setting the objective</TITLE>
+<META NAME="description" CONTENT="Setting the objective">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_adding_constraints_to_t.html">
+<LINK REL="previous" HREF="cs_adding_variables_to_the.html">
+<LINK REL="next" HREF="cs_adding_constraints_to_t.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_adding_constraints_to_t.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_adding_variables_to_the.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_adding_constraints_to_t.html">Adding constraints to the</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_adding_variables_to_the.html">Adding variables to the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000106000000000000000">
+Setting the objective</A>
+</H2>
+
+<P>
+The next step in the example is to set the optimization
+objective:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      // Set objective: maximize x + y + 2 z
+      model.SetObjective(x + y + 2 * z, GRB.MAXIMIZE);
+</PRE>
+
+<P>
+The objective is built here using overloaded operators.  The C#
+API overloads the arithmetic operators to allow you to build linear
+and quadratic expressions involving Gurobi variables.
+
+<P>
+The second argument indicates that the sense is maximization.
+
+<P>
+Note that while this simple example builds the objective in a single
+statement using an explicit list of terms, more complex programs will
+typically build it incrementally.  For example:
+
+<PRE>
+  GRBLinExpr obj = 0.0;
+  obj.AddTerm(1.0, x);
+  obj.AddTerm(1.0, y);
+  obj.AddTerm(2.0, z);
+  model.SetObjective(obj, GRB.MAXIMIZE);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_adding_constraints_to_t.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_adding_variables_to_the.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_adding_constraints_to_t.html">Adding constraints to the</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_adding_variables_to_the.html">Adding variables to the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

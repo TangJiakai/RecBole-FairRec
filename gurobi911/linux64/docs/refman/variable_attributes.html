@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Variable Attributes</TITLE>
+<META NAME="description" CONTENT="Variable Attributes">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="linear_constraint_attribut.html">
+<LINK REL="previous" HREF="model_attributes.html">
+<LINK REL="next" HREF="lb.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="server.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lb.html">LB</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="server.html">Server</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000172000000000000000">
+Variable Attributes</A>
+</H2>
+
+<P>
+These are variable attributes, meaning that they are associated with
+specific variables in the model.  You should use one of the various
+<code>get</code> routines to retrieve the value of an attribute.  These are
+described at the beginning of
+<A HREF="attributes.html#sec:Attributes">this section</A>).
+For the object-oriented interfaces, variable attributes are retrieved
+by invoking the <code>get</code> method on a variable object.  For
+attributes that can be modified directly by the user, you can use one
+of the various <code>set</code> methods.
+
+<P>
+Attempting to query an attribute that is not available will produce an
+error.  In C, the attribute query routine will return a
+<code>GRB_ERROR_DATA_NOT_AVAILABLE</code> error code.  The object-oriented
+interfaces will throw an exception.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3980"
+  HREF="lb.html">LB</A>
+<LI><A ID="tex2html3981"
+  HREF="ub.html">UB</A>
+<LI><A ID="tex2html3982"
+  HREF="obj.html">Obj</A>
+<LI><A ID="tex2html3983"
+  HREF="varname.html">VarName</A>
+<LI><A ID="tex2html3984"
+  HREF="vtag.html">VTag</A>
+<LI><A ID="tex2html3985"
+  HREF="vtype.html">VType</A>
+<LI><A ID="tex2html3986"
+  HREF="x.html">X</A>
+<LI><A ID="tex2html3987"
+  HREF="xn.html">Xn</A>
+<LI><A ID="tex2html3988"
+  HREF="rc.html">RC</A>
+<LI><A ID="tex2html3989"
+  HREF="barx.html">BarX</A>
+<LI><A ID="tex2html3990"
+  HREF="start.html">Start</A>
+<LI><A ID="tex2html3991"
+  HREF="varhintval.html">VarHintVal</A>
+<LI><A ID="tex2html3992"
+  HREF="varhintpri.html">VarHintPri</A>
+<LI><A ID="tex2html3993"
+  HREF="branchpriority.html">BranchPriority</A>
+<LI><A ID="tex2html3994"
+  HREF="partition.html">Partition</A>
+<LI><A ID="tex2html3995"
+  HREF="vbasis.html">VBasis</A>
+<LI><A ID="tex2html3996"
+  HREF="pstart.html">PStart</A>
+<LI><A ID="tex2html3997"
+  HREF="iislb.html">IISLB</A>
+<LI><A ID="tex2html3998"
+  HREF="iisub.html">IISUB</A>
+<LI><A ID="tex2html3999"
+  HREF="pwlobjcvx.html">PWLObjCvx</A>
+<LI><A ID="tex2html4000"
+  HREF="saobjlow.html">SAObjLow</A>
+<LI><A ID="tex2html4001"
+  HREF="saobjup.html">SAObjUp</A>
+<LI><A ID="tex2html4002"
+  HREF="salblow.html">SALBLow</A>
+<LI><A ID="tex2html4003"
+  HREF="salbup.html">SALBUp</A>
+<LI><A ID="tex2html4004"
+  HREF="saublow.html">SAUBLow</A>
+<LI><A ID="tex2html4005"
+  HREF="saubup.html">SAUBUp</A>
+<LI><A ID="tex2html4006"
+  HREF="unbdray.html">UnbdRay</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="server.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lb.html">LB</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="server.html">Server</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

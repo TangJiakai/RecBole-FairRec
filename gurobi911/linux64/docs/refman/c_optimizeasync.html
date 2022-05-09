@@ -1,0 +1,154 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBoptimizeasync</TITLE>
+<META NAME="description" CONTENT="GRBoptimizeasync">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_computeiis.html">
+<LINK REL="previous" HREF="c_optimize.html">
+<LINK REL="next" HREF="c_computeiis.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_computeiis.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_optimize.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_computeiis.html">GRBcomputeIIS</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_optimize.html">GRBoptimize</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023200000000000000"></A>
+<A ID="routine:GRBoptimizeasync"></A>
+<BR>
+GRBoptimizeasync
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBoptimizeasync</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model )</TD>
+</TR>
+</TABLE>
+
+<P>
+Optimize a model asynchronously.  This routine returns immediately.
+Your program can perform other computations while optimization
+proceeds in the background.  To check the state of the asynchronous
+optimization, query the <A HREF="status.html#attr:Status">Status</A> attribute
+for the model.  A value of <code>IN_PROGRESS</code> indicates that the
+optimization has not yet completed.  When you are done with your
+foreground tasks, you must call
+<A HREF="c_sync.html#routine:GRBsync">GRBsync</A> to sync your foreground
+program with the asynchronous optimization task.
+
+<P>
+Note that the set of Gurobi calls that you are allowed to make while
+optimization is running in the background is severely limited.
+Specifically, you can only perform attribute queries, and only for a
+few attributes (listed below).  Any other calls on the running model,
+<EM>or on any other models that were built within the same Gurobi
+  environment</EM>, will fail with error code
+<code>OPTIMIZATION_IN_PROGRESS</code>.
+
+<P>
+Note that there are no such restrictions on models built in other
+environments.  Thus, for example, you could create multiple
+environments, and then have a single foreground program launch
+multiple simultaneous asynchronous optimizations, each in its own
+environment.
+
+<P>
+As already noted, you are allowed to query the value of the <code>Status</code>
+attribute while an asynchronous optimization is in progress.  The other
+attributes that can be queried are:
+<A HREF="objval.html#attr:ObjVal">ObjVal</A>,
+<A HREF="objbound.html#attr:ObjBound">ObjBound</A>,
+<A HREF="itercount.html#attr:IterCount">IterCount</A>,
+<A HREF="nodecount.html#attr:NodeCount">NodeCount</A>, and
+<A HREF="baritercount.html#attr:BarIterCount">BarIterCount</A>.
+In each case, the returned value reflects progress in the optimization
+to that point.  Any attempt to query the value of
+an attribute not on this list will return an
+<code>OPTIMIZATION_IN_PROGRESS</code> error.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while optimizing the model.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to optimize.  Note that this routine only
+  reports whether launching the asynchronous job ran into an error.  Query the
+  <SPAN  CLASS="texttt">Status</SPAN> attribute to determine the result of the
+  optimization (see the <A HREF="attributes.html#sec:Attributes">Attributes</A>
+  section for more information on querying attributes).  The
+  return value of <A HREF="c_sync.html#routine:GRBsync">GRBsync</A> indicates
+  whether the background optimization ran into an error.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  error = GRBoptimizeasync(model);
+
+  /* ... perform other compute-intensive tasks... */
+
+  error = GRBsync(model);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_computeiis.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_optimize.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_computeiis.html">GRBcomputeIIS</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_optimize.html">GRBoptimize</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

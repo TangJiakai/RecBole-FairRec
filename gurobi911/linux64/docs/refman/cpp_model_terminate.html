@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel::terminate()</TITLE>
+<META NAME="description" CONTENT="GRBModel::terminate()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_model_tune.html">
+<LINK REL="previous" HREF="cpp_model_sync.html">
+<LINK REL="next" HREF="cpp_model_tune.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_model_tune.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_sync.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_model_tune.html">GRBModel::tune()</A>
+<B> Up:</B> <A
+ HREF="cpp_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_sync.html">GRBModel::sync()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000425200000000000000"></A>
+<A ID="cppmethod:GRBModel::terminate"></A>
+<BR>
+GRBModel::terminate()
+</H3>
+
+<P>
+Generate a request to terminate the current optimization.  This
+method can be called at any time during an optimization (from a
+callback, from another thread, from an interrupt handler, etc.).  Note
+that, in general, the request won't be acted upon immediately.
+
+<P>
+When the optimization stops, the <A HREF="status.html#attr:Status">Status</A>
+attribute will be equal to <code>GRB_INTERRUPTED</code>.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">terminate</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_model_tune.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_sync.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_model_tune.html">GRBModel::tune()</A>
+<B> Up:</B> <A
+ HREF="cpp_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_sync.html">GRBModel::sync()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

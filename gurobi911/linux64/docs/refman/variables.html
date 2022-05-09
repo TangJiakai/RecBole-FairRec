@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Variables</TITLE>
+<META NAME="description" CONTENT="Variables">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="constraints.html">
+<LINK REL="previous" HREF="variables_and_constraints_.html">
+<LINK REL="next" HREF="constraints.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="constraints.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="constraints.html">Constraints</A>
+<B> Up:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A>
+<B> Previous:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000151000000000000000"></A>
+<A ID="subsection:Variables"></A>
+<BR>
+Variables
+</H2>
+
+<P>
+Decision variables capture the results of the optimization.  In a
+feasible solution, the computed values for the decision variables
+satisfy all of the model constraints.  Some of these constraints are
+associated with individual variables (e.g., variable bounds), while
+others capture relationships between variables.  We'll first consider
+the different types of decision variables that can be added to a
+Gurobi model, and the implicit and explicit constraints associated
+with these variable types.
+
+<P>
+Before starting, we should point out one important thing about the
+variables in a mathematical programming model: their computed solution
+values will only satisfy bounds <EM>to tolerances</EM>, meaning that a
+variable may violate its stated bounds.  Mathematical programming is
+fundamentally built on top of linear algebra and in particular on the
+numerical solution of systems of linear equations.  These linear
+systems are solved using finite-precision arithmetic, which means that
+small errors are unavoidable.  For some models, large errors are
+unavoidable too; we'll return to that topic later in this section.
+
+<P>
+The available variables types are
+<A HREF="#subsubsection:ContVars">continuous</A>,
+<A HREF="#subsubsection:IntVars">general integer</A>,
+<A HREF="#subsubsection:BinVars">binary</A>,
+<A HREF="#subsubsection:SemiVars">semi-continuous</A>, and
+<A HREF="#subsubsection:SemiVars">semi-integer</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Continuous Variables</SPAN></SPAN>
+<A ID="subsubsection:ContVars"></A>
+<P>
+The simplest and least constrained of the available variable types is
+the continuous variable.  This variable can take any value between its
+lower and upper bound.  In mathematical programming, the convention is
+that variables are non-negative unless stated otherwise, so if you
+don't explicitly provide bounds for a variable, you should assume that
+the lower bound is 0 and the upper bound is infinite.
+
+<P>
+The Gurobi APIs provides a symbolic constant to allow you to indicate
+that a bound is infinite (<code>GRB_INFINITY</code> in C and C++,
+<code>GRB.INFINITY</code> in C#, Java, and Python).  A variable can have an
+infinite upper bound, an infinite lower bound (negative infinity), or
+both.  A variable with infinite upper and lower bounds is referred to
+as a <EM>free variable</EM>.  Any bound larger than 1e30 is treated as
+infinite.
+
+<P>
+As noted earlier, variables may violate their bounds by tolerances.
+In the case of variable bounds, the relevant tolerance value is the
+<A HREF="feasibilitytol.html#parameter:FeasibilityTol">FeasibilityTol</A>.  You can
+reduce the value of this tolerance parameter, but due to numerical
+errors it may not be possible to achieve your desired accuracy.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">General Integer Variables</SPAN></SPAN>
+<A ID="subsubsection:IntVars"></A>
+<P>
+General integer variables are more constrained than continuous
+variables.  In addition to respecting the specified lower and upper
+bounds, integer variables also take integral values.
+
+<P>
+Due to the limitations of finite-precision arithmetic, integer
+variables will often take values that aren't exactly integral.  The
+magnitude of the allowed integrality violation is controlled by the
+<A HREF="intfeastol.html#parameter:IntFeasTol">IntFeasTol</A> parameter.  You can
+tighten this parameter to reduce the magnitude of these integrality
+violations, but the cost of solving the optimization problem may
+increase significantly as a result.
+
+<P>
+The fact that modern computers represent integer values using 32-bit
+values places some restrictions on the range of an integral variable.
+Specifically, the largest and smallest bounds that can be placed on an
+integer variable are +/- 2,000,000,000.  Furthermore, integer
+variables with infinite bounds actually have these values as their
+implicit bounds.  A solution is not considered feasible unless all
+integer variables take values that satisfy these bounds.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Binary Variables</SPAN></SPAN>
+<A ID="subsubsection:BinVars"></A>
+<P>
+Binary variables are the most constrained variable type that can be
+added to your model.  A binary variable takes a value of either 0 or
+1.
+
+<P>
+Again, due to the limitations of finite-precision arithmetic, binary
+variables will often take values that aren't exactly integral.  The
+magnitude of the allowed integrality violation is controlled by
+the <A HREF="intfeastol.html#parameter:IntFeasTol">IntFeasTol</A> parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Semi-Continuous and Semi-Integer Variables</SPAN></SPAN>
+<A ID="subsubsection:SemiVars"></A>
+<P>
+You can also add semi-continuous or semi-integer variables to your
+model.  A semi-continuous variable has the property that it takes a
+value of 0, or a value between the specified lower and upper bounds.
+A semi-integer variable adds the additional restriction that the
+variable also take an integral value.
+
+<P>
+Again, these variables may violate these restrictions up to
+tolerances.  In this case, the relevant tolerance is
+<A HREF="intfeastol.html#parameter:IntFeasTol">IntFeasTol</A> (even for
+semi-continuous variables).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="constraints.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="constraints.html">Constraints</A>
+<B> Up:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A>
+<B> Previous:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

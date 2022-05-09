@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Batch</TITLE>
+<META NAME="description" CONTENT="Batch">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_.html">
+<LINK REL="previous" HREF="py_env.html">
+<LINK REL="next" HREF="py_batch2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_batch2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_env_dispose.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch2.html">Batch()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_env_dispose.html">Env.dispose()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0001020000000000000000"></A>
+<A ID="pythonclass:Batch"></A>
+<BR>
+Batch
+</H2>
+
+<P>
+Gurobi batch object.  Batch optimization is a feature available with
+the Gurobi Cluster Manager.  It allows a client program to build an
+optimization model, submit it to a Compute Server cluster (through a
+Cluster Manager), and later check on the status of the model and
+retrieve its solution.  For more information, please refer to the
+<A HREF="batch_optimization.html#sec:BatchOptimization">Batch Optimization</A> section.
+
+<P>
+Commonly used methods on batch objects include
+<A HREF="py_batch_update.html#pythonmethod:Batch.update">update</A> (refresh
+attributes from the Cluster Manager),
+<A HREF="py_batch_abort.html#pythonmethod:Batch.abort">abort</A> (abort
+execution of a batch request),
+<A HREF="py_batch_retry.html#pythonmethod:Batch.retry">retry</A> (retry
+optimization for an interrupted or failed batch),
+<A HREF="py_batch_discard.html#pythonmethod:Batch.discard">discard</A> (remove the
+batch request and all related information from the Cluster Manager), and
+<A HREF="py_batch_getjsonsolution.html#pythonmethod:Batch.getJSONSolution">getJSONSolution</A>
+(query solution information for the batch request).
+
+<P>
+These methods are built on top of calls to the Cluster Manager REST
+API.  They are meant to simplify such calls, but note that you always
+have the option of calling the REST API directly.
+
+<P>
+Batch objects have four attributes:
+
+<UL>
+<LI><A HREF="batchid.html#attr:BatchID">BatchID</A>: Unique ID for the batch
+request.
+</LI>
+<LI><A HREF="batchstatus.html#attr:BatchStatus">BatchStatus</A>: Last batch
+status.
+</LI>
+<LI><A HREF="batcherrorcode.html#attr:BatchErrorCode">BatchErrorCode</A>: Last error
+code.
+</LI>
+<LI><A HREF="batcherrormessage.html#attr:BatchErrorMessage">BatchErrorMessage</A>: Last
+error message.
+</LI>
+</UL>
+You can access their values as you would for other
+attributes: <TT>batch.BatchStatus</TT>, <TT>batch.BatchID</TT>, etc.
+Note that all Batch attributes are locally cached, and are only
+updated when you create a client-side batch object or when you
+explicitly update this cache, which can done by calling
+<A HREF="py_batch_update.html#pythonmethod:Batch.update">update</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3659"
+  HREF="py_batch2.html">Batch()</A>
+<LI><A ID="tex2html3660"
+  HREF="py_batch_abort.html">Batch.abort()</A>
+<LI><A ID="tex2html3661"
+  HREF="py_batch_discard.html">Batch.discard()</A>
+<LI><A ID="tex2html3662"
+  HREF="py_batch_dispose.html">Batch.dispose()</A>
+<LI><A ID="tex2html3663"
+  HREF="py_batch_getjsonsolution.html">Batch.getJSONSolution()</A>
+<LI><A ID="tex2html3664"
+  HREF="py_batch_retry.html">Batch.retry()</A>
+<LI><A ID="tex2html3665"
+  HREF="py_batch_update.html">Batch.update()</A>
+<LI><A ID="tex2html3666"
+  HREF="py_batch_writejsonsolution.html">Batch.writeJSONSolution()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_batch2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_env_dispose.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch2.html">Batch()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_env_dispose.html">Env.dispose()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

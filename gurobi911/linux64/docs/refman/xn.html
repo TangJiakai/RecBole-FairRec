@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Xn</TITLE>
+<META NAME="description" CONTENT="Xn">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="rc.html">
+<LINK REL="previous" HREF="x.html">
+<LINK REL="next" HREF="rc.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="rc.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="x.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="rc.html">RC</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="x.html">X</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000172800000000000000"></A>
+<A ID="attr:Xn"></A>
+<BR>
+Xn
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">No</TD>
+</TR>
+</TABLE>
+
+<P>
+The variable value in a sub-optimal MIP solution.  Use parameter
+<A HREF="solutionnumber.html#parameter:SolutionNumber">SolutionNumber</A>
+to indicate which alternate solution to retrieve.
+Solutions are sorted in order of worsening objective value.  Thus,
+when <code>SolutionNumber</code> is 1, <code>Xn</code> returns the second-best
+solution found.  When <code>SolutionNumber</code> is equal to its default
+value of 0, querying attribute <code>Xn</code> is equivalent to querying
+attribute <code>X</code>.
+
+<P>
+The number of sub-optimal solutions found during the MIP search will
+depend on the values of a few parameters.  The most important of these
+are
+<A HREF="poolsolutions.html#parameter:PoolSolutions">PoolSolutions</A>,
+<A HREF="poolsearchmode.html#parameter:PoolSearchMode">PoolSearchMode</A>, and
+<A HREF="poolgap.html#parameter:PoolGap">PoolGap</A>.
+Please consult the section on
+<A HREF="solution_pool.html#sec:SolutionPool">Solution Pools</A>
+for a more detailed discussion of this topic.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="rc.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="x.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="rc.html">RC</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="x.html">X</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

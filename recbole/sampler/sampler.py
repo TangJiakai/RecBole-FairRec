@@ -37,6 +37,8 @@ class AbstractSampler(object):
         self.distribution = ''
         self.set_distribution(distribution)
         self.used_ids = self.get_used_ids()
+        self.user_group_label = None
+        self.item_group_label = None
 
     def set_distribution(self, distribution):
         """Set the distribution of sampler.
@@ -162,9 +164,16 @@ class AbstractSampler(object):
             used = np.array(list(self.used_ids[key_id]))
             value_ids = self.sampling(total_num)
             check_list = np.arange(total_num)[np.isin(value_ids, used)]
+            if self.user_group_label is not None:
+                user_label = self.user_group_label[key_id]
+                item_idx = (self.item_group_label == user_label)|(self.item_group_label == 2)
+                item_array = np.arange(len(self.item_group_label))[item_idx]
+
             while len(check_list) > 0:
                 value_ids[check_list] = value = self.sampling(len(check_list))
                 mask = np.isin(value, used)
+                if self.user_group_label is not None:
+                    mask = mask|(~np.isin(value,item_array))
                 check_list = check_list[mask]
         else:
             value_ids = np.zeros(total_num, dtype=np.int64)
@@ -172,10 +181,19 @@ class AbstractSampler(object):
             key_ids = np.tile(key_ids, num)
             while len(check_list) > 0:
                 value_ids[check_list] = self.sampling(len(check_list))
-                check_list = np.array([
-                    i for i, used, v in zip(check_list, self.used_ids[key_ids[check_list]], value_ids[check_list])
-                    if v in used
-                ])
+                
+                if self.user_group_label is not None:
+                    check_list = np.array([
+                        i for i, used, u, v in zip(check_list, self.used_ids[key_ids[check_list]], key_ids[check_list], value_ids[check_list])
+                        if v in used or (self.user_group_label[u] == 0 and self.item_group_label[v] == 1) or
+                        (self.user_group_label[u] == 1 and self.item_group_label[v] == 0) or self.item_group_label[v] == -1
+                    ])
+                else:
+                    check_list = np.array([
+                        i for i, used, v in zip(check_list, self.used_ids[key_ids[check_list]], value_ids[check_list])
+                        if v in used
+                    ])
+
         return torch.tensor(value_ids)
 
 
@@ -391,6 +409,61 @@ class RepeatableSampler(AbstractSampler):
         """
         return np.array([set() for _ in range(self.user_num)])
 
+    def sample(self, key_ids, num):
+        """Sampling by key_ids.
+
+        Args:
+            key_ids (numpy.ndarray or list): Input key_ids.
+            num (int): Number of sampled value_ids for each key_id.
+
+        Returns:
+            torch.tensor: Sampled value_ids.
+            value_ids[0], value_ids[len(key_ids)], value_ids[len(key_ids) * 2], ..., value_id[len(key_ids) * (num - 1)]
+            is sampled for key_ids[0];
+            value_ids[1], value_ids[len(key_ids) + 1], value_ids[len(key_ids) * 2 + 1], ...,
+            value_id[len(key_ids) * (num - 1) + 1] is sampled for key_ids[1]; ...; and so on.
+        """
+        key_ids = np.array(key_ids)
+        key_num = len(key_ids)
+        total_num = key_num * num
+        if (key_ids == key_ids[0]).all():
+            key_id = key_ids[0]
+            used = np.array(list(self.used_ids[key_id]))
+            value_ids = self.sampling(total_num)
+            check_list = np.arange(total_num)[np.isin(value_ids, used)]
+            if self.user_group_label is not None:
+                user_label = self.user_group_label[key_id]
+                item_idx = (self.item_group_label == user_label)|(self.item_group_label == 2)
+                item_array = np.arange(len(self.item_group_label))[item_idx]
+
+            while len(check_list) > 0:
+                value_ids[check_list] = value = self.sampling(len(check_list))
+                mask = np.isin(value, used)
+                if self.user_group_label is not None:
+                    mask = mask|(~np.isin(value,item_array))
+                check_list = check_list[mask]
+        else:
+            value_ids = np.zeros(total_num, dtype=np.int64)
+            check_list = np.arange(total_num)
+            index = np.tile(np.arange(len(key_ids)),num)
+            key_ids = np.tile(key_ids, num)
+            while len(check_list) > 0:
+                value_ids[check_list] = self.sampling(len(check_list))
+                
+                if self.user_group_label is not None:
+                    check_list = np.array([
+                        i for i, used, u, v in zip(check_list, self.used_ids[index[check_list]], key_ids[check_list], value_ids[check_list])
+                        if v in used or (self.user_group_label[u] == 0 and self.item_group_label[v] == 1) or
+                        (self.user_group_label[u] == 1 and self.item_group_label[v] == 0) or self.item_group_label[v] == -1
+                    ])
+                else:
+                    check_list = np.array([
+                        i for i, used, v in zip(check_list, self.used_ids[index[check_list]], value_ids[check_list])
+                        if v in used
+                    ])
+
+        return torch.tensor(value_ids)
+
     def sample_by_user_ids(self, user_ids, item_ids, num):
         """Sampling by user_ids.
 
@@ -408,7 +481,8 @@ class RepeatableSampler(AbstractSampler):
         """
         try:
             self.used_ids = np.array([{i} for i in item_ids])
-            return self.sample_by_key_ids(np.arange(len(user_ids)), num)
+            return self.sample(user_ids, num)
+            # return self.sample_by_key_ids(np.arange(len(user_ids)), num)
         except IndexError:
             for user_id in user_ids:
                 if user_id < 0 or user_id >= self.user_num:

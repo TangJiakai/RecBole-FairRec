@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>or_()</TITLE>
+<META NAME="description" CONTENT="or_()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="py_min_.html">
+<LINK REL="next" HREF="matlab_api_overview.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="matlab_api_overview.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_general_constraint_help.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_min_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_api_overview.html">MATLAB API Overview</A>
+<B> Up:</B> <A
+ HREF="py_general_constraint_help.html">General Constraint Helper Functions</A>
+<B> Previous:</B> <A
+ HREF="py_min_.html">min_()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001024500000000000000"></A>
+<A ID="pythonmethod:or_"></A>
+<BR>
+or_()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">or_</SPAN></FONT></SPAN> ( variables )
+
+
+<P>
+Used to set a binary decision variable equal to the logical OR of a
+list of other binary decision variables.  You can pass the arguments
+as a Python list or as a comma-separated list.
+
+<P>
+Note that the Gurobi Python interface includes an equivalent
+<code>any_()</code> function.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  m.addConstr(z == or_(x, y))
+  m.addConstr(z == or_([x, y]))
+</PRE>
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+Returns a <A HREF="py_genexpr.html#pythonclass:GenExpr">GenExpr</A>
+  object.
+
+<P>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="matlab_api_overview.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_general_constraint_help.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_min_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_api_overview.html">MATLAB API Overview</A>
+<B> Up:</B> <A
+ HREF="py_general_constraint_help.html">General Constraint Helper Functions</A>
+<B> Previous:</B> <A
+ HREF="py_min_.html">min_()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

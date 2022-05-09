@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Interacting with Batch Requests</TITLE>
+<META NAME="description" CONTENT="Interacting with Batch Requests">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="interpreting_the_json_solu.html">
+<LINK REL="previous" HREF="sub_a_batch_optimization_r.html">
+<LINK REL="next" HREF="interpreting_the_json_solu.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="interpreting_the_json_solu.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_a_batch_optimization_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="interpreting_the_json_solu.html">Interpreting the JSON Solution</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="sub_a_batch_optimization_r.html">Submitting a Batch Optimization</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000294000000000000000">
+Interacting with Batch Requests</A>
+</H2>
+
+<P>
+You can use a <A HREF="batchid.html#attr:BatchID">BatchID</A> string to ask the
+Cluster Manager for more information about the corresponding batch.
+Specifically, you can query the
+<A HREF="batchstatus.html#attr:BatchStatus">BatchStatus</A> for that batch, and if
+the batch is complete you can retrieve the computed solution as a
+<A HREF="json_solution_format.html#format:JSON">JSON string</A>.
+
+<P>
+Your first step in using a <code>BatchID</code> to gather more information
+is to create a Gurobi environment that enables you to connect to your
+Cluster Manager.  This is done in this line of our Python example:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    with setupbatchenv().start() as env, gp.Batch(batchID, env) as batch:
+</PRE>
+The <code>setupbatchenv</code> method creates an environment with the
+<A HREF="csmanager.html#parameter:CSManager">CSManager</A>,
+<A HREF="username.html#parameter:UserName">UserName</A>, and
+<A HREF="serverpassword.html#parameter:ServerPassword">ServerPassword</A> parameters
+set to appropriate values.
+
+<P>
+With this environment and our <code>BatchID</code>, we can now create a
+<A HREF="py_batch.html#pythonclass:Batch">Batch object</A> (by calling the
+<code>Batch</code> constructor in the above code segment) that holds
+information about the batch.
+
+<P>
+That Batch object can be used to
+query the <A HREF="batchstatus.html#attr:BatchStatus">BatchStatus</A>:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    with setupbatchenv().start() as env, gp.Batch(batchID, env) as batch:
+
+        starttime = time.time()
+        while batch.BatchStatus == GRB.BATCH_SUBMITTED:
+            # Abort this batch if it is taking too long
+            curtime = time.time()
+            if curtime - starttime &gt; maxwaittime:
+                batch.abort()
+                break
+
+            # Wait for two seconds
+            time.sleep(2)
+
+            # Update the resident attribute cache of the Batch object with the
+            # latest values from the cluster manager.
+            batch.update()
+
+            # If the batch failed, we retry it
+            if batch.BatchStatus == GRB.BATCH_FAILED:
+                batch.retry()
+</PRE>
+It can also be used to perform various operations on the batch,
+including aborting or retrying the batch.
+
+<P>
+Once a batch has been completed, you can query the solution and all
+related attributes for tagged elements in the model by retrieving the
+associated <A HREF="json_solution_format.html#format:JSON">JSON solution</A> string (or by
+saving it into a file):
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">            print("JSON solution:")
+            # Get JSON solution as string, create dict from it
+            sol = json.loads(batch.getJSONSolution())
+</PRE>
+
+<P>
+By default, the Cluster Manager will keep the solution for the model
+and other information for a while (the exact retention policy is set
+by the Cluster Manager). You can ask the Cluster Manager to discard
+information for a batch by explicitly calling the <code>discard</code>
+method:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        # Remove batch request from manager
+        batch.discard()
+</PRE>
+No further queries on that batch are possible after this has been
+done.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="interpreting_the_json_solu.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_a_batch_optimization_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="interpreting_the_json_solu.html">Interpreting the JSON Solution</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="sub_a_batch_optimization_r.html">Submitting a Batch Optimization</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

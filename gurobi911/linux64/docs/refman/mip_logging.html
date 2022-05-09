@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>MIP Logging</TITLE>
+<META NAME="description" CONTENT="MIP Logging">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="solution_pool_and_multi_sc.html">
+<LINK REL="previous" HREF="sifting_logging.html">
+<LINK REL="next" HREF="solution_pool_and_multi_sc.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="solution_pool_and_multi_sc.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sifting_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solution_pool_and_multi_sc.html">Solution Pool and Multi-Scenario</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="sifting_logging.html">Sifting Logging</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000245000000000000000"></A>
+<A ID="sec:MIPLogging"></A>
+<BR>
+MIP Logging
+</H2>
+
+<P>
+The MIP log can be divided into three sections: the presolve section,
+the simplex progress section, and the summary section.
+
+<P>
+<SPAN  CLASS="textbf">Presolve Section</SPAN>
+
+<P>
+As with the simplex and barrier logs, the first section of the MIP log
+is the presolve section.  Here is presolve output for MIPLIB model
+<code>mas76</code>:
+<PRE>
+Presolve removed 0 rows and 3 columns
+Presolve time: 0.01s
+Presolved: 12 rows, 148 columns, 1615 nonzeros
+Variable types: 1 continuous, 147 integer (145 binary)
+</PRE>
+In this example, presolve was able to remove 3 columns.  The last two
+lines show the size of the model that is passed to the branch-and-cut
+algorithm and the types of remaining variables.
+
+<P>
+<SPAN  CLASS="textbf">Progress Section</SPAN>
+
+<P>
+The next section in the MIP log tracks the progress of the
+branch-and-cut search.  The search involves a number of different
+steps, so this section typically contains a lot of detailed
+information.  The first thing to observe in the log for example
+<code>mas76</code> is this line:
+<PRE>
+Found heuristic solution: objective 157344.61033
+</PRE>
+It indicates that the Gurobi heuristics found an integer-feasible
+solution before the root relaxation was solved.
+
+<P>
+The next thing you will see in the log is the root relaxation solution
+display.  For a model where the root solves quickly, this display
+contains a single line:
+<PRE>
+Root relaxation: objective 3.889390e+04, 50 iterations, 0.00 seconds
+</PRE>
+
+<P>
+For models where the root relaxation takes more time (MIPLIB model
+<code>dano3mip</code>, for example), the Gurobi solver will automatically
+include a detailed simplex log for the relaxation itself:
+<PRE>
+Root simplex log...
+
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+   15338    5.7472018e+02   6.953458e+04   0.000000e+00      5s
+   19787    5.7623162e+02   0.000000e+00   0.000000e+00      7s
+
+Root relaxation: objective 5.762316e+02, 19787 iterations, 6.18 seconds
+</PRE>
+To be more precise, this more detailed log is triggered whenever the
+time to solve the root relaxation exceeds the
+<A HREF="displayinterval.html#parameter:DisplayInterval">DisplayInterval</A>
+parameter value (5 seconds by default).
+
+<P>
+The next section provides progress information on the branch-and-cut
+tree search:
+<PRE>
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 38893.9036    0   11 157344.610 38893.9036  75.3%     -    0s
+H    0     0                    80297.610430 38893.9036  51.6%     -    0s
+H    0     0                    60361.518931 38893.9036  35.6%     -    0s
+H    0     0                    41203.601476 38893.9036  5.61%     -    0s
+     0     0 38923.3264    0   12 41203.6015 38923.3264  5.53%     -    0s
+     0     0 38923.3264    0   12 41203.6015 38923.3264  5.53%     -    0s
+H    0     0                    40697.054142 38923.3264  4.36%     -    0s
+     0     0 38923.3264    0   13 40697.0541 38923.3264  4.36%     -    0s
+H    0     0                    40005.054142 38923.3264  2.70%     -    0s
+     0     0 38939.3131    0   15 40005.0541 38939.3131  2.66%     -    0s
+     0     0 38964.7042    0   13 40005.0541 38964.7042  2.60%     -    0s
+     0     0 39004.6387    0   15 40005.0541 39004.6387  2.50%     -    0s
+     0     0 39008.7922    0   15 40005.0541 39008.7922  2.49%     -    0s
+     0     0 39008.9356    0   12 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   14 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   15 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   15 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   16 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   17 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   17 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   19 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   18 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   18 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   19 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   19 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   18 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   18 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   18 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   18 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   18 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   19 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   21 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   21 40005.0541 39008.9356  2.49%     -    0s
+     0     0 39008.9356    0   19 40005.0541 39008.9356  2.49%     -    0s
+     0     2 39008.9356    0   19 40005.0541 39008.9356  2.49%     -    0s
+</PRE>
+This display is somewhat dense with information, but each column is
+hopefully fairly easy to understand.  The <code>Nodes</code> section (the
+first two columns) provides general quantitative information on the
+progress of the search.  The first column shows the number of
+branch-and-cut nodes that have been explored to that point, while
+the second shows the number of leaf nodes in the search tree that
+remain unexplored.  At times, there will be an <code>H</code> or <code>*</code>
+character at the beginning of the output line.  These indicate that a
+new feasible solution has been found, either by a MIP heuristic
+(<code>H</code>) or by branching (<code>*</code>).
+
+<P>
+The <code>Current Node</code> section provides information on the specific
+node that was explored at that point in the branch-and-cut tree.  It
+shows the objective of the associated relaxation, the depth of that
+node in the branch-and-cut tree, and the number of integer variables
+that have non-integral values in the associated relaxation.
+
+<P>
+The <code>Objective Bounds</code> section provides information on the best
+known objective value for a feasible solution (i.e., the objective
+value of the current incumbent), and the current objective bound
+provided by leaf nodes of the search tree.  The optimal objective
+value is always between these two values.  The third column in this
+section (<code>Gap</code>) shows the relative gap between the two objective
+bounds.  When this gap is smaller than the
+<A HREF="mipgap2.html#parameter:MIPGap">MIPGap</A> parameter,
+optimization terminates.
+
+<P>
+The <code>Work</code> section of the log provides information on how much
+work has been performed to that point.  The first column shows the
+average number of simplex iterations performed per node in the
+branch-and-cut tree.  The final column shows the elapsed time since
+the solve began.
+
+<P>
+By default, the Gurobi MIP solver prints a log line every 5 seconds
+(although the interval can sometimes be longer for models with
+particularly time-consuming nodes).  The interval between log lines
+can be adjusted with the
+<A HREF="displayinterval.html#parameter:DisplayInterval">DisplayInterval</A> parameter
+(see the <A HREF="parameters.html#sec:Parameters">Parameter</A> section of this
+document for more information).
+
+<P>
+Note that the explored node count often stays at 0 for an extended
+period.  This means that the Gurobi MIP solver is processing the root
+node.  The Gurobi solver can often expend a significant amount of
+effort on the root node, generating cutting planes and trying various
+heuristics in order to reduce the size of the subsequent
+branch-and-cut tree.
+
+<P>
+<SPAN  CLASS="textbf">Summary Section</SPAN>
+
+<P>
+The third section in the log provides summary information once the MIP
+solver has finished:
+<PRE>
+Cutting planes:
+  Gomory: 1
+  MIR: 17
+
+Explored 313128 nodes (1741251 simplex iterations) in 4.80 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 7: 40005.1 40697.1 41203.6 ... 157345
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 4.000505414200e+04, best bound 4.000505414200e+04, gap 0.0000%
+</PRE>
+In this example, the Gurobi solver required just under 5 seconds to
+solve the model to optimality, and it used 8 threads to do so
+(the thread count can be limited with the
+<A HREF="threads.html#parameter:Threads">Threads</A>
+parameter).  The gap between the best feasible solution objective and
+the best bound is 0.0%, which produces an <code>Optimal</code>
+termination status, since the achieved gap is smaller than the default
+<A HREF="mipgap2.html#parameter:MIPGap">MIPGap</A>
+parameter value.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="solution_pool_and_multi_sc.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sifting_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solution_pool_and_multi_sc.html">Solution Pool and Multi-Scenario</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="sifting_logging.html">Sifting Logging</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>dietmodel.py</TITLE>
+<META NAME="description" CONTENT="dietmodel.py">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="facility_py.html">
+<LINK REL="previous" HREF="diet4_py.html">
+<LINK REL="next" HREF="facility_py.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="facility_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="diet4_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="facility_py.html">facility.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="diet4_py.html">diet4.py</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000261000000000000000"></A>
+<A ID="subsubsection:dietmodel.py"></A>
+<BR>
+dietmodel.py
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#!/usr/bin/env python3.7
+
+# Copyright 2020, Gurobi Optimization, LLC
+
+# Solve the classic diet model.  This file implements
+# a function that formulates and solves the model,
+# but it contains no model data.  The data is
+# passed in by the calling program.  Run example 'diet2.py',
+# 'diet3.py', or 'diet4.py' to invoke this function.
+
+import gurobipy as gp
+from gurobipy import GRB
+
+
+def solve(categories, minNutrition, maxNutrition, foods, cost,
+          nutritionValues):
+    # Model
+    m = gp.Model("diet")
+
+    # Create decision variables for the foods to buy
+    buy = m.addVars(foods, name="buy")
+
+    # The objective is to minimize the costs
+    m.setObjective(buy.prod(cost), GRB.MINIMIZE)
+
+    # Nutrition constraints
+    m.addConstrs((gp.quicksum(nutritionValues[f, c] * buy[f] for f in foods) ==
+                 [minNutrition[c], maxNutrition[c]] for c in categories), "_")
+
+    def printSolution():
+        if m.status == GRB.OPTIMAL:
+            print('\nCost: %g' % m.objVal)
+            print('\nBuy:')
+            for f in foods:
+                if buy[f].x &gt; 0.0001:
+                    print('%s %g' % (f, buy[f].x))
+        else:
+            print('No solution')
+
+    # Solve
+    m.optimize()
+    printSolution()
+
+    print('\nAdding constraint: at most 6 servings of dairy')
+    m.addConstr(buy.sum(['milk', 'ice cream']) &lt;= 6, "limit_dairy")
+
+    # Solve
+    m.optimize()
+    printSolution()
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="facility_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="diet4_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="facility_py.html">facility.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="diet4_py.html">diet4.py</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

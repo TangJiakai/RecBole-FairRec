@@ -1,0 +1,227 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Architecture</TITLE>
+<META NAME="description" CONTENT="Architecture">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="security.html">
+<LINK REL="previous" HREF="client_server_optimization.html">
+<LINK REL="next" HREF="architecture_topologies.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="architecture_topologies.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="overview.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_algorithms.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="architecture_topologies.html">Architecture Topologies</A>
+<B> Up:</B> <A
+ HREF="overview.html">Overview</A>
+<B> Previous:</B> <A
+ HREF="distributed_algorithms.html">Distributed Algorithms</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00012000000000000000"></A>
+<A ID="sec:Architecture"></A>
+<BR>
+Architecture
+</H2>
+
+<P>
+Let us now consider the roles of the different Remote Services
+components.  Consider a Remote Services deployment:
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=6in]{graphics/csgraphics/csmanager_multiple}}$
+ -->
+<IMG STYLE=""
+ SRC="img7.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=6in]{graphics/csgraphics/csmanager_multiple}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+The deployment may consist of five distinct components:
+the <A HREF="client_api.html#sec:ClientAPI">Clients</A>,
+the <A HREF="#sec:ComponentsClusterManager">Cluster Manager</A>,
+the <A HREF="#sec:ComponentsDatabase">Database</A>,
+the <A HREF="#sec:ComponentsComputeServer">Compute Server nodes</A>,
+and the
+<A HREF="#sec:ComponentsDistributedWorker">Distributed Worker nodes</A>.
+Several of these are optional, and a few can be replicated for high
+availability.  This gives a variety of topology options, which
+we'll discuss
+<A HREF="architecture_topologies.html#sec:ArchitectureTopologies">shortly</A>.
+First, let us consider the components individually.
+
+<P>
+<SPAN  CLASS="textbf">Cluster Manager</SPAN>
+<A ID="sec:ComponentsClusterManager"></A>
+<P>
+The Cluster Manager is the central component of the architecture.
+It provides the following functions:
+
+<P>
+
+<UL>
+<LI><B>Security.</B> The Cluster Manager is in charge of
+  authenticating and authorizing all access to the cluster.  It does
+  this by managing user accounts and API keys, and by controlling
+  access to all Remote Services nodes (Compute Servers or Distributed
+  Workers).
+
+<P>
+</LI>
+<LI><B>Cluster Monitoring.</B> The Cluster Manager gives
+   visibility to all operations on the cluster: available nodes,
+   licenses, and jobs. It also records and retains job history,
+   including detailed metadata and engine logs.
+
+<P>
+</LI>
+<LI><B>Batch Management.</B> The Cluster Manager controls the
+   batch creation process and the storage of input models and output
+   solutions.  It also keeps a history of batches. Internally, it
+   communicates with the nodes to submit and monitor batch jobs.
+
+<P>
+</LI>
+<LI><B>REST API.</B> All of the functions provided by the Cluster
+   Manager are exposed in a REST API. This REST API is used by all
+   built-in clients: <TT>gurobi_cl</TT>, <TT>grbtune</TT>,
+   <TT>grbcluster</TT>, and the Web User Interface.  The REST API
+   can also be used by user programs.
+
+<P>
+</LI>
+<LI><B>Web User Interface.</B> The Cluster Manager includes a Web
+   Application Server that provides a complete and secured Web User
+   Interface to your Compute Server cluster.
+</LI>
+</UL>
+
+<P>
+The Cluster Manager is optional.  You can build a
+<A HREF="architecture_topologies.html#sec:SelfManagedCluster">self-managed Remote Services cluster</A>,
+but it will be missing many features.
+
+<P>
+Cluster Manager installation is covered
+<A HREF="ins_a_cluster_manager.html#sec:RSMInstallManager">in this section</A>.
+
+<P>
+<SPAN  CLASS="textbf">Database</SPAN>
+<A ID="sec:ComponentsDatabase"></A>
+<P>
+The database supports the Cluster Manager.  It stores a variety of
+important information, including data with long lifespans, like user
+accounts, API keys, history information for jobs and batches, and
+data with shorter lifespans, like input models and their solutions
+for batch optimization.
+
+<P>
+How much space does this database require?  This will depend primarily
+on the expected sizes of input and output data for batches.  The
+Cluster Manager will capture and store the complete model at the time
+a batch is created, and it will store the solution once the model has
+been solved.  These will be retained until they are discarded by the
+user, or until they expire (the retention policy can be configured by
+the Cluster Manager administrator).  The data is compressed, but it
+can still be quite large.  To limit the total size of the database, we
+suggest that you discard batches when you are done with them.  Note
+that discarding a batch doesn't discard the associated (small)
+metadata; that is kept in the cluster history.
+
+<P>
+The Cluster Manager uses MongoDB as its database - version 4.0 or
+later.  Cluster Manager users must
+<A HREF="ins_the_database.html#sec:RSMDatabase">install and configure their own database</A>
+as part of the Compute Server installation process.  The
+database can be run on-premise or remotely managed by a SaaS provider.
+It can be deployed as a single node or as a cluster for high
+availability.
+
+<P>
+<SPAN  CLASS="textbf">Compute Server Node</SPAN>
+<A ID="sec:ComponentsComputeServer"></A>
+<P>
+A Compute Server node is where optimization jobs are executed.
+Each such node has a job limit that indicates how many jobs can be
+executed on that node simultaneously.  The limit should reflect the
+capacity of the machine and typical job characteristics.  Compute
+Server nodes support advanced capabilities such as job queueing
+and load-balancing.  Deploying a Compute Server requires a Gurobi
+license.
+
+<P>
+Compute Server node installation is covered
+<A HREF="ins_the_remote_services_pa.html#sec:RSMDownload">in this section</A>.
+
+<P>
+<SPAN  CLASS="textbf">Distributed Worker Node</SPAN>
+<A ID="sec:ComponentsDistributedWorker"></A>
+<P>
+A Distributed Worker node can only be used as a worker
+in a distributed algorithm.  Only one job can run on such a node at a
+time and it does not support queueing or load balancing.  This type
+of node does not require a Gurobi License.
+
+<P>
+Distributed Worker installation is covered
+<A HREF="ins_the_remote_services_pa.html#sec:RSMDownload">in this section</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html142"
+  HREF="architecture_topologies.html">Architecture Topologies</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="architecture_topologies.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="overview.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_algorithms.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="architecture_topologies.html">Architecture Topologies</A>
+<B> Up:</B> <A
+ HREF="overview.html">Overview</A>
+<B> Previous:</B> <A
+ HREF="distributed_algorithms.html">Distributed Algorithms</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

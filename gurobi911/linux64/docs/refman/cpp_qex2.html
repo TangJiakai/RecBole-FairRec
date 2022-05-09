@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBQuadExpr()</TITLE>
+<META NAME="description" CONTENT="GRBQuadExpr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_qex_addterm.html">
+<LINK REL="previous" HREF="cpp_qex.html">
+<LINK REL="next" HREF="cpp_qex_addterm.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_qex_addterm.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_qex.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_qex.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_qex_addterm.html">GRBQuadExpr::addTerm()</A>
+<B> Up:</B> <A
+ HREF="cpp_qex.html">GRBQuadExpr</A>
+<B> Previous:</B> <A
+ HREF="cpp_qex.html">GRBQuadExpr</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000410100000000000000"></A>
+<A ID="cppmethod:GRBQuadExpr"></A>
+<BR>
+GRBQuadExpr()
+</H3>
+
+<P>
+Quadratic expression constructor.  Create a constant expression or an
+expression with one term.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBQuadExpr</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">constant=0.0 )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Create a constant quadratic expression.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">constant (optional)</SPAN>: Constant value for expression.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A constant expression object.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBQuadExpr</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">coeff=1.0 )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Create an expression with one term.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable for expression term.
+
+<P>
+ <SPAN  CLASS="textbf">coeff (optional)</SPAN>: Coefficient for expression term.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+An expression object containing one quadratic term.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBQuadExpr</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT">linexpr )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Initialize a quadratic expression from an existing linear expression.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">orig</SPAN>: Existing linear expression to copy.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+Quadratic expression object whose initial value is
+taken from the input linear expression.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_qex_addterm.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_qex.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_qex.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_qex_addterm.html">GRBQuadExpr::addTerm()</A>
+<B> Up:</B> <A
+ HREF="cpp_qex.html">GRBQuadExpr</A>
+<B> Previous:</B> <A
+ HREF="cpp_qex.html">GRBQuadExpr</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBupdatebatch</TITLE>
+<META NAME="description" CONTENT="GRBupdatebatch">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_writebatchjsonsolution.html">
+<LINK REL="previous" HREF="c_retrybatch.html">
+<LINK REL="next" HREF="c_writebatchjsonsolution.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_writebatchjsonsolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_retrybatch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_writebatchjsonsolution.html">GRBwritebatchjsonsolution</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_retrybatch.html">GRBretrybatch</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0002101100000000000000"></A>
+<A ID="routine:GRBupdatebatch"></A>
+<BR>
+GRBupdatebatch
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBupdatebatch</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBbatch</TD>
+<TD CLASS="LEFT">*batch )</TD>
+</TR>
+</TABLE>
+
+<P>
+All Batch attribute values are cached locally, so queries
+return the value received during the last communication with the
+Cluster Manager.  This function refreshes the values of all attributes with
+the values currently available in the Cluster Manager (which involves
+network communication).
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while updating the batch request.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">batch</SPAN>: The batch that will be updated.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    /* update local attributes */
+    error = GRBupdatebatch(batch);
+    if (error) goto QUIT;
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_writebatchjsonsolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_retrybatch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_writebatchjsonsolution.html">GRBwritebatchjsonsolution</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_retrybatch.html">GRBretrybatch</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

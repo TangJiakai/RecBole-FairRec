@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBBatch</TITLE>
+<META NAME="description" CONTENT="GRBBatch">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_.html">
+<LINK REL="previous" HREF="java_exception.html">
+<LINK REL="next" HREF="java_batch2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_batch2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_exception_geterrorcod.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_batch2.html">GRBBatch()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_exception_geterrorcod.html">GRBException.getErrorCode()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000614000000000000000"></A>
+<A ID="javaclass:GRBBatch"></A>
+<BR>
+GRBBatch
+</H2>
+
+<P>
+Gurobi batch object.  Batch optimization is a feature available with
+the Gurobi Cluster Manager.  It allows a client program to build an
+optimization model, submit it to a Compute Server cluster (through a
+Cluster Manager), and later check on the status of the model and
+retrieve its solution.  For more information, please refer to the
+<A HREF="batch_optimization.html#sec:BatchOptimization">Batch Optimization</A> section.
+
+<P>
+Commonly used methods on the batch object include
+<A HREF="java_batch_update.html#javamethod:GRBBatch.update">update</A> (refresh
+attributes from the Cluster Manager),
+<A HREF="java_batch_abort.html#javamethod:GRBBatch.abort">abort</A> (abort
+execution of a batch request),
+<A HREF="java_batch_retry.html#javamethod:GRBBatch.retry">retry</A> (retry
+optimization for an interrupted or failed batch request),
+<A HREF="java_batch_discard.html#javamethod:GRBBatch.discard">discard</A> (remove the
+batch request and all related information from the Cluster Manager), and
+<A HREF="java_batch_getjsonsolution.html#javamethod:GRBBatch.getJSONSolution">getJSONSolution</A>
+(query solution information for the batch request).
+
+<P>
+These methods are built on top of calls to the Cluster Manager REST
+API.  They are meant to simplify such calls, but note that you always
+have the option of calling the REST API directly.
+
+<P>
+Batch objects have four attributes:
+<DL>
+<DT></DT>
+<DD><A HREF="batchid.html#attr:BatchID">BatchID</A>: Unique ID for the batch request.
+</DD>
+<DT></DT>
+<DD><A HREF="batchstatus.html#attr:BatchStatus">BatchStatus</A>: Current
+optimization status for the batch request.  Status values are
+described in the <A HREF="batch_status_codes.html#sec:BatchStatusCodes">Batch Status Code</A>
+section.
+</DD>
+<DT></DT>
+<DD><A HREF="batcherrorcode.html#attr:BatchErrorCode">BatchErrorCode</A>: Last error
+code.
+</DD>
+<DT></DT>
+<DD><A HREF="batcherrormessage.html#attr:BatchErrorMessage">BatchErrorMessage</A>: Last
+error message.
+</DD>
+</DL>
+You can access their values by using
+<A HREF="java_batch_get.html#javamethod:GRBBatch.get">get</A>.
+Note that all Batch attributes are locally cached, and are only
+updated when you create a client-side batch object or when you
+explicitly update this cache, which can done by calling
+<A HREF="java_batch_update.html#javamethod:GRBBatch.update">update</A>.
+
+<P>
+While the Java garbage collector will eventually collect an unused
+<code>GRBBatch</code> object, the vast majority of the memory associated
+with a model is stored outside of the Java heap.  As a result, the
+garbage collector can't see this memory usage, and thus it can't take
+this quantity into account when deciding whether collection is
+necessary.  We recommend that you call
+<A HREF="java_batch_dispose.html#javamethod:GRBBatch.dispose">GRBBatch.dispose</A> when you
+are done with the batch.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2776"
+  HREF="java_batch2.html">GRBBatch()</A>
+<LI><A ID="tex2html2777"
+  HREF="java_batch_abort.html">GRBBatch.abort()</A>
+<LI><A ID="tex2html2778"
+  HREF="java_batch_discard.html">GRBBatch.discard()</A>
+<LI><A ID="tex2html2779"
+  HREF="java_batch_dispose.html">GRBBatch.dispose()</A>
+<LI><A ID="tex2html2780"
+  HREF="java_batch_getjsonsolution.html">GRBBatch.getJSONSolution()</A>
+<LI><A ID="tex2html2781"
+  HREF="java_batch_get.html">GRBBatch.get()</A>
+<LI><A ID="tex2html2782"
+  HREF="java_batch_retry.html">GRBBatch.retry()</A>
+<LI><A ID="tex2html2783"
+  HREF="java_batch_update.html">GRBBatch.update()</A>
+<LI><A ID="tex2html2784"
+  HREF="java_batch_writejsonsoluti.html">GRBBatch.writeJSONSolution()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_batch2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_exception_geterrorcod.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_batch2.html">GRBBatch()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_exception_geterrorcod.html">GRBException.getErrorCode()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel::getGenConstrAbs</TITLE>
+<META NAME="description" CONTENT="GRBModel::getGenConstrAbs">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_model_ggc_and.html">
+<LINK REL="previous" HREF="cpp_model_ggc_min.html">
+<LINK REL="next" HREF="cpp_model_ggc_and.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_model_ggc_and.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model_ggc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_ggc_min.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_model_ggc_and.html">GRBModel::getGenConstrAnd</A>
+<B> Up:</B> <A
+ HREF="cpp_model_ggc_xxx.html">GRBModel::getGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_ggc_min.html">GRBModel::getGenConstrMin</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H4><A ID="SECTION000422430000000000000"></A>
+<A ID="cppmethod:GRBModel::getGenConstrAbs"></A>
+<BR>
+GRBModel::getGenConstrAbs
+</H4>
+
+<P>
+Retrieve the data associated with a general constraint of type ABS.
+Calling this method for a general constraint of a different type
+leads to an exception.
+You can query the <A HREF="genconstrtype.html#attr:GenConstrType">GenConstrType</A>
+attribute to determine the type of the general constraint.
+
+<P>
+See also <A HREF="cpp_model_agc_abs.html#cppmethod:GRBModel::addGenConstrAbs">addGenConstrAbs</A>
+for a description of the semantics of this general constraint type.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getGenConstrAbs</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBGenConstr</TD>
+<TD CLASS="LEFT">genc,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar*</TD>
+<TD CLASS="LEFT">resvarP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar*</TD>
+<TD CLASS="LEFT">argvarP )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">genc</SPAN>: The general constraint object.
+
+<P>
+Any of the following arguments can be <SPAN  CLASS="texttt">NULL</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">resvarP</SPAN>: Pointer to store the resultant variable of the constraint.
+
+<P>
+ <SPAN  CLASS="textbf">argvarP</SPAN>: Pointer to store the argument variable of the constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<P><P>
+<BR>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_model_ggc_and.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model_ggc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_ggc_min.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_model_ggc_and.html">GRBModel::getGenConstrAnd</A>
+<B> Up:</B> <A
+ HREF="cpp_model_ggc_xxx.html">GRBModel::getGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_ggc_min.html">GRBModel::getGenConstrMin</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

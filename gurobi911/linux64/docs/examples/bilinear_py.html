@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>bilinear.py</TITLE>
+<META NAME="description" CONTENT="bilinear.py">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="cb_py.html">
+<LINK REL="previous" HREF="batchmode_py.html">
+<LINK REL="next" HREF="cb_py.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cb_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batchmode_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cb_py.html">callback.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="batchmode_py.html">batchmode.py</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00026200000000000000"></A>
+<A ID="subsubsection:bilinear.py"></A>
+<BR>
+bilinear.py
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#!/usr/bin/env python3.7
+
+# Copyright 2020, Gurobi Optimization, LLC
+
+# This example formulates and solves the following simple bilinear model:
+#  maximize    x
+#  subject to  x + y + z &lt;= 10
+#              x * y &lt;= 2         (bilinear inequality)
+#              x * z + y * z = 1  (bilinear equality)
+#              x, y, z non-negative (x integral in second version)
+
+import gurobipy as gp
+from gurobipy import GRB
+
+# Create a new model
+m = gp.Model("bilinear")
+
+# Create variables
+x = m.addVar(name="x")
+y = m.addVar(name="y")
+z = m.addVar(name="z")
+
+# Set objective: maximize x
+m.setObjective(1.0*x, GRB.MAXIMIZE)
+
+# Add linear constraint: x + y + z &lt;= 10
+m.addConstr(x + y + z &lt;= 10, "c0")
+
+# Add bilinear inequality constraint: x * y &lt;= 2
+m.addConstr(x*y &lt;= 2, "bilinear0")
+
+# Add bilinear equality constraint: x * z + y * z == 1
+m.addConstr(x*z + y*z == 1, "bilinear1")
+
+# First optimize() call will fail - need to set NonConvex to 2
+try:
+    m.optimize()
+except gp.GurobiError:
+    print("Optimize failed due to non-convexity")
+
+# Solve bilinear model
+m.params.NonConvex = 2
+m.optimize()
+
+m.printAttr('x')
+
+# Constrain 'x' to be integral and solve again
+x.vType = GRB.INTEGER
+m.optimize()
+
+m.printAttr('x')
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cb_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batchmode_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cb_py.html">callback.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="batchmode_py.html">batchmode.py</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

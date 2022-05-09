@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Batch.writeJSONSolution()</TITLE>
+<META NAME="description" CONTENT="Batch.writeJSONSolution()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="py_batch_update.html">
+<LINK REL="next" HREF="py_.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch_update.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_.html">GRB</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch_update.html">Batch.update()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001020800000000000000"></A>
+<A ID="pythonmethod:Batch.writeJSONSolution"></A>
+<BR>
+Batch.writeJSONSolution()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">writeJSONSolution</SPAN></FONT></SPAN> ( filename )
+
+<P>
+This method returns the stored solution of a completed
+batch request from a Cluster Manager. The solution is returned in
+a gzip-compressed JSON file. The file name you provide must end with a <TT>.json.gz</TT> extension. The JSON format is described in the
+<A HREF="json_solution_format.html#format:JSON">JSON solution format</A> section. Note that
+for this call to succeed, the status of the batch request must be
+<TT>COMPLETED</TT>. Please refer to the <A HREF="batch_status_codes.html#sec:BatchStatusCodes">Batch
+Status Codes</A> section for further details.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">filename</SPAN>: Name of file where the solution should be stored (in JSON format).
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">            # Write the full JSON solution string to a file
+            batch.writeJSONSolution('batch-sol.json.gz')
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch_update.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_.html">GRB</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch_update.html">Batch.update()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

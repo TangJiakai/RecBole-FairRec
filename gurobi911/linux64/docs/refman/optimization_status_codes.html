@@ -1,0 +1,205 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Optimization Status Codes</TITLE>
+<META NAME="description" CONTENT="Optimization Status Codes">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="batch_status_codes.html">
+<LINK REL="previous" HREF="parameters.html">
+<LINK REL="next" HREF="batch_status_codes.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="batch_status_codes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="visual_basic_parameter_exa.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="batch_status_codes.html">Batch Status Codes</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="visual_basic_parameter_exa.html">Visual Basic Parameter Examples</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000190000000000000000"></A>
+<A ID="sec:StatusCodes"></A>
+<BR>
+Optimization Status Codes
+</H1>
+
+<P>
+Once an optimize call has returned, the Gurobi optimizer sets the
+<A HREF="status.html#attr:Status">Status</A>
+attribute of the model to one of several possible values.
+The attribute takes an integer value, but we recommend that you use
+one of the predefined status constants to check the status in your
+program. Each code has a name, and each language requires a prefix on
+this name to obtain the appropriate constant. You would access status
+code <code>OPTIMAL</code> in the following ways from the available Gurobi
+interfaces:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Language</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Status Code</SPAN></TH>
+</TR>
+<TR><TD CLASS="LEFT">C</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_OPTIMAL</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">C++</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_OPTIMAL</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Java</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.Status.OPTIMAL</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">.NET</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.Status.OPTIMAL</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Python</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.OPTIMAL</SPAN></TD>
+</TR>
+</TABLE>
+
+<P>
+Possible status codes are as follows:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Status code</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Value</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Description</SPAN></TH>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">LOADED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">1</TD>
+<TD CLASS="LEFT">Model is loaded, but no solution information is available.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">OPTIMAL</SPAN></SPAN></TH>
+<TD CLASS="LEFT">2</TD>
+<TD CLASS="LEFT">Model was solved to optimality (subject to tolerances), and an optimal
+    solution is available.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INFEASIBLE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">3</TD>
+<TD CLASS="LEFT">Model was proven to be infeasible.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INF_OR_UNBD</SPAN></SPAN></TH>
+<TD CLASS="LEFT">4</TD>
+<TD CLASS="LEFT">Model was proven to be either infeasible or unbounded.  To obtain
+    a more definitive conclusion, set the
+    <A HREF="dualreductions.html#parameter:DualReductions">DualReductions</A> parameter to
+    0 and reoptimize.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">UNBOUNDED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">5</TD>
+<TD CLASS="LEFT">Model was proven to be unbounded. <EM>Important note: an unbounded
+    status indicates the presence of an unbounded ray that allows the objective
+    to improve without limit.  It says nothing about whether the model has a
+    feasible solution.  If you require information on feasibility, you should
+    set the objective to zero and reoptimize.</EM></TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">CUTOFF</SPAN></SPAN></TH>
+<TD CLASS="LEFT">6</TD>
+<TD CLASS="LEFT">Optimal objective for model was proven to be worse than the
+    value specified in the <code>Cutoff</code>
+    parameter. No solution information is available.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">ITERATION_LIMIT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">7</TD>
+<TD CLASS="LEFT">Optimization terminated because the total number of simplex iterations
+    performed exceeded the value specified in the <code>IterationLimit</code>
+    parameter, or because the total number of barrier iterations
+    exceeded the value specified in the <code>BarIterLimit</code>
+    parameter.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NODE_LIMIT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">8</TD>
+<TD CLASS="LEFT">Optimization terminated because the total number of branch-and-cut nodes
+    explored exceeded the value specified in the <code>NodeLimit</code>
+    parameter.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">TIME_LIMIT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">9</TD>
+<TD CLASS="LEFT">Optimization terminated because the time expended
+    exceeded the value specified in the <code>TimeLimit</code>
+    parameter.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">SOLUTION_LIMIT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10</TD>
+<TD CLASS="LEFT">Optimization terminated because the number of solutions found
+    reached the value specified in the <code>SolutionLimit</code>
+    parameter.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INTERRUPTED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">11</TD>
+<TD CLASS="LEFT">Optimization was terminated by the user.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NUMERIC</SPAN></SPAN></TH>
+<TD CLASS="LEFT">12</TD>
+<TD CLASS="LEFT">Optimization was terminated due to unrecoverable numerical difficulties.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">SUBOPTIMAL</SPAN></SPAN></TH>
+<TD CLASS="LEFT">13</TD>
+<TD CLASS="LEFT">Unable to satisfy optimality tolerances; a sub-optimal solution is
+    available.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INPROGRESS</SPAN></SPAN></TH>
+<TD CLASS="LEFT">14</TD>
+<TD CLASS="LEFT">An asynchronous optimization call was made, but the associated
+    optimization run is not yet complete.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">USER_OBJ_LIMIT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">15</TD>
+<TD CLASS="LEFT">User specified an objective limit (a bound on either the
+    <A HREF="bestobjstop.html#parameter:BestObjStop">best objective</A>
+    or the
+    <A HREF="bestbdstop.html#parameter:BestBdStop">best bound</A>),
+    and that limit has been reached.</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="batch_status_codes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="visual_basic_parameter_exa.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="batch_status_codes.html">Batch Status Codes</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="visual_basic_parameter_exa.html">Visual Basic Parameter Examples</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

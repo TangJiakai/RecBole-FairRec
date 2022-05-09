@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Setting the objective</TITLE>
+<META NAME="description" CONTENT="Setting the objective">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_adding_constraints_to_t3.html">
+<LINK REL="previous" HREF="cs_adding_variables_to_the3.html">
+<LINK REL="next" HREF="cs_adding_constraints_to_t3.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_adding_constraints_to_t3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_matrix_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_adding_variables_to_the3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_adding_constraints_to_t3.html">Adding constraints to the</A>
+<B> Up:</B> <A
+ HREF="cs_python_matrix_example.html">Python Matrix Example</A>
+<B> Previous:</B> <A
+ HREF="cs_adding_variables_to_the3.html">Adding variables to the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000115500000000000000">
+Setting the objective</A>
+</H3>
+
+<P>
+The next step is to set the optimization objective:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    # Set objective
+    obj = np.array([1.0, 1.0, 2.0])
+    m.setObjective(obj @ x, GRB.MAXIMIZE)
+</PRE>
+
+<P>
+The objective is built here by computing a dot product between a
+constant vector and our matrix variable using the overloaded <code>@</code>
+operator.  Note that the constant vector must have the same length as
+our matrix variable.
+
+<P>
+The second argument indicates that the sense is maximization.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_adding_constraints_to_t3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_matrix_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_adding_variables_to_the3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_adding_constraints_to_t3.html">Adding constraints to the</A>
+<B> Up:</B> <A
+ HREF="cs_python_matrix_example.html">Python Matrix Example</A>
+<B> Previous:</B> <A
+ HREF="cs_adding_variables_to_the3.html">Adding variables to the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

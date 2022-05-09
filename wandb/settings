@@ -1,5 +1,0 @@
-[default]
-entity = tangjiaki
-project = fairgo
-base_url = https://api.wandb.ai
-

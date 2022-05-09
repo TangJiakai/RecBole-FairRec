@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBSOS</TITLE>
+<META NAME="description" CONTENT="GRBSOS">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_genconstr.html">
+<LINK REL="previous" HREF="java_qconstr.html">
+<LINK REL="next" HREF="java_sos_get.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_sos_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_qconstr_set.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_sos_get.html">GRBSOS.get()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_qconstr_set.html">GRBQConstr.set()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00066000000000000000"></A>
+<A ID="javaclass:GRBSOS"></A>
+<BR>
+GRBSOS
+</H2>
+
+<P>
+Gurobi SOS constraint object.  SOS constraints are always associated
+with a particular model.  You create an SOS object by adding an SOS
+constraint to a model (using
+<A HREF="java_model_addsos.html#javamethod:GRBModel.addSOS">GRBModel.addSOS</A>), rather
+than by using a <code>GRBSOS</code> constructor.  Similarly, SOS
+constraints are removed using the
+<A HREF="java_model_remove.html#javamethod:GRBModel.remove">GRBModel.remove</A> method.
+
+<P>
+An SOS constraint can be of type 1 or 2 (<code>GRB.SOS_TYPE1</code> or
+<code>GRB.SOS_TYPE2</code>).  A type 1 SOS constraint is a set of
+variables where at most one variable in the set may take a value
+other than zero.  A type 2 SOS constraint is an ordered set of
+variables where at most two variables in the set may take non-zero
+values.  If two take non-zero values, they must be contiguous in the
+ordered set.
+
+<P>
+SOS constraint objects have one attribute, <code>IISSOS</code>, which can
+be queried with the
+<A HREF="java_sos_get.html#javamethod:GRBSOS.get">GRBSOS.get</A> method.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2723"
+  HREF="java_sos_get.html">GRBSOS.get()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_sos_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_qconstr_set.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_sos_get.html">GRBSOS.get()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_qconstr_set.html">GRBQConstr.set()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

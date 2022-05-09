@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Error handling</TITLE>
+<META NAME="description" CONTENT="Error handling">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="cs_building_and_running_th.html">
+<LINK REL="previous" HREF="cs_cleaning_up.html">
+<LINK REL="next" HREF="cs_building_and_running_th.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_building_and_running_th.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_cleaning_up.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_building_and_running_th.html">Building and running the</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_cleaning_up.html">Cleaning up</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0001011000000000000000">
+Error handling</A>
+</H2>
+
+<P>
+Errors in the Gurobi .NET interface are handled through the .NET
+exception mechanism.  In the example, all Gurobi statements are
+enclosed inside a <code>try</code> block, and any associated errors would be
+caught by the <code>catch</code> block:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    } catch (GRBException e) {
+      Console.WriteLine("Error code: " + e.ErrorCode + ". " + e.Message);
+    }
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_building_and_running_th.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_cleaning_up.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_building_and_running_th.html">Building and running the</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_cleaning_up.html">Cleaning up</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

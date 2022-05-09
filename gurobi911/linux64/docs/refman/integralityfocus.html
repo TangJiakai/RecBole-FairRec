@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>IntegralityFocus</TITLE>
+<META NAME="description" CONTENT="IntegralityFocus">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="intfeastol.html">
+<LINK REL="previous" HREF="inputfile.html">
+<LINK REL="next" HREF="intfeastol.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="intfeastol.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="inputfile.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="intfeastol.html">IntFeasTol</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="inputfile.html">InputFile</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001826800000000000000"></A>
+<A ID="parameter:IntegralityFocus"></A>
+<BR>
+IntegralityFocus
+</H3>
+Integrality focus
+
+<TABLE class="PAD " style="">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Default value:</SPAN></TD>
+<TD CLASS="LEFT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Minimum value:</SPAN></TD>
+<TD CLASS="LEFT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Maximum value:</SPAN></TD>
+<TD CLASS="LEFT">1</TD>
+</TR>
+</TABLE>
+
+<P>
+One unfortunate reality in MIP is that integer variables don't always
+take exact integral values.  While this typically doesn't create
+significant problems, in some situations the side-effects can be quite
+undesirable.  The best-known example is probably a <SPAN  CLASS="textit">trickle
+flow</SPAN>, where a continuous variable that is meant to be zero when an
+associated binary variable is zero instead takes a non-trivial value.
+More precisely, given a constraint <SPAN CLASS="MATH"><IMG STYLE="height: 2.29ex; vertical-align: -0.57ex; " SRC="img259.svg"
+ ALT="$y \leq M b$"></SPAN>, where <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> is a
+non-negative continuous variable, <SPAN CLASS="MATH"><IMG STYLE="height: 1.84ex; vertical-align: -0.12ex; " SRC="img54.svg"
+ ALT="$b$"></SPAN> is a binary variable, and <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img116.svg"
+ ALT="$M$"></SPAN> is
+a constant that captures the largest possible value of <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>, the
+constraint is intended to enforce the relationship that <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> must be
+zero if <SPAN CLASS="MATH"><IMG STYLE="height: 1.84ex; vertical-align: -0.12ex; " SRC="img54.svg"
+ ALT="$b$"></SPAN> is zero.  With the default
+<A HREF="intfeastol.html#parameter:IntFeasTol">integer feasibility tolerance</A>,
+the binary variable is allowed to take a value as large as <SPAN CLASS="MATH"><IMG STYLE="height: 1.92ex; vertical-align: -0.31ex; " SRC="img260.svg"
+ ALT="$1e-5$"></SPAN>
+while still being considered as taking value zero.  If the <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img116.svg"
+ ALT="$M$"></SPAN> value
+is large, then the <SPAN CLASS="MATH"><IMG STYLE="height: 1.84ex; vertical-align: -0.12ex; " SRC="img261.svg"
+ ALT="$M b$"></SPAN> upper bound on the <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> variable can be
+substantial.
+
+<P>
+Reducing the value of the <A HREF="intfeastol.html#parameter:IntFeasTol">IntFeasTol</A>
+parameter can mitigate the effects of such trickle flows, but often at
+a significant cost, and often with limited success.  The
+<code>IntegralityFocus</code> parameter provides a better alternative.
+Setting this parameter to 1 requests that the solver work harder to
+try to avoid solutions that exploit integrality tolerances.  More
+precisely, the solver tries to find solutions that are still (nearly)
+feasible if all integer variables are rounded to exact integral
+values.  We should say that the solver won't always succeed in finding
+such solutions, and that this setting introduces a modest performance
+penalty, but the setting will significantly reduce the frequency and
+magnitude of such violations.
+
+<P>
+For examples of how to query or modify parameter values from
+our different APIs, refer to our
+<A HREF="parameter_examples.html#sec:ParameterExamples">Parameter Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="intfeastol.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="inputfile.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="intfeastol.html">IntFeasTol</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="inputfile.html">InputFile</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

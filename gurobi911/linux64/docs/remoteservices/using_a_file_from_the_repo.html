@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using a File from the Repository</TITLE>
+<META NAME="description" CONTENT="Using a File from the Repository">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="deleting_a_file_from_the_r.html">
+<LINK REL="previous" HREF="uploading_a_file_to_the_re.html">
+<LINK REL="next" HREF="deleting_a_file_from_the_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="deleting_a_file_from_the_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="uploading_a_file_to_the_re.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="deleting_a_file_from_the_r.html">Deleting a File from</A>
+<B> Up:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Previous:</B> <A
+ HREF="uploading_a_file_to_the_re.html">Uploading a File to</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00034200000000000000"></A>
+<A ID="sec:grbclusterRepoUsing"></A>
+<BR>
+Using a File from the Repository
+</H3>
+
+<P>
+You can submit batches that use files from the repository as their inputs.
+A file can be referenced using the full file object ID or the file object
+path. A file object path starts with '@' and concatenates the container and the
+object name with a '/' separator. For example, if the object was uploaded in the
+container <TT>examples/app1</TT>  with name <TT>model.mps</TT>, you can
+reference it using:
+
+<PRE>
+   @examples/app1/model.mps
+</PRE>
+
+<P>
+One possible use of the file repository is to submit several batches
+that solve the same model using different parameters:
+
+<P>
+
+<PRE>
+grbcluster batch solve @training/glass4.mps ResultFile=solution.sol Threads=2
+info  : Batch 7fe26af5-fbec-4e23-ad58-9ab4539f98f3 created
+info  : Batch 7fe26af5-fbec-4e23-ad58-9ab4539f98f3 submitted with job 4e359f99...
+
+grbcluster batch solve @training/glass4.mps ResultFile=solution.sol Threads=5
+info  : Batch d2434fc9-b3df-4be0-bf2c-4d1eac2acb5e created
+info  : Batch d2434fc9-b3df-4be0-bf2c-4d1eac2acb5e submitted with job 8deeb020...
+</PRE>
+The model file was used in two batches, but only needed to be uploaded once.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="deleting_a_file_from_the_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="uploading_a_file_to_the_re.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="deleting_a_file_from_the_r.html">Deleting a File from</A>
+<B> Up:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Previous:</B> <A
+ HREF="uploading_a_file_to_the_re.html">Uploading a File to</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

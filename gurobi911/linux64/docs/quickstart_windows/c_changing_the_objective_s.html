@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Changing the objective sense</TITLE>
+<META NAME="description" CONTENT="Changing the objective sense">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="c_adding_constraints_to_th.html">
+<LINK REL="previous" HREF="c_adding_variables_to_the_.html">
+<LINK REL="next" HREF="c_adding_constraints_to_th.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_adding_constraints_to_th.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_adding_variables_to_the_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_adding_constraints_to_th.html">Adding constraints to the</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_adding_variables_to_the_.html">Adding variables to the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00076000000000000000">
+Changing the objective sense</A>
+</H2>
+
+<P>
+As we just noted, the default sense for the objective function is
+minimization.  Since our example aims to maximize the objective,
+we need to modify the <code>ModelSense</code> attribute:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+  /* Change objective sense to maximization */
+  error = GRBsetintattr(model, GRB_INT_ATTR_MODELSENSE, GRB_MAXIMIZE);
+  if (error) goto QUIT;
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_adding_constraints_to_th.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_adding_variables_to_the_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_adding_constraints_to_th.html">Adding constraints to the</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_adding_variables_to_the_.html">Adding variables to the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

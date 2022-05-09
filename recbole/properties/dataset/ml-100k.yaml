@@ -5,11 +5,11 @@ seq_separator: " "
 # Common Features
 USER_ID_FIELD: user_id
 ITEM_ID_FIELD: item_id
-RATING_FIELD: rating
+RATING_FIELD: label
 TIME_FIELD: timestamp
 seq_len: ~
 # Label for Point-wise DataLoader
-LABEL_FIELD: label
+LABEL_FIELD: label  # 评分预测任务中为该字段设置为rating
 # NegSample Prefix for Pair-wise DataLoader
 NEG_PREFIX: neg_
 # Sequential Model Needed
@@ -25,7 +25,7 @@ ENTITY_ID_FIELD: entity_id
 
 # Selectively Loading
 load_col:
-  inter: [user_id, item_id, rating, timestamp]
+    inter: [user_id, item_id, label]
 unload_col: ~
 unused_col: ~
 
@@ -33,8 +33,8 @@ unused_col: ~
 rm_dup_inter: ~
 val_interval: ~
 filter_inter_by_user_or_item: True
-user_inter_num_interval: ~
-item_inter_num_interval: ~
+user_inter_num_interval: '[1,inf)'
+item_inter_num_interval: '[1,inf)'
 
 # Preprocessing
 alias_of_user_id: ~
@@ -43,3 +43,7 @@ alias_of_entity_id: ~
 alias_of_relation_id: ~
 preload_weight: ~
 normalize_field: ~
+
+# Benchmark file
+benchmark_filename: ['train','valid','test']
+

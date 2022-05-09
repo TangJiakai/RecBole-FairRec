@@ -1,0 +1,516 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Objectives</TITLE>
+<META NAME="description" CONTENT="Objectives">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="tolerances_and_ill_conditi.html">
+<LINK REL="previous" HREF="constraints.html">
+<LINK REL="next" HREF="tolerances_and_ill_conditi.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="tolerances_and_ill_conditi.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="constraints.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tolerances_and_ill_conditi.html">Tolerances and Ill Conditioning</A>
+<B> Up:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A>
+<B> Previous:</B> <A
+ HREF="constraints.html">Constraints</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000153000000000000000"></A>
+<A ID="subsection:Objectives"></A>
+<BR>
+Objectives
+</H2>
+
+<P>
+Every optimization model has an objective function, which is the
+function on the decision variables that you wish to minimize or
+maximize.  The objective is meant to capture your goals in solving the
+problem.  Given a set of feasible solutions, the objective tells the
+solver which is preferred.
+
+<P>
+Most optimization problems have multiple optimal solutions, plus many
+solutions whose objectives are within a small gap from the optimal
+value.  The solution that is returned by Gurobi depends on the type of
+problem you are solving.  The simple rule is that Gurobi returns a
+single optimal solution for continuous models (LP, QP, and QCP), and a
+sequence of improving solutions for discrete models (MIP, MIQP, and
+MIQCP).
+
+<P>
+The Gurobi algorithms work on solving a model until they find a
+solution that is optimal to within the specified tolerances.  For the
+simplex algorithms (including barrier with crossover), the relevant
+tolerance is the
+<A HREF="optimalitytol.html#parameter:OptimalityTol">OptimalityTol</A>.  For the
+barrier algorithm (without crossover), the relevant tolerances are the
+<A HREF="barconvtol.html#parameter:BarConvTol">BarConvTol</A> or
+<A HREF="barqcpconvtol.html#parameter:BarQCPConvTol">BarQCPConvTol</A> (depending on
+the problem type).  You can relax these tolerances, but note that it
+is rare for this to significantly improve solution times.  The simplex
+and barrier algorithms both return a single optimal solution.
+
+<P>
+For discrete models, while you can ask the MIP solver to find a
+solution with the best possible objective value, it is more common to
+stop when the solution objective is within a specified gap from the
+optimal value.  This optimality gap is controlled by the
+<A HREF="mipgap2.html#parameter:MIPGap">MIPGap</A> parameter, and the default
+value is 0.01%.
+
+<P>
+The MIP solver typically finds multiple sub-optimal solutions on the
+way to eventually finding an optimal solution.  These intermediate
+solutions can be queried once the optimization is complete (using the
+<A HREF="xn.html#attr:Xn">Xn</A> attribute).  You can use the
+<A HREF="solution_pool.html#sec:SolutionPool">Solution Pool</A> feature to take a more
+systematic approach to finding multiple solutions.  This feature
+allows you to indicate how many solutions you would like, to specify
+the largest gap to the optimal value you are willing to accept, etc.
+
+<P>
+We should add that it is possible to specify a pure feasibility
+problem, where the sole goal is to find a solution that satisfies the
+constraints.  You can think of a feasibility problem as an
+optimization problem with a constant objective function.
+
+<P>
+The available objective types are
+<A HREF="#subsubsection:LinearObj">linear</A>,
+<A HREF="#subsubsection:PiecewiseObj">piecewise-linear</A>,
+<A HREF="#subsubsection:QuadraticObj">quadratic</A> (both convex and
+non-convex), and
+<A HREF="#subsubsection:MultiObj">multi-objective</A>.  While the
+property of having multiple objectives may appear to be orthogonal to
+the types of the objectives, Gurobi only supports multi-objective
+models where all objectives are linear.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Linear Objectives</SPAN></SPAN>
+<A ID="subsubsection:LinearObj"></A>
+<P>
+The simplest and most common objective function is linear - minimizing
+or maximizing a linear function on the decision variables (e.g., <SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img178.svg"
+ ALT="$3 x
++ 4 y + 2$"></SPAN>).  Linear objectives can be specified in a few ways.  The
+first is by providing an objective term when the decision variable is
+added to the model (typically through the <code>addVar</code> method). The
+second is by setting the <A HREF="obj.html#attr:Obj">Obj</A> attribute on the
+variable.  The third and most convenient approach, available in the
+object-oriented interfaces, is through the <code>setObjective</code> method
+(in <A HREF="cpp_model_setobjective.html#cppmethod:GRBModel::setObjective">C++</A>,
+<A HREF="java_model_setobjective.html#javamethod:GRBModel.setObjective">Java</A>,
+<A HREF="cs_model_setobjective.html#dotnetmethod:GRBModel.SetObjective">.NET</A>, or
+<A HREF="py_model_setobjective.html#pythonmethod:Model.setObjective">Python</A>).  This method
+accepts a linear expression object as its argument.
+
+<P>
+A model with a linear objective, only linear constraints, and only
+continuous variables is a Linear Program (LP).  It can be solved
+using the simplex or barrier algorithms.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Piecewise-Linear Objectives</SPAN></SPAN>
+<A ID="subsubsection:PiecewiseObj"></A>
+<P>
+A useful variant of a linear objective is a <EM>piecewise</EM>-linear
+objective, where the objective for a single variable is captured in a
+set of linear pieces.  For example, suppose we want to define the
+objective value <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img179.svg"
+ ALT="$f(x)$"></SPAN> for variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> as follows:
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=4in]{graphics/pwl}}$
+ -->
+<IMG STYLE=""
+ SRC="img180.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=4in]{graphics/pwl}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+The vertices of the function occur at the points <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img181.svg"
+ ALT="$(1, 1)$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img182.svg"
+ ALT="$(3, 2)$"></SPAN>
+and <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img183.svg"
+ ALT="$(5, 4)$"></SPAN>, so we define <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img184.svg"
+ ALT="$f(1) = 1$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img185.svg"
+ ALT="$f(3) = 2$"></SPAN> and <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img186.svg"
+ ALT="$f(5) = 4$"></SPAN>,
+Other objective values are linearly interpolated between neighboring
+points.  The first pair and last pair of points each define a ray, so
+values outside the specified <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> values are extrapolated from these
+points.  Thus, in our example, <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img187.svg"
+ ALT="$f(-1)=0$"></SPAN> and <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img188.svg"
+ ALT="$f(6)=5$"></SPAN>.
+
+<P>
+More formally, a piecewise-linear function is defined by a set of <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN> points:
+<DIV class="CENTER">
+<!-- MATH
+ $\mathtt{x} = [x_1, \ldots, x_n], \quad \mathtt{y} = [y_1, \ldots, y_n]$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img189.svg"
+ ALT="$\mathtt{x} = [x_1, \ldots, x_n], \quad \mathtt{y} = [y_1, \ldots, y_n]
+$"></SPAN>
+</DIV>
+These define the following piecewise-linear function:
+<DIV class="CENTER">
+<!-- MATH
+ $f(v) =
+\left\{
+\begin{array}{ll}
+y_1 + \frac{y_2-y_1}{x_2-x_1} (v - x_1),             & \mathrm{if}\;  v \le x_1,\\[7pt]
+y_i + \frac{y_{i+1}-y_i}{x_{i+1}-x_i} (v - x_i),     & \mathrm{if}\;  v \ge x_i\; \mathrm{and}\; v \le x_{i+1}, \\[7pt]
+y_n + \frac{y_n - y_{n-1}}{x_n - x_{n-1}} (v - x_n), & \mathrm{if}\;  v \ge x_n. \\[7pt]
+\end{array}
+\right.$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 14.12ex; vertical-align: -6.50ex; " SRC="img190.svg"
+ ALT="$f(v) =
+\left\{
+\begin{array}{ll}
+y_1 + \frac{y_2-y_1}{x_2-x_1} (v - x_1), &amp; \ma...
+...n - x_{n-1}} (v - x_n), &amp; \mathrm{if}\; v \ge x_n. \\ [7pt]
+\end{array}\right.
+$"></SPAN>
+</DIV>
+
+<P>
+We also allow special cases, such as jumps and single points, which
+are quite useful to define the fixed charges or the penalties.
+A jump at <SPAN CLASS="MATH"><IMG STYLE="height: 1.58ex; vertical-align: -0.46ex; " SRC="img191.svg"
+ ALT="$x=x_i$"></SPAN> means that the left piece and the right piece
+don't intersect at <SPAN CLASS="MATH"><IMG STYLE="height: 1.58ex; vertical-align: -0.46ex; " SRC="img191.svg"
+ ALT="$x=x_i$"></SPAN>, i.e. we have <!-- MATH
+ $(x_{i-1}, y_{i-1}),(x_i, y_i),
+(x_{i+1}, y_{i+1}), (x_{i+2}, y_{i+2})$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img192.svg"
+ ALT="$(x_{i-1}, y_{i-1}),(x_i, y_i),
+(x_{i+1}, y_{i+1}), (x_{i+2}, y_{i+2})$"></SPAN> with <SPAN CLASS="MATH"><IMG STYLE="height: 1.77ex; vertical-align: -0.66ex; " SRC="img193.svg"
+ ALT="$x_i = x_{i+1}$"></SPAN> and
+<!-- MATH
+ $y_i \neq y_{i+1}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.38ex; vertical-align: -0.66ex; " SRC="img194.svg"
+ ALT="$y_i \neq y_{i+1}$"></SPAN>. So for the left piece, i.e. <!-- MATH
+ $x_{i-1} \le x < x_{i}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.24ex; vertical-align: -0.66ex; " SRC="img195.svg"
+ ALT="$x_{i-1} \le x &lt; x_{i}$"></SPAN>,
+the line segment between points <!-- MATH
+ $(x_{i-1}, y_{i-1})$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img196.svg"
+ ALT="$(x_{i-1}, y_{i-1})$"></SPAN> and <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img197.svg"
+ ALT="$(x_i, y_i)$"></SPAN>
+defines <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>, for the right piece, i.e. <!-- MATH
+ $x_{i} \le x < x_{i+2}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.24ex; vertical-align: -0.66ex; " SRC="img198.svg"
+ ALT="$x_{i} \le x &lt; x_{i+2}$"></SPAN>, the line
+segment between points <!-- MATH
+ $(x_{i+1}, y_{i+1})$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img199.svg"
+ ALT="$(x_{i+1}, y_{i+1})$"></SPAN> and <!-- MATH
+ $(x_{i+2}, y_{i+2})$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img200.svg"
+ ALT="$(x_{i+2}, y_{i+2})$"></SPAN>
+defines <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>. Since we must allow some tolerance for numeric computation,
+it means that at <SPAN CLASS="MATH"><IMG STYLE="height: 1.58ex; vertical-align: -0.46ex; " SRC="img191.svg"
+ ALT="$x=x_i$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> can take the value of either <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img201.svg"
+ ALT="$y_i$"></SPAN> or <SPAN CLASS="MATH"><IMG STYLE="height: 1.77ex; vertical-align: -0.66ex; " SRC="img202.svg"
+ ALT="$y_{i+1}$"></SPAN>.
+A single point at <SPAN CLASS="MATH"><IMG STYLE="height: 1.58ex; vertical-align: -0.46ex; " SRC="img191.svg"
+ ALT="$x=x_i$"></SPAN> means that both left and right pieces extend
+to <SPAN CLASS="MATH"><IMG STYLE="height: 1.58ex; vertical-align: -0.46ex; " SRC="img191.svg"
+ ALT="$x=x_i$"></SPAN>, but both have different <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> values than <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img201.svg"
+ ALT="$y_i$"></SPAN>. It can be described
+by the five points <!-- MATH
+ $(x_{i-2}, y_{i-2}), (x_{i-1}, y_{i-1}), (x_i, y_i),
+(x_{i+1}, y_{i+1}), (x_{i+2}, y_{i+2})$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img203.svg"
+ ALT="$(x_{i-2}, y_{i-2}), (x_{i-1}, y_{i-1}), (x_i, y_i),
+(x_{i+1}, y_{i+1}), (x_{i+2}, y_{i+2})$"></SPAN> with <!-- MATH
+ $x_{i-1} = x_i = x_{i+1}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.77ex; vertical-align: -0.66ex; " SRC="img204.svg"
+ ALT="$x_{i-1} = x_i = x_{i+1}$"></SPAN>
+and <!-- MATH
+ $y_i \neq y_{i-1}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.38ex; vertical-align: -0.66ex; " SRC="img205.svg"
+ ALT="$y_i \neq y_{i-1}$"></SPAN> and <!-- MATH
+ $y_i \neq y_{i+1}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.38ex; vertical-align: -0.66ex; " SRC="img194.svg"
+ ALT="$y_i \neq y_{i+1}$"></SPAN>. Note that <SPAN CLASS="MATH"><IMG STYLE="height: 1.77ex; vertical-align: -0.66ex; " SRC="img206.svg"
+ ALT="$y_{i-1}$"></SPAN> and
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.77ex; vertical-align: -0.66ex; " SRC="img202.svg"
+ ALT="$y_{i+1}$"></SPAN> can be equal or different. Because of the tolerance,
+it means that at <SPAN CLASS="MATH"><IMG STYLE="height: 1.58ex; vertical-align: -0.46ex; " SRC="img191.svg"
+ ALT="$x=x_i$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> can take the value of <SPAN CLASS="MATH"><IMG STYLE="height: 1.77ex; vertical-align: -0.66ex; " SRC="img206.svg"
+ ALT="$y_{i-1}$"></SPAN>,
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img201.svg"
+ ALT="$y_i$"></SPAN> or <SPAN CLASS="MATH"><IMG STYLE="height: 1.77ex; vertical-align: -0.66ex; " SRC="img202.svg"
+ ALT="$y_{i+1}$"></SPAN>. Here below is an example with a jump and
+a single point.
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=4in]{graphics/pwljump}}$
+ -->
+<IMG STYLE=""
+ SRC="img207.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=4in]{graphics/pwljump}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+The above piecewise function for variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> are defined by
+7 points <!-- MATH
+ $(-1, 0), (1, 1), (1, 2), (3, 2), (3, 0), (3,2)$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img208.svg"
+ ALT="$(-1, 0), (1, 1), (1, 2), (3, 2), (3, 0), (3,2)$"></SPAN> and <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img183.svg"
+ ALT="$(5, 4)$"></SPAN>.
+It has a jump at <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img177.svg"
+ ALT="$x=1$"></SPAN> from <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img181.svg"
+ ALT="$(1, 1)$"></SPAN> to <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img209.svg"
+ ALT="$(1,2)$"></SPAN> and a single point
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img210.svg"
+ ALT="$(3,0)$"></SPAN>. Note that both left and right points have the same <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN>
+coordinate and for this example the two points are the same.
+
+<P>
+Note that a piecewise-linear objective can change the type of a model.
+Specifically, including a non-convex piecewise-linear objective
+function in a continuous model will transform that model into a MIP.
+This can significantly increase the cost of solving the model.
+
+<P>
+How do you determine whether your piecewise-linear objective is
+convex?  A convex function has the property that you can't obtain a
+better objective value by interpolating between two points on the
+function.  In the figure below, you will note that all convex
+combinations of points on the piecewise-linear function are in the
+shaded region.
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=3.5in]{graphics/convex0}}$
+ -->
+<IMG STYLE=""
+ SRC="img211.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=3.5in]{graphics/convex0}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+Stated another way, successive pieces will have non-decreasing slopes
+in a convex piecewise-linear objective (assuming you are minimizing).
+
+<P>
+In contrast, in a non-convex piecewise-linear function you can get a
+better value by interpolating between points.  In the figure
+below, the value of <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img212.svg"
+ ALT="$f(1)$"></SPAN> for the piecewise-linear function
+is worse than the value obtained by interpolation.
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=3.5in]{graphics/convex1}}$
+ -->
+<IMG STYLE=""
+ SRC="img213.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=3.5in]{graphics/convex1}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+Piecewise-linear objectives are defined on variables using a special
+method (in <A HREF="c_setpwlobj.html#routine:GRBsetpwlobj">C</A>,
+<A HREF="cpp_model_setpwlobj.html#cppmethod:GRBModel::setPWLObj">C++</A>,
+<A HREF="java_model_setpwlobj.html#javamethod:GRBModel.setPWLObj">Java</A>,
+<A HREF="cs_model_setpwlobj.html#dotnetmethod:GRBModel.SetPWLObj">.NET</A>, or
+<A HREF="py_model_setpwlobj.html#pythonmethod:Model.setPWLObj">Python</A>).  Each variable
+can have its own piecewise-linear objective function, and each
+function requires a separate call to this method.
+
+<P>
+A variable can't have both a linear and a piecewise-linear objective
+term.  Setting a piecewise-linear objective for a variable will set
+the <A HREF="obj.html#attr:Obj">Obj attribute</A> on that variable to 0.
+Similarly, setting the <code>Obj</code> attribute will delete the
+piecewise-linear objective on that variable.
+
+<P>
+We should point out that it is fairly easy to specify a
+piecewise-linear function on a variable using a few extra variables
+and simple linear objective terms.  The advantages of using the
+piecewise-linear API methods are twofold.  The first is convenience -
+specifying the function directly leads to simpler and more readable
+code.  The second is that Gurobi includes a piecewise-linear simplex
+algorithm.  If you provide a model that contains only linear
+constraints, only continuous variables, and only linear or convex
+piecewise-linear objective terms, then this specialized simplex
+algorithm will be used to solve the model.  If your piecewise-linear
+function contains a large number of segments, the specialized
+algorithm will be much faster than the standard simplex solver.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Quadratic Objectives</SPAN></SPAN>
+<A ID="subsubsection:QuadraticObj"></A>
+<P>
+Your optimization objective can also contain quadratic terms (e.g., <!-- MATH
+ $3
+x^2 + 4 y^2 + 2 x y + 2 x + 3$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.57ex; vertical-align: -0.57ex; " SRC="img214.svg"
+ ALT="$3
+x^2 + 4 y^2 + 2 x y + 2 x + 3$"></SPAN>).  You specify quadratic objectives in
+the object-oriented interfaces by building quadratic expressions and
+then calling <EM>setObjective</EM>
+(<A HREF="cpp_model_setobjective.html#cppmethod:GRBModel::setObjective">C++</A>,
+<A HREF="java_model_setobjective.html#javamethod:GRBModel.setObjective">Java</A>,
+<A HREF="cs_model_setobjective.html#dotnetmethod:GRBModel.SetObjective">.NET</A>, or
+<A HREF="py_model_setobjective.html#pythonmethod:Model.setObjective">Python</A>).
+In C, you input your quadratic terms using
+<A HREF="c_addqpterms.html#routine:GRBaddqpterms">GRBaddqpterms</A>.
+
+<P>
+There are four distinct algorithms that could be used to solve a model
+with a quadratic objective.  The appropriate one depends on a few
+specific properties of the objective and the rest of the model.
+
+<UL>
+<LI><B>Continuous QP</B> If your quadratic objective is convex and
+  your model only contains linear constraints and continuous
+  variables, then your model is a quadratic program (QP) and can be
+  solved using either the simplex or barrier algorithms.  QP simplex
+  will return an optimal basic solution.  Gurobi does not have a QP
+  crossover, so QP barrier will return an interior solution.
+</LI>
+<LI><B>Discrete QP with Convex Relaxation</B> If your quadratic
+  objective is convex but the model contains discrete elements
+  (integer variables, SOS constraints, general constraints, etc.),
+  then your model is a mixed integer quadratic program (MIQP) and is
+  solved using the MIP solver.  Since MIP relies heavily on simplex
+  bases, the root relaxation must be solved using the primal or dual
+  simplex algorithm.
+</LI>
+<LI><B>Discrete QP with Non-Convex Relaxation</B> If your quadratic
+  objective is not convex, then the model will be solved using the MIP
+  solver, even if your model has no explicit discrete elements.
+  However, in this release you need to take action for that to happen.
+  Specifically, you need to set the
+  <A HREF="nonconvex.html#parameter:NonConvex">NonConvex</A> parameter to 2.  With
+  default settings, a non-convex quadratic objective leads to a
+  <SPAN  CLASS="texttt">GRB_ERROR_Q_NOT_PSD</SPAN> error.
+</LI>
+</UL>
+
+<P>
+These properties are checked on the presolved model.  As is always the
+case, presolve will try to simplify the model.  In this context, it
+will try to transform a non-convex MIQP into an equivalent convex
+MIQP.  This simplification will always succeed if each quadratic term
+contains at least one binary variable.
+
+<P>
+How can you determine whether your quadratic objective is convex?  As
+was noted earlier, the crucial property for convexity is that
+interpolation between any two points on the function never puts you
+below the function (assuming minimization).  In this figure, all
+points on a line segment between any two points on the parabola are
+always in the shaded region.
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=3.5in]{graphics/convex2}}$
+ -->
+<IMG STYLE=""
+ SRC="img215.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=3.5in]{graphics/convex2}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+How does this translate to multiple variables?  For a quadratic
+function to be convex, the associated Q matrix must be Positive
+Semi-Definite (PSD).
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Multiple Objectives</SPAN></SPAN>
+<A ID="subsubsection:MultiObj"></A>
+<P>
+You can also specify multiple (linear) objectives for your model, and
+Gurobi provides tools that allow you explore the tradeoffs between
+them.  Refer to the
+<A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple Objectives</A>
+section for additional details.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="tolerances_and_ill_conditi.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="constraints.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tolerances_and_ill_conditi.html">Tolerances and Ill Conditioning</A>
+<B> Up:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A>
+<B> Previous:</B> <A
+ HREF="constraints.html">Constraints</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

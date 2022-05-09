@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Client API</TITLE>
+<META NAME="description" CONTENT="Client API">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="queuing_and_load_balancing.html">
+<LINK REL="previous" HREF="client_server_optimization.html">
+<LINK REL="next" HREF="queuing_and_load_balancing.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="queuing_and_load_balancing.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="queuing_and_load_balancing.html">Queuing and Load Balancing</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00011100000000000000"></A>
+<A ID="sec:ClientAPI"></A>
+<BR>
+Client API
+</H3>
+
+<P>
+When considering a program that uses Gurobi Remote Services, you can
+think of the optimization as being split into two parts: the client(s) and
+the Compute Server.
+A client program builds an optimization model using any of
+the standard Gurobi interfaces (C, C++, Java, .NET, Python, MATLAB,
+R).  This happens in the left box of this figure:
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=8in]{graphics/csapi}}$
+ -->
+<IMG STYLE=""
+ SRC="img4.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=8in]{graphics/csapi}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+All of our APIs sit on top of our C API.  The C API is in charge of
+building the internal model data structures, invoking the Gurobi
+algorithms, retrieving solution information, etc.  When running Gurobi
+on a single machine, the C API would build the necessary data
+structures in local memory.  In a Compute Server environment, the C
+layer transparently ships the data off to the Compute Server.  The
+Gurobi algorithms take the data stored in these data structures as
+input and produce solution data as output.
+
+<P>
+While the Gurobi Compute Server is meant to be transparent to both
+developers and users, there are a few aspects of Compute Server usage
+that you do need to be aware of.  These include
+performance considerations,
+APIs for configuring client programs, and a few
+features that are not supported for Compute Server applications.
+These topics will be discussed
+<A HREF="programming_with_remote_se.html#sec:ProgrammingWithRemoteServices">later in this document</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="queuing_and_load_balancing.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="queuing_and_load_balancing.html">Queuing and Load Balancing</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

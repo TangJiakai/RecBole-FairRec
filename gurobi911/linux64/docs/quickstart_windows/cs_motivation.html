@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Motivation</TITLE>
+<META NAME="description" CONTENT="Motivation">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="cs_lists_and_tuples.html">
+<LINK REL="previous" HREF="cs_python_dictionary_examp.html">
+<LINK REL="next" HREF="cs_lists_and_tuples.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_lists_and_tuples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_lists_and_tuples.html">Lists and Tuples</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000116100000000000000">
+Motivation</A>
+</H3>
+
+<P>
+At the heart of any optimization model lies a set of decision
+variables.  Finding a convenient way to store and access these
+variables can often represent the main challenge in implementing the
+model.  While the variables in some models map naturally to simple
+programming language constructs (e.g., <code>x[i]</code> for contiguous
+integer values <code>i</code>), other models can present a much greater
+challenge.  For example, consider a model that optimizes the flow of
+multiple different commodities through a supply network.  You might
+have a variable <code>x['Pens', 'Denver', 'New York']</code> that
+captures the flow of a manufactured item (pens in this example) from
+Denver to New York.  At the same time, you might <EM>not</EM> want to
+have a variable <code>x['Pencils', 'Denver', 'Seattle']</code>, since not all
+combinations of commodities, source cities, and destination cities
+represent valid paths through the network.  Representing a sparse set
+of decision variables in a typical programming language can
+be cumbersome.
+
+<P>
+To compound the challenge, you typically need to build constraints
+that involve subsets of these decision variables.  For example, in our
+network flow model you might want to put an upper bound on the total
+flow that enters a particular city.  You could certainly collect the
+relevant decision variables by iterating over all possible cities and
+selecting only those variables that capture possible flow from that
+source city into the desired destination city.  However, this is
+clearly wasteful if not all origin-destination pairs are valid.  In a
+large network problem, the inefficiency of this approach could lead to
+major performance issues.  Handling this efficiently can require
+complex data structures.
+
+<P>
+The Gurobi Python interface has been designed to make the issues we've
+just described quite easy to manage.  We'll present a specific example
+of how this is done shortly.  Before we do, though, we'll need to
+describe a few important Python constructs: <code>lists</code>,
+<code>tuples</code>, <code>dictionaries</code>, <code>list comprehension</code>, and
+<code>generator expressions</code>.  These are standard Python concepts that
+are particularly important in our interface.  We'll also introduce the
+<code>tuplelist</code> and <code>tupledict</code> classes, which are custom
+classes that we've added to the Gurobi Python interface.
+
+<P>
+A quick reminder: you can consult the
+<A ID="tex2html64"
+  HREF="https://docs.python.org/3/tutorial/datastructures.html">online Python documentation</A>
+for additional information on any of the Python data structures
+mentioned here.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_lists_and_tuples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_lists_and_tuples.html">Lists and Tuples</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

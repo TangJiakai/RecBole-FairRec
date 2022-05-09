@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Examples</TITLE>
+<META NAME="description" CONTENT="Examples">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="retrieving_solutions.html">
+<LINK REL="previous" HREF="finding_multiple_solutions.html">
+<LINK REL="next" HREF="retrieving_solutions.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="retrieving_solutions.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="finding_multiple_solutions.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="retrieving_solutions.html">Retrieving Solutions</A>
+<B> Up:</B> <A
+ HREF="solution_pool.html">Solution Pool</A>
+<B> Previous:</B> <A
+ HREF="finding_multiple_solutions.html">Finding Multiple Solutions</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000262000000000000000">
+Examples</A>
+</H2>
+
+<P>
+Let's continue with a few examples of how these parameters would be
+used.  Imagine that you are solving a MIP model with an optimal
+(minimization) objective of 100.  Further imagine that, using default
+settings, the MIP solver finds four solutions to this model with
+objectives 100, 110, 120, and 130.
+
+<P>
+If you set the <A HREF="poolsolutions.html#parameter:PoolSolutions">PoolSolutions</A>
+parameter to 3 and solve the model again, the MIP solver would discard
+the worst solution and return with 3 solutions in the solution pool
+(i.e., the <A HREF="solcount.html#attr:SolCount">SolCount</A> attribute would have
+value 3).  If you instead set the
+<A HREF="poolgap.html#parameter:PoolGap">PoolGap</A> parameter to value
+<code>0.2</code>, the MIP solver would discard any solutions whose objective
+value is worse than 120 (which would also leave 3 solutions in the
+solution pool).
+
+<P>
+If you set the <A HREF="poolsearchmode.html#parameter:PoolSearchMode">PoolSearchMode</A>
+parameter to 2 and the
+<A HREF="poolsolutions.html#parameter:PoolSolutions">PoolSolutions</A> parameter to 10,
+the MIP solver would attempt to find the 10 best solutions to the
+model.  An <code>OPTIMAL</code> return status would indicate that either (i)
+it found the 10 best solutions, or (ii) it found all feasible
+solutions to the model, and there were fewer than 10.  If you also set
+the <A HREF="poolgap.html#parameter:PoolGap">PoolGap</A> parameter to a value of
+0.1, the MIP solver would try to find 10 solutions with objective no
+worse than 110.  While this may appear equivalent to asking for 10
+solutions and simply ignoring those with objective worse than 110, the
+solve will typically complete significantly faster with this parameter
+set, since the solver does not have to expend effort looking for
+solutions beyond the requested gap.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="retrieving_solutions.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="finding_multiple_solutions.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="retrieving_solutions.html">Retrieving Solutions</A>
+<B> Up:</B> <A
+ HREF="solution_pool.html">Solution Pool</A>
+<B> Previous:</B> <A
+ HREF="finding_multiple_solutions.html">Finding Multiple Solutions</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

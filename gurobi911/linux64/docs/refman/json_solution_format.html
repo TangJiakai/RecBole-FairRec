@@ -1,0 +1,561 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>JSON solution format</TITLE>
+<META NAME="description" CONTENT="JSON solution format">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="attr_format.html">
+<LINK REL="previous" HREF="sol_format.html">
+<LINK REL="next" HREF="attr_format.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="attr_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sol_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="attr_format.html">ATTR format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="sol_format.html">SOL format</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0002312000000000000000"></A>
+<A ID="format:JSON"></A>
+<BR>
+JSON solution format
+</H2>
+
+<P>
+JSON (or JavaScript Object Notation) is a lightweight, text-based,
+language-independent data interchange format. It was derived from
+JavaScript, but many modern programming languages include code to
+generate and parse JSON-format data.
+
+<P>
+Gurobi JSON solution format is meant to be a simple and standard way to
+capture and share optimization results.  It conforms to the
+<A ID="tex2html52"
+  HREF="https://www.rfc-editor.org/rfc/rfc8259.html">RFC-8259</A>
+standard.  JSON solutions can be written to a file or captured in a
+string.
+
+<P>
+The JSON solution captures the values of various Gurobi attributes
+associated with the solution to the model.  Some are related to the
+model overall, some to individual variables, and some to individual
+constraints.  The exact contents of a JSON solution string will depend
+on a few factors:
+
+<UL>
+<LI>The type of model being solved (linear, quadratic,
+  mixed-integer, multi-objective, etc.).  Some solution
+  information is simply not available for certain
+  problem types (e.g., dual variable values for MIP models).
+</LI>
+<LI>The set of tagged elements in the model.
+  Users can tag variables (using the <A HREF="vtag.html#attr:VTag">VTag</A> attribute),
+  linear constraints (using the <A HREF="ctag.html#attr:CTag">CTag</A> attribute),
+  and quadratic constraints (using the <A HREF="qctag.html#attr:QCTag">QCTag</A> attribute).
+  Only tagged elements will have solution information in
+  the JSON solution.
+</LI>
+<LI>The <A HREF="jsonsoldetail.html#parameter:JSONSolDetail">JSONSolDetail</A>
+  parameter, which controls how much detail is included in
+  the JSON solution.
+</LI>
+<LI>Parameter settings such as
+  <A HREF="infunbdinfo.html#parameter:InfUnbdInfo">InfUnbdInfo</A> or
+  <A HREF="qcpdual.html#parameter:QCPDual">QCPDual</A>, which cause
+  the optimization process to generate more solution information.
+</LI>
+</UL>
+
+<P>
+JSON solutions aren't generally meant to be interpreted directly by
+humans.  Instead, you typically feed them into a JSON parser, which
+provides tools for extracting the desired information from the string.
+JSON is a widely-used format, and nearly all modern program languages
+have libraries available for helping to parse JSON strings and files.
+And if you are determined to examine the string directly, JSON parsers
+typically also include pretty-printing utilities that make it easier
+to do so.
+
+<P>
+<SPAN  CLASS="textbf">Basic Structure</SPAN>
+
+<P>
+A JSON solution string consists of a collection of named components.
+In its simplest form, it might look like the following:
+<PRE>
+{ "SolutionInfo": { "Status": 3,
+                    "Runtime": "3.4289908409118652e-01",
+                    "BoundVio": "0",
+                    "ConstrVio": "0",
+                    "IterCount": "0",
+                    "BarIterCount": 0}}
+</PRE>
+A JSON parser makes it relatively easy to extract the various
+components from this string.  In Python, for example, you would be
+able to retrieve the optimization status by accessing
+<code>result['SolutionInfo']['Status']</code> after parsing.
+
+<P>
+Before discussing the specific information that is available in this
+format, let us first say a word about how data is represented.  The
+type of each data item follows from the attribute type.  For example,
+<A HREF="status.html#attr:Status">Status</A> is an integer attribute, so the
+corresponding value is stored as an integer.
+<A HREF="runtime.html#attr:Runtime">Runtime</A> is a double attribute, which is
+represented as a string, and that string always captures the exact,
+double-precision (IEEE754) value of the attribute.
+
+<P>
+<SPAN  CLASS="textbf">Named Components</SPAN>
+
+<P>
+A JSON solution will always have at least one named object: <TT>  SolutionInfo</TT>.  It may contain up to three optional named arrays:
+<TT>Vars, Constrs, QConstrs</TT>.  A JSON solution string
+may look like:
+<PRE>
+{"SolutionInfo": {...},
+ "Vars": [...],
+ "Constrs": [...],
+ "QConstrs": [...]}
+</PRE>
+The exact contents of the three optional sections will depend on what
+model components have been tagged and on what solution information is
+available.  If no variables have been tagged, for example, then the
+<code>Vars</code> array will not be present.  For a MIP model, the
+<code>Constrs</code> array will not be present, since MIP solutions
+don't contain any constraint information.
+
+<P>
+<SPAN  CLASS="textbf">SolutionInfo Object</SPAN>
+
+<P>
+The <code>SolutionInfo</code> object contains high-level information about
+the solution that was computed for this model.  Some entries
+will always be present, while others depend on the problem
+type or the results of the optimization.  This component may include
+the following model attributes:
+<DL>
+<DT><STRONG><A HREF="status.html#attr:Status">Status</A> (always present)</STRONG></DT>
+<DD>The optimization status (optimal, infeasible, hit the time limit, etc.).
+</DD>
+<DT><STRONG><A HREF="runtime.html#attr:Runtime">Runtime</A> (always present)</STRONG></DT>
+<DD>Runtime for the optimization (in seconds).
+</DD>
+<DT><STRONG><A HREF="objval.html#attr:ObjVal">ObjVal</A></STRONG></DT>
+<DD>The solution objective value.
+</DD>
+<DT><STRONG><A HREF="objbound.html#attr:ObjBound">ObjBound</A></STRONG></DT>
+<DD>The best known bound on the objective value.
+</DD>
+<DT><STRONG><A HREF="objboundc.html#attr:ObjBoundC">ObjBoundC</A></STRONG></DT>
+<DD>The best known bound on the objective value (before using integrality information to strengthen the bound).
+</DD>
+<DT><STRONG><A HREF="mipgap.html#attr:MIPGap">MIPGap</A></STRONG></DT>
+<DD>The optimality gap.
+</DD>
+<DT><STRONG><A HREF="intvio.html#attr:IntVio">IntVio</A></STRONG></DT>
+<DD>The maximum integrality violation.
+</DD>
+<DT><STRONG><A HREF="boundvio.html#attr:BoundVio">BoundVio</A></STRONG></DT>
+<DD>The maximum bound violation.
+</DD>
+<DT><STRONG><A HREF="constrvio.html#attr:ConstrVio">ConstrVio</A></STRONG></DT>
+<DD>The maximum constraint violation.
+</DD>
+<DT><STRONG><A HREF="objnval.html#attr:ObjNVal">ObjNVal</A> (multi-objective only)</STRONG></DT>
+<DD>An array of objective values, one for each objective.
+</DD>
+<DT><STRONG><A HREF="scennobjval.html#attr:ScenNObjVal">ScenNObjVal</A> (multi-scenario only)</STRONG></DT>
+<DD>An array of objective values, one for each scenario.
+</DD>
+<DT><STRONG><A HREF="scennobjbound.html#attr:ScenNObjBound">ScenNObjBound</A> (multi-scenario only)</STRONG></DT>
+<DD>An array of objective bounds, one for each scenario.
+</DD>
+<DT><STRONG><A HREF="itercount.html#attr:IterCount">IterCount</A></STRONG></DT>
+<DD>Number of simplex
+iterations.
+</DD>
+<DT><STRONG><A HREF="baritercount.html#attr:BarIterCount">BarIterCount</A></STRONG></DT>
+<DD>Number of
+barrier iterations.
+</DD>
+<DT><STRONG><A HREF="nodecount.html#attr:NodeCount">NodeCount</A></STRONG></DT>
+<DD>Number of
+branch-and-cut nodes explored for MIP models.
+</DD>
+<DT><STRONG><A HREF="farkasproof.html#attr:FarkasProof">FarkasProof</A></STRONG></DT>
+<DD>Part of the
+infeasibility certificate for infeasible models. Note that you
+have to set the <A HREF="infunbdinfo.html#parameter:InfUnbdInfo">InfUnbdInfo</A>
+parameter before the optimization call for this information to be
+available.
+</DD>
+<DT><STRONG><A HREF="solcount.html#attr:SolCount">SolCount</A></STRONG></DT>
+<DD>Number of stored solutions
+  (only for MIP models).
+</DD>
+<DT><STRONG><A HREF="poolobjbound.html#attr:PoolObjBound">PoolObjBound</A></STRONG></DT>
+<DD>Bound
+  on the objective of undiscovered MIP solutions.
+</DD>
+<DT><STRONG><A HREF="poolobjval.html#attr:PoolObjVal">PoolObjVal</A></STRONG></DT>
+<DD>Only for MIP
+models with at least one solution. For single-objective models, this
+is an array containing the objective value for each stored solution
+(starting with the incumbent). For multi-objective models, this
+is an array containing <A HREF="solcount.html#attr:SolCount">SolCount</A> arrays
+of values, each array contains the objective value for each
+multi-objective for the particular solution.
+</DD>
+</DL>
+
+<P>
+Here's an example of a <code>SolutionInfo</code> object for a
+MIP model:
+<PRE>
+{ "SolutionInfo": { "Status": 2,
+                    "Runtime": "5.8451418876647949e+00",
+                    "ObjVal": "3089",
+                    "ObjBound": "3089",
+                    "ObjBoundC": "3089",
+                    "MIPGap": "0",
+                    "IntVio": "0",
+                    "BoundVio": "0",
+                    "ConstrVio": "0",
+                    "IterCount": "32",
+                    "BarIterCount": 0,
+                    "NodeCount": "1",
+                    "SolCount": 1,
+                    "PoolObjBound": "3089",
+                    "PoolObjVal": [ "3089"]}}
+</PRE>
+
+<P>
+<SPAN  CLASS="textbf">Vars Array</SPAN>
+
+<P>
+The <code>Vars</code> component is an array (possibly empty) of objects
+containing information about tagged variables.  Some entries will
+always be present, while others depend on the problem type or the
+results of the optimization.  This component may include the following
+variable attributes:
+<DL>
+<DT><STRONG><A HREF="vtag.html#attr:VTag">VTag</A> (always present)</STRONG></DT>
+<DD>Array containing
+  the variable tag.  Note that this is stored as an array,
+  but the array will currently only ever contain a single string.
+</DD>
+<DT><STRONG><A HREF="x.html#attr:X">X</A> (always present)</STRONG></DT>
+<DD>Value for the
+variable in the current solution.
+</DD>
+<DT><STRONG><A HREF="xn.html#attr:Xn">Xn</A></STRONG></DT>
+<DD>Values for all stored solutions
+  including the incumbent solution (only for MIP).
+</DD>
+<DT><STRONG><A HREF="scennx.html#attr:ScenNX">ScenNX</A></STRONG></DT>
+<DD>For multiple scenarios,
+  values for all scenario solutions.
+</DD>
+<DT><STRONG><A HREF="rc.html#attr:RC">RC</A></STRONG></DT>
+<DD>For continuous models with
+dual information, the reduced cost for the variable.
+</DD>
+<DT><STRONG><A HREF="vbasis.html#attr:VBasis">VBasis</A></STRONG></DT>
+<DD>For continuous models whose
+solution is basic, the basis status for the variable.
+</DD>
+<DT><STRONG><A HREF="unbdray.html#attr:UnbdRay">UnbdRay</A></STRONG></DT>
+<DD>For unbounded models
+with <A HREF="infunbdinfo.html#parameter:InfUnbdInfo">InfUnbdInfo</A> enabled, the
+unbounded ray component associated with the variable.
+</DD>
+</DL>
+
+<P>
+The following attributes are only included if <code>JSONSolDetail</code> is
+greater than 0: <code>RC</code>, <code>UnbdRay</code>, <code>VBasis</code>, <code>Xn</code>.
+
+<P>
+These objects may look like:
+<PRE>
+{ "VTag": ["VTag7"], "X": "1"}
+{ "VTag": ["VTag12"], "X": "3.6444895037909271e-02", "RC": "0"}
+{ "VTag": ["VTag2747"],
+  "X": "0",
+  "Xn": [ "0", "1", "1", "1", "0", "1", "1", "0", "0", "0"]}
+</PRE>
+
+<P>
+<SPAN  CLASS="textbf">Constrs Array</SPAN>
+
+<P>
+The <code>Constrs</code> component is an array (possibly empty) of
+objects containing information about tagged linear constraints.  Some
+entries will always be present, while others depend on the problem
+type or the results of the optimization.  This component may include
+the following constraint attributes:
+<DL>
+<DT><STRONG><A HREF="ctag.html#attr:CTag">CTag</A> (always present)</STRONG></DT>
+<DD>Array containing the
+  linear constraint tag.  Note that this is stored as an array, but
+  the array will currently only ever contain a single string.
+</DD>
+<DT><STRONG><A HREF="slack.html#attr:Slack">Slack</A> (always present)</STRONG></DT>
+<DD>Value for the
+  slack variable in the current solution.
+</DD>
+<DT><STRONG><A HREF="pi.html#attr:Pi">Pi</A></STRONG></DT>
+<DD>For continuous models with
+dual information, the dual value for the corresponding
+constraint.
+</DD>
+<DT><STRONG><A HREF="farkasdual.html#attr:FarkasDual">FarkasDual</A></STRONG></DT>
+<DD>For
+infeasible models with
+<A HREF="infunbdinfo.html#parameter:InfUnbdInfo">InfUnbdInfo</A> enabled, the Farkas
+dual component associated with the constraint.
+</DD>
+</DL>
+This component will always be empty for MIP models.
+
+<P>
+The following attributes are only included if <code>JSONSolDetail</code> is
+greater than 0: <code>CBasis</code>, <code>FarkasDual</code>, <code>Pi</code>,
+<code>Slack</code>.
+
+<P>
+These objects may look like:
+<PRE>
+{ "CTag": ["CTag72"],
+  "Slack": "-1.3877787807814457e-17",
+  "Pi": "-5.6530866311690423e-02"}
+</PRE>
+
+<P>
+<SPAN  CLASS="textbf">QConstrs Array</SPAN>
+
+<P>
+The <code>QConstrs</code> component is an array (possibly empty) of objects
+containing information about tagged quadratic constraints.  Some
+entries will always be present, while others depend on the problem
+type or the results of the optimization.  This component may include
+the following quadratic constraint attributes:
+<DL>
+<DT><STRONG><A HREF="qctag.html#attr:QCTag">QCTag</A> (always present)</STRONG></DT>
+<DD>Array containing
+  the quadratic constraint tag.  Note that this is stored as an array,
+  but the array will currently only ever contain a single string.
+</DD>
+<DT><STRONG><A HREF="qcslack.html#attr:QCSlack">QCSlack</A> (always present)</STRONG></DT>
+<DD>Value for the
+slack variable in the current solution.
+</DD>
+<DT><STRONG><A HREF="qcpi.html#attr:QCPi">QCPi</A></STRONG></DT>
+<DD>For continuous models
+with dual information, the dual value for the corresponding
+constraint.
+</DD>
+</DL>
+This component will always be empty for MIP models.
+
+<P>
+The following attributes are only included if <code>JSONSolDetail</code> is
+greater than 0: <code>QCPi</code>, <code>QCSlack</code>.
+
+<P>
+<SPAN  CLASS="textbf">JSON Solution Examples</SPAN>
+
+<P>
+For a continuous model, the JSON solution string may look like
+<PRE>
+{ "SolutionInfo": {
+     "Status": 2,
+     "Runtime": "9.9294495582580566e-01",
+     "ObjVal": "5.2045497375374854e-07",
+     "BoundVio": "0",
+     "ConstrVio": "1.002e-07",
+     "IterCount": "0",
+     "BarIterCount": 3},
+  "Vars": [
+     {"VTag": ["VTag7"], "X": "-3.0187172916263982e-09", "RC": "0"},
+     {"VTag": ["VTag1340"], "X": "-3.0696132844593768e-09", "RC": "0"},
+     {"VTag": ["VTag2673"], "X": "-4.8134359014615295e-09", "RC": "0"},
+     {"VTag": ["VTag4006"], "X": "-7.1652420015125937e-02", "RC": "0"},
+     {"VTag": ["VTag5339"], "X": "-1.5815441619302997e-02", "RC": "0"},
+     {"VTag": ["VTag6672"], "X": "1.4945278866946186e-02", "RC": "0"}],
+  "Constrs": [
+     {"CTag": ["CTag7"], "Slack": "4.85722506e-17", "Pi": "2.3140310696e-06"},
+     {"CTag": ["CTag673"], "Slack": "0", "Pi": "-1.4475853138350041e-06"},
+     {"CTag": ["CTag1339"], "Slack": "-2.7758914e-17", "Pi": "-3.7443785e-06"},
+     {"CTag": ["CTag2005"], "Slack": "4.3420177e-18", "Pi": "-1.0277524e-06"},
+     {"CTag": ["CTag2671"], "Slack": "-1.3895245e-17", "Pi": "8.0012944e-07"},
+     {"CTag": ["CTag3337"], "Slack": "6.39465e-16", "Pi": "-5.3368958e-06"}]}
+</PRE>
+
+<P>
+For a multi-objective LP, the JSON solution string may look like
+<PRE>
+{ "SolutionInfo": {
+     "Status": 2,
+     "Runtime": "2.2838807106018066e-01",
+     "ObjNVal": [ "10", "339"],
+     "IterCount": "112",
+     "BarIterCount": 0,
+     "NodeCount": "0"},
+  "Vars": [
+     {"VTag": ["VTag7"], "X": "0"},
+     {"VTag": ["VTag569"], "X": "0"},
+     {"VTag": ["VTag1131"], "X": "0"},
+     {"VTag": ["VTag1693"], "X": "0"},
+     {"VTag": ["VTag2255"], "X": "0"},
+     {"VTag": ["VTag2817"], "X": "0"},
+     {"VTag": ["VTag3379"], "X": "0"},
+     {"VTag": ["VTag3941"], "X": "0"},
+     {"VTag": ["VTag4503"], "X": "0"},
+     {"VTag": ["VTag5065"], "X": "1"},
+     {"VTag": ["VTag5627"], "X": "1"},
+     {"VTag": ["VTag6189"], "X": "1"}]}
+</PRE>
+
+<P>
+For a regular MIP problem, the JSON solution string may look like
+<PRE>
+{ "SolutionInfo": {
+     "Status": 2,
+     "Runtime": "2.4669170379638672e-03",
+     "ObjVal": "3124",
+     "ObjBound": "3124",
+     "ObjBoundC": "3124",
+     "MIPGap": "0",
+     "IntVio": "1.958742e-08",
+     "BoundVio": "0",
+     "ConstrVio": "1.002e-07",
+     "IterCount": "465",
+     "BarIterCount": 0,
+     "NodeCount": "1",
+     "SolCount": 4,
+     "PoolObjBound": "3124",
+     "PoolObjVal": [ "3124", "3124", "3124", "3124"]},
+  "Vars": [
+     {"VTag": ["VTag7"], "X": "1", "Xn": [ "1", "1", "1", "1"]},
+     {"VTag": ["VTag466"], "X": "0", "Xn": [ "0", "1", "1", "0"]},
+     {"VTag": ["VTag925"], "X": "0", "Xn": [ "0", "0", "0", "0"]},
+     {"VTag": ["VTag1384"], "X": "0", "Xn": [ "0", "0", "1", "1"]},
+     {"VTag": ["VTag1843"], "X": "0", "Xn": [ "0", "1", "0", "0"]},
+     {"VTag": ["VTag2302"], "X": "0", "Xn": [ "0", "1", "1", "0"]}]}
+</PRE>
+
+<P>
+For a multi-objective MIP, the JSON solution string may look like
+<PRE>
+{ "SolutionInfo": {
+     "Status": 2,
+     "Runtime": "3.5403838157653809e+00",
+     "ObjNVal": [ "2763", "704"],
+     "IterCount": "595",
+     "BarIterCount": 0,
+     "NodeCount": "1",
+     "SolCount": 6,
+     "PoolObjVal": [ [ "2763", "704" ], [ "2763", "705" ],
+                     [ "2763", "716" ], [ "2763", "718" ],
+                     [ "2763", "769" ], [ "2763", "1060" ]]},
+  "Vars": [
+     {"VTag": ["VTag7"], "X": "1", "Xn": [ "1", "1", "1", "1", "1", "1"]},
+     {"VTag": ["VTag466"], "X": "0", "Xn": [ "0", "1", "0", "0", "0", "0"]},
+     {"VTag": ["VTag925"], "X": "0", "Xn": [ "0", "0", "0", "0", "1", "1"]},
+     {"VTag": ["VTag1384"], "X": "0", "Xn": [ "0", "0", "0", "0", "0", "0"]},
+     {"VTag": ["VTag1843"], "X": "0", "Xn": [ "0", "0", "1", "1", "0", "0"]},
+     {"VTag": ["VTag2302"], "X": "0", "Xn": [ "0", "1", "0", "0", "0", "0"]}]}
+</PRE>
+
+<P>
+For a multi-scenario model, the JSON solution string may look like
+<PRE>
+{ "SolutionInfo": {
+     "Status": 2,
+     "Runtime": "3.5403838157653809e+00",
+     "ObjVal": "2763",
+     "ObjBound": "2763",
+     "ObjBoundC": "1324",
+     "IntVio": "0",
+     "BoundVio": "0",
+     "ConstrVio": "0",
+     "ScenNObjVal": ["2763", "3413", "1e+100"],
+     "ScenNObjBound": ["2763", "3413", "1e+100"],
+     "IterCount": "595",
+     "BarIterCount": 0,
+     "NodeCount": "1",
+     "SolCount": 3,
+     "PoolObjBound": "2763",
+     "PoolObjVal": [ "2763", "2763", "2763"]},
+  "Vars": [
+     {"VTag": ["VTag7"], "X": "1", "ScenNX": ["1", "0", "1e+101"], "Xn": [ "1", "0", "1"]},
+     {"VTag": ["VTag466"], "X": "0", "ScenNX": ["1", "1", "1e+101"], "Xn": [ "1", "1", "1"]},
+     {"VTag": ["VTag925"], "X": "0", "ScenNX": ["0", "0", "1e+101"], "Xn": [ "0", "0", "0"]},
+     {"VTag": ["VTag1384"], "X": "0", "ScenNX": ["2", "1", "1e+101"], "Xn": [ "2", "1", "0"]},
+     {"VTag": ["VTag1843"], "X": "0", "ScenNX": ["0", "2", "1e+101"], "Xn": [ "0", "2", "1"]},
+     {"VTag": ["VTag2302"], "X": "0", "ScenNX": ["0", "1", "1e+101"], "Xn": [ "0", "1", "0"]}]}
+</PRE>
+If the scenario objective value
+<A HREF="scennobjval.html#attr:ScenNObjVal">ScenNObjVal</A> is infinite
+(<SPAN  CLASS="texttt">GRB_INFINITY = 1e+100</SPAN> for minimization, <SPAN  CLASS="texttt">-GRB_INFINITY =
+  -1e+100</SPAN> for maximization), then no feasible solution has been found for
+this scenario. The corresponding <A HREF="scennx.html#attr:ScenNX">ScenNX</A>
+value for each variable will be <SPAN  CLASS="texttt">GRB_UNDEFINED = 1e+101</SPAN>.
+Moreover, if the <A HREF="scennobjbound.html#attr:ScenNObjBound">ScenNObjBound</A>
+value for the scenario is also infinite, it means that the scenario has
+been proven to be infeasible.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="attr_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sol_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="attr_format.html">ATTR format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="sol_format.html">SOL format</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

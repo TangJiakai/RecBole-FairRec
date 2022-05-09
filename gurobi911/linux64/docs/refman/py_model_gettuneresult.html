@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.getTuneResult()</TITLE>
+<META NAME="description" CONTENT="Model.getTuneResult()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_getvarbyname.html">
+<LINK REL="previous" HREF="py_model_getsoss.html">
+<LINK REL="next" HREF="py_model_getvarbyname.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_getvarbyname.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_getsoss.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_getvarbyname.html">Model.getVarByName()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_getsoss.html">Model.getSOSs()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001028100000000000000"></A>
+<A ID="pythonmethod:Model.getTuneResult"></A>
+<BR>
+Model.getTuneResult()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getTuneResult</SPAN></FONT></SPAN> (  )
+
+<P>
+Use this routine to retrieve the results of a previous
+<A HREF="py_model_tune.html#pythonmethod:Model.tune">tune</A> call.  Calling this
+method with argument <code>n</code> causes tuned parameter set <code>n</code> to
+be copied into the model.  Parameter sets are stored in order of
+decreasing quality, with parameter set 0 being the best.  The number
+of available sets is stored in attribute
+<A HREF="tuneresultcount.html#attr:TuneResultCount">TuneResultCount</A>.
+
+<P>
+Once you have retrieved a tuning result, you can
+call
+<A HREF="py_model_optimize.html#pythonmethod:Model.optimize">optimize</A> to
+use these parameter settings to optimize the model,
+or
+<A HREF="py_model_write.html#pythonmethod:Model.write">write</A> to write
+the changed parameters to a <SPAN  CLASS="texttt">.prm</SPAN> file.
+
+<P>
+Please refer to the <A HREF="parameter_tuning_tool.html#sec:Tuning">parameter
+  tuning</A> section for details on the tuning
+tool.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">n</SPAN>: The index of the tuning result to retrieve.  The best
+  result is available as index 0.  The number of stored results is
+  available in attribute
+  <A HREF="tuneresultcount.html#attr:TuneResultCount">TuneResultCount</A>.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  model.tune()
+  for i in range(model.tuneResultCount):
+    model.getTuneResult(i)
+    model.write('tune'+str(i)+'.prm')
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_getvarbyname.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_getsoss.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_getvarbyname.html">Model.getVarByName()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_getsoss.html">Model.getSOSs()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

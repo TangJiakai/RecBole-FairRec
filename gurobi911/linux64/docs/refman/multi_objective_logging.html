@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Multi-Objective Logging</TITLE>
+<META NAME="description" CONTENT="Multi-Objective Logging">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="distributed_mip_logging.html">
+<LINK REL="previous" HREF="solution_pool_and_multi_sc.html">
+<LINK REL="next" HREF="distributed_mip_logging.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="distributed_mip_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="solution_pool_and_multi_sc.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="distributed_mip_logging.html">Distributed MIP Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="solution_pool_and_multi_sc.html">Solution Pool and Multi-Scenario</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000247000000000000000"></A>
+<A ID="sec:MultiObjectiveLogging"></A>
+<BR>
+Multi-Objective Logging
+</H2>
+
+<P>
+The contents of the log for a multi-objective solve will depend on the
+approach you use to solve the model.  As noted in the section on
+<A HREF="multiple_objectives.html#sec:MultipleObjectives">multi-objective models</A>, you
+have two options.  In a blended approach, where the objectives are
+combined into a single objective, the log will be the same as what
+you'd see for a single-objective model.  When using a hierarchical
+approach, a series of models is solved, one for each objective
+priority level.
+If your model is a pure hierarchical multi-objective problem with three
+objectives, the optimization process log will start with
+<PRE>
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 3 objectives ...
+---------------------------------------------------------------------------
+</PRE>
+If your model is a mixed hierarchical-blended multi-objective problem with
+five objectives but only three priorities, the optimization log will start
+with
+<PRE>
+---------------------------------------------------------------------------
+Multi-objectives: starting optimization with 5 objectives (3 combined) ...
+---------------------------------------------------------------------------
+</PRE>
+
+<P>
+You will also see a log for each solve, introduced by a
+small header
+<PRE>
+---------------------------------------------------------------------------
+Multi-objectives: optimize objective 1 Name ...
+---------------------------------------------------------------------------
+</PRE>
+Where <code>Name</code> will be the name of the objective function being
+optimize, or <code>(weighted)</code> if the objective function is the result of
+blending more than one objective function.
+
+<P>
+The logs for the individual solves will again be the same as what
+you'd see for a single-objective model.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="distributed_mip_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="solution_pool_and_multi_sc.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="distributed_mip_logging.html">Distributed MIP Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="solution_pool_and_multi_sc.html">Solution Pool and Multi-Scenario</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

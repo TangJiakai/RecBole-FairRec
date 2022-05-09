@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Verification</TITLE>
+<META NAME="description" CONTENT="Verification">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="sta_the_cluster_manager_as2.html">
+<LINK REL="next" HREF="ins_a_cluster_node.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sta_the_cluster_manager_as2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="sta_the_cluster_manager_as2.html">Starting the Cluster Manager</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023600000000000000"></A>
+<A ID="sec:RSMVerification"></A>
+<BR>
+Verification
+</H3>
+
+<P>
+Once you have <TT>grb_rsm</TT> installed and running, your final
+step is to make sure that it is configured and running correctly.  The
+Cluster Manager initially has three default users with predefined
+passwords:
+
+<UL>
+<LI>standard user: <TT>gurobi</TT> / <TT>pass</TT>
+</LI>
+<LI>administrator: <TT>admin</TT> / <TT>admin</TT>
+</LI>
+<LI>system administrator: <TT>sysadmin</TT> / <TT>cluster</TT>
+</LI>
+</UL>
+These default accounts are provided to simplify installation; you
+should change the passwords or delete the accounts before actually
+using the cluster.
+
+<P>
+You can check that you can log in using the <TT>sysadmin</TT>
+account with the <TT>grbcluster</TT> command-line tool:
+
+<P>
+
+<PRE>
+&gt; grbcluster login --manager=http://mymanager:61080 --username=sysadmin
+info  : Using client license file '/home/jones/gurobi.lic'
+Password for sysadmin:
+info  : User gurobi connected to http://mymanager:61080, session will expire on...
+</PRE>
+
+<P>
+Note that you can specify the password by using the <TT>  --password</TT> flag, but it is more secure to type the
+password when prompted. <TT>grbcluster</TT> will get an
+authentication token from the server, and will save it along with
+other connection parameters into a client license file.  Once saved,
+you can use the other commands of <TT>grbcluster</TT> securely
+without having to type the password or other information again.  The
+authentication token is valid for a certain period of time, as defined
+in the <TT>JWT_EXPIRATION</TT> configuration property (the default
+is 8 hours).  You can display the complete help of the login command
+using the <TT>--help</TT> flag.
+
+<P>
+
+<PRE>
+&gt; grbcluster login --help
+</PRE>
+
+<P>
+Another important validation step is to make sure you can access the
+Web User Interface of the Cluster Manager. To do so, just open a Web
+browser using the server URL:
+
+<PRE>
+http://mymanager:61080
+</PRE>
+
+<P>
+This should display the login page, where you can provide the
+credentials for the default accounts listed above.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sta_the_cluster_manager_as2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="sta_the_cluster_manager_as2.html">Starting the Cluster Manager</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

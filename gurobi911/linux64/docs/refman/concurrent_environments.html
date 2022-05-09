@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Concurrent environments</TITLE>
+<META NAME="description" CONTENT="Concurrent environments">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="multi_objective_environmen.html">
+<LINK REL="previous" HREF="algorithmic_parameters.html">
+<LINK REL="next" HREF="multi_objective_environmen.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="multi_objective_environmen.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="algorithmic_parameters.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multi_objective_environmen.html">Multi-objective environments</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="algorithmic_parameters.html">Algorithmic parameters</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000164000000000000000"></A>
+<A ID="subsection:ConcurrentEnvironment"></A>
+<BR>
+Concurrent environments
+</H2>
+
+<P>
+One algorithmic option available in Gurobi is <A HREF="concurrent_optimizer.html#sec:Concurrent">concurrent
+  optimization</A>, where multiple independent solves
+are performed in parallel and Gurobi takes care of collecting and
+combining the results.  Concurrent optimization can be quite powerful;
+it is actually the default approach for solving linear programming
+models.
+
+<P>
+The power of concurrent optimization comes from the fact that
+different approaches to solving a model may have different performance
+characteristics, and performing them in parallel allows you to stop
+when the first one finishes.  All of our concurrent schemes have
+default choices for determining the strategy that each independent solve
+uses.  However, it is also possible for you to pick different
+strategies.  This is done through <SPAN  CLASS="textit">concurrent environments</SPAN>.  By
+creating two or more concurrent environments for a model, and setting
+parameters on these environments, you can control exactly what each
+concurrent solve does.
+
+<P>
+Concurrent environments are created via API routines (in
+<A HREF="c_getconcurrentenv.html#routine:GRBgetconcurrentenv">C</A>,
+<A HREF="cpp_model_getconcurrentenv.html#cppmethod:GRBModel::getConcurrentEnv">C++</A>,
+<A HREF="java_model_getconcurrenten.html#javamethod:GRBModel.getConcurrentEnv">Java</A>,
+<A HREF="cs_model_getconcurrentenv.html#dotnetmethod:GRBModel.GetConcurrentEnv">.NET</A>, or
+<A HREF="py_model_getconcurrentenv.html#pythonmethod:Model.getConcurrentEnv">Python</A>).
+You set parameters on these environments as you would
+with any other environment, but in this case they only
+affect one of the several independent solves.
+
+<P>
+To give a simple example, in Python you could do the following:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  # Create concurrent environments
+  env0 = model.getConcurrentEnv(0)
+  env1 = model.getConcurrentEnv(1)
+
+  # Set parameters on concurrent environments
+  env0.setParam('MIPFocus', 1)
+  env1.setParam('MIPFocus', 2)
+
+  # Perform (concurrent) optimization
+  model.optimize()
+</PRE>
+This would launch two concurrent solves on your model, one
+with the <A HREF="mipfocus.html#parameter:MIPFocus">MIPFocus</A> parameter
+set to 1 and the other with it set to 2.
+
+<P>
+Users of our command-line interface can set concurrent optimization
+parameters with <code>.prm</code> files using the
+<A HREF="concurrentsettings.html#parameter:ConcurrentSettings">ConcurrentSettings</A>
+parameter.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="multi_objective_environmen.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="algorithmic_parameters.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multi_objective_environmen.html">Multi-objective environments</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="algorithmic_parameters.html">Algorithmic parameters</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

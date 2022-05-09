@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBTempConstr</TITLE>
+<META NAME="description" CONTENT="GRBTempConstr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_column.html">
+<LINK REL="previous" HREF="cpp_qex.html">
+<LINK REL="next" HREF="cpp_column.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_column.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_qex_size.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_column.html">GRBColumn</A>
+<B> Up:</B> <A
+ HREF="cpp_api_details.html">C++ API Details</A>
+<B> Previous:</B> <A
+ HREF="cpp_qex_size.html">GRBQuadExpr::size()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000411000000000000000"></A>
+<A ID="cppclass:GRBTempConstr"></A>
+<BR>
+GRBTempConstr
+</H2>
+
+<P>
+Gurobi temporary constraint object.  Objects of this class are created
+as intermediate results when building constraints using overloaded
+operators.  There are no member functions on this class.  Instead,
+<code>GRBTempConstr</code> objects are created by a set of non-member
+functions: <A HREF="cpp_oper_equal.html#cppfunction:operator__">==</A>,
+<A HREF="cpp_oper_le.html#cppfunction:operator_SPMlt__">&lt;=</A>, and
+<A HREF="cpp_oper_ge.html#cppfunction:operator_SPMgt__">&gt;=</A>.  You will generally never
+store objects of this class in your own variables.
+
+<P>
+Consider the following examples:
+<PRE>
+  model.addConstr(x + y &lt;= 1);
+  model.addQConstr(x*x + y*y &lt;= 1);
+</PRE>
+The overloaded <code>&lt;=</code> operator creates an object of type
+<code>GRBTempContr</code>, which is then immediately passed to method
+<A HREF="cpp_model_addconstr.html#cppmethod:GRBModel::addConstr">GRBModel::addConstr</A> or
+<A HREF="cpp_model_addqconstr.html#cppmethod:GRBModel::addQConstr">GRBModel::addQConstr</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_column.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_qex_size.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_column.html">GRBColumn</A>
+<B> Up:</B> <A
+ HREF="cpp_api_details.html">C++ API Details</A>
+<B> Previous:</B> <A
+ HREF="cpp_qex_size.html">GRBQuadExpr::size()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

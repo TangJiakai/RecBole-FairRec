@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>sudoku.R</TITLE>
+<META NAME="description" CONTENT="sudoku.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="workforce1_r.html">
+<LINK REL="previous" HREF="sos_r.html">
+<LINK REL="next" HREF="workforce1_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="workforce1_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sos_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce1_r.html">workforce1.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="sos_r.html">sos.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000282300000000000000"></A>
+<A ID="subsubsection:sudoku.R"></A>
+<BR>
+sudoku.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#  Copyright 2020, Gurobi Optimization, LLC */
+# 
+# Sudoku example.
+# 
+# The Sudoku board is a 9x9 grid, which is further divided into a 3x3 grid
+# of 3x3 grids.  Each cell in the grid must take a value from 0 to 9.
+# No two grid cells in the same row, column, or 3x3 subgrid may take the
+# same value.
+# 
+# In the MIP formulation, binary variables x[i,j,v] indicate whether
+# cell &lt;i,j&gt; takes value 'v'.  The constraints are as follows:
+#   1. Each cell must take exactly one value (sum_v x[i,j,v] = 1)
+#   2. Each value is used exactly once per row (sum_i x[i,j,v] = 1)
+#   3. Each value is used exactly once per column (sum_j x[i,j,v] = 1)
+#   4. Each value is used exactly once per 3x3 subgrid (sum_grid x[i,j,v] = 1)
+# 
+# Input datasets for this example can be found in examples/data/sudoku*.
+# 
+
+library(Matrix)
+library(gurobi)
+
+args &lt;- commandArgs(trailingOnly = TRUE)
+if (length(args) &lt; 1) {
+  stop('Usage: Rscript sudoku.R filename\n')
+}
+
+# Read input file
+conn &lt;- file(args[1], open='r')
+if(!isOpen(conn)) {
+  cat('Could not read file',args[1],'\n')
+  stop('Stop now\n')
+}
+linn &lt;- readLines(conn)
+close(conn)
+
+# Ensure that all lines have the same length as the number of lines, and
+# that the character set is the correct one.
+# Load fixed positions in board
+Dim    &lt;- length(linn)
+board  &lt;- matrix(0, Dim, Dim, byrow = TRUE)
+if (Dim != 9) {
+  cat('Input file',args[1],'has',Dim,'lines instead of 9\n')
+  stop('Stop now\n')
+}
+for (i in 1:Dim) {
+  line &lt;- strsplit(linn[[i]],split='')[[1]]
+  if (length(line) != Dim) {
+    cat('Input line',i,'has',length(line),'characters, expected',Dim,'\n')
+    stop('Stop now\n')
+  }
+  for (j in 1:Dim) {
+    if (line[[j]] != '.') {
+      k &lt;- as.numeric(line[[j]])
+      if (k &lt; 1 || k &gt; Dim) {
+        cat('Unexpected character in Input line',i,'character',j,'\n')
+        stop('Stop now\n')
+      } else {
+        board[i,j] = k
+      }
+    }
+  }
+}
+
+# Map X[i,j,k] into an index variable in the model
+nVars  &lt;- Dim * Dim * Dim
+varIdx &lt;- function(i,j,k) {i + (j-1) * Dim + (k-1) * Dim * Dim}
+
+cat('Dataset grid:',Dim,'x',Dim,'\n')
+
+# Set-up environment
+env &lt;- list()
+env$logfile &lt;- 'sudoku.log'
+
+# Build model
+model            &lt;- list()
+model$modelname  &lt;- 'sudoku'
+model$modelsense &lt;- 'min'
+
+# Create variable names, types, and bounds
+model$vtype    &lt;- 'B'
+model$lb       &lt;- rep(0,  nVars)
+model$ub       &lt;- rep(1,  nVars)
+model$varnames &lt;- rep('', nVars)
+for (i in 1:Dim) {
+  for (j in 1:Dim) {
+    for (k in 1:Dim) {
+      if (board[i,j] == k) model$lb[varIdx(i,j,k)] = 1
+      model$varnames[varIdx(i,j,k)] = paste0('X',i,j,k)
+    }
+  }
+}
+
+# Create (empty) constraints:
+model$A           &lt;- spMatrix(0,nVars)
+model$rhs         &lt;- c()
+model$sense       &lt;- c()
+model$constrnames &lt;- c()
+
+# Each cell gets a value:
+for (i in 1:Dim) {
+  for (j in 1:Dim) {
+    B &lt;- spMatrix(1, nVars,
+            i = rep(1,Dim),
+            j = varIdx(i,j,1:Dim),
+            x = rep(1,Dim))
+    model$A           &lt;- rbind(model$A, B)
+    model$rhs         &lt;- c(model$rhs, 1)
+    model$sense       &lt;- c(model$sense, '=')
+    model$constrnames &lt;- c(model$constrnames, paste0('OneValInCell',i,j))
+  }
+}
+
+# Each value must appear once in each column
+for (i in 1:Dim) {
+  for (k in 1:Dim) {
+    B &lt;- spMatrix(1, nVars,
+            i = rep(1,Dim),
+            j = varIdx(i,1:Dim,k),
+            x = rep(1,Dim))
+    model$A           &lt;- rbind(model$A, B)
+    model$rhs         &lt;- c(model$rhs, 1)
+    model$sense       &lt;- c(model$sense, '=')
+    model$constrnames &lt;- c(model$constrnames, paste0('OnceValueInRow',i,k))
+  }
+}
+
+#Each value must appear once in each row
+for (j in 1:Dim) {
+  for (k in 1:Dim) {
+    B &lt;- spMatrix(1, nVars,
+            i = rep(1,Dim),
+            j = varIdx(1:Dim,j,k),
+            x = rep(1,Dim))
+    model$A           &lt;- rbind(model$A, B)
+    model$rhs         &lt;- c(model$rhs, 1)
+    model$sense       &lt;- c(model$sense, '=')
+    model$constrnames &lt;- c(model$constrnames, paste0('OnceValueInColumn',j,k))
+  }
+}
+
+# Each value must appear once in each subgrid
+SubDim &lt;- 3
+for (k in 1:Dim) {
+  for (g1 in 1:SubDim) {
+    for (g2 in 1:SubDim) {
+      B &lt;- spMatrix(1, nVars,
+              i = rep(1,Dim),
+              j = c(varIdx(1+(g1-1)*SubDim,(g2-1)*SubDim + 1:SubDim, k),
+                    varIdx(2+(g1-1)*SubDim,(g2-1)*SubDim + 1:SubDim, k),
+                    varIdx(3+(g1-1)*SubDim,(g2-1)*SubDim + 1:SubDim, k)),
+              x = rep(1,Dim))
+      model$A           &lt;- rbind(model$A, B)
+      model$rhs         &lt;- c(model$rhs, 1)
+      model$sense       &lt;- c(model$sense, '=')
+      model$constrnames &lt;- c(model$constrnames,
+                             paste0('OnceValueInSubGrid',g1,g2,k))
+    }
+  }
+}
+
+# Save model
+gurobi_write(model, 'sudoku.lp', env)
+
+# Optimize model
+result &lt;- gurobi(model, env =  env)
+
+if (result$status == 'OPTIMAL') {
+  cat('Solution:\n')
+  cat('----------------------------------\n')
+  for (i in 1:Dim) {
+    for (j in 1:Dim) {
+      if (j %% SubDim == 1) cat('| ')
+      for (k in 1:Dim) {
+        if (result$x[varIdx(i,j,k)] &gt; 0.99) {
+          cat(k,' ')
+        }
+      }
+    }
+    cat('|\n')
+    if (i %% SubDim == 0) cat('----------------------------------\n')
+  }
+} else {
+  cat('Problem was infeasible\n')
+}
+
+# Clear space
+rm(result, model, board, linn, env)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="workforce1_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sos_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce1_r.html">workforce1.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="sos_r.html">sos.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

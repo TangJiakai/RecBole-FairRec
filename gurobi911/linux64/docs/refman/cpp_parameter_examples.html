@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>C++ Parameter Examples</TITLE>
+<META NAME="description" CONTENT="C++ Parameter Examples">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_parameter_examples.html">
+<LINK REL="previous" HREF="c_parameter_examples.html">
+<LINK REL="next" HREF="cs_parameter_examples.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_parameter_examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_parameter_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_parameter_examples.html">C# Parameter Examples</A>
+<B> Up:</B> <A
+ HREF="parameter_examples.html">Parameter Examples</A>
+<B> Previous:</B> <A
+ HREF="c_parameter_examples.html">C Parameter Examples</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000183200000000000000"></A>
+<A ID="C++ParameterExamples"></A>
+<BR>
+C++ Parameter Examples
+</H3>
+
+<P>
+In the C++ interface, parameters are grouped by datatype into three
+<code>enums</code>: <code>GRB_DoubleParam</code>, <code>GRB_IntParam</code>, and
+<code>GRB_StringParam</code>.  You refer to a specific parameter by
+appending the parameter name to the enum name.  For example, the
+<A HREF="threads.html#parameter:Threads">Threads</A>
+parameter is <code>GRB_IntParam_Threads</code>.
+
+<P>
+To modify a parameter, you use
+<A HREF="cpp_model_set.html#cppmethod:GRBModel::set">GRBModel::set</A>.  Recall that
+you can also set parameters on an environment, but changes to the
+environment won't affect models that have already been created using
+that environment.  It is generally simpler to set parameters on the
+model itself.
+
+<P>
+To set the <A HREF="timelimit.html#parameter:TimeLimit">TimeLimit</A> parameter for
+a model, you'd do:
+<PRE>
+  GRBModel *m = ...;
+  m-&gt;set(GRB_DoubleParam_TimeLimit, 100.0);
+</PRE>
+
+<P>
+You can also set the value of a parameter using strings for the
+parameter name and desired value.  For example:
+<PRE>
+  GRBModel *m = ...;
+  m-&gt;set("TimeLimit", "100.0");
+</PRE>
+
+<P>
+Use <A HREF="cpp_model_get.html#cppmethod:GRBModel::get">GRBModel::get</A> to query the
+current value of a parameter:
+<PRE>
+  currentlimit = m.get(GRB_DoubleParam_TimeLimit);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_parameter_examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_parameter_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_parameter_examples.html">C# Parameter Examples</A>
+<B> Up:</B> <A
+ HREF="parameter_examples.html">Parameter Examples</A>
+<B> Previous:</B> <A
+ HREF="c_parameter_examples.html">C Parameter Examples</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

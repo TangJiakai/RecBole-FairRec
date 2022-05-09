@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Starting the Cluster Manager as a Process</TITLE>
+<META NAME="description" CONTENT="Starting the Cluster Manager as a Process">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="sta_the_cluster_manager_as2.html">
+<LINK REL="previous" HREF="configuring_the_cluster_ma.html">
+<LINK REL="next" HREF="sta_the_cluster_manager_as2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sta_the_cluster_manager_as2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuring_the_cluster_ma.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_the_cluster_manager_as2.html">Starting the Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="configuring_the_cluster_ma.html">Configuring the Cluster Manager</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023400000000000000"></A>
+<A ID="sec:RSMStartProcess"></A>
+<BR>
+Starting the Cluster Manager as a Process
+</H3>
+
+<P>
+Once you have installed the Remote Services package, you can start
+<TT>grb_rsm</TT> as a standard process from a terminal window by
+simply typing <code>grb_rsm</code>.  This will start the Cluster Manager
+server on the default port (port 61080):
+
+<P>
+
+<TT>&gt; grb_rsm
+<BR>
+info  : Gurobi Cluster Manager starting...
+<BR>
+info  : Platform is linux
+<BR>
+info  : Version is 9.1.0 (build v9.1.0rc0)
+<BR>
+info  : Connecting to database grb_rsm on 127.0.0.1:27017...
+<BR>
+info  : Connected to database grb_rsm (version 4.0.4, host Server1)
+<BR>
+info  : Checking 0 cluster nodes
+<BR>
+info  : Creating proxy with MaxIdleConns=200 MaxIdleConnsPerHost=32 IdleConnTimeout=130
+<BR>
+info  : Starting cluster manager server (HTTP) on port 61080...
+<BR></TT>
+
+<P>
+If you'd like to run <TT>grb_rsm</TT> on a non-default port, use the
+<TT>--port</TT> flag or set the <TT>PORT</TT> property in the
+configuration file.  For example:
+
+<PRE>
+&gt; grb_rsm --port=8080
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sta_the_cluster_manager_as2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuring_the_cluster_ma.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_the_cluster_manager_as2.html">Starting the Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="configuring_the_cluster_ma.html">Configuring the Cluster Manager</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Accessing Job Logs</TITLE>
+<META NAME="description" CONTENT="Accessing Job Logs">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="accessing_job_parameters.html">
+<LINK REL="previous" HREF="listing_jobs.html">
+<LINK REL="next" HREF="accessing_job_parameters.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="accessing_job_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="listing_jobs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="accessing_job_parameters.html">Accessing Job Parameters</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="listing_jobs.html">Listing Jobs</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00032300000000000000">
+Accessing Job Logs</A>
+</H3>
+
+<P>
+Gurobi Optimizer log output from a previous or currently running job
+can be retrieved by using the <TT>job log</TT> command.  For example:
+
+<P>
+
+<PRE>
+&gt; grbcluster job log 58780a22
+info  : Found matching job is 58780a22-8acc-499e-b73c-da6f2df59669
+  Flow cover: 20
+  Zero half: 4
+
+Explored 54868 nodes (381866 simplex iterations) in 4.27 seconds
+Thread count was 4 (of 4 available processors)
+
+Solution count 4: 30 31 32 33
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 3.000000000000e+01, best bound 3.000000000000e+01, gap 0.0000%
+</PRE>
+
+<P>
+The argument to this command is the <TT>JOBID</TT> for the job of
+interest (which can be retrieved using the <TT>jobs</TT> command).
+You can use the full ID or the short ID. If
+you don't specify a <TT>JOBID</TT>, the command will display the log for
+the last job submitted.
+
+<P>
+The <TT>job log</TT> command accepts the following arguments:
+
+<P>
+
+<PRE>
+Usage:
+  grbcluster job log &lt;JOBID&gt; [flags]
+
+Flags can be set using --flag=value or the short form -f=value if defined.
+A boolean flag can be enabled using --flag or the short form -f if defined.
+
+Flags:
+  -b, --begin        Display log from the beginning
+  -f, --continuous   Display log continuously until job completion
+  -h, --help         help for log
+  -n, --lines int    Display only the last n lines (default 10)
+</PRE>
+
+<P>
+For example, to get the entire log, from the beginning of the job, use
+the <TT>-b</TT> (or <TT>--begin</TT>) flag.
+
+<P>
+
+<PRE>
+&gt; grbcluster job log 58780a22 -b
+</PRE>
+
+<P>
+You can get a continuous feed of the log for a running
+optimization job with the <TT>-f</TT> (or <TT>--follow</TT>) flag.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="accessing_job_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="listing_jobs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="accessing_job_parameters.html">Accessing Job Parameters</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="listing_jobs.html">Listing Jobs</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

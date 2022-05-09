@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Processing State and Scaling</TITLE>
+<META NAME="description" CONTENT="Processing State and Scaling">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="grouping.html">
+<LINK REL="next" HREF="communication_options.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="grouping.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="grouping.html">Grouping</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00025400000000000000"></A>
+<A ID="sec:RSMProcessingState"></A>
+<BR>
+Processing State and Scaling
+</H3>
+
+<P>
+Each node of the cluster can be in one of three processing states:
+<DL>
+<DT><STRONG>ACCEPTING</STRONG></DT>
+<DD>The node is accepting new jobs.
+</DD>
+<DT><STRONG>DRAINING</STRONG></DT>
+<DD>The node is not accepting new jobs, but it is still
+  processing existing jobs.
+</DD>
+<DT><STRONG>STOPPED</STRONG></DT>
+<DD>The node is not accepting new jobs and no jobs are
+  running.
+</DD>
+</DL>
+
+<P>
+A node always starts in the <TT>ACCEPTING</TT> state.  If you need to
+perform maintenance on a node, or if you want the node to leave the
+cluster in a clean state for other reasons, the system administrator
+can issue the <TT>stop</TT> command:
+
+<PRE>
+&gt; grbcluster --server=server1:61000 stop
+</PRE>
+If jobs are currently running, the state will change to
+<TT>DRAINING</TT> until the jobs finish, at which point it will change
+to <TT>STOPPED</TT>.  If no jobs are running, the state will change to
+<TT>STOPPED</TT> immediately.  In the <TT>DRAINING</TT> or <TT>STOPPED</TT>
+states, new jobs are rejected on that node.  However, the node is
+still a member of the cluster and all of the other features, commands,
+and APIs are still active.
+
+<P>
+Once a node is in the <TT>STOPPED</TT> state, you can safely remove it
+from the cluster (to perform maintenance, shut it down, etc.).  To
+return it to the cluster and resume job processing, run the
+<TT>start</TT> command:
+
+<PRE>
+&gt; grbcluster --server=server1:61000 start
+</PRE>
+
+<P>
+The flag <TT>--server</TT> is used to target a specific node in the
+cluster.  Adding the <TT>--all</TT> flag requests that the command
+(e.g., <TT>start</TT> or <TT>stop</TT>) be applied to all nodes in the
+cluster.
+
+<P>
+By using the <TT>start</TT> and <TT>stop</TT> with a cluster of Compute
+Servers, you can effectively scale your cluster up or down, depending
+on the current cluster workload:
+
+<UL>
+<LI>You can scale down the cluster by stopping the processing on some nodes.
+</LI>
+<LI>You can scale up the cluster by starting new nodes or resuming
+  processing on some nodes.  As soon as a node starts or resumes
+  processing, it will pick up jobs from the current queue or wait for
+  new jobs to be submitted.
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="grouping.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="grouping.html">Grouping</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

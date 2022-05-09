@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>lpmethod.R</TITLE>
+<META NAME="description" CONTENT="lpmethod.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="lpmod_r.html">
+<LINK REL="previous" HREF="lp2_r.html">
+<LINK REL="next" HREF="lpmod_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lpmod_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lp2_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lpmod_r.html">lpmod.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="lp2_r.html">lp2.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000281100000000000000"></A>
+<A ID="subsubsection:lpmethod.R"></A>
+<BR>
+lpmethod.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# Solve a model with different values of the Method parameter;
+# show which value gives the shortest solve time.
+
+library(Matrix)
+library(gurobi)
+
+args &lt;- commandArgs(trailingOnly = TRUE)
+if (length(args) &lt; 1) {
+  stop('Usage: Rscript lpmethod.R filename\n')
+}
+
+# Read model
+cat('Reading model',args[1],'...')
+model &lt;- gurobi_read(args[1])
+cat('... done\n')
+
+# Solve the model with different values of Method
+params     &lt;- list()
+bestTime   &lt;- Inf
+bestMethod &lt;- -1
+for (i in 0:4) {
+  params$method &lt;- i
+  res &lt;- gurobi(model, params)
+  if (res$status == 'OPTIMAL') {
+    bestMethod       &lt;- i
+    bestTime         &lt;- res$runtime
+    params$TimeLimit &lt;- bestTime
+  }
+}
+
+# Report which method was fastest
+if (bestMethod == -1) {
+  cat('Unable to solve this model\n')
+} else {
+  cat('Solved in', bestTime, 'seconds with Method:', bestMethod, '\n')
+}
+
+rm(params, model)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lpmod_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lp2_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lpmod_r.html">lpmod.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="lp2_r.html">lp2.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Compute Servers and Distributed Workers</TITLE>
+<META NAME="description" CONTENT="Compute Servers and Distributed Workers">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="grouping.html">
+<LINK REL="previous" HREF="connecting_nodes.html">
+<LINK REL="next" HREF="grouping.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="grouping.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="connecting_nodes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="grouping.html">Grouping</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="connecting_nodes.html">Connecting Nodes</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00025200000000000000"></A>
+<A ID="sec:RSMNodeTypes"></A>
+<BR>
+Compute Servers and Distributed Workers
+</H3>
+
+<P>
+A Remote Services cluster is a collection of nodes of two different
+types:
+<DL>
+<DT><STRONG>COMPUTE</STRONG></DT>
+<DD>A Compute Server node supports the offloading of
+  optimization jobs.  Features include load balancing, queueing and
+  concurrent execution of jobs. A Compute Server license is required
+  on the node.  A Compute Server node can also act as a Distributed
+  Worker.
+
+<P>
+</DD>
+<DT><STRONG>WORKER</STRONG></DT>
+<DD>A Distributed Worker node can be used to execute part of
+  a distributed algorithm.  A license is not necessary to run a
+  Distributed Worker, because it is always used in conjunction with a
+  manager (another node or a client program) that requires a license.
+  A Distributed Worker node can only be used by one manager at a time
+  (i.e., the job limit is always set to 1).
+
+<P>
+</DD>
+</DL>
+
+<P>
+By default, <TT>grb_rs</TT> will try to start a node in Compute Server mode and
+the node license status will be <TT>INVALID</TT> if no license is found.
+In order to start a Distributed
+Worker, you need to set the <TT>WORKER</TT> property in the
+<TT>grb_rs.cnf</TT> configuration file (or the <TT>--worker</TT>
+command-line flag):
+
+<PRE>
+WORKER=true
+</PRE>
+
+<P>
+Once you form your cluster, the node type will be displayed in the
+<TT>TYPE</TT> column of the output of <TT>grbcluster nodes</TT>:
+
+<PRE>
+&gt; grbcluster nodes
+ID       ADDRESS       STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 19m  15.30 5.64
+735c595f server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 19m  10.45 8.01
+eb07fe16 server3:61000 ALIVE  WORKER  VALID   ACCEPTING  0  0  1  &lt;1s  11.44 2.33
+4f14a532 server4:61000 ALIVE  WORKER  VALID   ACCEPTING  0  0  1  &lt;1s  12.20 5.60
+</PRE>
+
+<P>
+The node type cannot be changed once <TT>grb_rs</TT> has started. If you
+wish to change the node type, you need to stop the node, change the
+configuration, and restart the node. You may have to update your
+license as well.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Distributed Optimization</SPAN></SPAN>
+
+<P>
+When using distributed optimization, distributed workers are
+controlled by a manager. There are two ways to set up the manager:
+
+<UL>
+<LI>The manager can be a job running on a Compute Server.  In this
+  case, a job is submitted to the cluster and executes on one of the
+  <TT>COMPUTE</TT> nodes as usual.  When the job reaches the point
+  where distributed optimization is requested, it will also request
+  some number of workers (see parameters <TT>    DistributedMIPJobs</TT>, <TT>ConcurrentJobs</TT>, or <TT>    TuneJobs</TT>).  The first choice will be <TT>WORKER</TT> nodes.
+  If not enough are available, it will use <TT>COMPUTE</TT> nodes.
+  The workload associated with managing the distributed algorithm is
+  quite light, so the initial job will act as both the manager and the
+  first worker.
+
+<P>
+</LI>
+<LI>The manager can be the client program itself.  The manager does
+  not participate in the distributed optimization. It simply
+  coordinates the efforts of the distributed workers.  The manager
+  will request distributed workers (using the <TT>WorkerPool</TT>
+  parameter), and the cluster will first
+  select the <TT>WORKER</TT> nodes.  If not enough are available, it
+  will use <TT>COMPUTE</TT> nodes as well.
+</LI>
+</UL>
+In both cases, the machine where the manager runs must be licensed to
+run distributed algorithms (you should see a <TT>DISTRIBUTED=</TT> line
+in your license file).
+
+<P>
+It is typically better to use the Compute Server itself as the
+distributed manager, rather than the client machine. This is
+particularly true if the Compute Server and the workers are physically
+close to each other, but physically distant from the client
+machine. In a typical environment, the client machine will offload the
+Gurobi computations onto the Compute Server, and the Compute Server
+will then act as the manager for the distributed computation.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="grouping.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="connecting_nodes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="grouping.html">Grouping</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="connecting_nodes.html">Connecting Nodes</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GenExpr</TITLE>
+<META NAME="description" CONTENT="GenExpr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_mlex.html">
+<LINK REL="previous" HREF="py_qex.html">
+<LINK REL="next" HREF="py_mlex.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_mlex.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_qex_ge_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_mlex.html">MLinExpr</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_qex_ge_.html">QuadExpr.__ge__()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0001012000000000000000"></A>
+<A ID="pythonclass:GenExpr"></A>
+<BR>
+GenExpr
+</H2>
+
+<P>
+Gurobi general expression object.  Objects of this class are created
+by a set of
+<A HREF="py_general_constraint_help.html#pythonclass:GCHelper">general constraint helper functions</A>
+functions.  They are temporary objects, meant to be used in
+conjunction with overloaded operators to build
+<A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A> objects,
+which are then passed to
+<A HREF="py_model_addconstr.html#pythonmethod:Model.addConstr">addConstr</A> or
+<A HREF="py_model_addconstrs.html#pythonmethod:Model.addConstrs">addConstrs</A>
+to build
+<A HREF="py_genconstr.html#pythonclass:GenConstr">general constraints</A>.
+
+<P>
+To be more specific, the following creates a <code>GenExpr</code> object...
+<PRE>
+  max_(x, y)
+</PRE>
+The following creates a <code>TempConstr</code> object...
+<PRE>
+  z == max_(x, y)
+</PRE>
+The following adds a general constraint to a model...
+<PRE>
+  model.addConstr(z == max_(x, y))
+</PRE>
+
+<P>
+Please refer to the
+<A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A> documentation
+for more information on building general constraints.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_mlex.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_qex_ge_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_mlex.html">MLinExpr</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_qex_ge_.html">QuadExpr.__ge__()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

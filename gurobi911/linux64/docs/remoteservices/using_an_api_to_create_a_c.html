@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using an API to Create a Compute Server Job</TITLE>
+<META NAME="description" CONTENT="Using an API to Create a Compute Server Job">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="using_an_api_to_create_a_b.html">
+<LINK REL="previous" HREF="programming_with_remote_se.html">
+<LINK REL="next" HREF="using_an_api_to_create_a_b.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="using_an_api_to_create_a_b.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_an_api_to_create_a_b.html">Using an API to</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00041000000000000000"></A>
+<A ID="sec:APIJobs"></A>
+<BR>
+Using an API to Create a Compute Server Job
+</H2>
+
+<P>
+As was noted earlier, a Remote Services client program will always
+need to be told how to reach the Remote Services cluster.  This can be
+done in two ways.  The first is through a license file.  This approach
+is described in an <A HREF="client_license_file.html#sec:CSLicenseFile">earlier
+  discussion</A>.  It requires no changes to the
+application program itself.  The same program can perform optimization
+locally or remotely, depending on the settings in the license file.
+
+<P>
+Your second option for specifying the desired Compute Servers is
+through API calls.  You would first construct an <TT>empty
+  environment</TT> (using <TT>GRBemptyenv</TT> in C or the appropriate
+<TT>GRBEnv</TT> constructor in the object-oriented interfaces),
+then set the appropriate parameters on this environment (typically
+<TT>ComputeServer</TT> and <TT>ServerPassword</TT>),
+and then start the empty environment (using <TT>GRBstartenv</TT>
+in C or <TT>env.start()</TT> in the object-oriented interfaces).
+
+<P>
+To give a simple example, if you'd like your Python program to offload
+the optimization computation to a Compute Server named <TT>server1</TT>,
+you could say:
+
+<PRE>
+  env = Env(empty=True)
+  env.setParam(GRB.Param.ComputeServer, "server1:61000")
+  env.setParam(GRB.Param.ServerPassword, "passwd")
+  env.start()
+  model = read("misc07.mps", env)
+  model.optimize()
+</PRE>
+
+<P>
+An equivalent Java program would look like this:
+
+<PRE>
+  GRBEnv env = new GRBEnv(true);
+  env.set(GRB.StringParam.ComputeServer, "server1:61000");
+  env.set(GRB.StringParam.ServerPassword, "passwd");
+  env.start();
+  GRBModel model = new GRBModel(env, "misc07.mps");
+  model.optimize();
+</PRE>
+
+<P>
+We refer you to the <A ID="tex2html11"
+  HREF="../refman/refman.html">Gurobi Reference
+  Manual</A>
+for details on these routines.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="using_an_api_to_create_a_b.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_an_api_to_create_a_b.html">Using an API to</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

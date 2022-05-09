@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>MIP starts</TITLE>
+<META NAME="description" CONTENT="MIP starts">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="model_data_separation_in_p.html">
+<LINK REL="previous" HREF="diagnose_and_cope_with_inf.html">
+<LINK REL="next" HREF="model_data_separation_in_p.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="model_data_separation_in_p.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="example_tour.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="diagnose_and_cope_with_inf.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="model_data_separation_in_p.html">Model-data separation in Python</A>
+<B> Up:</B> <A
+ HREF="example_tour.html">Example tour</A>
+<B> Previous:</B> <A
+ HREF="diagnose_and_cope_with_inf.html">Diagnose and cope with</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00018000000000000000"></A>
+<A ID="subsection:Starts"></A>
+<BR>
+MIP starts
+</H2>
+<B>Example:</B> facility, sensitivity
+
+<P>
+A MIP modeler often knows how to compute a feasible solution to their
+problem.  In cases where the MIP solver is slow in finding an initial
+feasible solution, it can be helpful for the modeler to provide a
+feasible solution along with the model itself.  This is done through
+the <code>Start</code> attribute on the variables.  This
+is illustrated in the <code>facility</code> example.
+
+<P>
+The <code>facility</code> example solves a simple facility location
+problem.  The model contains a set of warehouses, and a set of plants
+that produce the products required in the warehouses.  Each plant has a
+maximum production capacity and a fixed operating cost.  Additionally, there is
+a cost associated with shipping products from a plant to a warehouse.
+The goal is to decide which plants should satisfy the demand for the
+product, given the associated capacities and costs.
+
+<P>
+The example uses a simple heuristic for choosing an initial solution:
+it closes the plant with the highest fixed cost.  The associated
+solution may not be optimal, but it could produce a reasonable
+starting solution for the MIP optimization.  The MIP start is passed
+to the MIP solver by setting the <code>Start</code> attribute before the
+optimization begins.  In C, we set the start attribute to open all
+plants using the following code:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  /* First, open all plants */
+  for (p = 0; p &lt; nPlants; ++p)
+  {
+    error = GRBsetdblattrelement(model, "Start", opencol(p), 1.0);
+    if (error) goto QUIT;
+  }
+</PRE>
+In C++:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    // First, open all plants
+    for (p = 0; p &lt; nPlants; ++p)
+    {
+      open[p].set(GRB_DoubleAttr_Start, 1.0);
+    }
+</PRE>
+In Java:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      // First, open all plants
+      for (int p = 0; p &lt; nPlants; ++p) {
+        open[p].set(GRB.DoubleAttr.Start, 1.0);
+      }
+</PRE>
+In C#:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      // First, open all plants
+      for (int p = 0; p &lt; nPlants; ++p) {
+        open[p].Start = 1.0;
+      }
+</PRE>
+In Python:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># First open all plants
+for p in plants:
+    open[p].start = 1.0
+</PRE>
+
+<P>
+When you run the example, the MIP solver reports that the start
+produced a feasible initial solution:
+<PRE>
+User MIP start produced solution with objective 210500 (0.01s)
+Loaded user MIP start with objective 210500
+</PRE>
+This initial solution turns out to be optimal for the sample data.
+Although the computation difference is insignificant for this tiny
+example, providing a good starting solution can sometimes help for
+more difficult models.
+
+<P>
+Note that the MIP start in this example only specifies values for some
+of the variables -- the variables that determine which plants to leave
+open and which plants to close.  The Gurobi MIP solve uses whatever
+start information is provided to try to construct a complete solution.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="model_data_separation_in_p.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="example_tour.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="diagnose_and_cope_with_inf.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="model_data_separation_in_p.html">Model-data separation in Python</A>
+<B> Up:</B> <A
+ HREF="example_tour.html">Example tour</A>
+<B> Previous:</B> <A
+ HREF="diagnose_and_cope_with_inf.html">Diagnose and cope with</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

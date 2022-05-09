@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Queueing, Load Balancing, and Job Priorities</TITLE>
+<META NAME="description" CONTENT="Queueing, Load Balancing, and Job Priorities">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="generating_a_client_licens.html">
+<LINK REL="next" HREF="job_commands.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="generating_a_client_licens.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Up:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Previous:</B> <A
+ HREF="generating_a_client_licens.html">Generating a Client License</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00031300000000000000"></A>
+<A ID="sec:QueueingEtc"></A>
+<BR>
+Queueing, Load Balancing, and Job Priorities
+</H3>
+
+<P>
+As noted earlier, Gurobi Compute Servers support job priorities.  You
+can assign an integer priority between -100 and 100 to each job (the
+default is 0).  When choosing among queued jobs, the Compute Server
+will run the highest priority job first.  Note that servers will never
+preempt running jobs. You can set the priority in the client license
+file, or using the <TT>PRIORITY</TT> parameter in the programming
+language APIs.
+
+<P>
+We have chosen to give priority 100 a special meaning.  A priority 100
+job will start immediately, even if this means that a server will
+exceed its job limit.  You should be cautious with priority 100 jobs,
+since submitting too many at once could lead to very high server
+loads, which could lead to poor performance and even crashes in extreme
+cases. Note that this feature must be enabled by the system administrator
+using the <TT>HARDJOBLIMIT</TT> configuration property.
+
+<P>
+With the Remote Services grouping feature, the system administrator may
+have assigned groups to the cluster nodes. This can be quite useful when some nodes
+in the cluster are different from others. For example, some nodes may
+have more memory or faster CPUs.  Using this feature, you can force
+jobs to only run on the appropriate type of machines. If all nodes
+of the requested group are at capacity, jobs will be queued until a
+member of that group is available.
+
+<P>
+You can submit an optimization job to a given group by
+using the <TT>GROUP</TT> property of
+the client license file. You can also set the
+<TT>CSGROUP</TT> parameter in the programming interface.
+
+<P>
+You can use this parameter to target a single group or a list of
+groups, and you can specify a priority for each group.  Here is an
+example that shows how you would use this parameter to submit a
+job to group1 with priority 10 and to group2 with priority 50.
+
+<PRE>
+group1:10,group2:50
+</PRE>
+
+<P>
+Note that if no group specified for the submitted job, the job can run
+on any node.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="generating_a_client_licens.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Up:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Previous:</B> <A
+ HREF="generating_a_client_licens.html">Generating a Client License</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

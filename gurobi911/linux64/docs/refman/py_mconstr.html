@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>MConstr</TITLE>
+<META NAME="description" CONTENT="MConstr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_qconstr.html">
+<LINK REL="previous" HREF="py_constr.html">
+<LINK REL="next" HREF="py_mconstr_tolist.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_mconstr_tolist.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_constr_setattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_mconstr_tolist.html">MConstr.tolist()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_constr_setattr.html">Constr.setAttr()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000106000000000000000"></A>
+<A ID="pythonclass:MConstr"></A>
+<BR>
+MConstr
+</H2>
+
+<P>
+Gurobi matrix constraint object.  An <code>MConstr</code> object is an array-like
+data structure that represents multiple linear constraints (in contrast
+to a <A HREF="py_constr.html#pythonclass:Constr">Constr</A> object, which represents a single
+constraint).  It behaves similar to NumPy's <code>ndarray</code>s, e.g., it has a
+shape and can be indexed and sliced.  Matrix constraints are always associated
+with a particular model.  You typically create these objects with
+<A HREF="py_model_addconstr.html#pythonmethod:Model.addConstr">Model.addConstr</A>, using overloaded
+comparison operators on <A HREF="py_mvar.html#pythonclass:MVar">matrix variables</A> and
+<A HREF="py_mlex.html#pythonclass:MLinExpr">linear matrix expressions</A>, or with the
+method <A HREF="py_model_addmconstr.html#pythonmethod:Model.addMConstr">Model.addMConstr</A>.
+
+<P>
+Constraint objects have a number of attributes.  The full list can be
+found in the <A HREF="attributes.html#sec:Attributes">Attributes</A> section of this
+document.  Some constraint attributes can only be queried, while
+others can also be set.  Recall that the Gurobi optimizer employs a
+lazy update approach, so changes to attributes don't take effect until
+the next call to
+<A HREF="py_model_update.html#pythonmethod:Model.update">Model.update</A>,
+<A HREF="py_model_optimize.html#pythonmethod:Model.optimize">Model.optimize</A>, or
+<A HREF="py_model_write.html#pythonmethod:Model.write">Model.write</A> on the associated
+model.
+
+<P>
+We should point out a few things about constraint attributes.  Consider the
+<code>rhs</code> attribute. The values for a matrix constraint <code>mc</code> can be
+queried using <code>mc.rhs</code>.  The Gurobi library ignores letter case in
+attribute names, so it can also be queried as <code>mc.RHS</code>.  Attribute
+values are returned as a NumPy <code>ndarray</code> that has the same shape as
+<code>mc</code>.  An attribute can be set, using a standard assignment statement (e.g.,
+<code>constr.rhs = b</code>), with <code>b</code> being either an <code>ndarray</code> with
+the appropriate shape, or a scalar
+which is then applied to all of the associated constraints.  However, as mentioned
+earlier, attribute modification is done in a lazy fashion, so you won't see the
+effect of the change immediately.  And some attributes can not be set (e.g.,
+the <code>Pi</code> attribute), so attempts to assign new values to them will raise
+an exception.
+
+<P>
+You can also use <A HREF="py_mconstr_getattr.html#pythonmethod:MConstr.getAttr">MConstr.getAttr</A>/
+<A HREF="py_mconstr_setattr.html#pythonmethod:MConstr.setAttr">MConstr.setAttr</A> to access
+attributes.  The attribute name can be passed to these routines as a
+string, or you can use the constants defined in the
+<A HREF="py_attr.html#pythonconstants:GRB.Attr">GRB.Attr</A> class (e.g.,
+<code>GRB.Attr.RHS</code>).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3594"
+  HREF="py_mconstr_tolist.html">MConstr.tolist()</A>
+<LI><A ID="tex2html3595"
+  HREF="py_mconstr_getattr.html">MConstr.getAttr()</A>
+<LI><A ID="tex2html3596"
+  HREF="py_mconstr_setattr.html">MConstr.setAttr()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_mconstr_tolist.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_constr_setattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_mconstr_tolist.html">MConstr.tolist()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_constr_setattr.html">Constr.setAttr()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

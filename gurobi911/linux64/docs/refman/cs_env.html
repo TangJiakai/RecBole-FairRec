@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBEnv</TITLE>
+<META NAME="description" CONTENT="GRBEnv">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model.html">
+<LINK REL="previous" HREF="cs_net_api_details.html">
+<LINK REL="next" HREF="cs_env2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_env2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_env2.html">GRBEnv()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00081000000000000000"></A>
+<A ID="dotnetclass:GRBEnv"></A>
+<BR>
+GRBEnv
+</H2>
+
+<P>
+Gurobi environment object.  Gurobi models are always associated with
+an environment.  You must create an environment before can you create
+and populate a model.  You will generally only need a single
+environment object in your program.
+
+<P>
+Objects of this class have unmanaged resources associated with them.
+The class implements the <code>IDisposable</code> interface.
+
+<P>
+The methods on environment objects are mainly used to manage
+Gurobi parameters (e.g.,
+<A HREF="cs_env_get.html#dotnetmethod:GRBEnv.Get">Get</A>,
+<A HREF="cs_env_getparaminfo.html#dotnetmethod:GRBEnv.GetParamInfo">GetParamInfo</A>,
+<A HREF="cs_env_set.html#dotnetmethod:GRBEnv.Set">Set</A>).
+
+<P>
+While the .NET garbage collector will eventually collect an unused
+<code>GRBEnv</code> object, an environment will hold onto resources (Gurobi
+licenses, file descriptors, etc.) until that collection occurs.  If
+your program creates multiple <code>GRBEnv</code> objects, we recommend
+that you call <A HREF="cs_env_dispose.html#dotnetmethod:GRBEnv.Dispose">GRBEnv.Dispose</A>
+when you are done using one (or use the .NET <code>using</code> statement).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2998"
+  HREF="cs_env2.html">GRBEnv()</A>
+<LI><A ID="tex2html2999"
+  HREF="cs_env_dispose.html">GRBEnv.Dispose()</A>
+<LI><A ID="tex2html3000"
+  HREF="cs_env_errormsg.html">GRBEnv.ErrorMsg</A>
+<LI><A ID="tex2html3001"
+  HREF="cs_env_get.html">GRBEnv.Get()</A>
+<LI><A ID="tex2html3002"
+  HREF="cs_env_getparaminfo.html">GRBEnv.GetParamInfo()</A>
+<LI><A ID="tex2html3003"
+  HREF="cs_env_message.html">GRBEnv.Message()</A>
+<LI><A ID="tex2html3004"
+  HREF="cs_env_readparams.html">GRBEnv.ReadParams()</A>
+<LI><A ID="tex2html3005"
+  HREF="cs_env_release.html">GRBEnv.Release()</A>
+<LI><A ID="tex2html3006"
+  HREF="cs_env_resetparams.html">GRBEnv.ResetParams()</A>
+<LI><A ID="tex2html3007"
+  HREF="cs_env_set.html">GRBEnv.Set()</A>
+<LI><A ID="tex2html3008"
+  HREF="cs_env_start.html">GRBEnv.Start()</A>
+<LI><A ID="tex2html3009"
+  HREF="cs_env_writeparams.html">GRBEnv.WriteParams()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_env2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_env2.html">GRBEnv()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

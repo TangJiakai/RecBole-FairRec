@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.write()</TITLE>
+<META NAME="description" CONTENT="Model.write()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="py_model_update.html">
+<LINK REL="next" HREF="py_var.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_var.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_update.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_var.html">Var</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_update.html">Model.update()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00010210600000000000000"></A>
+<A ID="pythonmethod:Model.write"></A>
+<BR>
+Model.write()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">write</SPAN></FONT></SPAN> ( filename )
+
+<P>
+This method&nbsp;is the general entry point for writing optimization data
+to a file.  It can be used to write optimization models, solutions
+vectors, basis vectors, start vectors, or parameter settings.  The
+type of data written is determined by the file suffix.
+File formats are described in the
+<A HREF="model_file_formats.html#sec:FileFormats">File Format</A> section.
+
+<P>
+Note that writing a model to a file will process all pending model
+modifications.  However, writing other model information (solutions,
+bases, etc.)  will not.
+
+<P>
+Note also that when you write a Gurobi parameter file (PRM), both
+integer or double parameters not at their default value will be
+saved, but no string parameter will be saved into the file.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">filename</SPAN>: The name of the file to be written.  The file
+type is encoded in the file name suffix.  Valid suffixes are
+<SPAN  CLASS="texttt">.mps</SPAN>, <SPAN  CLASS="texttt">.rew</SPAN>, <SPAN  CLASS="texttt">.lp</SPAN>, or <SPAN  CLASS="texttt">.rlp</SPAN> for writing
+the model itself, <SPAN  CLASS="texttt">.ilp</SPAN> for writing just the IIS associated
+with an infeasible model (see <A HREF="py_model_computeiis.html#pythonmethod:Model.computeIIS">Model.computeIIS</A> for further
+information), <SPAN  CLASS="texttt">.sol</SPAN> for writing the current solution,
+<SPAN  CLASS="texttt">.mst</SPAN> for writing a start vector, <SPAN  CLASS="texttt">.hnt</SPAN> for writing a
+hint file, <SPAN  CLASS="texttt">.bas</SPAN> for writing an LP basis, <SPAN  CLASS="texttt">.prm</SPAN>
+for writing modified parameter settings, <SPAN  CLASS="texttt">.attr</SPAN> for writing
+model attributes, or <SPAN  CLASS="texttt">.json</SPAN> for writing solution
+information in JSON format. If your system has compression
+utilities installed (e.g., <TT>7z</TT> or <TT>zip</TT> for Windows,
+and <TT>gzip</TT>, <TT>bzip2</TT>, or <TT>unzip</TT> for
+Linux or Mac OS), then the files can be compressed, so additional
+suffixes of <SPAN  CLASS="texttt">.gz</SPAN>, <SPAN  CLASS="texttt">.bz2</SPAN>, or <SPAN  CLASS="texttt">.7z</SPAN> are
+accepted.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  model.write("out.mst")
+  model.write("out.sol")
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_var.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_update.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_var.html">Var</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_update.html">Model.update()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

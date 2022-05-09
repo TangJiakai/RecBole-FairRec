@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>tune_c++.cpp</TITLE>
+<META NAME="description" CONTENT="tune_c++.cpp">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="workforce1_cpp_cpp.html">
+<LINK REL="previous" HREF="tsp_cpp_cpp.html">
+<LINK REL="next" HREF="workforce1_cpp_cpp.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="workforce1_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tsp_cpp_cpp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce1_cpp_cpp.html">workforce1_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="cpp_examples.html">C++ Examples</A>
+<B> Previous:</B> <A
+ HREF="tsp_cpp_cpp.html">tsp_c++.cpp</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000222800000000000000"></A>
+<A ID="subsubsection:tune_c++.cpp"></A>
+<BR>
+tune_c++.cpp
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">/* Copyright 2020, Gurobi Optimization, LLC */
+
+/* This example reads a model from a file and tunes it.
+   It then writes the best parameter settings to a file
+   and solves the model using these parameters. */
+
+#include "gurobi_c++.h"
+#include &lt;cmath&gt;
+using namespace std;
+
+int
+main(int   argc,
+     char *argv[])
+{
+  if (argc &lt; 2) {
+    cout &lt;&lt; "Usage: tune_c++ filename" &lt;&lt; endl;
+    return 1;
+  }
+
+  GRBEnv *env = 0;
+  try {
+    env = new GRBEnv();
+
+    // Read model from file
+
+    GRBModel model = GRBModel(*env, argv[1]);
+
+    // Set the TuneResults parameter to 1
+
+    model.set(GRB_IntParam_TuneResults, 1);
+
+    // Tune the model
+
+    model.tune();
+
+    // Get the number of tuning results
+
+    int resultcount = model.get(GRB_IntAttr_TuneResultCount);
+
+    if (resultcount &gt; 0) {
+
+      // Load the tuned parameters into the model's environment
+
+      model.getTuneResult(0);
+
+      // Write tuned parameters to a file
+
+      model.write("tune.prm");
+
+      // Solve the model using the tuned parameters
+
+      model.optimize();
+    }
+  } catch(GRBException e) {
+    cout &lt;&lt; "Error code = " &lt;&lt; e.getErrorCode() &lt;&lt; endl;
+    cout &lt;&lt; e.getMessage() &lt;&lt; endl;
+  } catch (...) {
+    cout &lt;&lt; "Error during tuning" &lt;&lt; endl;
+  }
+
+  delete env;
+  return 0;
+}
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="workforce1_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tsp_cpp_cpp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce1_cpp_cpp.html">workforce1_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="cpp_examples.html">C++ Examples</A>
+<B> Previous:</B> <A
+ HREF="tsp_cpp_cpp.html">tsp_c++.cpp</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

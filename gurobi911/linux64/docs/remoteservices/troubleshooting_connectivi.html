@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Troubleshooting Connectivity Issues</TITLE>
+<META NAME="description" CONTENT="Troubleshooting Connectivity Issues">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="listing_cluster_licenses.html">
+<LINK REL="previous" HREF="listing_cluster_nodes.html">
+<LINK REL="next" HREF="listing_cluster_licenses.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="listing_cluster_licenses.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="listing_cluster_nodes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="listing_cluster_licenses.html">Listing Cluster Licenses</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="listing_cluster_nodes.html">Listing Cluster Nodes</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00035200000000000000"></A>
+<A ID="sec:ConnectivityIssues"></A>
+<BR>
+Troubleshooting Connectivity Issues
+</H3>
+
+<P>
+You can test to see if a Remote Services node is reachable with the
+<TT>node ping</TT> command:
+
+<P>
+
+<PRE>
+&gt; grbcluster node ping --server=server1
+Node is not reachable
+</PRE>
+
+<P>
+The <TT>node latency</TT> command provides additional details:
+
+<PRE>
+&gt; grbcluster node latency
+ADDRESS		LATENCY    NBERR
+server1 	1.12813ms  0
+server2 	1.218103ms 0
+</PRE>
+This will display the latency from the client machine to
+each node in the cluster.
+
+<P>
+Add the <TT>--describe</TT> flag to see an explanation of each field:
+
+<PRE>
+&gt; grbcluster node latency --describe
+ADDRESS   - Node address
+LATENCY   - latency between the local client and a node
+NBERR     - Number of errors
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="listing_cluster_licenses.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="listing_cluster_nodes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="listing_cluster_licenses.html">Listing Cluster Licenses</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="listing_cluster_nodes.html">Listing Cluster Nodes</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

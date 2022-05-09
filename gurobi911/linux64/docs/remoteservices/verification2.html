@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Verification</TITLE>
+<META NAME="description" CONTENT="Verification">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="sta_a_cluster_node_as_a_se.html">
+<LINK REL="next" HREF="forming_a_cluster.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sta_a_cluster_node_as_a_se.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="sta_a_cluster_node_as_a_se.html">Starting a Cluster Node</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00024600000000000000"></A>
+<A ID="sec:RSMNodeVerification"></A>
+<BR>
+Verification
+</H3>
+
+<P>
+Once you have <TT>grb_rs</TT> running, you can check to make sure that
+you will be able to submit jobs to it.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Log In with a Cluster Manager</SPAN></SPAN>
+
+<P>
+As we have <A HREF="verification.html#sec:RSMVerification">explained earlier</A>,
+the Cluster Manager initially creates three default users with predefined
+passwords:
+
+<UL>
+<LI>standard user: <TT>gurobi</TT> / <TT>pass</TT>
+</LI>
+<LI>administrator: <TT>admin</TT> / <TT>admin</TT>
+</LI>
+<LI>system administrator: <TT>sysadmin</TT> / <TT>cluster</TT>
+</LI>
+</UL>
+These default accounts are provided to simplify installation; you
+should change the passwords or delete the accounts before actually
+using the cluster.
+
+<P>
+You can check that you can log in using the <TT>sysadmin</TT> account with the
+<TT>grbcluster</TT> command-line tool:
+
+<P>
+
+<PRE>
+&gt; grbcluster login --manager=http://mymanager:61080 --username=sysadmin
+info  : Using client license file '/home/jones/gurobi.lic'
+Password for sysadmin:
+info  : User gurobi connected to http://mymanager:61080, session will expire on...
+</PRE>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Log In without a Cluster Manager</SPAN></SPAN>
+
+<P>
+With a self-managed cluster, there are no user accounts, and the
+access level is determined by the password used. Here are the default
+passwords (which can be changed in the
+<A HREF="configuring_a_cluster_node.html#sec:RSMNodeConfig">configuration file</A>):
+
+<UL>
+<LI>standard user: <TT>pass</TT>
+</LI>
+<LI>administrator: <TT>admin</TT>
+</LI>
+<LI>system administrator:  <TT>cluster</TT>
+</LI>
+</UL>
+
+<P>
+In this case, you need to log in to one of the nodes and provide the
+system administrator password:
+
+<P>
+
+<PRE>
+&gt; grbcluster login --server=http://server1:61000
+info  : Using client license file '/home/jones/gurobi.lic'
+Enter password (return to use default):
+info  : Connected to https://server1:61000
+</PRE>
+
+<P>
+Note that the password you provide is stored in clear in the license
+file (for future use by other commands). With this in mind, make sure
+that access to the license file is restricted.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Accessing the Cluster</SPAN></SPAN>
+
+<P>
+Once you have verified that you can log in, you should also check the
+list of nodes with the command:
+
+<PRE>
+&gt; grbcluster nodes
+ID       ADDRESS       STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 &lt;1s  10.89 4.99
+</PRE>
+
+<P>
+You are ready to submit jobs if both of the following are true:
+
+<UL>
+<LI>the <TT>STATUS</TT> column indicates that one or more servers are <TT>ALIVE</TT>
+</LI>
+<LI>the <TT>LICENSE</TT> column indicates that the license is <TT>VALID</TT>.
+</LI>
+</UL>
+
+<P>
+If <TT>grbcluster</TT> is unable to connect or if it does not show any
+live nodes, then check your network and the log of the
+<TT>grb_rs</TT> nodes (the console output or <TT>&lt;installdir&gt;/bin/service.log</TT> if started as a service).
+
+<P>
+If a node has an <TT>INVALID</TT> license, the <TT>ERROR</TT> field
+will provide more information about the error.  For example:
+
+<PRE>
+&gt; grbcluster node licenses
+ID       ADDRESS       STATUS  TYPE KEY EXP ORG USER APP VER CS    DL  ERROR
+b7d037db server1:61000 INVALID NODE                          false 0   No Gurobi license found...
+</PRE>
+
+<P>
+You may also want to verify that it is possible to submit a job to
+your cluster. To this end, you may want to identify a machine from
+which the users will typically submit jobs and install the gurobi
+client package. Then, you can submit a job with a command like
+the following:
+
+<PRE>
+&gt; gurobi_cl misc07.mps
+</PRE>
+
+<P>
+For more information on how to install the client and run <TT>  gurobi_cl</TT>, please refer to the section about <A HREF="using_remote_services.html#sec:UsingRemoteServices">using Remote
+  Services</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sta_a_cluster_node_as_a_se.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="sta_a_cluster_node_as_a_se.html">Starting a Cluster Node</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

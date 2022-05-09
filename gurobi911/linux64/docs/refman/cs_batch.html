@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBBatch</TITLE>
+<META NAME="description" CONTENT="GRBBatch">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_.html">
+<LINK REL="previous" HREF="cs_exception.html">
+<LINK REL="next" HREF="cs_batch2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_batch2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_exception_errorcode.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_batch2.html">GRBBatch()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_exception_errorcode.html">GRBException.ErrorCode</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000816000000000000000"></A>
+<A ID="dotnetclass:GRBBatch"></A>
+<BR>
+GRBBatch
+</H2>
+
+<P>
+Gurobi batch object.  Batch optimization is a feature available with
+the Gurobi Cluster Manager.  It allows a client program to build an
+optimization model, submit it to a Compute Server cluster (through a
+Cluster Manager), and later check on the status of the model and
+retrieve its solution.  For more information, please refer to the
+<A HREF="batch_optimization.html#sec:BatchOptimization">Batch Optimization</A> section.
+
+<P>
+Commonly used methods on batch objects
+include <A HREF="cs_batch_update.html#dotnetmethod:GRBBatch.Update">Update</A> (refresh
+attributes from the Cluster Manager), <A HREF="cs_batch_abort.html#dotnetmethod:GRBBatch.Abort">Abort</A> (abort
+execution of a batch request),
+<A HREF="cs_batch_retry.html#dotnetmethod:GRBBatch.Retry">Retry</A> (retry
+optimization for an interrupted or failed batch),
+<A HREF="cs_batch_discard.html#dotnetmethod:GRBBatch.Discard">Discard</A> (remove the
+batch request and all related information from the Cluster Manager), and
+<A HREF="cs_batch_getjsonsolution.html#dotnetmethod:GRBBatch.GetJSONSolution">GetJSONSolution</A>
+(query solution information for the batch request).
+
+<P>
+These methods are built on top of calls to the Cluster Manager REST
+API.  They are meant to simplify such calls, but note that you always
+have the option of calling the REST API directly.
+
+<P>
+Batch objects have four attributes:
+
+<UL>
+<LI><A HREF="batchid.html#attr:BatchID">BatchID</A>: Unique ID for the batch
+request.
+</LI>
+<LI><A HREF="batchstatus.html#attr:BatchStatus">BatchStatus</A>: Last batch
+status.
+</LI>
+<LI><A HREF="batcherrorcode.html#attr:BatchErrorCode">BatchErrorCode</A>: Last error
+code.
+</LI>
+<LI><A HREF="batcherrormessage.html#attr:BatchErrorMessage">BatchErrorMessage</A>: Last
+error message.
+</LI>
+</UL>
+You can access their values , <TT>batch.BatchStatus</TT> or <TT>batch.BatchID</TT>, or by using
+<A HREF="cs_batch_get.html#dotnetmethod:GRBBatch.Get">Get</A>.  Note that all Batch
+attributes are locally cached, and are only updated when you create a
+client-side batch object or when you explicitly update this cache,
+which can done by calling
+<A HREF="cs_batch_update.html#dotnetmethod:GRBBatch.Update">Update</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3202"
+  HREF="cs_batch2.html">GRBBatch()</A>
+<LI><A ID="tex2html3203"
+  HREF="cs_batch_abort.html">GRBBatch.Abort()</A>
+<LI><A ID="tex2html3204"
+  HREF="cs_batch_discard.html">GRBBatch.Discard()</A>
+<LI><A ID="tex2html3205"
+  HREF="cs_batch_getjsonsolution.html">GRBBatch.GetJSONSolution()</A>
+<LI><A ID="tex2html3206"
+  HREF="cs_batch_get.html">GRBBatch.Get()</A>
+<LI><A ID="tex2html3207"
+  HREF="cs_batch_retry.html">GRBBatch.Retry()</A>
+<LI><A ID="tex2html3208"
+  HREF="cs_batch_update.html">GRBBatch.Update()</A>
+<LI><A ID="tex2html3209"
+  HREF="cs_batch_writejsonsolution.html">GRBBatch.WriteJSONSolution()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_batch2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_exception_errorcode.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_batch2.html">GRBBatch()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_exception_errorcode.html">GRBException.ErrorCode</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

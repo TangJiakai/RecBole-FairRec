@@ -1,0 +1,208 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>piecewise_c++.cpp</TITLE>
+<META NAME="description" CONTENT="piecewise_c++.cpp">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="poolsearch_cpp_cpp.html">
+<LINK REL="previous" HREF="params_cpp_cpp.html">
+<LINK REL="next" HREF="poolsearch_cpp_cpp.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="poolsearch_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="params_cpp_cpp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="poolsearch_cpp_cpp.html">poolsearch_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="cpp_examples.html">C++ Examples</A>
+<B> Previous:</B> <A
+ HREF="params_cpp_cpp.html">params_c++.cpp</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000222000000000000000"></A>
+<A ID="subsubsection:piecewise_c++.cpp"></A>
+<BR>
+piecewise_c++.cpp
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">/* Copyright 2020, Gurobi Optimization, LLC */
+
+/* This example considers the following separable, convex problem:
+
+     minimize    f(x) - y + g(z)
+     subject to  x + 2 y + 3 z &lt;= 4
+                 x +   y       &gt;= 1
+                 x,    y,    z &lt;= 1
+
+   where f(u) = exp(-u) and g(u) = 2 u^2 - 4 u, for all real u. It
+   formulates and solves a simpler LP model by approximating f and
+   g with piecewise-linear functions. Then it transforms the model
+   into a MIP by negating the approximation for f, which corresponds
+   to a non-convex piecewise-linear function, and solves it again.
+*/
+
+#include "gurobi_c++.h"
+#include &lt;cmath&gt;
+using namespace std;
+
+double f(double u) { return exp(-u); }
+double g(double u) { return 2 * u * u - 4 * u; }
+
+int
+main(int   argc,
+     char *argv[])
+{
+  double *ptu = NULL;
+  double *ptf = NULL;
+  double *ptg = NULL;
+
+  try {
+
+    // Create environment
+
+    GRBEnv env = GRBEnv();
+
+    // Create a new model
+
+    GRBModel model = GRBModel(env);
+
+    // Create variables
+
+    double lb = 0.0, ub = 1.0;
+
+    GRBVar x = model.addVar(lb, ub, 0.0, GRB_CONTINUOUS, "x");
+    GRBVar y = model.addVar(lb, ub, 0.0, GRB_CONTINUOUS, "y");
+    GRBVar z = model.addVar(lb, ub, 0.0, GRB_CONTINUOUS, "z");
+
+    // Set objective for y
+
+    model.setObjective(-y);
+
+    // Add piecewise-linear objective functions for x and z
+
+    int npts = 101;
+    ptu = new double[npts];
+    ptf = new double[npts];
+    ptg = new double[npts];
+
+    for (int i = 0; i &lt; npts; i++) {
+      ptu[i] = lb + (ub - lb) * i / (npts - 1);
+      ptf[i] = f(ptu[i]);
+      ptg[i] = g(ptu[i]);
+    }
+
+    model.setPWLObj(x, npts, ptu, ptf);
+    model.setPWLObj(z, npts, ptu, ptg);
+
+    // Add constraint: x + 2 y + 3 z &lt;= 4
+
+    model.addConstr(x + 2 * y + 3 * z &lt;= 4, "c0");
+
+    // Add constraint: x + y &gt;= 1
+
+    model.addConstr(x + y &gt;= 1, "c1");
+
+    // Optimize model as an LP
+
+    model.optimize();
+
+    cout &lt;&lt; "IsMIP: " &lt;&lt; model.get(GRB_IntAttr_IsMIP) &lt;&lt; endl;
+
+    cout &lt;&lt; x.get(GRB_StringAttr_VarName) &lt;&lt; " "
+         &lt;&lt; x.get(GRB_DoubleAttr_X) &lt;&lt; endl;
+    cout &lt;&lt; y.get(GRB_StringAttr_VarName) &lt;&lt; " "
+         &lt;&lt; y.get(GRB_DoubleAttr_X) &lt;&lt; endl;
+    cout &lt;&lt; z.get(GRB_StringAttr_VarName) &lt;&lt; " "
+         &lt;&lt; z.get(GRB_DoubleAttr_X) &lt;&lt; endl;
+
+    cout &lt;&lt; "Obj: " &lt;&lt; model.get(GRB_DoubleAttr_ObjVal) &lt;&lt; endl;
+
+    cout &lt;&lt; endl;
+
+    // Negate piecewise-linear objective function for x
+
+    for (int i = 0; i &lt; npts; i++) {
+      ptf[i] = -ptf[i];
+    }
+
+    model.setPWLObj(x, npts, ptu, ptf);
+
+    // Optimize model as a MIP
+
+    model.optimize();
+
+    cout &lt;&lt; "IsMIP: " &lt;&lt; model.get(GRB_IntAttr_IsMIP) &lt;&lt; endl;
+
+    cout &lt;&lt; x.get(GRB_StringAttr_VarName) &lt;&lt; " "
+         &lt;&lt; x.get(GRB_DoubleAttr_X) &lt;&lt; endl;
+    cout &lt;&lt; y.get(GRB_StringAttr_VarName) &lt;&lt; " "
+         &lt;&lt; y.get(GRB_DoubleAttr_X) &lt;&lt; endl;
+    cout &lt;&lt; z.get(GRB_StringAttr_VarName) &lt;&lt; " "
+         &lt;&lt; z.get(GRB_DoubleAttr_X) &lt;&lt; endl;
+
+    cout &lt;&lt; "Obj: " &lt;&lt; model.get(GRB_DoubleAttr_ObjVal) &lt;&lt; endl;
+
+  } catch(GRBException e) {
+    cout &lt;&lt; "Error code = " &lt;&lt; e.getErrorCode() &lt;&lt; endl;
+    cout &lt;&lt; e.getMessage() &lt;&lt; endl;
+  } catch(...) {
+    cout &lt;&lt; "Exception during optimization" &lt;&lt; endl;
+  }
+
+  delete[] ptu;
+  delete[] ptf;
+  delete[] ptg;
+
+  return 0;
+}
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="poolsearch_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="params_cpp_cpp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="poolsearch_cpp_cpp.html">poolsearch_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="cpp_examples.html">C++ Examples</A>
+<B> Previous:</B> <A
+ HREF="params_cpp_cpp.html">params_c++.cpp</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

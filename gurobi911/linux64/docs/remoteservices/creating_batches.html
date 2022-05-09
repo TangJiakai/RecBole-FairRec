@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Creating Batches</TITLE>
+<META NAME="description" CONTENT="Creating Batches">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="listing_batches.html">
+<LINK REL="previous" HREF="batch_commands.html">
+<LINK REL="next" HREF="listing_batches.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="listing_batches.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="listing_batches.html">Listing Batches</A>
+<B> Up:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Previous:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00033100000000000000">
+Creating Batches</A>
+</H3>
+
+<P>
+Once you are logged in to a Cluster Manager, you can use <TT>  grbcluster</TT> to create a batch.  This will submit a non-interactive
+job. The typical process involves the following three steps:
+
+<P>
+
+<UL>
+<LI>Create the batch and submit the non-interactive job. In this
+  step, we indicate what model file we want to solve, and what result
+  file we need. With this information, <TT>grbcluster</TT> will
+  declare the batch, upload the input model file, and submit the solve
+  request as a batch job. At this point, you can disconnect your
+  client machine from the network (i.e., close your laptop).  The
+  request will be processed automatically.
+
+<PRE>
+&gt; grbcluster batch solve glass4.mps ResultFile=solution.sol
+info  : Batch ada0a345-aa9e-4d6b-a7f0-05caf345d4e2 created
+info  : Uploading glass4.mps...
+info  : Batch ada0a345-aa9e-4d6b-a7f0-05caf345d4e2 submitted with job 66d4783b...
+</PRE>
+
+<P>
+</LI>
+<LI>Monitoring.  While the batch job is being executed, you can
+  monitor the status if you wish.  You can reference the batch you
+  submitted using its batch ID.
+
+<PRE>
+&gt; grbcluster batch status 2e05810c-911f-47ee-b695-27e1244fefd0 --wait
+info  : Batch 2e05810c-911f-47ee-b695-27e1244fefd0 status is SUBMITTED
+info  : Batch 2e05810c-911f-47ee-b695-27e1244fefd0 status is SUBMITTED
+info  : Batch 2e05810c-911f-47ee-b695-27e1244fefd0 status is SUBMITTED
+info  : Batch 2e05810c-911f-47ee-b695-27e1244fefd0 status is SUBMITTED
+info  : Batch 2e05810c-911f-47ee-b695-27e1244fefd0 status is COMPLETED
+</PRE>
+
+<P>
+</LI>
+<LI>Download the results. Once a batch is complete, you can
+  download the log file and any optimization result.  By default,
+  results are stores in a directory having the same name as the batch
+  ID. You should also delete the batch so that the Cluster Manager
+  can delete the associated data from the database.
+
+<PRE>
+grbcluster batch download 2e05810c-911f-47ee-b695-27e1244fefd0
+info  : Results will be stored in directory 2e05810c-911f-47ee-b695-27e1244fefd0
+info  : Downloading solution.sol...
+info  : Downloading gurobi.log...
+info  : Discarding batch data
+</PRE>
+</LI>
+</UL>
+
+<P>
+You can actually use <code>grbcluster</code> to perform all three steps in a
+single command:
+
+<PRE>
+&gt; grbcluster batch solve ResultFile=solution.sol misc07.mps --download
+info  : Batch 5d0ea600-5068-4a0b-bee0-efa26c18f35b created
+info  : Uploading misc07.mps...
+info  : Batch 5d0ea600-5068-4a0b-bee0-efa26c18f35b submitted with job a9700b72...
+info  : Batch 5d0ea600-5068-4a0b-bee0-efa26c18f35b status is COMPLETED
+info  : Results will be stored in directory 5d0ea600-5068-4a0b-bee0-efa26c18f35b
+info  : Downloading solution.sol...
+info  : Downloading gurobi.log...
+info  : Discarding batch data
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="listing_batches.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="listing_batches.html">Listing Batches</A>
+<B> Up:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Previous:</B> <A
+ HREF="batch_commands.html">Batch Commands</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

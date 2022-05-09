@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>NumScenarios</TITLE>
+<META NAME="description" CONTENT="NumScenarios">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="scennx.html">
+<LINK REL="next" HREF="batch_attributes.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="batch_attributes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_scenario_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="scennx.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="batch_attributes.html">Batch Attributes</A>
+<B> Up:</B> <A
+ HREF="multi_scenario_attributes.html">Multi-Scenario Attributes</A>
+<B> Previous:</B> <A
+ HREF="scennx.html">ScenNX</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000179900000000000000"></A>
+<A ID="attr:NumScenarios"></A>
+<BR>
+NumScenarios
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+Number of scenarios in the model.  Modifying this attribute changes
+the number: decreasing it discards existing scenarios; increasing it
+creates new scenarios (initialized to have no changes w.r.t. the base
+model); setting it to 0 discards all scenarios so that the base model
+is no longer a multi-scenario model.
+
+<P>
+You can use the <A HREF="scenarionumber.html#parameter:ScenarioNumber">ScenarioNumber</A>
+parameter, in conjunction with multi-scenario attributes
+(<A HREF="scennlb.html#attr:ScenNLB">ScenNLB</A>, <A HREF="scennub.html#attr:ScenNUB">ScenNUB</A>,
+<A HREF="scennobj.html#attr:ScenNObj">ScenNObj</A>, <A HREF="scennrhs.html#attr:ScenNRHS">ScenNRHS</A>,
+<A HREF="scennname.html#attr:ScenNName">ScenNName</A>, etc.), to query or modify
+attributes for different scenarios.  The value of <code>ScenarioNumber</code>
+should always be less than <code>NumScenarios</code>.
+
+<P>
+Please refer to the
+<A HREF="multiple_scenarios.html#sec:MultipleScenarios">Multiple Scenarios</A>
+discussion for more information.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="batch_attributes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_scenario_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="scennx.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="batch_attributes.html">Batch Attributes</A>
+<B> Up:</B> <A
+ HREF="multi_scenario_attributes.html">Multi-Scenario Attributes</A>
+<B> Previous:</B> <A
+ HREF="scennx.html">ScenNX</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

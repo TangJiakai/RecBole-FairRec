@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Gurobi Instant Cloud</TITLE>
+<META NAME="description" CONTENT="Gurobi Instant Cloud">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="guidelines_for_numerical_i.html">
+<LINK REL="previous" HREF="parameter_tuning_tool.html">
+<LINK REL="next" HREF="client_setup.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tuning_api.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_setup.html">Client Setup</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="tuning_api.html">Tuning API</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000330000000000000000"></A>
+<A ID="sec:Cloud"></A>
+<BR>
+Gurobi Instant Cloud
+</H1>
+
+<P>
+Gurobi Instant Cloud allows you to start and stop Gurobi Compute
+Servers on the cloud.  You can start multiple machines without the
+need for your own hardware or local Gurobi licenses.  Computations are
+seamlessly offloaded to these servers.  Depending on your cloud
+license type, these machines provide the full set of Compute Server
+features, including queuing, load balancing, and distributed parallel
+computing.
+
+<P>
+<SPAN  CLASS="textbf">Overview</SPAN>
+
+<P>
+When using the Instant Cloud, there are always three systems involved:
+your client machine, the <A ID="tex2html53"
+  HREF="https://cloud.gurobi.com">Instant Cloud
+  Manager</A>, and a cloud Compute Server.
+
+<P>
+The program that requests a Gurobi Instant Cloud machine and submits
+optimization models to this server runs on your client machine.  Note,
+however, that this program does not actually need to be aware that it
+will be using Gurobi Instant Cloud.  You have a few options for
+configuring the client to use the Instant Cloud.  The simplest and
+most seamless is to set up a cloud license file.  The alternative is
+to use a programming language API, which gives your program additional
+control over how it uses the cloud.  Details on launching cloud
+machines from your client program follow
+<A HREF="client_setup.html#sec:CloudClientSetup">shortly</A>.
+
+<P>
+The <A ID="tex2html54"
+  HREF="https://cloud.gurobi.com">Instant Cloud
+  Manager</A>
+manages the configuration and
+launching of cloud machines.  Your client program will send credential
+information to this website, along with a request to launch an Instant
+Cloud machine.  The specific action taken in response to this request
+depend on configuration information that you manage through the
+website. For each license, you set up things like the number of
+servers to launch, the types and geographic regions of these machines,
+the maximum number of simultaneous jobs to run on each server, etc.
+
+<P>
+Once the Instant Cloud Manager launches the requested Compute Servers,
+it passes information about these servers back to your client program.
+The client program then directly interacts with the servers, sending
+the Gurobi model, launching a solve on the model, requesting solution
+information, etc.  As with any Gurobi Compute Server, this process is
+entirely transparent to the client program.
+
+<P>
+Now that we've given a high-level description of the overall process,
+we need to cover a few important details.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html4501"
+  HREF="client_setup.html">Client Setup</A>
+<LI><A ID="tex2html4502"
+  HREF="instant_cloud_setup.html">Instant Cloud Setup</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tuning_api.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_setup.html">Client Setup</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="tuning_api.html">Tuning API</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

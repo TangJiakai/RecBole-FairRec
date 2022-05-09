@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Algorithmic parameters</TITLE>
+<META NAME="description" CONTENT="Algorithmic parameters">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="concurrent_environments.html">
+<LINK REL="previous" HREF="configuration_parameters.html">
+<LINK REL="next" HREF="concurrent_environments.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="concurrent_environments.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuration_parameters.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="concurrent_environments.html">Concurrent environments</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="configuration_parameters.html">Configuration parameters</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000163000000000000000"></A>
+<A ID="subsection:AlgorithmicParameters"></A>
+<BR>
+Algorithmic parameters
+</H2>
+
+<P>
+Environments can also be used to set algorithmic parameters - parameters
+that control the behavior of the optimization solver.  To give a few
+examples, the <A HREF="timelimit.html#parameter:TimeLimit">TimeLimit</A> parameter
+indicates the maximum allowed runtime for any solve, while the
+<A HREF="method.html#parameter:Method">Method</A> parameter chooses the
+algorithm used to solve continuous optimization models.
+
+<P>
+Having said that, we actually recommend that you set algorithmic
+parameters on the model rather than on the environment.  The
+object-oriented APIs all include <code>model.set</code> methods that enable
+you to do so.  What's the difference between setting parameters on the
+environment versus on the model?  Parameter values are copied from the
+environment when the model is created, so changes to parameter values
+in the environment have no effect on models that have already been
+created.  This is a frequent source of confusion.
+
+<P>
+Please see the <A HREF="parameter_examples.html#sec:ParameterExamples">Parameter
+  Examples</A> section for examples on how
+parameters are set.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="concurrent_environments.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuration_parameters.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="concurrent_environments.html">Concurrent environments</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="configuration_parameters.html">Configuration parameters</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

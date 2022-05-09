@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>ScenNObjVal</TITLE>
+<META NAME="description" CONTENT="ScenNObjVal">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="scennx.html">
+<LINK REL="previous" HREF="scennobjbound.html">
+<LINK REL="next" HREF="scennx.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="scennx.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_scenario_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="scennobjbound.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="scennx.html">ScenNX</A>
+<B> Up:</B> <A
+ HREF="multi_scenario_attributes.html">Multi-Scenario Attributes</A>
+<B> Previous:</B> <A
+ HREF="scennobjbound.html">ScenNObjBound</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000179700000000000000"></A>
+<A ID="attr:ScenNObjVal"></A>
+<BR>
+ScenNObjVal
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">No</TD>
+</TR>
+</TABLE>
+
+<P>
+When the model has multiple scenarios, this attribute is used to
+query the objective value of the current solution for scenario <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN>.
+You set <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN> using the
+<A HREF="scenarionumber.html#parameter:ScenarioNumber">ScenarioNumber</A> parameter.
+If no solution is available, this returns <code>GRB_INFINITY</code> (for a
+minimization objective).
+
+<P>
+The number of scenarios in the model can be queried (or modified)
+using the <A HREF="numscenarios.html#attr:NumScenarios">NumScenarios</A> attribute.
+
+<P>
+Please refer to the
+<A HREF="multiple_scenarios.html#sec:MultipleScenarios">Multiple Scenarios</A>
+discussion for more information.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="scennx.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_scenario_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="scennobjbound.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="scennx.html">ScenNX</A>
+<B> Up:</B> <A
+ HREF="multi_scenario_attributes.html">Multi-Scenario Attributes</A>
+<B> Previous:</B> <A
+ HREF="scennobjbound.html">ScenNObjBound</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

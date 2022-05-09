@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBstartenv</TITLE>
+<META NAME="description" CONTENT="GRBstartenv">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_loadclientenv.html">
+<LINK REL="previous" HREF="c_emptyenv.html">
+<LINK REL="next" HREF="c_loadclientenv.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_loadclientenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_emptyenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_loadclientenv.html">GRBloadclientenv</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_emptyenv.html">GRBemptyenv</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00021300000000000000"></A>
+<A ID="routine:GRBstartenv"></A>
+<BR>
+GRBstartenv
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBstartenv</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBenv</TD>
+<TD CLASS="LEFT">*env )</TD>
+</TR>
+</TABLE>
+
+<P>
+Start an empty environment.  This routine starts an empty environment
+created by <A HREF="c_emptyenv.html#routine:GRBemptyenv">GRBemptyenv</A>.
+If the environment has already been started, this routine will do nothing.
+If the routine fails, the environment will have the same state as it had
+before the call to this function.
+
+<P>
+This routine will also populate any
+parameter (<TT>ComputeServer</TT>, <TT>TokenServer</TT>,
+<TT>ServerPassword</TT>, etc.) specified in your <TT>gurobi.lic</TT> file. This routine will also check the current working directory for a file
+named <TT>gurobi.env</TT>, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in <A HREF="prm_format.html#format:PRM">PRM</A> format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).
+After that, it will apply all parameter changes specified by the user
+prior to this call. Note that this might overwrite parameters set in
+the license file, or in the <TT>gurobi.env</TT> file, if present.
+
+<P>
+After all these changes are performed, the code will actually
+activate the environment, and make it ready to work with models.
+
+<P>
+In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that there was a problem starting
+the environment.  Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error
+  Code</A> table for a list of possible return
+values.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">env</SPAN>: The empty environment to start.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_loadclientenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_emptyenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_loadclientenv.html">GRBloadclientenv</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_emptyenv.html">GRBemptyenv</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

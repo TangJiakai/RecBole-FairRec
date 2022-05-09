@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Submitting an Interactive Job</TITLE>
+<META NAME="description" CONTENT="Submitting an Interactive Job">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="sub_a_non_interactive_job.html">
+<LINK REL="previous" HREF="log_in_to_the_cluster.html">
+<LINK REL="next" HREF="sub_a_non_interactive_job.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_a_non_interactive_job.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="log_in_to_the_cluster.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_a_non_interactive_job.html">Submitting a Non-Interactive Job</A>
+<B> Up:</B> <A
+ HREF="simple_example.html">Simple Example</A>
+<B> Previous:</B> <A
+ HREF="log_in_to_the_cluster.html">Log In to the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00014200000000000000"></A>
+<A ID="sec:CSSimpleExampleJob"></A>
+<BR>
+Submitting an Interactive Job
+</H3>
+
+<P>
+Once you are logged in, you can use <TT>gurobi_cl</TT> to submit a job:
+
+<PRE>
+&gt; gurobi_cl ResultFile=solution.sol stein9.mps
+Using license file /opt/gurobi910/manager.lic
+Set parameter CSManager to value http://server1:61080
+Set parameter LogFile to value gurobi.log
+Compute Server job ID: 1e9c304c-a5f2-4573-affa-ab924d992f7e
+Capacity available on 'server1:61000' - connecting...
+Established HTTP unencrypted connection
+</PRE>
+<TT>Gurobi Optimizer version 9.1.0 build v9.1.0rc0 (linux64)
+<BR>
+Copyright (c) 2020, Gurobi Optimization, LLC
+<BR>...
+<BR>
+Gurobi Compute Server Worker version 9.1.0 build v9).1.0rc0 (linux64)
+<BR></TT>
+<PRE>
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+...
+Optimal solution found (tolerance 1.00e-04)
+Best objective 5.000000000000e+00, best bound 5.000000000000e+00, gap 0.0000%
+
+
+Compute Server communication statistics:
+  Sent: 0.002 MBytes in 9 msgs and 0.01s (0.26 MB/s)
+  Received: 0.007 MBytes in 26 msgs and 0.09s (0.08 MB/s)
+</PRE>
+
+<P>
+The initial log output indicates that a Compute Server job was
+created, that the Compute Server cluster had capacity available to run
+that job, and that an unencrypted HTTP connection was established with
+a server in that cluster. The log concludes with statistics about the
+communication performed between the client machine and the Compute
+Server. Note that the result file <TT>solution.sol</TT> is also retrieved.
+
+<P>
+This is an interactive optimization task because the connection with
+the job must be kept alive and the progress messages are displayed in
+real time. Also, stopping or killing the command terminates the job.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sub_a_non_interactive_job.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="log_in_to_the_cluster.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_a_non_interactive_job.html">Submitting a Non-Interactive Job</A>
+<B> Up:</B> <A
+ HREF="simple_example.html">Simple Example</A>
+<B> Previous:</B> <A
+ HREF="log_in_to_the_cluster.html">Log In to the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

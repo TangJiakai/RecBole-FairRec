@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBTempConstr</TITLE>
+<META NAME="description" CONTENT="GRBTempConstr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_column.html">
+<LINK REL="previous" HREF="cs_qex.html">
+<LINK REL="next" HREF="cs_column.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_column.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_qex_value.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_column.html">GRBColumn</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_qex_value.html">GRBQuadExpr.Value</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000811000000000000000"></A>
+<A ID="dotnetclass:GRBTempConstr"></A>
+<BR>
+GRBTempConstr
+</H2>
+
+<P>
+Gurobi temporary constraint object.  Objects of this class are created
+as intermediate results when building constraints using overloaded
+operators.  There are no public methods on this class.  Instead,
+<code>GRBTempConstr</code> objects are created by
+operators <A HREF="cs_oper_equal.html#dotnetmethod:operator__">==</A>,
+<A HREF="cs_oper_le.html#dotnetmethod:operator_SPMlt__">&lt;=</A>, or
+<A HREF="cs_oper_ge.html#dotnetmethod:operator_SPMgt__">&gt;=</A>.  You will generally never
+store objects of this class in your own variables.
+
+<P>
+Consider the following examples:
+<PRE>
+  model.AddConstr(x + y &lt;= 1);
+  model.AddQConstr(x*x + y*y &lt;= 1);
+</PRE>
+The overloaded <code>&lt;=</code> operator creates an object of type
+<code>GRBTempConstr</code>, which is then immediately passed to
+<A HREF="cs_model_addconstr.html#dotnetmethod:GRBModel.AddConstr">GRBModel.AddConstr</A> or
+<A HREF="cs_model_addqconstr.html#dotnetmethod:GRBModel.AddQConstr">GRBModel.AddQConstr</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_column.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_qex_value.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_column.html">GRBColumn</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_qex_value.html">GRBQuadExpr.Value</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

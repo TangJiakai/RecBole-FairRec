@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBoptimizebatch</TITLE>
+<META NAME="description" CONTENT="GRBoptimizebatch">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_retrybatch.html">
+<LINK REL="previous" HREF="c_getbatchstrattr.html">
+<LINK REL="next" HREF="c_retrybatch.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_retrybatch.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getbatchstrattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_retrybatch.html">GRBretrybatch</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_getbatchstrattr.html">GRBgetbatchstrattr</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000210900000000000000"></A>
+<A ID="routine:GRBoptimizebatch"></A>
+<BR>
+GRBoptimizebatch
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBoptimizebatch</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">*BatchID )</TD>
+</TR>
+</TABLE>
+
+<P>
+Submit a new batch request to the Cluster Manager.
+Returns the <TT>BatchID</TT> (a string), which
+uniquely identifies the job in the Cluster Manager and
+can be used to query the status of this request (from this
+program or from any other).  Once the request has completed,
+the <SPAN  CLASS="texttt">BatchID</SPAN> can also be used to retrieve the associated
+solution.  To submit a batch request, you must tag at
+least one element of the model by setting one of the
+<A HREF="vtag.html#attr:VTag">VTag</A>, <A HREF="ctag.html#attr:CTag">CTag</A> or
+<A HREF="qctag.html#attr:QCTag">QCTag</A> attributes. For more details on
+batch optimization, please refer to the <A HREF="batch_optimization.html#sec:BatchOptimization">Batch
+Optimization</A> section.
+
+<P>
+Note that this routine will process all pending model modifications.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while submit a batch request.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to optimize in batch mode. Note that this
+routine only reports whether the batch request ran into an error.
+
+<P>
+ <SPAN  CLASS="textbf">BatchID</SPAN>: On success, the location in which the
+<A HREF="batchid.html#attr:BatchID">BatchID</A> of the newly created batch
+request should be stored. The pointer must point to a string of length
+<TT>GRB_MAX_STRLEN+1</TT> or more.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  /* submit batch request to the Manager */
+  error = GRBoptimizebatch(model, BatchID);
+  if (error) goto QUIT;
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_retrybatch.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getbatchstrattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_retrybatch.html">GRBretrybatch</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_getbatchstrattr.html">GRBgetbatchstrattr</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

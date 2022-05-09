@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>The tupledict class</TITLE>
+<META NAME="description" CONTENT="The tupledict class">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_netflow_py_example.html">
+<LINK REL="previous" HREF="cs_the_tuplelist_class.html">
+<LINK REL="next" HREF="cs_netflow_py_example.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_netflow_py_example.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_the_tuplelist_class.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_netflow_py_example.html">netflow.py example</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_the_tuplelist_class.html">The tuplelist class</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000116600000000000000">
+The tupledict class</A>
+</H3>
+
+<P>
+The final important preliminary we would like to discuss is the
+<code>tupledict</code> class.  This is a custom sub-class of the Python
+<code>dict</code> class that allows you to efficiently work with subsets of
+Gurobi variable objects.  To be more specific, you can use the
+<code>sum</code> and <code>prod</code> methods on a <code>tupledict</code> object to
+easily and concisely build linear expressions.  The keys for a
+<code>tupledict</code> are stored as a <code>tuplelist</code>, so the same
+<code>select</code> syntax can be used to choose subsets of entries.
+Specifically, by associating a tuple with each Gurobi variable, you
+can efficiently create expressions that contain a subset of matching
+variables.  For example, using the <code>sum</code> method on a
+<code>tupledict</code> object, you could easily build an expression that
+captures the sum over all Gurobi variables for which the first field
+of the corresponding tuple is equal to 3 (using <code>x.sum(3, '*')</code>).
+
+<P>
+While you can directly build your own <code>tupledict</code>, the Gurobi
+interface provides an <code>addVars</code> method that adds one Gurobi
+decision variable to the model for each tuple in the input
+argument(s) and returns the result as a <code>tupledict</code>.
+Let us give a simple example.  We'll begin by
+constructing a list of tuples, and then we'll create a set of Gurobi
+variables that are indexed using this list:
+
+<PRE>
+gurobi&gt; l = list([(1, 2), (1, 3), (2, 3), (2, 4)])
+gurobi&gt; d = model.addVars(l, name="d")
+gurobi&gt; model.update()
+</PRE>
+The <code>addVars</code> method will create variables <code>d(1,2)</code>,
+<code>d(1,3)</code>, <code>d(2,3)</code>, and <code>d(2,4)</code>.  Note that the
+<code>name</code> argument is used to name the resulting variables, but it
+only gives the prefix for the name - the names are subscripted by the
+tuple keys (so the variables would be named <code>d[1,2]</code>,
+<code>d[1,3]</code>, etc.). The final call to <code>update</code> synchronizes
+certain internal data structures; this detail can be safely ignored
+for now.
+
+<P>
+You can then use this <code>tupledict</code> to build linear expressions.
+For example, you could do:
+
+<PRE>
+gurobi&gt; sum(d.select(1, '*'))
+</PRE>
+The <code>select</code> method returns a list of Gurobi variables where the
+first field of the associated tuple is 1.  The Python <code>sum</code>
+statement then creates a linear expression that captures the sum of
+these variables.  In this case, that expression would be
+<code>d(1,2) + d(1,3)</code>.  Similarly, <code>sum(d.select('*', 3))</code> would
+give <code>d(1,3) + d(2,3)</code>.  As with a <code>tuplelist</code>, you use a
+<code>'*'</code> string to indicate that any value is acceptable in that
+position in the tuple.
+
+<P>
+The <code>tupledict</code> class includes a method that simplifies the
+above.  Rather than <code>sum(d.select('*', 3))</code>, you can use
+<code>d.sum('*', 3)</code> instead.
+
+<P>
+The <code>tupledict</code> class also includes a <code>prod</code> method, for
+cases where your linear expression has coefficients that aren't all
+<code>1.0</code>.  Coefficients are provided through a <code>dict</code> argument.
+They are indexed using the same tuples as the <code>tupledict</code>.  For
+example, given a <code>dict</code> named <code>coeff</code> with two entries:
+<code>coeff(1,2)</code> = 5 and <code>coeff(2,3)</code> = 7, a call to
+<code>d.prod(coeff)</code> would give the expression
+<code>5 d(1,2) + 7 d(2,3)</code>.  You can also include a filter, so
+<code>d.prod(coeff, 2, '*')</code> would give just <code>7 d(2,3)</code>.
+
+<P>
+Note that <code>tupledict</code> is a sub-class of <code>dict</code>, so you can
+use the standard <code>dict</code> methods to access or modify a
+<code>tupledict</code>:
+
+<PRE>
+gurobi&gt; print(d[1,3])
+&lt;gurobi.Var d[1,3]&gt;
+gurobi&gt; d[3, 4] = 0.3
+gurobi&gt; print(d[3, 4])
+0.3
+gurobi&gt; print(d.values())
+dict_values([&lt;gurobi.Var d[1,2]&gt;, 0.3, &lt;gurobi.Var d[1,3]&gt;, &lt;gurobi.Var d[2,3]&gt;, &lt;gurobi.Var d[2,4]&gt;])
+</PRE>
+In our upcoming network flow example, once we've built a
+<code>tupledict</code> that contains a variable for each valid
+commodity-source-destination combination on the network (we'll call it
+<code>flows</code>), we can create a linear expression that captures the
+total flow on all arcs that empty into a specific destination city as
+follows:
+
+<PRE>
+gurobi&gt; inbound = flows.sum('*', '*', 'New York')
+</PRE>
+
+<P>
+We now present an example that illustrates the use of all of the
+concepts discussed so far.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_netflow_py_example.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_the_tuplelist_class.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_netflow_py_example.html">netflow.py example</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_the_tuplelist_class.html">The tuplelist class</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

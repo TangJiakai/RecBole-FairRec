@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Software Installation Guide</TITLE>
+<META NAME="description" CONTENT="Software Installation Guide">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="retrieving_and_setting_up_.html">
+<LINK REL="previous" HREF="obtaining_a_grb_license.html">
+<LINK REL="next" HREF="selinux.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="selinux.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="quickstart_linux.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="creating_a_new_academic_li.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="selinux.html">SELinux</A>
+<B> Up:</B> <A
+ HREF="quickstart_linux.html">Gurobi Optimizer Quick Start</A>
+<B> Previous:</B> <A
+ HREF="creating_a_new_academic_li.html">Creating a new academic</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00020000000000000000"></A>
+<A ID="section:Installation"></A>
+<BR>
+Software Installation Guide
+</H1>
+
+<P>
+Before using the Gurobi Optimizer, you'll need to install the software on your
+computer.  This section covers the installation of the entire Gurobi product.
+If you plan to use Gurobi from Python only, you can use our
+<A HREF="cs_using_pip_to_install_gr.html#subsubsection:pip">pip package</A> or our
+<A HREF="cs_anaconda_and_grb_conda_.html#subsubsection:Anaconda">Anaconda package</A> instead.
+
+<P>
+When installing the full Gurobi product, your first steps are to visit
+<A ID="tex2html9"
+  HREF="https://www.gurobi.com/downloads/gurobi-optimizer">our download page</A>,
+find your platform (we'll assume Linux in this document), and
+choose the corresponding file to download.
+<DIV class="CENTER">
+</DIV>
+<P>
+<DIV class="CENTER"><!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=10in]{graphics/download}}$
+ -->
+<IMG STYLE=""
+ SRC="img2.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=10in]{graphics/download}}">
+</DIV>
+Make a note of the name and location of the downloaded file.
+
+<P>
+Your next step is to choose a destination directory.  We recommend
+<code>/opt</code> for a shared installation (assuming you have
+<code>sudo</code> privileges to write in that directory), or your home
+directory for a private installation,
+but other directories will work
+as well.  You'll need to change your working directory to the destination
+directory (e.g., <code>cd /opt</code> or <code>cd /home/jones</code>),
+then copy the Gurobi distribution to that directory,
+and then extract the contents:
+
+<P>
+<TT>  tar xvfz gurobi9.1.0_linux64.tar.gz</TT>
+
+<P>
+This command will create a sub-directory <TT>/opt/gurobi910/linux64</TT> that contains
+the complete Gurobi distribution (assuming you chose
+<code>/opt</code>). Your <code>&lt;installdir&gt;</code> (which we'll refer to
+throughout this document) will be <TT>/opt/gurobi910/linux64</TT>.
+
+<P>
+The Gurobi Optimizer makes use of several executable files.  In order
+to allow these files to be found when needed, you will have to modify
+a few environment variables:
+
+<UL>
+<LI><code>GUROBI_HOME</code> should point to your <code>&lt;installdir&gt;</code>.
+</LI>
+<LI><code>PATH</code> should be extended to include <code>&lt;installdir&gt;/bin</code>.
+</LI>
+<LI><code>LD_LIBRARY_PATH</code> should be extended to include
+    <code>&lt;installdir&gt;/lib</code>.
+</LI>
+</UL>
+Users of the <code>bash</code> shell should add the following lines to their
+<code>.bashrc</code> files:
+
+<P>
+<TT> export GUROBI_HOME="<TT>/opt/gurobi910/linux64</TT>"</TT>
+<BR><TT> export PATH="${PATH}:${GUROBI_HOME}/bin"</TT>
+<BR><TT> export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib"</TT>
+
+<P>
+Users of the <code>csh</code> shell should add the following lines to their
+<code>.cshrc</code> files:
+
+<P>
+<TT> setenv GUROBI_HOME <TT>/opt/gurobi910/linux64</TT></TT>
+<BR><TT> setenv PATH ${PATH}:${GUROBI_HOME}/bin</TT>
+<BR><TT> setenv LD_LIBRARY_PATH ${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib</TT>
+
+<P>
+If <code>LD_LIBRARY_PATH</code> is not already set, use
+the following instead:
+
+<PRE>
+  export LD_LIBRARY_PATH="${GUROBI_HOME}/lib"
+</PRE>
+or
+
+<PRE>
+  setenv LD_LIBRARY_PATH ${GUROBI_HOME}/lib
+</PRE>
+These paths should be adjusted to reflect your chosen
+<code>&lt;installdir&gt;</code>.
+
+<P>
+You'll need to close your current terminal window and open a new one
+after you have made these changes in order to pick up the new
+settings.
+
+<P>
+In some Linux distributions, applications launched from the Linux
+desktop won't read <code>.bashrc</code> (or <code>.cshrc</code>).  You may need to
+set the Gurobi environment variables in <code>.bash_profile</code> or
+<code>.profile</code> instead.  Unfortunately, the details of where to set
+these variables vary widely among different Linux distributions.  We
+suggest that you consult the documentation for your distribution if
+you run into trouble.
+
+<P>
+You are now ready to proceed to the section on
+<A HREF="retrieving_and_setting_up_.html#section:RetrieveLicense">Retrieving Your Gurobi License</A>.
+
+<P>
+If you would like an overview of the files included in the Gurobi
+distribution, you can also view the
+<A HREF="file_overview.html#section:Overview">File Overview</A> section.
+
+<P>
+If you are running Gurobi on a system with SELinux enforced, you
+should read <A HREF="selinux.html#subsection:SELinux">this section</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html227"
+  HREF="selinux.html">SELinux</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="selinux.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="quickstart_linux.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="creating_a_new_academic_li.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="selinux.html">SELinux</A>
+<B> Up:</B> <A
+ HREF="quickstart_linux.html">Gurobi Optimizer Quick Start</A>
+<B> Previous:</B> <A
+ HREF="creating_a_new_academic_li.html">Creating a new academic</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

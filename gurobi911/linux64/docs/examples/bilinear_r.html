@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>bilinear.R</TITLE>
+<META NAME="description" CONTENT="bilinear.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="diet_r.html">
+<LINK REL="previous" HREF="r_examples.html">
+<LINK REL="next" HREF="diet_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="diet_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="diet_r.html">diet.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00028100000000000000"></A>
+<A ID="subsubsection:bilinear.R"></A>
+<BR>
+bilinear.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# This example formulates and solves the following simple bilinear model:
+#  maximize   
+#        x
+#  subject to
+#        x + y + z &lt;= 10
+#        x * y &lt;= 2         (bilinear inequality)
+#        x * z + y * z = 1  (bilinear equality)
+#        x, y, z non-negative (x integral in second version)
+
+library(gurobi)
+library(Matrix)
+
+model &lt;- list()
+
+# Linear constraint matrix
+model$A &lt;- matrix(c(1, 1, 1), nrow=1, byrow=T)
+model$rhs &lt;- c(10.0)
+model$sense &lt;- c('&lt;')
+
+# Variable names
+model$varnames &lt;- c('x', 'y', 'z')
+
+# Objective function max 1.0 * x
+model$obj &lt;- c(1, 0, 0)
+model$modelsense &lt;- 'max'
+
+# Bilinear inequality constraint: x * y &lt;= 2
+qc1 &lt;- list()
+qc1$Qc &lt;- spMatrix(3, 3, c(1), c(2), c(1.0))
+qc1$rhs &lt;- 2.0
+qc1$sense &lt;- c('&lt;')
+qc1$name &lt;- 'bilinear0'
+
+# Bilinear equality constraint: x * z + y * z == 1
+qc2 &lt;- list()
+qc2$Qc &lt;- spMatrix(3, 3, c(1, 2), c(3, 3), c(1.0, 1.0))
+qc2$rhs &lt;- 1.0
+qc2$sense &lt;- c('=')
+qc2$name &lt;- 'bilinear1'
+
+model$quadcon &lt;- list(qc1, qc2)
+
+# Solve bilinear model, display solution.  The problem is non-convex,
+# we need to set the parameter 'NonConvex' in order to solve it.
+params &lt;- list()
+params$NonConvex &lt;- 2
+result &lt;- gurobi(model, params)
+print(result$x)
+
+# Constrain 'x' to be integral and solve again
+model$vtype &lt;- c('I', 'C', 'C')
+result &lt;- gurobi(model, params)
+print(result$x)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="diet_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="diet_r.html">diet.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="r_examples.html">R Examples</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

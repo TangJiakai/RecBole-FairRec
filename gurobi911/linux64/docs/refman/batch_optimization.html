@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Batch Optimization</TITLE>
+<META NAME="description" CONTENT="Batch Optimization">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="recording_api_calls.html">
+<LINK REL="previous" HREF="multiple_scenarios.html">
+<LINK REL="next" HREF="setting_up_a_batch_environ.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="setting_up_a_batch_environ.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="limitations_and_additional.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="setting_up_a_batch_environ.html">Setting Up a Batch</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="limitations_and_additional.html">Limitations and Additional Considerations</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000290000000000000000"></A>
+<A ID="sec:BatchOptimization"></A>
+<BR>
+Batch Optimization
+</H1>
+
+<P>
+Batch optimization is a feature available with the Gurobi Cluster
+Manager.  It allows a client program to build an optimization model,
+submit it to a Compute Server cluster (through a Cluster Manager), and
+later check on the status of the model and retrieve its solution.
+Once a batch is submitted to the Cluster Manager, it is identified through a
+unique <A HREF="batchid.html#attr:BatchID">BatchID</A>.  The client program (or
+any other program) can use this ID to query the
+<A HREF="batchstatus.html#attr:BatchStatus">BatchStatus</A> of the batch (submitted,
+completed, etc.).  Once the batch has completed and a solution is
+available, the client can retrieve that solution as a <A HREF="json_solution_format.html#format:JSON">JSON
+string</A>.
+
+<P>
+This section explains the steps required to perform the various tasks
+listed above.  We'll use the <code>batchmode.py</code> Python example, which
+is included with the distribution, to illustrate these steps.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html4490"
+  HREF="setting_up_a_batch_environ.html">Setting Up a Batch Environment</A>
+<LI><A ID="tex2html4491"
+  HREF="tagging_variables_or_const.html">Tagging Variables or Constraints</A>
+<LI><A ID="tex2html4492"
+  HREF="sub_a_batch_optimization_r.html">Submitting a Batch Optimization Request</A>
+<LI><A ID="tex2html4493"
+  HREF="interacting_with_batch_req.html">Interacting with Batch Requests</A>
+<LI><A ID="tex2html4494"
+  HREF="interpreting_the_json_solu.html">Interpreting the JSON Solution</A>
+<LI><A ID="tex2html4495"
+  HREF="a_complete_example.html">A Complete Example</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="setting_up_a_batch_environ.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="limitations_and_additional.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="setting_up_a_batch_environ.html">Setting Up a Batch</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="limitations_and_additional.html">Limitations and Additional Considerations</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,151 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Start</TITLE>
+<META NAME="description" CONTENT="Start">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="varhintval.html">
+<LINK REL="previous" HREF="barx.html">
+<LINK REL="next" HREF="varhintval.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="varhintval.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="barx.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="varhintval.html">VarHintVal</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="barx.html">BarX</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001721100000000000000"></A>
+<A ID="attr:Start"></A>
+<BR>
+Start
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+The current MIP start vector.  The MIP solver will attempt to build an
+initial solution from this vector when it is available.  Note that the
+start can be partially populated -- the MIP solver will attempt to
+fill in values for missing start values.  If you wish to leave the
+start value for a variable undefined, you can either avoid setting the
+<code>Start</code> attribute for that variable, or you can set it to a
+special <code>undefined</code> value (<code>GRB_UNDEFINED</code> in C and C++,
+or <code>GRB.UNDEFINED</code> in Java, .NET, and Python).
+
+<P>
+If the Gurobi MIP solver log indicates that your MIP start didn't
+produce a new incumbent solution, note that there can be multiple
+explanations.  One possibility is that your MIP start is infeasible.
+Another, more common possibility is that one of the Gurobi heuristics
+found a solution that is as good as the solution produced by the MIP
+start, so the MIP start solution was cut off.  Finally, if you
+specified a partial MIP start, it is possible that the limited MIP
+exploration done on this partial start was insufficient to find a new
+incumbent solution.  You can try setting the
+<A HREF="startnodelimit.html#parameter:StartNodeLimit">StartNodeLimit</A> parameter to a
+larger value if you want Gurobi to work harder to try to complete the
+partial start.
+
+<P>
+If you solve a sequence of models, where one is built by modifying the
+previous one, and if you don't provide a MIP start, then Gurobi will
+try to construct one automatically from the solution of the previous
+model.  If you don't want it to try this, you should reset the model
+before starting the subsequent solve.  If you provided a MIP start but
+would prefer to use the previous solution as the start instead, you
+should clear your start (by setting the <code>Start</code> attribute
+to <code>undefined</code> for all variables).
+
+<P>
+If you have multiple start vectors, you can provide them to Gurobi by
+using the <code>Start</code> attribute in combination with the
+<A HREF="numstart.html#attr:NumStart">NumStart</A> attribute and the
+<A HREF="startnumber.html#parameter:StartNumber">StartNumber</A> parameter.  Specifically,
+use the <code>NumStart</code> attribute to indicate how many start vectors
+you will supply.  Then set the <code>StartNumber</code> parameter to a value
+between 0 and <code>NumStart</code>-1 to indicate which start you are
+supplying.  For each value of <code>StartNumber</code>, populate
+the <code>Start</code> attribute to supply that start.  Gurobi will use all
+of the provided starts.
+As an alternative, you can append new MIP start vectors to your model by
+setting the <A HREF="startnumber.html#parameter:StartNumber">StartNumber</A> parameter to
+<code>-1</code>. In this case, whenever you read a MIP start, or use a function to
+set a MIP start value for a set of variables, a new MIP start will be
+created, the parameter <A HREF="numstart.html#attr:NumStart">NumStart</A> will be
+increased, and any unspecified variable will be left as <code>undefined</code>.
+
+<P>
+If you want to diagnose an infeasible MIP start, you can try fixing
+the variables in the model to their values in your MIP start (by
+setting their lower and upper bound attributes).  If the resulting MIP
+model is infeasible, you can then compute an IIS on this model to get
+additional information that should help to identify the cause of the
+infeasibility.
+
+<P>
+Only affects MIP models.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="varhintval.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="barx.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="varhintval.html">VarHintVal</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="barx.html">BarX</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

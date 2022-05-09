@@ -1,0 +1,277 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>genconstr_c.c</TITLE>
+<META NAME="description" CONTENT="genconstr_c.c">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="lp_c_c.html">
+<LINK REL="previous" HREF="gc_pwl_func_c_c.html">
+<LINK REL="next" HREF="lp_c_c.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lp_c_c.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="gc_pwl_func_c_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp_c_c.html">lp_c.c</A>
+<B> Up:</B> <A
+ HREF="c_examples.html">C Examples</A>
+<B> Previous:</B> <A
+ HREF="gc_pwl_func_c_c.html">gc_pwl_func_c.c</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000211100000000000000"></A>
+<A ID="subsubsection:genconstr_c.c"></A>
+<BR>
+genconstr_c.c
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">/* Copyright 2020, Gurobi Optimization, LLC */
+
+/* In this example we show the use of general constraints for modeling
+ * some common expressions. We use as an example a SAT-problem where we
+ * want to see if it is possible to satisfy at least four (or all) clauses
+ * of the logical for
+ *
+ * L = (x0 or ~x1 or x2)  and (x1 or ~x2 or x3)  and
+ *     (x2 or ~x3 or x0)  and (x3 or ~x0 or x1)  and
+ *     (~x0 or ~x1 or x2) and (~x1 or ~x2 or x3) and
+ *     (~x2 or ~x3 or x0) and (~x3 or ~x0 or x1)
+ *
+ * We do this by introducing two variables for each literal (itself and its
+ * negated value), a variable for each clause, and then two
+ * variables for indicating if we can satisfy four, and another to identify
+ * the minimum of the clauses (so if it one, we can satisfy all clauses)
+ * and put these two variables in the objective.
+ * i.e. the Objective function will be
+ *
+ * maximize Obj0 + Obj1
+ *
+ *  Obj0 = MIN(Clause1, ... , Clause8)
+ *  Obj1 = 1 -&gt; Clause1 + ... + Clause8 &gt;= 4
+ *
+ * thus, the objective value will be two if and only if we can satisfy all
+ * clauses; one if and only if at least four clauses can be satisfied, and
+ * zero otherwise.
+ */
+
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;math.h&gt;
+#include &lt;string.h&gt;
+#include "gurobi_c.h"
+
+#define MAXSTR    128
+#define NLITERALS 4
+#define NCLAUSES  8
+#define NOBJ      2
+#define NVARS     (2 * NLITERALS + NCLAUSES + NOBJ)
+#define LIT(n)    (n)
+#define NOTLIT(n) (NLITERALS + n)
+#define CLA(n)    (2 * NLITERALS + n)
+#define OBJ(n)    (2 * NLITERALS + NCLAUSES + n)
+
+
+int
+main(void)
+{
+  GRBenv   *env   = NULL;
+  GRBmodel *model = NULL;
+  int       error = 0;
+  int       cind[NVARS];
+  double    cval[NVARS];
+  char      buffer[MAXSTR];
+  int col, i, status;
+  double objval;
+
+  /* Example data */
+  const int Clauses[][3] = {{LIT(0), NOTLIT(1), LIT(2)},
+                            {LIT(1), NOTLIT(2), LIT(3)},
+                            {LIT(2), NOTLIT(3), LIT(0)},
+                            {LIT(3), NOTLIT(0), LIT(1)},
+                            {NOTLIT(0), NOTLIT(1), LIT(2)},
+                            {NOTLIT(1), NOTLIT(2), LIT(3)},
+                            {NOTLIT(2), NOTLIT(3), LIT(0)},
+                            {NOTLIT(3), NOTLIT(0), LIT(1)}};
+
+  /* Create environment */
+  error = GRBloadenv(&amp;env, "genconstr_c.log");
+  if (error) goto QUIT;
+
+  /* Create initial model */
+  error = GRBnewmodel(env, &amp;model, "genconstr_c", NVARS, NULL,
+                      NULL, NULL, NULL, NULL);
+  if (error) goto QUIT;
+
+  /* Initialize decision variables and objective */
+  for (i = 0; i &lt; NLITERALS; i++) {
+    col = LIT(i);
+    sprintf(buffer, "X%d", i);
+    error = GRBsetcharattrelement(model, "VType", col, GRB_BINARY);
+    if (error) goto QUIT;
+
+    error = GRBsetstrattrelement(model, "VarName", col, buffer);
+    if (error) goto QUIT;
+
+    col = NOTLIT(i);
+    sprintf(buffer, "notX%d", i);
+    error = GRBsetcharattrelement(model, "VType", col, GRB_BINARY);
+    if (error) goto QUIT;
+
+    error = GRBsetstrattrelement(model, "VarName", col, buffer);
+    if (error) goto QUIT;
+  }
+
+  for (i = 0; i &lt; NCLAUSES; i++) {
+    col = CLA(i);
+    sprintf(buffer, "Clause%d", i);
+    error = GRBsetcharattrelement(model, "VType", col, GRB_BINARY);
+    if (error) goto QUIT;
+
+    error = GRBsetstrattrelement(model, "VarName", col, buffer);
+    if (error) goto QUIT;
+  }
+
+  for (i = 0; i &lt; NOBJ; i++) {
+    col = OBJ(i);
+    sprintf(buffer, "Obj%d", i);
+    error = GRBsetcharattrelement(model, "VType", col, GRB_BINARY);
+    if (error) goto QUIT;
+
+    error = GRBsetstrattrelement(model, "VarName", col, buffer);
+    if (error) goto QUIT;
+
+    error = GRBsetdblattrelement(model, "Obj", col, 1.0);
+    if (error) goto QUIT;
+  }
+
+  /* Link Xi and notXi */
+  for (i = 0; i &lt; NLITERALS; i++) {
+    sprintf(buffer,"CNSTR_X%d",i);
+    cind[0] = LIT(i);
+    cind[1] = NOTLIT(i);
+    cval[0] = cval[1] = 1;
+    error = GRBaddconstr(model, 2, cind, cval, GRB_EQUAL, 1.0, buffer);
+    if (error) goto QUIT;
+  }
+
+  /* Link clauses and literals */
+  for (i = 0; i &lt; NCLAUSES; i++) {
+    sprintf(buffer,"CNSTR_Clause%d",i);
+    error = GRBaddgenconstrOr(model, buffer, CLA(i), 3, Clauses[i]);
+    if (error) goto QUIT;
+  }
+
+  /* Link objs with clauses */
+  for (i = 0; i &lt; NCLAUSES; i++) {
+    cind[i] = CLA(i);
+    cval[i] = 1;
+  }
+  error = GRBaddgenconstrMin(model, "CNSTR_Obj0", OBJ(0), NCLAUSES, cind, GRB_INFINITY);
+  if (error) goto QUIT;
+
+  /* note that passing 4 instead of 4.0 will produce undefined behavior */
+  error = GRBaddgenconstrIndicator(model, "CNSTR_Obj1",
+                                   OBJ(1), 1, NCLAUSES, cind, cval,
+                                   GRB_GREATER_EQUAL, 4.0);
+  if (error) goto QUIT;
+
+  /* Set global objective sense */
+  error = GRBsetintattr(model, GRB_INT_ATTR_MODELSENSE, GRB_MAXIMIZE);
+  if (error) goto QUIT;
+
+  /* Save problem */
+  error = GRBwrite(model, "genconstr_c.mps");
+  if (error) goto QUIT;
+
+  error = GRBwrite(model, "genconstr_c.lp");
+  if (error) goto QUIT;
+
+  /* Optimize */
+  error = GRBoptimize(model);
+  if (error) goto QUIT;
+
+  /* Status checking */
+  error = GRBgetintattr(model, "Status", &amp;status);
+  if (error) goto QUIT;
+
+  if (status == GRB_INF_OR_UNBD ||
+      status == GRB_INFEASIBLE  ||
+      status == GRB_UNBOUNDED     ) {
+    printf("The model cannot be solved "
+           "because it is infeasible or unbounded\n");
+    goto QUIT;
+  }
+  if (status != GRB_OPTIMAL) {
+    printf("Optimization was stopped with status %i\n", status);
+    goto QUIT;
+  }
+
+  /* Print result */
+  error = GRBgetdblattr(model, GRB_DBL_ATTR_OBJVAL, &amp;objval);
+  if (error) goto QUIT;
+
+  if (objval &gt; 1.9)
+    printf("Logical expression is satisfiable\n");
+  else if (objval &gt; 0.9)
+    printf("At least four clauses can be satisfied\n");
+  else
+    printf("At most three clauses may be satisfied\n");
+
+QUIT:
+
+  if (model != NULL) GRBfreemodel(model);
+  if (env != NULL)   GRBfreeenv(env);
+
+  return error;
+}
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lp_c_c.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="gc_pwl_func_c_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp_c_c.html">lp_c.c</A>
+<B> Up:</B> <A
+ HREF="c_examples.html">C Examples</A>
+<B> Previous:</B> <A
+ HREF="gc_pwl_func_c_c.html">gc_pwl_func_c.c</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

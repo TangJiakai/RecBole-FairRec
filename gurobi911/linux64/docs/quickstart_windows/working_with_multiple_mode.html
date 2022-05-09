@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Working with multiple models</TITLE>
+<META NAME="description" CONTENT="Working with multiple models">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="help.html">
+<LINK REL="previous" HREF="using_a_grb_env_file.html">
+<LINK REL="next" HREF="help.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="help.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="interactive_shell.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_a_grb_env_file.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="help.html">Help</A>
+<B> Up:</B> <A
+ HREF="interactive_shell.html">Interactive Shell</A>
+<B> Previous:</B> <A
+ HREF="using_a_grb_env_file.html">Using a gurobi.env file</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00058000000000000000">
+Working with multiple models</A>
+</H2>
+
+<P>
+The Gurobi shell allows you to work with multiple models
+simultaneously.  For example...
+
+<P>
+<TT>gurobi&gt; a = read('<TT>c:/gurobi910/win64</TT>/examples/data/p0033')
+<BR>
+Read MPS format model from file <TT>c:/gurobi910/win64</TT>/examples/data/p0033.mps
+<BR>
+Reading time = 0.00 seconds
+<BR>
+P0033: 16 Rows, 33 Columns, 98 NonZeros.
+<BR>
+gurobi&gt; b = read('<TT>c:/gurobi910/win64</TT>/examples/data/stein9')
+<BR>
+Read MPS format model from file <TT>c:/gurobi910/win64</TT>/examples/data/stein9.mps
+<BR>
+Reading time = 0.00 seconds
+<BR>
+STEIN9: 13 Rows, 9 Columns, 45 NonZeros.</TT>
+
+<P>
+The <TT>models()</TT> command gives a list of all active models.
+
+<PRE>
+gurobi&gt; models()
+Currently loaded models:
+a : &lt;gurobi.Model MIP instance P0033: 16 constrs, 33 vars, Parameter changes: LogFile=gurobi.log&gt;
+b : &lt;gurobi.Model MIP instance STEIN9: 13 constrs, 9 vars, Parameter changes: LogFile=gurobi.log&gt;
+</PRE>
+
+<P>
+Note that parameters can be set for a
+particular model with the <TT>Model.setParam()</TT> method or the
+<code>Model.Params</code> class, or they can be changed for all models in the
+Gurobi shell by using the global <TT>setParam()</TT> method.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="help.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="interactive_shell.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_a_grb_env_file.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="help.html">Help</A>
+<B> Up:</B> <A
+ HREF="interactive_shell.html">Interactive Shell</A>
+<B> Previous:</B> <A
+ HREF="using_a_grb_env_file.html">Using a gurobi.env file</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

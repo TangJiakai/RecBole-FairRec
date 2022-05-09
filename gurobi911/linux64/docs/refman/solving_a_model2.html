@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Solving a Model</TITLE>
+<META NAME="description" CONTENT="Solving a Model">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="replaying_recording_files.html">
+<LINK REL="previous" HREF="grb_command_line_tool.html">
+<LINK REL="next" HREF="replaying_recording_files.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="replaying_recording_files.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="grb_command_line_tool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="grb_command_line_tool.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="replaying_recording_files.html">Replaying Recording Files</A>
+<B> Up:</B> <A
+ HREF="grb_command_line_tool.html">Gurobi Command-Line Tool</A>
+<B> Previous:</B> <A
+ HREF="grb_command_line_tool.html">Gurobi Command-Line Tool</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000251000000000000000"></A>
+<A ID="subsection:CLSolve"></A>
+<BR>
+Solving a Model
+</H2>
+
+<P>
+The command-line tool provides an easy way to solve a model stored in
+a file.  The model can be stored in several different formats,
+including MPS, REW, LP, and RLP, and the file can optionally be
+compressed using <code>gzip</code>, <code>bzip2</code>, or <code>7z</code>.  See the
+<A HREF="model_file_formats.html#sec:FileFormats">File Format</A> discussion for more
+information on accepted formats.
+
+<P>
+The most basic command-line command is the following:
+<PRE>
+gurobi_cl model.mps
+</PRE>
+This will read the model from the indicated file, optimize it, and
+display the Gurobi log file as the solve proceeds.
+
+<P>
+You can optionally include an arbitrary number of
+<code>parameter=value</code> commands before the name of the file.
+For example:
+<PRE>
+gurobi_cl Method=2 TimeLimit=100 model.mps
+</PRE>
+The full set of Gurobi parameters is described in the
+<A HREF="parameters.html#sec:Parameters">Parameter</A> section.
+
+<P>
+Gurobi Compute Server users can add the <code>--server=</code> switch
+to specify a server.  For example, the command:
+<PRE>
+gurobi_cl --server=server1 Method=2 TimeLimit=100 model.mps
+</PRE>
+would solve the model stored in file <code>model.mps</code> on machine
+<code>server1</code>, assuming it is running Gurobi Compute Server.  If the
+Compute Server has an access password, use the <code>--password=</code>
+switch to specify it.
+
+<P>
+Gurobi Instant Cloud users can add the <code>--accessid=</code>,
+<code>--secretkey=</code>, and <code>--pool=</code> switches to run a model on a
+cloud instance.  For example, the command:
+<PRE>
+gurobi_cl --accessid=0f5e0ace-f929-a919-82d5-02272b3b0e19 \
+          --secretkey=8EDZOIf7T9avp0ZHef9Tsw --pool=mypool model.mps
+</PRE>
+would solve the model stored in file <code>model.mps</code> on cloud pool
+<code>mypool</code> using the provided access ID and secret key.  If the
+pool isn't currently active, it will launch it first.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Writing Result Files</SPAN></SPAN>
+<A ID="subsubsection:CLResultFiles"></A>
+<P>
+While it is often useful to simply solve a model and display the log,
+it is also common to want to review the resulting solution.  You can
+use the <A HREF="resultfile.html#parameter:ResultFile">ResultFile</A> parameter to
+write the solution to a file:
+<PRE>
+gurobi_cl ResultFile=model.sol model.mps
+</PRE>
+The file name suffix determines the type of file written.
+Useful file formats for solution information are <code>.sol</code> (for
+solution vectors) and <code>.bas</code> (for simplex basis information).
+Again, you should consult the section on <A HREF="model_file_formats.html#sec:FileFormats">File
+  Formats</A> for a list of the supported formats
+
+<P>
+If you have an infeasible model, you may want to examine a
+corresponding Irreducible Inconsistent Subsystem (IIS) to identify the
+cause of the infeasibility.  You can ask the command-line tool to
+write a <code>.ilp</code> format file.  It will attempt to solve the model,
+and if the model is found to be infeasible, it will automatically
+compute an IIS and write it to the requested file name.
+An IIS is a subset of the constraints and variable bounds with the following properties:
+
+<UL>
+<LI>It is still infeasible, and
+</LI>
+<LI>If a single constraint or bound is removed, the subsystem becomes feasible.
+</LI>
+</UL>
+Note that an infeasible model may have multiple IISs. The one returned
+by Gurobi is not necessarily the smallest one; there may exist others
+with fewer constraints or bounds.
+
+<P>
+IIS results are returned in a number of attributes:
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iislb.html#attr:IISLB">IISLB</A>,
+<A HREF="iislb.html#attr:IISLB">IISUB</A>,
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>, and
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>.
+Each indicates whether the corresponding model element is a member
+of the computed IIS.
+
+<P>
+The <A HREF="iis_logging.html#sec:IISLogging">IIS log</A> provides information about
+the progress of the algorithm, including a guess at the eventual IIS
+size.
+
+<P>
+If an IIS computation is interrupted before completion, Gurobi will
+return the smallest infeasible subsystem found to that point.
+
+<P>
+Another use of <code>ResultFile</code> is to translate between file formats.
+For example, if you want to translate a model from MPS format to LP
+format, you could issue the following command:
+<PRE>
+gurobi_cl TimeLimit=0 ResultFile=model.lp model.mps
+</PRE>
+Gurobi can write compressed files directly, so this command would also
+work (assuming that <code>7zip</code> is installed on your machine):
+<PRE>
+gurobi_cl TimeLimit=0 ResultFile=model.lp.7z model.mps
+</PRE>
+
+<P>
+The <code>ResultFile</code> parameter works differently from other
+parameters in the command-line interface.  While a parameter normally
+takes a single value, you can actually specify multiple result files.
+For example, the following command:
+<PRE>
+gurobi_cl ResultFile=model.sol ResultFile=model.bas model.mps
+</PRE>
+will write two files.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Reading Input Files</SPAN></SPAN>
+<A ID="subsubsection:CLInputFiles"></A>
+<P>
+You can use the <A HREF="inputfile.html#parameter:InputFile">InputFile</A>
+parameter to read input files during the optimization.  The most
+common input formats are <code>.bas</code> (a simplex basis), <code>.mst</code> (a
+MIP start), <code>.sol</code> (also a MIP start), <code>.hnt</code> (MIP hints),
+and <code>.ord</code> (a MIP priority order).
+For example, the following command:
+<PRE>
+gurobi_cl InputFile=model.bas model.mps
+</PRE>
+would start the optimization of the continuous model stored in file
+<code>model.mps</code> using the basis provided in file <code>model.bas</code>.
+
+<P>
+Reading input files is equivalent to setting the values of Gurobi
+attributes.  A <code>.bas</code> file populates the
+<A HREF="vbasis.html#attr:VBasis">VBasis</A> and
+<A HREF="cbasis.html#attr:CBasis">CBasis</A> attributes, while a <code>.ord</code>
+file populates the <A HREF="branchpriority.html#attr:BranchPriority">BranchPriority</A>
+attribute.  A <code>.mst</code> or <code>.sol</code> file populates the
+<A HREF="start.html#attr:Start">Start</A> attribute.
+A <code>.hnt</code> file populates the
+<A HREF="varhintval.html#attr:VarHintVal">VarHintVal</A>
+and
+<A HREF="varhintpri.html#attr:VarHintPri">VarHintPri</A>
+attributes.
+
+<P>
+Again, you should consult the <A HREF="model_file_formats.html#sec:FileFormats">File
+  Formats</A> section for more information on
+supported file formats
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="replaying_recording_files.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="grb_command_line_tool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="grb_command_line_tool.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="replaying_recording_files.html">Replaying Recording Files</A>
+<B> Up:</B> <A
+ HREF="grb_command_line_tool.html">Gurobi Command-Line Tool</A>
+<B> Previous:</B> <A
+ HREF="grb_command_line_tool.html">Gurobi Command-Line Tool</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

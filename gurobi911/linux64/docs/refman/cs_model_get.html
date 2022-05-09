@@ -1,0 +1,2179 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.Get()</TITLE>
+<META NAME="description" CONTENT="GRBModel.Get()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_getcoeff.html">
+<LINK REL="previous" HREF="cs_model_fixedmodel.html">
+<LINK REL="next" HREF="cs_model_getcoeff.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_getcoeff.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_fixedmodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_getcoeff.html">GRBModel.GetCoeff()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_fixedmodel.html">GRBModel.FixedModel()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000821900000000000000"></A>
+<A ID="dotnetmethod:GRBModel.Get"></A>
+<BR>
+GRBModel.Get()
+</H3>
+
+<P>
+Query the value(s) of a parameter or attribute.  Use this method for
+parameters, for scalar model attributes, and for arrays of constraint
+or variable attributes.
+
+<P>
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleparam.html#dotnetenum:GRB.DoubleParam">GRB.DoubleParam</A></TD>
+<TD CLASS="LEFT">param )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Query the value of a double-valued parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">param</SPAN>: The parameter being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current value of the requested parameter.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intparam.html#dotnetenum:GRB.IntParam">GRB.IntParam</A></TD>
+<TD CLASS="LEFT">param )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Query the value of an int-valued parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">param</SPAN>: The parameter being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current value of the requested parameter.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringparam.html#dotnetenum:GRB.StringParam">GRB.StringParam</A></TD>
+<TD CLASS="LEFT">param )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Query the value of a string-valued parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">param</SPAN>: The parameter being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current value of the requested parameter.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued variable attribute for an array of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: The variables whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued variable attribute for a sub-array of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A one-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first variable of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of variables.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[,]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued variable attribute for a two-dimensional array of
+variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A two-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[&#8222;]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued variable attribute for a three-dimensional array
+of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A three-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued constraint attribute for an array of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: The constraints whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued constraint attribute for a sub-array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A one-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first constraint of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[,]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued constraint attribute for a two-dimensional array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A two-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[&#8222;]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued constraint attribute for a three-dimensional array
+of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A three-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued quadratic constraint attribute for an array of quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: The quadratic constraints whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[]</TD>
+<TD CLASS="LEFT">qconstrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued quadratic constraint attribute for a sub-array of
+quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A one-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first quadratic constraint of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of quadratic constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[,]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued quadratic constraint attribute for a two-dimensional array of
+quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A two-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">char[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_charattr.html#dotnetenum:GRB.CharAttr">GRB.CharAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[&#8222;]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a char-valued quadratic constraint attribute for a three-dimensional array
+of quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A three-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Query the value of a double-valued model attribute.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current value of the requested attribute.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued variable attribute for an array of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: The variables whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued variable attribute for a sub-array of
+variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A one-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first variable of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of variables.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[,]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued variable attribute for a two-dimensional array of
+variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A two-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[&#8222;]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued variable attribute for a three-dimensional array
+of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A three-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued constraint attribute for an array of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: The constraints whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued constraint attribute for a sub-array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A one-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The first constraint of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[,]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued constraint attribute for a two-dimensional array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A two-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[&#8222;]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued constraint attribute for a three-dimensional array
+of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A three-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued quadratic constraint attribute for an array of quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: The quadratic constraints whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[]</TD>
+<TD CLASS="LEFT">qconstrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued quadratic constraint attribute for a sub-array of
+quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A one-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The first quadratic constraint of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of quadratic constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[,]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued quadratic constraint attribute for a two-dimensional array of
+quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A two-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_doubleattr.html#dotnetenum:GRB.DoubleAttr">GRB.DoubleAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[&#8222;]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a double-valued quadratic constraint attribute for a three-dimensional array
+of quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A three-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Query the value of an int-valued model attribute.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current value of the requested attribute.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued variable attribute for an array of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: The variables whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued variable attribute for a sub-array of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A one-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first variable of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of variables.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[,]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued variable attribute for a two-dimensional array of
+variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A two-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[&#8222;]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued variable attribute for a three-dimensional array
+of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A three-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued constraint attribute for an array of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: The constraints whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued constraint attribute for a sub-array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A one-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first constraint of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[,]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued constraint attribute for a two-dimensional array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A two-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_intattr.html#dotnetenum:GRB.IntAttr">GRB.IntAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[&#8222;]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query an int-valued constraint attribute for a three-dimensional array
+of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A three-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Query the value of a string-valued model attribute.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current value of the requested attribute.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued variable attribute for an array of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: The variables whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued variable attribute for a sub-array of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A one-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first variable of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of variables.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[,]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued variable attribute for a two-dimensional array of
+variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A two-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[&#8222;]</TD>
+<TD CLASS="LEFT">vars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued variable attribute for a three-dimensional array
+of variables.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A three-dimensional array of variables whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued constraint attribute for an array of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: The constraints whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued constraint attribute for a sub-array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A one-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first constraint of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[,]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued constraint attribute for a two-dimensional array of
+constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A two-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[&#8222;]</TD>
+<TD CLASS="LEFT">constrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued constraint attribute for a three-dimensional array
+of constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: A three-dimensional array of constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued quadratic constraint attribute for an array of quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: The quadratic constraints whose attribute values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[]</TD>
+<TD CLASS="LEFT">qconstrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued quadratic constraint attribute for a sub-array of
+quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A one-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The index of the first quadratic constraint of interest in the list.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of quadratic constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[,]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[,]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued quadratic constraint attribute for a two-dimensional array of
+quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A two-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string[&#8222;]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Get</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="cs_stringattr.html#dotnetenum:GRB.StringAttr">GRB.StringAttr</A></TD>
+<TD CLASS="LEFT">attr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQConstr[&#8222;]</TD>
+<TD CLASS="LEFT">qconstrs )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Query a string-valued quadratic constraint attribute for a three-dimensional array
+of quadratic constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attr</SPAN>: The attribute being queried.
+
+<P>
+ <SPAN  CLASS="textbf">qconstrs</SPAN>: A three-dimensional array of quadratic constraints whose attribute
+  values are being queried.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The current values of the requested attribute for each
+  input quadratic constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_getcoeff.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_fixedmodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_getcoeff.html">GRBModel.GetCoeff()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_fixedmodel.html">GRBModel.FixedModel()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

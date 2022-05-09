@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBaddrangeconstr</TITLE>
+<META NAME="description" CONTENT="GRBaddrangeconstr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_addrangeconstrs.html">
+<LINK REL="previous" HREF="c_addqpterms.html">
+<LINK REL="next" HREF="c_addrangeconstrs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_addrangeconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addqpterms.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_addrangeconstrs.html">GRBaddrangeconstrs</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addqpterms.html">GRBaddqpterms</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000222500000000000000"></A>
+<A ID="routine:GRBaddrangeconstr"></A>
+<BR>
+GRBaddrangeconstr
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBaddrangeconstr</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">numnz,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*cind,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*cval,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">lower,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">upper,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*constrname )</TD>
+</TR>
+</TABLE>
+
+<P>
+Add a new range constraint to a model.  A range constraint
+states that the value of the input expression must be between the
+specified <code>lower</code> and <code>upper</code> bounds in any solution.
+
+  Note that, due to our lazy update approach, the new constraint won't actually be added
+  until you update the model
+  (using <A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>),
+  optimize the model
+  (using <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>),
+  or write the model to disk
+  (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while adding the constraint.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to which the new constraint should be added.
+
+<P>
+ <SPAN  CLASS="textbf">numnz</SPAN>: The number of non-zero coefficients in the linear expression.
+
+<P>
+ <SPAN  CLASS="textbf">cind</SPAN>: Variable indices for non-zero values in the linear
+  expression.
+
+<P>
+ <SPAN  CLASS="textbf">cval</SPAN>: Numerical values for non-zero values in the linear
+  expression.
+
+<P>
+ <SPAN  CLASS="textbf">lower</SPAN>: Lower bound on linear expression.
+
+<P>
+ <SPAN  CLASS="textbf">upper</SPAN>: Upper bound on linear expression.
+
+<P>
+ <SPAN  CLASS="textbf">constrname</SPAN>: Name for the new constraint.  This argument can
+  be <SPAN  CLASS="texttt">NULL</SPAN>, in which case the constraint is given a default
+  name.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Important notes:</SPAN></SPAN>
+
+<P>
+Note that adding a range constraint to the model adds both a new
+constraint and a new variable.  If you are keeping a count of the
+variables in the model, remember to add one whenever you add a range.
+
+<P>
+Note also that range constraints are stored internally as equality
+constraints.  We use the extra variable that is added with a range
+constraint to capture the range information.  Thus, the
+<A HREF="sense.html#attr:Sense">Sense</A>
+attribute on a range constraint will always be <code>GRB_EQUAL</code>.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int    ind[] = {1, 3, 4};
+  double val[] = {1.0, 2.0, 3.0};
+  /* 1 &lt;= x1 + 2 x3 + 3 x4 &lt;= 2 */
+  error = GRBaddrangeconstr(model, 3, ind, val, 1.0, 2.0, "NewRange");
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_addrangeconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addqpterms.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_addrangeconstrs.html">GRBaddrangeconstrs</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addqpterms.html">GRBaddqpterms</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

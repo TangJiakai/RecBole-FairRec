@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.getSOS()</TITLE>
+<META NAME="description" CONTENT="GRBModel.getSOS()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_getsoss.html">
+<LINK REL="previous" HREF="java_model_getrow.html">
+<LINK REL="next" HREF="java_model_getsoss.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_getsoss.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_getrow.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_getsoss.html">GRBModel.getSOSs()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_getrow.html">GRBModel.getRow()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000623400000000000000"></A>
+<A ID="javamethod:GRBModel.getSOS"></A>
+<BR>
+GRBModel.getSOS()
+</H3>
+
+<P>
+Retrieve the list of variables that participate in an SOS constraint,
+and the associated coefficients.  The return value is the length of
+this list.  Note that the argument arrays must be long enough to
+accommodate the result.  Call the method with <code>null</code> array
+arguments to determine the appropriate array lengths.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getSOS</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBSOS</TD>
+<TD CLASS="LEFT">sos,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT">weights,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int[]</TD>
+<TD CLASS="LEFT">type )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">sos</SPAN>: The SOS set of interest.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: A list of variables that participate in <SPAN  CLASS="texttt">sos</SPAN>.
+  Can be <SPAN  CLASS="texttt">null</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">weights</SPAN>: The SOS weights for each participating variable.
+  Can be <SPAN  CLASS="texttt">null</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">type</SPAN>: The type of the SOS set (either <SPAN  CLASS="texttt">GRB.SOS_TYPE1</SPAN> or
+  <SPAN  CLASS="texttt">GRB.SOS_TYPE2</SPAN>) is returned in <SPAN  CLASS="texttt">type[0]</SPAN>.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The number of entries placed in the output arrays.  Note
+  that you should consult the return value to determine the length of
+  the result; the arrays sizes won't necessarily match the result size.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_getsoss.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_getrow.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_getsoss.html">GRBModel.getSOSs()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_getrow.html">GRBModel.getRow()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

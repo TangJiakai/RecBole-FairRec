@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Listing Cluster Licenses</TITLE>
+<META NAME="description" CONTENT="Listing Cluster Licenses">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="changing_the_job_limit.html">
+<LINK REL="previous" HREF="troubleshooting_connectivi.html">
+<LINK REL="next" HREF="changing_the_job_limit.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="changing_the_job_limit.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="troubleshooting_connectivi.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="changing_the_job_limit.html">Changing the Job Limit</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="troubleshooting_connectivi.html">Troubleshooting Connectivity Issues</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00035300000000000000"></A>
+<A ID="sec:grbclusterlicenses"></A>
+<BR>
+Listing Cluster Licenses
+</H3>
+
+<P>
+The <TT>node licenses</TT> command displays license status information for
+each node in a cluster:
+
+<PRE>
+&gt; grbcluster node licenses
+ID       ADDRESS   STATUS TYPE     KEY   EXP ORG    USER APP VER CS    DL  ERROR
+eb07fe16 server1   VALID  NODE               gurobi          8   true  0
+b7d037db server2   VALID  NODE               gurobi          8   true  0
+</PRE>
+
+<P>
+Add the <TT>--describe</TT> flag to see an explanation of each field:
+
+<PRE>
+&gt; grbcluster node licenses --describe
+ID        - Unique node ID, use --long to display full ID
+ADDRESS   - Node address
+STATUS    - License status (N/A, VALID, INVALID, EXPIRED)
+TYPE      - License type
+KEY       - License Cloud Key (not displayed if empty or restricted)
+EXP       - License expiration
+VER       - Maximum runtime version supported
+CS        - Indicate if Compute Server features are enabled
+DL        - Maximum number of workers for a distributed job (Distributed Limit)
+ORG       - Assigned organization
+USER      - Assigned username
+APP       - Assigned application name
+ERROR     - License error message
+</PRE>
+
+<P>
+If a node has an <TT>INVALID</TT> license, you can run the following
+command to learn more:
+
+<PRE>
+&gt; grbcluster node licenses
+ID       ADDRESS STATUS  TYPE KEY EXP ORG USER APP VER CS    DL  ERROR
+eb07fe16 server1 INVALID NODE                          false 0   No Gurobi license found...
+</PRE>
+Note that the <TT>node licenses</TT> command can be used at any time to check
+the validity and attributes of licenses on all the nodes of the
+cluster (expiration date, distributed limit, etc.).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="changing_the_job_limit.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="troubleshooting_connectivi.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="changing_the_job_limit.html">Changing the Job Limit</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="troubleshooting_connectivi.html">Troubleshooting Connectivity Issues</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

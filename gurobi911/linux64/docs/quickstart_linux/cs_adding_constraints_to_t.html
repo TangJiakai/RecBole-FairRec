@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Adding constraints to the model</TITLE>
+<META NAME="description" CONTENT="Adding constraints to the model">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_optimizing_the_model.html">
+<LINK REL="previous" HREF="cs_setting_the_objective.html">
+<LINK REL="next" HREF="cs_optimizing_the_model.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_optimizing_the_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_setting_the_objective.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_optimizing_the_model.html">Optimizing the model</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_setting_the_objective.html">Setting the objective</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000107000000000000000">
+Adding constraints to the model</A>
+</H2>
+
+<P>
+The next step in the example is to add the linear constraints:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+      // Add constraint: x + 2 y + 3 z &lt;= 4
+      model.AddConstr(x + 2 * y + 3 * z &lt;= 4.0, "c0");
+</PRE>
+
+<P>
+As with variables, constraints are always associated with a specific
+model.  They are created using the <TT>AddConstr()</TT> or
+<TT>AddConstrs()</TT> methods on the model object.
+
+<P>
+We again use overloaded arithmetic operators to build linear
+expressions.  The comparison operators are also overloaded to make it
+easier to build constraints.
+
+<P>
+The second argument to <code>AddConstr</code> gives the constraint name.
+
+<P>
+The Gurobi .NET interface also allows you to add constraints by
+building linear expressions in a term-by-term fashion:
+
+<PRE>
+  GRBLinExpr expr = 0.0;
+  expr.AddTerm(1.0, x);
+  expr.AddTerm(2.0, y);
+  expr.AddTerm(3.0, z);
+  model.AddConstr(expr, GRB.LESS_EQUAL, 4.0, "c0");
+</PRE>
+This particular <TT>AddConstr()</TT> signature takes a linear
+expression that captures the left-hand side of the constraint as its
+first argument, the sense of the constraint as its second argument,
+and a linear expression that captures the right-hand side of the
+constraint as its third argument.  The constraint name is given as the
+fourth argument.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_optimizing_the_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_interface_cs.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_setting_the_objective.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_optimizing_the_model.html">Optimizing the model</A>
+<B> Up:</B> <A
+ HREF="cs_net_interface_cs.html">.NET Interface (C#)</A>
+<B> Previous:</B> <A
+ HREF="cs_setting_the_objective.html">Setting the objective</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

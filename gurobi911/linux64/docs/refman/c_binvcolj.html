@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBBinvColj</TITLE>
+<META NAME="description" CONTENT="GRBBinvColj">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_binvrowi.html">
+<LINK REL="previous" HREF="c_bsolve.html">
+<LINK REL="next" HREF="c_binvrowi.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_binvrowi.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_advanced_simplex_routine.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_bsolve.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_binvrowi.html">GRBBinvRowi</A>
+<B> Up:</B> <A
+ HREF="c_advanced_simplex_routine.html">Advanced simplex routines</A>
+<B> Previous:</B> <A
+ HREF="c_bsolve.html">GRBBSolve</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000212300000000000000"></A>
+<A ID="routine:GRBBinvColj"></A>
+<BR>
+GRBBinvColj
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBBinvColj</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">j,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBsvec</TD>
+<TD CLASS="LEFT">*x )</TD>
+</TR>
+</TABLE>
+
+<P>
+Computes the solution to the linear system <SPAN CLASS="MATH"><IMG STYLE="height: 2.48ex; vertical-align: -0.78ex; " SRC="img57.svg"
+ ALT="$Bx=A_j$"></SPAN>, where <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img53.svg"
+ ALT="$B$"></SPAN>
+is the current simplex basis matrix and <SPAN CLASS="MATH"><IMG STYLE="height: 2.48ex; vertical-align: -0.78ex; " SRC="img58.svg"
+ ALT="$A_j$"></SPAN> is the column
+of the constraint matrix <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img59.svg"
+ ALT="$A$"></SPAN> associated with variable <SPAN CLASS="MATH"><IMG STYLE="height: 2.21ex; vertical-align: -0.57ex; " SRC="img60.svg"
+ ALT="$j$"></SPAN>.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while computing the desired vector.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model.  Note that the model must have a current
+optimal basis, as computed by
+<A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>.
+
+<P>
+ <SPAN  CLASS="textbf">j</SPAN>: Indicates the index of the column of <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img59.svg"
+ ALT="$A$"></SPAN> to use
+as the right-hand side for the linear solve.  The index <SPAN  CLASS="texttt">j</SPAN>
+must be between 0 and <SPAN  CLASS="texttt">cols-1</SPAN>, where <SPAN  CLASS="texttt">cols</SPAN> is the
+number of columns in the model.
+
+<P>
+ <SPAN  CLASS="textbf">x</SPAN>: The sparse result vector. The user is responsible for
+  allocating the <SPAN  CLASS="texttt">ind</SPAN> and <SPAN  CLASS="texttt">val</SPAN> fields to be large enough
+  to hold as many as one non-zero entry per constraint in the model.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_binvrowi.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_advanced_simplex_routine.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_bsolve.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_binvrowi.html">GRBBinvRowi</A>
+<B> Up:</B> <A
+ HREF="c_advanced_simplex_routine.html">Advanced simplex routines</A>
+<B> Previous:</B> <A
+ HREF="c_bsolve.html">GRBBSolve</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

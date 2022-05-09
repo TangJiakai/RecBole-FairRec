@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Authentication</TITLE>
+<META NAME="description" CONTENT="Authentication">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="encryption.html">
+<LINK REL="previous" HREF="user_roles.html">
+<LINK REL="next" HREF="encryption.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="encryption.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="user_roles.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="encryption.html">Encryption</A>
+<B> Up:</B> <A
+ HREF="security.html">Security</A>
+<B> Previous:</B> <A
+ HREF="user_roles.html">User Roles</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00013200000000000000"></A>
+<A ID="sec:RemoteServicesAuthentication"></A>
+<BR>
+Authentication
+</H3>
+
+<P>
+The Cluster Manager authenticates all communication using one of two
+approaches: a username and password, or an API key.
+
+<P>
+When a client provides a username and password, a JWT token is returned
+that is valid for a relatively short period of time (default is 8
+hours and can be changed in the Cluster Manager configuration). This
+is handy when using the Web User Interface or command-line tools
+such as <TT>gurobi_cl</TT> or <TT>grbcluster</TT>.
+
+<P>
+To simplify installation, the Cluster Manager initially has three
+default users with predefined passwords:
+
+<UL>
+<LI>standard user: <TT>gurobi</TT> / <TT>pass</TT>
+</LI>
+<LI>administrator: <TT>admin</TT> / <TT>admin</TT>
+</LI>
+<LI>system administrator: <TT>sysadmin</TT> / <TT>cluster</TT>
+</LI>
+</UL>
+You should of course change the passwords or delete these accounts
+before actually using the cluster.
+
+<P>
+Applications should use API keys instead. The Cluster Manager lets
+each user creates an API key, composed of an access ID and a secret
+key.  The user owning the API key or the system administrator can
+revoke the key at any time. It is also possible to create multiple
+keys to perform key rotation in your applications.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="encryption.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="user_roles.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="encryption.html">Encryption</A>
+<B> Up:</B> <A
+ HREF="security.html">Security</A>
+<B> Previous:</B> <A
+ HREF="user_roles.html">User Roles</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

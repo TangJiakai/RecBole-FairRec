@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Listing Cluster Nodes</TITLE>
+<META NAME="description" CONTENT="Listing Cluster Nodes">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="troubleshooting_connectivi.html">
+<LINK REL="previous" HREF="node_commands.html">
+<LINK REL="next" HREF="troubleshooting_connectivi.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="troubleshooting_connectivi.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="troubleshooting_connectivi.html">Troubleshooting Connectivity Issues</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00035100000000000000"></A>
+<A ID="sec:grbclusternodes"></A>
+<BR>
+Listing Cluster Nodes
+</H3>
+
+<P>
+The <TT>nodes</TT> command provides a list of nodes in the cluster,
+along with status information.  This command is a shortcut for the
+<TT>node list</TT> command. For example:
+
+<PRE>
+&gt; grbcluster nodes
+ID       ADDRESS       STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 19m  15.30 5.64
+735c595f server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 19m  10.45 8.01
+</PRE>
+
+<P>
+Add the <TT>--describe</TT> flag to see an explanation of each field:
+
+<PRE>
+&gt; grbcluster nodes --describe
+
+ID        - Unique node ID, use --long to display full ID
+ADDRESS   - Node address
+STATUS    - Node status (ALIVE, FAILED, JOINING, LEAVING, DEGRADED)
+TYPE      - Node type (COMPUTE: compute server, WORKER: distributed worker)
+GRP       - Group name for job affinity (not displayed if empty or restricted)
+LICENSE   - License status (N/A, VALID, INVALID, EXPIRED)
+PROCESSING- Processing state (ACCEPTING, DRAINING, STOPPED)
+#Q        - Number of jobs in queue
+#R        - Number of jobs running
+JL        - Job Limit (maximum number of running jobs)
+IDLE      - Idle time since the last job execution (in minutes)
+%MEM      - Percentage of memory currently used on the machine
+%CPU      - Percentage of CPU currently used on the machine
+STARTED   - Node start time, use --long
+RUNTIMES  - Deployed runtime versions, use --long
+VERSION   - Remote Services Agent version, use --long
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="troubleshooting_connectivi.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="troubleshooting_connectivi.html">Troubleshooting Connectivity Issues</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="node_commands.html">Node Commands</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

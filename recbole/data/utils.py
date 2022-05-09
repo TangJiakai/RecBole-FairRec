@@ -16,6 +16,7 @@ import copy
 import importlib
 import os
 import pickle
+import pandas as pd
 
 from recbole.data.dataloader import *
 from recbole.sampler import KGSampler, Sampler, RepeatableSampler

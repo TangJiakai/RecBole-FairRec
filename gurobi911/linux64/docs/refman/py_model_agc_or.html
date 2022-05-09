@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.addGenConstrOr()</TITLE>
+<META NAME="description" CONTENT="Model.addGenConstrOr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_agc_indicator.html">
+<LINK REL="previous" HREF="py_model_agc_and.html">
+<LINK REL="next" HREF="py_model_agc_indicator.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_agc_indicator.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_agc_and.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_agc_indicator.html">Model.addGenConstrIndicator()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_agc_and.html">Model.addGenConstrAnd()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000102900000000000000"></A>
+<A ID="pythonmethod:Model.addGenConstrOr"></A>
+<BR>
+Model.addGenConstrOr()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addGenConstrOr</SPAN></FONT></SPAN> ( resvar, vars, name="" )
+
+<P>
+Add a new general constraint of type <SPAN  CLASS="texttt">GRB.GENCONSTR_OR</SPAN> to a model.
+
+<P>
+An OR constraint <!-- MATH
+ $r = \mbox{or}\{x_1,\ldots,x_n\}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img31.svg"
+ ALT="$r = \mbox{or}\{x_1,\ldots,x_n\}$"></SPAN> states that the binary resultant
+variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img20.svg"
+ ALT="$r$"></SPAN> should be <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img29.svg"
+ ALT="$1$"></SPAN> if and only if any of the operand variables
+<!-- MATH
+ $x_1,\ldots,x_n$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img21.svg"
+ ALT="$x_1,\ldots,x_n$"></SPAN> is equal to <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img29.svg"
+ ALT="$1$"></SPAN>.
+If all operand variables are <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img30.svg"
+ ALT="$0$"></SPAN>, then the resultant should be <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img30.svg"
+ ALT="$0$"></SPAN> as well.
+
+<P>
+Note that all variables participating in such a constraint will be forced
+to be binary, independent of how they were created.
+
+<P>
+You can also add an OR constraint using the
+<A HREF="py_general_constraint_help.html#pythonclass:GCHelper">or_</A> function.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">resvar (Var)</SPAN>: The variable whose value will be equal to the
+  OR concatenation of the other variables.
+
+<P>
+ <SPAN  CLASS="textbf">vars (list of Var)</SPAN>: The variables over which the OR
+  concatenation will be taken.
+
+<P>
+ <SPAN  CLASS="textbf">name (string, optional)</SPAN>: Name for the new general constraint.
+Note that <SPAN  CLASS="texttt">name</SPAN> will be stored as an ASCII string. Thus, a name
+like <TT>'A<SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img74.svg"
+ ALT="${\rightarrow}$"></SPAN>B'</TT> will produce an error, because
+'<SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img74.svg"
+ ALT="${\rightarrow}$"></SPAN>' can not be represented as an ASCII character. Note
+also that names that contain spaces are strongly discouraged,
+because they can't be written to LP format files.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  # x5 = or(x1, x3, x4)
+  model.addGenConstrOr(x5, [x1, x3, x4], "orconstr")
+
+  # overloaded forms
+  model.addConstr(x5 == or_([x1, x3, x4]), "orconstr")
+  model.addConstr(x5 == or_(x1, x3, x4), "orconstr")
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_agc_indicator.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_agc_and.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_agc_indicator.html">Model.addGenConstrIndicator()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_agc_and.html">Model.addGenConstrAnd()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

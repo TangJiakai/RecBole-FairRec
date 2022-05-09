@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Batch()</TITLE>
+<META NAME="description" CONTENT="Batch()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_batch_abort.html">
+<LINK REL="previous" HREF="py_batch.html">
+<LINK REL="next" HREF="py_batch_abort.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_batch_abort.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch_abort.html">Batch.abort()</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch.html">Batch</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001020100000000000000"></A>
+<A ID="pythonmethod:Batch"></A>
+<BR>
+Batch()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Batch</SPAN></FONT></SPAN> ( batchID, env )
+
+
+<P>
+Given a <TT>BatchID</TT>, as returned by 
+<A HREF="py_model_optimizebatch.html#pythonmethod:Model.optimizeBatch">optimizeBatch</A>, and a Gurobi
+  environment that can connect to the appropriate
+  Cluster Manager (i.e., one where parameters
+  <A HREF="csmanager.html#parameter:CSManager">CSManager</A>,
+  <A HREF="username.html#parameter:UserName">UserName</A>, and
+  <A HREF="serverpassword.html#parameter:ServerPassword">ServerPassword</A>
+  have been set appropriately), this function returns a 
+<A HREF="py_batch.html#pythonclass:Batch">Batch</A> object.
+  With it, you can query the current status
+  of the associated batch request and, once the batch request has
+  been processed, you can query its solution. Please refer to the
+  <A HREF="batch_optimization.html#sec:BatchOptimization">Batch Optimization</A> section for
+  details and examples.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">batchID</SPAN>: ID of the batch request for which you want to
+access status and other information.
+
+<P>
+ <SPAN  CLASS="textbf">env</SPAN>: The environment in which the new batch object should be
+created.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New batch object.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  batch = gp.Batch(batchID, env)
+
+  # Automatically disposed with context manager
+  with gp.Batch(batchID, env) as batch:
+    pass
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_batch_abort.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch_abort.html">Batch.abort()</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch.html">Batch</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

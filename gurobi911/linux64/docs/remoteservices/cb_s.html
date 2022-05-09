@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Callbacks</TITLE>
+<META NAME="description" CONTENT="Callbacks">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="developing_for_compute_ser.html">
+<LINK REL="previous" HREF="performance_considerations.html">
+<LINK REL="next" HREF="developing_for_compute_ser.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="developing_for_compute_ser.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="performance_considerations.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="developing_for_compute_ser.html">Developing for Compute Server</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="performance_considerations.html">Performance Considerations on a</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00044000000000000000"></A>
+<A ID="sec:CSCallbacks"></A>
+<BR>
+Callbacks
+</H2>
+
+<P>
+As you might imagine, since the actual optimization task runs on a
+remote system in a Compute Server environment, Gurobi callbacks give
+different behavior than they do when the task runs locally.  In
+particular, callbacks are both less frequent and more restrictive.
+You will only receive <TT>MESSAGE</TT>, <TT>BARRIER</TT>, <TT>SIMPLEX</TT>,
+<TT>MIP</TT>, <TT>MIPSOL</TT> and <TT>MULTIOBJ</TT> callbacks; you will not receive
+<TT>PRESOLVE</TT> or <TT>MIPNODE</TT> callbacks.  As a result, you will
+only have access to a subset of the callback information that you
+would be able to obtain when running locally.  You can still request
+that the optimization be terminated from any of the callbacks you
+receive, though.  Please refer to the <TT>Callback Code</TT> section of the
+<A ID="tex2html13"
+  HREF="../refman/refman.html">Gurobi Reference Manual</A>
+for more
+information on the various callback codes.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="developing_for_compute_ser.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="performance_considerations.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="developing_for_compute_ser.html">Developing for Compute Server</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="performance_considerations.html">Performance Considerations on a</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

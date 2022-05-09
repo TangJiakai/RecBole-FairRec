@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Flow conservation constraints</TITLE>
+<META NAME="description" CONTENT="Flow conservation constraints">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_results.html">
+<LINK REL="previous" HREF="cs_arc_capacity_constraint.html">
+<LINK REL="next" HREF="cs_results.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_results.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_arc_capacity_constraint.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_results.html">Results</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_arc_capacity_constraint.html">Arc capacity constraints</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001161100000000000000">
+Flow conservation constraints</A>
+</H3>
+
+<P>
+The next set of constraints are the flow conservation constraints.  They
+require that, for each commodity and node, the sum of the flow into
+the node plus the quantity of external inflow at that node must be equal
+to the sum of the flow out of the node:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Flow-conservation constraints
+m.addConstrs(
+    (flow.sum(h, '*', j) + inflow[h, j] == flow.sum(h, j, '*')
+        for h in commodities for j in nodes), "node")
+</PRE>
+
+<P>
+This call to <code>addConstrs</code> is similar to the previous one,
+although a bit more complex.  We invoke the <code>sum</code> method on a
+<code>tupledict</code>, wrapped inside of a generator expression, to add one
+linear constraint for each commodity-node pair.  In this instance, we
+call <code>sum</code> twice, and we use a generator expression that contains of a pair
+of <code>for</code> loops, but the basic concepts remain the same.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_results.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_arc_capacity_constraint.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_results.html">Results</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_arc_capacity_constraint.html">Arc capacity constraints</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

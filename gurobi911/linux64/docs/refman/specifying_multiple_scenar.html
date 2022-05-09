@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Specifying Multiple Scenarios</TITLE>
+<META NAME="description" CONTENT="Specifying Multiple Scenarios">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="logging2.html">
+<LINK REL="previous" HREF="definition_of_a_multi_scen.html">
+<LINK REL="next" HREF="logging2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="logging2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="definition_of_a_multi_scen.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="logging2.html">Logging</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="definition_of_a_multi_scen.html">Definition of a Multi-Scenario</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000282000000000000000"></A>
+<A ID="heading:DefiningScenarios"></A>
+<BR>
+Specifying Multiple Scenarios
+</H2>
+
+<P>
+Your first step in building a multi-scenario model is to modify the
+<A HREF="numscenarios.html#attr:NumScenarios">NumScenarios</A> attribute to indicate
+how many scenarios you would like to consider.  Once you have changed
+this attribute, you can describe the different scenarios by changing
+various scenario-related attributes (listed below).  When you later
+call <code>optimize</code> on a multi-scenario model (a model where
+<code>NumScenarios</code> is greater than 0), the solver will try to find
+optimal solutions for all specified scenarios.  Note that it will
+<SPAN  CLASS="textit">not</SPAN> try to find a solution for the base model.
+
+<P>
+Variations in the different scenarios are expressed through a set of
+four attributes:
+
+<UL>
+<LI><A HREF="scennobj.html#attr:ScenNObj">ScenNObj</A>
+</LI>
+<LI><A HREF="scennlb.html#attr:ScenNLB">ScenNLB</A>
+</LI>
+<LI><A HREF="scennub.html#attr:ScenNUB">ScenNUB</A>
+</LI>
+<LI><A HREF="scennrhs.html#attr:ScenNRHS">ScenNRHS</A>
+</LI>
+</UL>
+The first three are variable attributes, and the last is a linear
+constraint attribute.  You can give each scenario a name through the
+<A HREF="scennname.html#attr:ScenNName">ScenNName</A> attribute (a model
+attribute).
+
+<P>
+You use the <A HREF="scenarionumber.html#parameter:ScenarioNumber">ScenarioNumber</A>
+parameter to modify scenario attributes for a specific scenario.
+Scenarios are numbered <code>0</code> through <code>NumScenarios-1</code>.  To
+give an example, to create a model where binary variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> is fixed
+to <code>0</code> and <code>1</code> in two scenarios, you would:
+
+<UL>
+<LI>Set the <code>NumScenarios</code> attribute to 2, to indicate
+  that your model has two scenarios.
+</LI>
+<LI>Set the <code>ScenarioNumber</code> parameter to 0, to indicate
+  that you would first like to modify scenario attributes for scenario 0.
+</LI>
+<LI>Set the <code>ScenNUB</code> attribute for variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> to 0 (to fix
+  the binary variable to zero in this scenario).
+</LI>
+<LI>Set the <code>ScenarioNumber</code> parameter to 1, to move on to
+  scenario 1.
+</LI>
+<LI>Set the <code>ScenNLB</code> attribute for variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> to 1 (to fix
+  the binary variable to one in this scenario).
+</LI>
+</UL>
+
+<P>
+You query scenario attributes in a similar manner: set the
+<code>ScenarioNumber</code> parameter to choose the scenario you would like
+to query, and then use the appropriate attribute query routine to
+obtain the desired attribute values (consult our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute
+  Examples</A> for examples).
+
+<P>
+Note that unmodified scenario attributes take a special value of
+<code>GRB.UNDEFINED</code>.  If you modified a scenario attribute
+and would like to revert that modification, you can set the attribute
+back to <code>GRB.UNDEFINED</code>.
+
+<P>
+You can change the number of scenarios in your model as many times as
+you like (by modifying the
+<A HREF="numscenarios.html#attr:NumScenarios">NumScenarios</A> attribute).  When you
+increase the count, new empty scenarios are created (an empty scenario
+is a scenario with no changes from the base model).  When you decrease
+the count, existing scenarios are discarded.  When you set the count
+to zero, the model is no longer treated as a multi-scenario model.
+
+<P>
+We have extended the LP and MPS file formats, so writing a model with
+multiple scenarios to a file will capture those scenarios.  Similarly,
+if you read a model file that contains multiple scenarios, then
+<A HREF="numscenarios.html#attr:NumScenarios">NumScenarios</A> and the various
+scenario attributes will capture the scenarios stored in the file.
+See the <A HREF="model_file_formats.html#sec:FileFormats">file format</A> section for
+details.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="logging2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="definition_of_a_multi_scen.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="logging2.html">Logging</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="definition_of_a_multi_scen.html">Definition of a Multi-Scenario</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

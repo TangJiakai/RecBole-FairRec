@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Arc capacity constraints</TITLE>
+<META NAME="description" CONTENT="Arc capacity constraints">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="cs_flow_conservation_const.html">
+<LINK REL="previous" HREF="cs_building_a_multi_dimens.html">
+<LINK REL="next" HREF="cs_flow_conservation_const.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_flow_conservation_const.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_building_a_multi_dimens.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_flow_conservation_const.html">Flow conservation constraints</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_building_a_multi_dimens.html">Building a multi-dimensional array</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001161000000000000000">
+Arc capacity constraints</A>
+</H3>
+
+<P>
+We begin with a straightforward set of constraints.  The sum of the
+flow variables on an arc must be less than or equal to the capacity of
+that arc:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Arc-capacity constraints
+m.addConstrs(
+    (flow.sum('*', i, j) &lt;= capacity[i, j] for i, j in arcs), "cap")
+</PRE>
+
+
+<P>
+Note that this one statement uses several of the concepts that were
+introduced earlier in this section.
+
+<P>
+The first concept used here is the <code>sum</code> method on <code>flow</code>,
+which is used to create a linear expression over a subset of the
+variables in the <code>tupledict</code>.  In particular, it is summing over
+all commodities (the <code>'*'</code> in the first field) associated with an
+edge between a pair of cities <code>i</code> and <code>j</code>.
+
+<P>
+The second concept used here is a generator expression, which iterates
+over all arcs in the network.  Specifically, this portion of the
+statement...
+
+<PRE>
+  for i,j in arcs
+</PRE>
+indicates that we are iterating over every edge in <code>arcs</code>.  In
+each iteration, <code>i</code> and <code>j</code> will be populated using the
+corresponding values from a tuple in <code>arcs</code>.  In a particular
+iteration, <code>flow.sum('*',i,j)</code> will be computed using those
+specific values, as will <code>capacity[i,j]</code>.
+
+<P>
+The third thing to note is that we're passing the result as an
+argument to <code>addConstrs</code>.  This method will create a set of
+Gurobi constraints, one for each iteration of the generator
+expression.
+
+<P>
+The final thing to note is that the last argument gives the base for
+the constraint name.  The <code>addConstrs</code> method will automatically
+append the corresponding indices for each constraint.  Thus, for
+example, the name of the constraint that limits flow from Denver to
+Boston will be <code>cap[Denver,Boston]</code>.
+
+<P>
+Note that if you prefer to do your own looping, you could
+obtain the equivalent behavior with the following loop:
+
+<PRE>
+for i,j in arcs:
+    m.addConstr(sum(flow[h,i,j] for h in commodities) &lt;= capacity[i,j],
+                "cap[%s,%s]" % (i, j))
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_flow_conservation_const.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_building_a_multi_dimens.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_flow_conservation_const.html">Flow conservation constraints</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_building_a_multi_dimens.html">Building a multi-dimensional array</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Adding variables to the model</TITLE>
+<META NAME="description" CONTENT="Adding variables to the model">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="c_changing_the_objective_s.html">
+<LINK REL="previous" HREF="c_creating_the_model.html">
+<LINK REL="next" HREF="c_changing_the_objective_s.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_changing_the_objective_s.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_creating_the_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_changing_the_objective_s.html">Changing the objective sense</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_creating_the_model.html">Creating the model</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00075000000000000000">
+Adding variables to the model</A>
+</H2>
+
+<P>
+Once we create a Gurobi model, we can start adding variables and
+constraints to it.  In our example, we'll begin by adding variables:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+  /* Add variables */
+  obj[0] = 1; obj[1] = 1; obj[2] = 2;
+  vtype[0] = GRB_BINARY; vtype[1] = GRB_BINARY; vtype[2] = GRB_BINARY;
+  error = GRBaddvars(model, 3, 0, NULL, NULL, NULL, obj, NULL, NULL, vtype,
+                     NULL);
+  if (error) goto QUIT;
+</PRE>
+
+<P>
+The first argument to <TT>GRBaddvars()</TT> is the model to which the
+variables are being added.  The second is the number of added
+variables (3 in our example).
+
+<P>
+Arguments three through six describe the constraint matrix
+coefficients associated with the new variables.  The third argument
+gives the number of non-zero constraint matrix entries associated with
+the new variables, and the next three arguments give details on these
+non-zeros.  In our example, we'll be adding these non-zeros when we
+add the constraints. Thus, the non-zero count here is zero, and the
+following three arguments are all <code>NULL</code>.
+
+<P>
+The seventh argument to <TT>GRBaddvars()</TT> is the linear objective
+coefficient for each new variable.  Since our example aims to maximize
+the objective, and by default Gurobi will minimize the objective,
+we'll need to change the objective sense.  This is done in the next
+statement.  Note we could have multiplied the objective coefficients
+by -1 instead (since maximizing <SPAN CLASS="MATH"><IMG STYLE="height: 1.97ex; vertical-align: -0.12ex; " SRC="img7.svg"
+ ALT="$c'x$"></SPAN> is equivalent to minimizing
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.16ex; vertical-align: -0.31ex; " SRC="img8.svg"
+ ALT="$-c'x$"></SPAN>).
+
+<P>
+The next two arguments specify the lower and upper bounds of the
+variables, respectively.  The <code>NULL</code> values indicate that these
+variables should take their default values (0.0 and 1.0 for binary
+variables).
+
+<P>
+The tenth argument specifies the types of the variables.  In this
+example, the variables are all binary (<code>GRB_BINARY</code>).
+
+<P>
+The final argument gives the names of the variables.  In this case, we
+allow the variable names to take their default values
+(<code>x0, x1, and x2</code>).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_changing_the_objective_s.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_creating_the_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_changing_the_objective_s.html">Changing the objective sense</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_creating_the_model.html">Creating the model</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Example</TITLE>
+<META NAME="description" CONTENT="Example">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="matlab_example_details.html">
+<LINK REL="previous" HREF="matlab_setting_up_grb_for_.html">
+<LINK REL="next" HREF="matlab_example_details.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="matlab_example_details.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_setting_up_grb_for_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_example_details.html">Example details</A>
+<B> Up:</B> <A
+ HREF="matlab_interface.html">MATLAB Interface</A>
+<B> Previous:</B> <A
+ HREF="matlab_setting_up_grb_for_.html">Setting up Gurobi for</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000122000000000000000">
+Example</A>
+</H2>
+
+<P>
+Let us now turn our attention to an example of using Gurobi to
+solve a simple MIP model.  Our example optimizes the following model:
+<DIV class="CENTER">
+<TABLE class="PAD " style="">
+<TR><TD CLASS="RIGHT"><B>maximize</B></TD>
+<TD CLASS="RIGHT">x</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">y</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">2 z</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+</TR>
+<TR><TD CLASS="RIGHT"><B>subject to</B></TD>
+<TD CLASS="RIGHT">x</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">2 y</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">3 z</TD>
+<TD CLASS="RIGHT"><SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img5.svg"
+ ALT="$\leq$"></SPAN></TD>
+<TD CLASS="RIGHT">4</TD>
+</TR>
+<TR><TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT">x</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">y</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT"><SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img6.svg"
+ ALT="$\geq$"></SPAN></TD>
+<TD CLASS="RIGHT">1</TD>
+</TR>
+<TR><TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="CENTER" COLSPAN=6><SPAN>x, y, z binary</SPAN></TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+</TR>
+</TABLE>
+</DIV>
+Note that this is the same model that was modeled and optimized in the
+<A HREF="c_interface.html#section:C">C Interface</A> section.
+
+<P>
+This is the complete source code for our example (also available in 
+<code>&lt;installdir&gt;/examples/matlab/mip1.m</code>)...
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function mip1()
+% Copyright 2020, Gurobi Optimization, LLC
+% This example formulates and solves the following simple MIP model:
+%  maximize
+%        x +   y + 2 z
+%  subject to
+%        x + 2 y + 3 z &lt;= 4
+%        x +   y       &gt;= 1
+%        x, y, z binary
+
+names = {'x'; 'y'; 'z'};
+
+model.A = sparse([1 2 3; 1 1 0]);
+model.obj = [1 1 2];
+model.rhs = [4; 1];
+model.sense = '&lt;&gt;';
+model.vtype = 'B';
+model.modelsense = 'max';
+model.varnames = names;
+
+gurobi_write(model, 'mip1.lp');
+
+params.outputflag = 0;
+
+result = gurobi(model, params);
+
+disp(result);
+
+for v=1:length(names)
+    fprintf('%s %d\n', names{v}, result.x(v));
+end
+
+fprintf('Obj: %e\n', result.objval);
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="matlab_example_details.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_setting_up_grb_for_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_example_details.html">Example details</A>
+<B> Up:</B> <A
+ HREF="matlab_interface.html">MATLAB Interface</A>
+<B> Previous:</B> <A
+ HREF="matlab_setting_up_grb_for_.html">Setting up Gurobi for</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

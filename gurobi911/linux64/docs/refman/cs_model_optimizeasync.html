@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.OptimizeAsync()</TITLE>
+<META NAME="description" CONTENT="GRBModel.OptimizeAsync()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_optimizebatch.html">
+<LINK REL="previous" HREF="cs_model_optimize.html">
+<LINK REL="next" HREF="cs_model_optimizebatch.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_optimizebatch.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_optimize.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_optimizebatch.html">GRBModel.OptimizeBatch()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_optimize.html">GRBModel.Optimize()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000824100000000000000"></A>
+<A ID="dotnetmethod:GRBModel.OptimizeAsync"></A>
+<BR>
+GRBModel.OptimizeAsync()
+</H3>
+
+<P>
+Optimize a model asynchronously.  This routine returns immediately.
+Your program can perform other computations while optimization
+proceeds in the background.  To check the state of the asynchronous
+optimization, query the <A HREF="status.html#attr:Status">Status</A> attribute
+for the model.  A value of <code>IN_PROGRESS</code> indicates that the
+optimization has not yet completed.  When you are done with your
+foreground tasks, you must call
+<A HREF="cs_model_sync.html#dotnetmethod:GRBModel.Sync">Sync</A> to sync your foreground
+program with the asynchronous optimization task.
+
+<P>
+Note that the set of Gurobi calls that you are allowed to make while
+optimization is running in the background is severely limited.
+Specifically, you can only perform attribute queries, and only for a
+few attributes (listed below).  Any other calls on the running model,
+<EM>or on any other models that were built within the same Gurobi
+  environment</EM>, will fail with error code
+<code>OPTIMIZATION_IN_PROGRESS</code>.
+
+<P>
+Note that there are no such restrictions on models built in other
+environments.  Thus, for example, you could create multiple
+environments, and then have a single foreground program launch
+multiple simultaneous asynchronous optimizations, each in its own
+environment.
+
+<P>
+As already noted, you are allowed to query the value of the <code>Status</code>
+attribute while an asynchronous optimization is in progress.  The other
+attributes that can be queried are:
+<A HREF="objval.html#attr:ObjVal">ObjVal</A>,
+<A HREF="objbound.html#attr:ObjBound">ObjBound</A>,
+<A HREF="itercount.html#attr:IterCount">IterCount</A>,
+<A HREF="nodecount.html#attr:NodeCount">NodeCount</A>, and
+<A HREF="baritercount.html#attr:BarIterCount">BarIterCount</A>.
+In each case, the returned value reflects progress in the optimization
+to that point.  Any attempt to query the value of
+an attribute not on this list will return an
+<code>OPTIMIZATION_IN_PROGRESS</code> error.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">OptimizeAsync</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_optimizebatch.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_optimize.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_optimizebatch.html">GRBModel.OptimizeBatch()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_optimize.html">GRBModel.Optimize()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

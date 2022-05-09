@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBColumn</TITLE>
+<META NAME="description" CONTENT="GRBColumn">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_cb_.html">
+<LINK REL="previous" HREF="java_qex.html">
+<LINK REL="next" HREF="java_column2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_column2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_qex_size.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_column2.html">GRBColumn()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_qex_size.html">GRBQuadExpr.size()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000611000000000000000"></A>
+<A ID="javaclass:GRBColumn"></A>
+<BR>
+GRBColumn
+</H2>
+
+<P>
+Gurobi column object.  A column consists of a list of coefficient,
+constraint pairs.  Columns are used to represent the set of
+constraints in which a variable participates, and the associated
+coefficients.  They are temporary objects that typically have short
+lifespans.
+
+<P>
+You generally build columns by starting with an empty column (using
+the <A HREF="java_column2.html#javamethod:GRBColumn">GRBColumn</A> constructor), and
+then adding terms.  Terms can be added individually, using
+<A HREF="java_column_addterm.html#javamethod:GRBColumn.addTerm">addTerm</A>, or in groups,
+using <A HREF="java_column_addterms.html#javamethod:GRBColumn.addTerms">addTerms</A>.  Terms
+can also be removed from a column, using
+<A HREF="java_column_remove.html#javamethod:GRBColumn.remove">remove</A>.
+
+<P>
+Individual terms in a column can be queried using the
+<A HREF="java_column_getconstr.html#javamethod:GRBColumn.getConstr">getConstr</A>, and
+<A HREF="java_column_getcoeff.html#javamethod:GRBColumn.getCoeff">getCoeff</A> methods.  You
+can query the number of terms in the column using the
+<A HREF="java_column_size.html#javamethod:GRBColumn.size">size</A> method.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2754"
+  HREF="java_column2.html">GRBColumn()</A>
+<LI><A ID="tex2html2755"
+  HREF="java_column_addterm.html">GRBColumn.addTerm()</A>
+<LI><A ID="tex2html2756"
+  HREF="java_column_addterms.html">GRBColumn.addTerms()</A>
+<LI><A ID="tex2html2757"
+  HREF="java_column_clear.html">GRBColumn.clear()</A>
+<LI><A ID="tex2html2758"
+  HREF="java_column_getcoeff.html">GRBColumn.getCoeff()</A>
+<LI><A ID="tex2html2759"
+  HREF="java_column_getconstr.html">GRBColumn.getConstr()</A>
+<LI><A ID="tex2html2760"
+  HREF="java_column_remove.html">GRBColumn.remove()</A>
+<LI><A ID="tex2html2761"
+  HREF="java_column_size.html">GRBColumn.size()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_column2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_qex_size.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_column2.html">GRBColumn()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_qex_size.html">GRBQuadExpr.size()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

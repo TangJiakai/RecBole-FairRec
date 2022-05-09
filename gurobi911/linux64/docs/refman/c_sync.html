@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBsync</TITLE>
+<META NAME="description" CONTENT="GRBsync">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="c_reset.html">
+<LINK REL="next" HREF="c_model_queries.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_model_queries.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_reset.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_model_queries.html">Model Queries</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_reset.html">GRBreset</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023700000000000000"></A>
+<A ID="routine:GRBsync"></A>
+<BR>
+GRBsync
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBsync</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model )</TD>
+</TR>
+</TABLE>
+
+<P>
+Wait for a previous asynchronous optimization call to complete.
+
+<P>
+Calling
+<A HREF="c_optimizeasync.html#routine:GRBoptimizeasync">GRBoptimizeasync</A>
+returns control to the calling routine immediately.  The caller can
+perform other computations while optimization proceeds, and can check
+on the progress of the optimization by querying various model
+attributes.  The <code>GRBsync</code> call forces the calling program to wait
+until the asynchronous optimization completes.  You <EM>must</EM> call
+<code>GRBsync</code> before the corresponding model is freed.
+
+<P>
+The <code>GRBsync</code> call returns a non-zero error code if the
+optimization itself ran into any problems.  In other words, error
+codes returned by this method are those that <code>GRBoptimize</code> itself
+would have returned, had the original method not been asynchronous.
+
+<P>
+Note that you need to call <code>GRBsync</code> even if you know that the
+asynchronous optimization has already completed.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while solving the model.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model that is currently being solved.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  error = GRBoptimizeasync(model);
+
+  /* ... perform other compute-intensive tasks... */
+
+  error = GRBsync(model);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_model_queries.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_reset.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_model_queries.html">Model Queries</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_reset.html">GRBreset</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

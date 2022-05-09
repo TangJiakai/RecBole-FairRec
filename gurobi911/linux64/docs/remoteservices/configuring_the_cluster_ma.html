@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Configuring the Cluster Manager</TITLE>
+<META NAME="description" CONTENT="Configuring the Cluster Manager">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="sta_the_cluster_manager_as.html">
+<LINK REL="previous" HREF="cluster_manager_server__rs.html">
+<LINK REL="next" HREF="sta_the_cluster_manager_as.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sta_the_cluster_manager_as.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cluster_manager_server__rs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_the_cluster_manager_as.html">Starting the Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="cluster_manager_server__rs.html">Cluster Manager Server (grb_rsm)</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023300000000000000"></A>
+<A ID="sec:RSMConfig"></A>
+<BR>
+Configuring the Cluster Manager
+</H3>
+
+<P>
+The Cluster Manager server has a number of configuration properties
+that affect its behavior.  These can be controlled using a <TT>  grb_rsm.cnf</TT> configuration file.  The installation package includes
+a predefined configuration file that can be used as a starting point
+(<TT>&lt;installdir&gt;/bin/grb_rsm.cnf</TT>).
+
+<P>
+The simplest way to modify the parameters is to edit the default
+configuration file.  Other options are available, though.  The
+<TT>grb_rsm</TT> process uses the following precedence rules:
+
+<UL>
+<LI>First priority: properties set with a command-line flag (using <TT>--config</TT>)
+</LI>
+<LI>Second priority: a configuration file in the current directory
+</LI>
+<LI>Third priority: a configuration file in a shared directory (<TT>C:&#92;gurobi</TT>, <TT>/opt/gurobi</TT>, <TT>/Library/gurobi</TT> for Windows, Linux, and Mac OS platforms, respectively)
+</LI>
+<LI>Fourth priority: a configuration file in the directory where <TT>grb_rsm</TT> is located
+</LI>
+</UL>
+Most of the properties that are configured through this file are
+related to communication options or the database connection.  The
+configuration file is read once, when <TT>grb_rsm</TT> first
+starts.  Subsequent changes to the file won't affect parameter values
+on a running server.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Configuration file format</SPAN></SPAN>
+
+<P>
+The configuration file contains a list of properties of the form
+<TT>PROPERTY=value</TT>.  Lines that begin with the # symbol are
+treated as comments and are ignored.  Here is an example:
+
+<PRE>
+# grb_rsm.cnf configuration file
+PORT=61080
+CLUSTER_TOKEN=GRBTK-BzlUTKg9M/+HUvOpy/EPebc1CsttzOfdrfQshL4QkLm1FA==
+DB_URI=mongodb://127.0.0.1:27017
+</PRE>
+While you could create this file from scratch, we recommend you start
+with the version that is included with the product and modify it
+instead.
+
+<P>
+The <code>grb_rsm properties</code> command lists all of the available
+properties, their default values, and provides documentation for each.
+Some can be overridden on the <code>grb_rsm</code> command line; the
+<code>grb_rsm properties</code> command shows the name of the command-line
+flag you would use. Here are some of the more important ones:
+<DL>
+<DT><STRONG>CLUSTER_TOKEN</STRONG></DT>
+<DD>The token is a private key that enables different
+  nodes to join the same cluster.  All nodes of a cluster and the Cluster Manager must have
+  the same token.  We recommended that you generate a brand new token
+  when you set up your cluster.  The <TT>grb_rs token</TT> command
+  will generate a random token, which you can copy into
+  the configuration file.
+</DD>
+<DT><STRONG>DB_URI</STRONG></DT>
+<DD>This is the connection string to your database.
+</DD>
+<DT><STRONG>PORT</STRONG></DT>
+<DD>This property indicates what port to use for HTTP or HTTPS
+  communication between the clients and the Cluster Manager. By
+  default, it will use the port 61080.
+</DD>
+<DT><STRONG>HISTORY_MAX_AGE</STRONG></DT>
+<DD>This property indicates how long to keep the
+  jobs and batches in the history.  The default is 7 days.
+</DD>
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sta_the_cluster_manager_as.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cluster_manager_server__rs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_the_cluster_manager_as.html">Starting the Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="cluster_manager_server__rs.html">Cluster Manager Server (grb_rsm)</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

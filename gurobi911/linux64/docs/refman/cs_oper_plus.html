@@ -1,0 +1,393 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>operator +</TITLE>
+<META NAME="description" CONTENT="operator +">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_oper_minus.html">
+<LINK REL="previous" HREF="cs_oper_equal.html">
+<LINK REL="next" HREF="cs_oper_minus.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_oper_minus.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_overloaded_opers.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_oper_equal.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_oper_minus.html">operator -</A>
+<B> Up:</B> <A
+ HREF="cs_overloaded_opers.html">Overloaded Operators</A>
+<B> Previous:</B> <A
+ HREF="cs_oper_equal.html">operator ==</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000813400000000000000"></A>
+<A ID="dotnetmethod:operator+"></A>
+<BR>
+operator +
+</H3>
+
+<P>
+Create a new expression by adding a pair of Gurobi objects.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT">expr1,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT">expr2 )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">expr1</SPAN>: First linear expression argument.
+
+<P>
+ <SPAN  CLASS="textbf">expr2</SPAN>: Second linear expression argument.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A linear expression that is equal to the sum
+  of the two argument expressions.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT">expr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">expr</SPAN>: Linear expression argument.
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable argument.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A linear expression that is equal to the sum
+  of the argument linear expression and the argument variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT">expr )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable argument.
+
+<P>
+ <SPAN  CLASS="textbf">expr</SPAN>: Linear expression argument.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A linear expression that is equal to the sum
+  of the argument linear expression and the argument variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var1,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var2 )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">var1</SPAN>: First variable argument.
+
+<P>
+ <SPAN  CLASS="textbf">var2</SPAN>: Second variable argument.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A linear expression that is equal to the sum
+  of the two argument variables.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">a,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">a</SPAN>: Constant.
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A linear expression that is equal to the sum
+  of the constant and the variable argument.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">a )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable.
+
+<P>
+ <SPAN  CLASS="textbf">a</SPAN>: Constant.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A linear expression that is equal to the sum
+  of the constant and the variable argument.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT">expr1,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT">expr2 )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">expr1</SPAN>: First quadratic expression argument.
+
+<P>
+ <SPAN  CLASS="textbf">expr2</SPAN>: Second quadratic expression argument.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A quadratic expression that is equal to the sum
+  of the two argument quadratic expressions.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT">expr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">expr</SPAN>: Quadratic expression argument.
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable argument.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A quadratic expression that is equal to the sum
+  of the argument quadratic expression and the argument variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">operator +</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBQuadExpr</TD>
+<TD CLASS="LEFT">expr )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable argument.
+
+<P>
+ <SPAN  CLASS="textbf">expr</SPAN>: Quadratic expression argument.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A quadratic expression that is equal to the sum
+  of the argument quadratic expression and the argument variable.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_oper_minus.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_overloaded_opers.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_oper_equal.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_oper_minus.html">operator -</A>
+<B> Up:</B> <A
+ HREF="cs_overloaded_opers.html">Overloaded Operators</A>
+<B> Previous:</B> <A
+ HREF="cs_oper_equal.html">operator ==</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

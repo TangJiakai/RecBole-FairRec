@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Building the model</TITLE>
+<META NAME="description" CONTENT="Building the model">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="matlab_modifying_grb_param.html">
+<LINK REL="previous" HREF="matlab_example_details.html">
+<LINK REL="next" HREF="matlab_modifying_grb_param.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="matlab_modifying_grb_param.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_example_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_modifying_grb_param.html">Modifying Gurobi parameters</A>
+<B> Up:</B> <A
+ HREF="matlab_interface.html">MATLAB Interface</A>
+<B> Previous:</B> <A
+ HREF="matlab_example_details.html">Example details</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000124000000000000000">
+Building the model</A>
+</H2>
+
+<P>
+The example begins by building an optimization model.  The data
+associated with an optimization model must be stored in a MATLAB
+<code>struct</code>.  Fields in this struct contain the different parts of
+the model.  The most fundamental fields are: The constraint matrix
+(<code>A</code>), the objective vector (<code>obj</code>), the right-hand side
+vector (<code>rhs</code>), and the constraint sense vector (<code>sense</code>).
+Among these, only the constraint matrix is mandatory, and default
+values are substituted for all other model fields in case they are
+missing.
+
+<P>
+The example uses the built-in <code>sparse</code> function to build the
+constraint matrix <code>A</code>.  The Gurobi MATLAB interface only accepts
+sparse matrices as input.  If you have a dense matrix, use
+<code>sparse</code> to convert it to a sparse matrix before passing it to
+our interface.
+
+<P>
+In addition to the fields discussed above, this example sets two
+more fields: <code>modelsense</code> and <code>vtype</code>.  The former is
+used to indicate the sense of the objective function.  The default is
+minimization, so we've set the field equal to <code>'max'</code> to
+indicate that we would like to maximize the specified objective.  The
+<code>vtype</code> field is used to indicate the types of the variables in
+the model.  In our example, all variables are binary (<code>'B'</code>).
+Note that our interface allows you to specify a scalar value for the
+<code>sense</code> and <code>vtype</code> arguments.  The Gurobi interface will
+expand that scalar to a constant array of the appropriate length.  In
+this example, the scalar value <code>'B'</code> will be expanded to an
+array of length 3, containing one <code>'B'</code> value for each column of
+<code>A</code>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="matlab_modifying_grb_param.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_example_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_modifying_grb_param.html">Modifying Gurobi parameters</A>
+<B> Up:</B> <A
+ HREF="matlab_interface.html">MATLAB Interface</A>
+<B> Previous:</B> <A
+ HREF="matlab_example_details.html">Example details</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

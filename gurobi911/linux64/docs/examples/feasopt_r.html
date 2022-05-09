@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>feasopt.R</TITLE>
+<META NAME="description" CONTENT="feasopt.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="fixanddive_r.html">
+<LINK REL="previous" HREF="facility_r.html">
+<LINK REL="next" HREF="fixanddive_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="fixanddive_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="facility_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="fixanddive_r.html">fixanddive.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="facility_r.html">facility.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00028400000000000000"></A>
+<A ID="subsubsection:feasopt.R"></A>
+<BR>
+feasopt.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# This example reads a MIP model from a file, adds artificial
+# variables to each constraint, and then minimizes the sum of the
+# artificial variables.  A solution with objective zero corresponds
+# to a feasible solution to the input model.
+# We can also use FeasRelax feature to do it. In this example, we
+# use minrelax=1, i.e. optimizing the returned model finds a solution
+# that minimizes the original objective, but only from among those
+# solutions that minimize the sum of the artificial variables.
+
+library(Matrix)
+library(gurobi)
+
+args &lt;- commandArgs(trailingOnly = TRUE)
+if (length(args) &lt; 1) {
+  stop('Usage: Rscript feasopt.R filename\n')
+}
+
+# Set-up environment
+env &lt;- list()
+env$logfile &lt;- 'feasopt.log'
+
+# Read model
+cat('Reading model',args[1],'...')
+model &lt;- gurobi_read(args[1], env)
+cat('... done\n')
+
+# Create penalties
+penalties     &lt;- list()
+penalties$lb  &lt;- Inf
+penalties$ub  &lt;- Inf
+penalties$rhs &lt;- rep(1,length(model$rhs))
+
+result &lt;- gurobi_feasrelax(model, 0, TRUE, penalties, env = env)
+
+# Display results
+if (result$feasobj &gt; 1e-6) {
+  cat('Model',args[1],'is infeasible within variable bounds\n')
+} else {
+  cat('Model',args[1],'is feasible\n')
+}
+
+# Clear space
+rm(env, model, penalties, result)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="fixanddive_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="facility_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="fixanddive_r.html">fixanddive.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="facility_r.html">facility.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

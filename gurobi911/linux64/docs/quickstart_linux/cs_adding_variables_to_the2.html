@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Adding variables to the model</TITLE>
+<META NAME="description" CONTENT="Adding variables to the model">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_setting_the_objective2.html">
+<LINK REL="previous" HREF="cs_creating_the_model2.html">
+<LINK REL="next" HREF="cs_setting_the_objective2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_setting_the_objective2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_simple_python_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_creating_the_model2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_setting_the_objective2.html">Setting the objective</A>
+<B> Up:</B> <A
+ HREF="cs_simple_python_example.html">Simple Python Example</A>
+<B> Previous:</B> <A
+ HREF="cs_creating_the_model2.html">Creating the model</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000114400000000000000">
+Adding variables to the model</A>
+</H3>
+
+<P>
+The next step in our example is to add variables to the model.
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    # Create variables
+    x = m.addVar(vtype=GRB.BINARY, name="x")
+</PRE>
+
+<P>
+Variables are added through the <code>addVar()</code> method on a model
+object (or <code>addVars()</code> if you wish to add more than one at a time).
+A variable is always associated with a particular model.
+
+<P>
+Python allows you to pass arguments by position or by name.  We've
+passed them by name here.  Each variable gets a type (binary), and
+a name.  We use the default values for the other arguments.
+Please refer to the online help (<code>help(Model.addVar)</code>
+in the Gurobi Shell) for further details on <code>addVar()</code>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_setting_the_objective2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_simple_python_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_creating_the_model2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_setting_the_objective2.html">Setting the objective</A>
+<B> Up:</B> <A
+ HREF="cs_simple_python_example.html">Simple Python Example</A>
+<B> Previous:</B> <A
+ HREF="cs_creating_the_model2.html">Creating the model</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

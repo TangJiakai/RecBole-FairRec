@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBgetbatchjsonsolution</TITLE>
+<META NAME="description" CONTENT="GRBgetbatchjsonsolution">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_getbatchstrattr.html">
+<LINK REL="previous" HREF="c_getbatchintattr.html">
+<LINK REL="next" HREF="c_getbatchstrattr.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_getbatchstrattr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getbatchintattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getbatchstrattr.html">GRBgetbatchstrattr</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_getbatchintattr.html">GRBgetbatchintattr</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000210700000000000000"></A>
+<A ID="routine:GRBgetbatchjsonsolution"></A>
+<BR>
+GRBgetbatchjsonsolution
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBgetbatchjsonsolution</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBbatch</TD>
+<TD CLASS="LEFT">*batch,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char**</TD>
+<TD CLASS="LEFT">jsonsolP )</TD>
+</TR>
+</TABLE>
+
+<P>
+This function retrieves the solution of a
+completed batch request from a Cluster Manager. The solution is returned as a
+<A HREF="json_solution_format.html#format:JSON">JSON solution string</A>. For this call to
+succeed, the status of the batch request must be <TT>COMPLETED</TT>.
+Please refer to the <A HREF="batch_status_codes.html#sec:BatchStatusCodes">Batch Status
+Codes</A> section for further details.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while querying the batch solution.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">batch</SPAN>: The batch to query.
+
+<P>
+ <SPAN  CLASS="textbf">jsonsolP</SPAN>: The location in which the pointer to the newly
+  created JSON string should be placed.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Important note:</SPAN></SPAN>
+
+<P>
+On Windows, the string returned in <code>buffP</code> is allocated in a
+different heap from the calling program.  You must call <code>GRBfree</code>
+to free it.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      /* print JSON solution into string */
+      error = GRBgetbatchjsonsolution(batch, &amp;jsonsol);
+      if (error) goto QUIT;
+      printf("JSON solution: %s\n", jsonsol);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_getbatchstrattr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_batch_requests.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getbatchintattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getbatchstrattr.html">GRBgetbatchstrattr</A>
+<B> Up:</B> <A
+ HREF="c_batch_requests.html">Batch Requests</A>
+<B> Previous:</B> <A
+ HREF="c_getbatchintattr.html">GRBgetbatchintattr</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

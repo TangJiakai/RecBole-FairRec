@@ -1,0 +1,172 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBCallback::addLazy()</TITLE>
+<META NAME="description" CONTENT="GRBCallback::addLazy()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_cb_getdoubleinfo.html">
+<LINK REL="previous" HREF="cpp_cb_addcut.html">
+<LINK REL="next" HREF="cpp_cb_getdoubleinfo.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_cb_getdoubleinfo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_addcut.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_getdoubleinfo.html">GRBCallback::getDoubleInfo()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_addcut.html">GRBCallback::addCut()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000413400000000000000"></A>
+<A ID="cppmethod:GRBCallback::addLazy"></A>
+<BR>
+GRBCallback::addLazy()
+</H3>
+
+<P>
+Add a lazy constraint to the MIP model from within a callback function.
+Note that this method can only be invoked when the <code>where</code>
+member variable is equal to <SPAN  CLASS="texttt">GRB_CB_MIPNODE</SPAN> or <SPAN  CLASS="texttt">GRB_CB_MIPSOL</SPAN> (see the
+<A HREF="cb_codes.html#sec:CallbackCodes">Callback Codes</A> section for more
+information).
+
+<P>
+Lazy constraints are typically used when the full set of constraints
+for a MIP model is too large to represent explicitly.  By only
+including the constraints that are actually violated by solutions
+found during the branch-and-cut search, it is sometimes possible to
+find a proven optimal solution while only adding a fraction of the
+full set of constraints.
+
+<P>
+You would typically add a lazy constraint by first querying the
+current node solution (by calling
+<A HREF="cpp_cb_getsolution.html#cppmethod:GRBCallback::getSolution">getSolution</A> from a
+<SPAN  CLASS="texttt">GRB_CB_MIPSOL</SPAN> callback, or
+<A HREF="cpp_cb_getnoderel.html#cppmethod:GRBCallback::getNodeRel">getNodeRel</A> from a
+<SPAN  CLASS="texttt">GRB_CB_MIPNODE</SPAN> callback), and then calling <code>addLazy()</code> to add
+a constraint that cuts off the solution.  Gurobi guarantees that you
+will have the opportunity to cut off any solutions that would
+otherwise be considered feasible.
+
+<P>
+Your callback should be prepared to cut off solutions that violate any
+of your lazy constraints, including those that have already been
+added.  Node solutions will usually respect previously added lazy
+constraints, but not always.
+
+<P>
+Note that you must set the
+<A HREF="lazyconstraints.html#parameter:LazyConstraints">LazyConstraints</A>
+parameter if you want to use lazy constraints.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addLazy</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">const GRBLinExpr&amp;</TD>
+<TD CLASS="LEFT">lhsExpr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">sense,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">rhsVal )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lhsExpr</SPAN>: Left-hand side expression for new lazy constraint.
+
+<P>
+ <SPAN  CLASS="textbf">sense</SPAN>: Sense for new lazy constraint (<SPAN  CLASS="texttt">GRB_LESS_EQUAL</SPAN>,
+  <SPAN  CLASS="texttt">GRB_EQUAL</SPAN>, or <SPAN  CLASS="texttt">GRB_GREATER_EQUAL</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">rhsVal</SPAN>: Right-hand side value for new lazy constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addLazy</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBTempConstr&amp;</TD>
+<TD CLASS="LEFT">tc )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">tc</SPAN>: Temporary constraint object, created using an overloaded
+  comparison operator.  See
+  <A HREF="cpp_tempconstr.html#cppclass:GRBTempConstr">GRBTempConstr</A> for more
+  information.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_cb_getdoubleinfo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_addcut.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_getdoubleinfo.html">GRBCallback::getDoubleInfo()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_addcut.html">GRBCallback::addCut()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

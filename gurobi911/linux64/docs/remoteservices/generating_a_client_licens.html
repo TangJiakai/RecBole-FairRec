@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Generating a Client License with grbcluster</TITLE>
+<META NAME="description" CONTENT="Generating a Client License with grbcluster">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="queueing_load_balancing_an.html">
+<LINK REL="previous" HREF="client_license_file.html">
+<LINK REL="next" HREF="queueing_load_balancing_an.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="queueing_load_balancing_an.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_license_file.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="queueing_load_balancing_an.html">Queueing, Load Balancing, and</A>
+<B> Up:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Previous:</B> <A
+ HREF="client_license_file.html">Client License File</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00031200000000000000"></A>
+<A ID="sec:grbcluster"></A>
+<BR>
+Generating a Client License with grbcluster
+</H3>
+
+<P>
+Your primary tool for issuing cluster commands is a
+command-line program called <TT>grbcluster</TT>.  The format of
+the command-line tool is as follows
+(see the <A HREF="appendix_e_cluster.html#sec:RSClusterRef">reference section</A>
+for more information):
+
+<PRE>
+  grbcluster --help                Display usage
+  grbcluster command [flags]       Execute a top-level command
+  grbcluster command --help        Display help about a top-level command
+  grbcluster group command [flags] Execute a command from a group
+  grbcluster group command --help  Display help about a command
+                                   from a group
+</PRE>
+
+<P>
+The first important command is the <TT>login</TT> command, which
+accepts various flags to allow you to configure your connection.  Once
+your connection is validated, it will save these parameters into the
+license file. If the license file does not exist, it will create one.
+If you want to store the license file in a custom location, you can
+use the environment variable <TT>GRB_LICENSE_FILE</TT>. The
+command tools <TT>grbcluster</TT>, <TT>gurobi_cl</TT>, and
+<TT>grbtune</TT> will first read the client license file so that
+you do not need to specify connection parameters each time.
+
+<P>
+Here are some examples of the <TT>login</TT> command :
+
+<UL>
+<LI>Log in to a Cluster Manager with a username and password:
+
+<PRE>
+grbcluster login --manager=http://mymanager:61080 --username=gurobi
+</PRE>
+Note that if a password is necessary, you will be prompted for it.
+This is more secure than providing one on the command line,
+but that is an option too (using the <code>--password</code> flag).
+
+<P>
+</LI>
+<LI>Refresh login to a Cluster Manager to extend an expired session:
+
+<PRE>
+grbcluster login
+</PRE>
+
+<P>
+</LI>
+<LI>Log in to a Cluster Manager with an API key:
+
+<PRE>
+grbcluster login --manager=http://mymanager:61080 --access=... --secret=...
+</PRE>
+
+<P>
+</LI>
+<LI>Log in to a Compute Server in a self-managed cluster:
+
+<PRE>
+grbcluster login --server=http://server1:61000
+</PRE>
+
+<P>
+</LI>
+<LI>Log in to a Compute Server that uses a router:
+
+<PRE>
+grbcluster login --server=http://server1:61001 --router=http://myrouter:61000
+</PRE>
+</LI>
+</UL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="queueing_load_balancing_an.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_license_file.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="queueing_load_balancing_an.html">Queueing, Load Balancing, and</A>
+<B> Up:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Previous:</B> <A
+ HREF="client_license_file.html">Client License File</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

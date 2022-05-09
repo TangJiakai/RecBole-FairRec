@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>TempConstr</TITLE>
+<META NAME="description" CONTENT="TempConstr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_column.html">
+<LINK REL="previous" HREF="py_mqex.html">
+<LINK REL="next" HREF="py_column.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_column.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_mqex_ge_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_column.html">Column</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_mqex_ge_.html">MQuadExpr.__ge__()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0001015000000000000000"></A>
+<A ID="pythonclass:TempConstr"></A>
+<BR>
+TempConstr
+</H2>
+
+<P>
+Gurobi temporary constraint object.  Objects of this class are created
+as intermediate results when building constraints using overloaded
+operators.  There are no member functions on this class.  Instead,
+<code>TempConstr</code> objects are created by a set of functions
+on <A HREF="py_var.html#pythonclass:Var">Var</A>,
+<A HREF="py_mvar.html#pythonclass:MVar">MVar</A>,
+<A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A>,
+<A HREF="py_qex.html#pythonclass:QuadExpr">QuadExpr</A>,
+<A HREF="py_mlex.html#pythonclass:MLinExpr">MLinExpr</A>,
+<A HREF="py_mqex.html#pythonclass:MQuadExpr">MQuadExpr</A>, and
+<A HREF="py_genexpr.html#pythonclass:GenExpr">GenExpr</A> objects
+(e.g.,
+<A HREF="py_lex_eq_.html#pythonmethod:LinExpr.__eq__">==</A>,
+<A HREF="py_lex_le_.html#pythonmethod:LinExpr.__le__">&lt;=</A>, and
+<A HREF="py_lex_ge_.html#pythonmethod:LinExpr.__ge__">&gt;=</A>).
+You will generally never store objects of this class in your own variables.
+
+<P>
+The <code>TempConstr</code> object allows
+you to create several different types of constraints:
+
+<P>
+
+<UL>
+<LI><B>Linear Constraint:</B> an expression of the form
+<code>Expr1 sense Expr1</code>,
+where <code>Expr1</code> and <code>Expr2</code> are
+<A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A> objects,
+<A HREF="py_var.html#pythonclass:Var">Var</A> objects, or constants,
+and <code>sense</code> is one of <code>==</code>, <code>&lt;=</code> or <code>&gt;=</code>.
+For example, <code>x + y &lt;= 1 + z</code> is a linear constraint,
+as is <code>x + y == 5</code>.
+Note that <code>Expr1</code> and <code>Expr2</code> can't both
+be constants.
+
+<P>
+</LI>
+<LI><B>Ranged Linear Constraint:</B> an expression of the form
+<code>LinExpr == [Const1, Const2]</code>,
+where <code>Const1</code> and <code>Const2</code> are constants and <code>LinExpr</code>
+is a <A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A> object.
+For example, <code>x + y == [1, 2]</code> is a ranged linear constraint.
+
+<P>
+</LI>
+<LI><B>Quadratic Constraint:</B> an expression of the form
+<code>Expr1 sense Expr2</code>,
+where <code>Expr1</code> and <code>Expr2</code> are
+<A HREF="py_qex.html#pythonclass:QuadExpr">QuadExpr</A> objects,
+<A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A> objects,
+<A HREF="py_var.html#pythonclass:Var">Var</A> objects,
+or constants,
+and <code>sense</code> is one
+of <code>==</code>, <code>&lt;=</code> or <code>&gt;=</code>.
+For example, <code>x*x + y*y &lt;= 3</code> is a quadratic constraint,
+as is <code>x*x + y*y &lt;= z*z</code>.
+Note that one of <code>Expr1</code> or <code>Expr2</code> must
+be a <A HREF="py_qex.html#pythonclass:QuadExpr">QuadExpr</A>
+(otherwise, the constraint would be linear).
+
+<P>
+</LI>
+<LI><B>Linear Matrix Constraint:</B> an expression of the form
+<code>Expr1 sense Expr1</code>,
+where one or both of <code>Expr1</code> and <code>Expr2</code> are
+<A HREF="py_mlex.html#pythonclass:MLinExpr">MLinExpr</A> objects
+and <code>sense</code> is one of <code>==</code>, <code>&lt;=</code> or <code>&gt;=</code>.
+For example, <code>A @ x &lt;= 1</code> is a linear matrix constraint,
+as is <code>A @ x == B @ y</code>.
+
+<P>
+</LI>
+<LI><B>Quadratic Matrix Constraint:</B> an expression of the form
+<code>Expr1 sense Expr2</code>,
+where one or both of <code>Expr1</code> and <code>Expr2</code> are
+<A HREF="py_mqex.html#pythonclass:MQuadExpr">MQuadExpr</A> objects
+and <code>sense</code> is one
+of <code>==</code>, <code>&lt;=</code> or <code>&gt;=</code>.
+For example, <code>x @ Q @ y &lt;= 3</code> is a quadratic constraint,
+as is <code>x @ Q @ x &lt;= y @ A @ y</code>.
+
+<P>
+</LI>
+<LI><B>Absolute Value Constraint:</B> an expression of the form
+<code>x == abs_(y)</code>, where <code>x</code> and <code>y</code> must be
+<A HREF="py_var.html#pythonclass:Var">Var</A> objects.
+
+<P>
+</LI>
+<LI><B>Logical Constraint:</B> an expression of the form
+<code>x == op_(y)</code>, where <code>x</code> is a binary
+<A HREF="py_var.html#pythonclass:Var">Var</A> object, and <code>y</code> is a binary
+<A HREF="py_var.html#pythonclass:Var">Var</A>, a list of binary
+<A HREF="py_var.html#pythonclass:Var">Var</A>, or a
+<A HREF="py_tupledict.html#pythonclass:tupledict">tupledict</A> of binary
+<A HREF="py_var.html#pythonclass:Var">Var</A>, and <code>op_</code> is either
+<code>and_</code> or <code>or_</code>
+(or the Python-specific variants, <code>all_</code> and <code>any_</code>).
+
+<P>
+</LI>
+<LI><B>Min or Max Constraint:</B> an expression of the form
+<code>x == op_(y)</code>, where <code>x</code> is a <A HREF="py_var.html#pythonclass:Var">Var</A>
+object, and <code>y</code> is a <A HREF="py_var.html#pythonclass:Var">Var</A>, a list
+of <A HREF="py_var.html#pythonclass:Var">Var</A> and constants, or a
+<A HREF="py_tupledict.html#pythonclass:tupledict">tupledict</A> of
+<A HREF="py_var.html#pythonclass:Var">Var</A>, and <code>op_</code> is one of
+<code>min_</code> or <code>max_</code>.
+
+<P>
+</LI>
+<LI><B>Indicator Constraint:</B> an expression of the form
+<code>(x == b) &gt;&gt; (Expr1 sense Expr2)</code>,
+where <code>x</code> is a binary
+<A HREF="py_var.html#pythonclass:Var">Var</A> object, <code>b</code> is either
+<code>0</code> or <code>1</code>; <code>Expr1</code> and <code>Expr2</code> are
+<A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A> objects,
+<A HREF="py_var.html#pythonclass:Var">Var</A> objects, or constants,
+and <code>sense</code>
+is one of <code>==</code>, <code>&lt;=</code> or <code>&gt;=</code>.
+Parenthesizing both expressions is required.
+For example, <code>(x == 1) &gt;&gt; (y + w &lt;= 5)</code> is an indicator
+constraint, indicating that whenever the binary variable <code>x</code> takes
+the value <code>1</code> then the linear constraint <code>y + w &lt;= 5</code> must
+hold.
+</LI>
+</UL>
+
+<P>
+Consider the following examples:
+<PRE>
+  model.addConstr(x + y == 1);
+  model.addConstr(x + y == [1, 2]);
+  model.addConstr(x*x + y*y &lt;= 1);
+  model.addConstr(A @ x &lt;= 1);
+  model.addConstr(x @ A @ x &lt;= 1);
+  model.addConstr(x == abs_(y));
+  model.addConstr(x == or_(y, z));
+  model.addConstr(x == max_(y, z));
+  model.addConstr((x == 1) &gt;&gt; (y + z &lt;= 5));
+</PRE>
+In each case, the overloaded comparison operator creates an object of
+type <code>TempConstr</code>, which is then immediately passed to method
+<A HREF="py_model_addconstr.html#pythonmethod:Model.addConstr">Model.addConstr</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_column.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_mqex_ge_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_column.html">Column</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_mqex_ge_.html">MQuadExpr.__ge__()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

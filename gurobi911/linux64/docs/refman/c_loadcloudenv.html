@@ -1,0 +1,200 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBloadcloudenv</TITLE>
+<META NAME="description" CONTENT="GRBloadcloudenv">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_freeenv.html">
+<LINK REL="previous" HREF="c_loadclientenv.html">
+<LINK REL="next" HREF="c_freeenv.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_freeenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_loadclientenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_freeenv.html">GRBfreeenv</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_loadclientenv.html">GRBloadclientenv</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00021500000000000000"></A>
+<A ID="routine:GRBloadcloudenv"></A>
+<BR>
+GRBloadcloudenv
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBloadcloudenv</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBenv</TD>
+<TD CLASS="LEFT">**envP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*logfilename,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*accessID,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*secretKey,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*pool,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">priority )</TD>
+</TR>
+</TABLE>
+
+<P>
+Create a Gurobi Instant Cloud environment.  Optimization models live
+within an environment, so this is typically the first Gurobi routine
+called in an application.  This call will use an existing Instant
+Cloud machine if one is currently running within the specified machine
+pool, and it will launch a new one otherwise.  Note that launching a
+new machine can take a few minutes.
+
+<P>
+You should visit the Gurobi Instant Cloud site to obtain your
+<code>accessID</code> and <code>secretKey</code>, configure your machine pools,
+and perform other cloud setup and maintenance tasks.
+
+<P>
+You should keep your secretKey private.  Sharing it with others will
+allow them to launch Instant Cloud instances in your account.
+
+<P>
+This routine will also check the current working directory for a file
+named <TT>gurobi.env</TT>, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in <A HREF="prm_format.html#format:PRM">PRM</A> format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).
+
+<P>
+In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that there was a problem creating
+the environment.  Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error
+  Code</A> table for a list of possible return
+values.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">envP</SPAN>: The location in which the pointer to the newly created
+  environment should be placed.
+
+<P>
+ <SPAN  CLASS="textbf">logfilename</SPAN>: The name of the log file for this environment.
+  May be <SPAN  CLASS="texttt">NULL</SPAN> (or an empty string), in which case no log file is
+  created.
+
+<P>
+ <SPAN  CLASS="textbf">accessID</SPAN>: The access ID for your Gurobi Instant Cloud license.  This can be
+retrieved from the Gurobi Instant Cloud website.  When used in
+combination with your <SPAN  CLASS="texttt">secretKey</SPAN>, this allows you to launch
+Instant Cloud instances and submit jobs to them.
+
+<P>
+ <SPAN  CLASS="textbf">secretKey</SPAN>: The secret key for your Gurobi Instant Cloud license.  This can
+be retrieved from the Gurobi Instant Cloud website.  When used in
+combination with your <SPAN  CLASS="texttt">accessID</SPAN>, this allows you to launch
+Instant Cloud instances and submit jobs to them.  Note that you
+should keep your secret key private.
+
+<P>
+ <SPAN  CLASS="textbf">pool</SPAN>: The machine pool.  Machine pools allow you to create fixed
+configurations on the Instant Cloud website (capturing things
+like type of machine, geographic region, etc.), and then launch
+and share machines from client programs without having to
+restart the configuration information each time you launch a
+machine.  May be <SPAN  CLASS="texttt">NULL</SPAN> (or an empty string), in which case
+your job will be launched in the default pool associated with
+your cloud license.
+
+<P>
+ <SPAN  CLASS="textbf">priority</SPAN>: The priority of the job.  Priorities must be between -100 and
+100, with a default value of 0 (by convention).  Higher priority
+jobs are chosen from the server job queue before lower priority
+jobs.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  GRBenv *env;
+  error = GRBloadcloudenv(&amp;env, "gurobi.log",
+                          "3d1ecef9-dfad-eff4-b3fa", "ae6L23alJe3+fas",
+                          "", 0);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_freeenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_loadclientenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_freeenv.html">GRBfreeenv</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_loadclientenv.html">GRBloadclientenv</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

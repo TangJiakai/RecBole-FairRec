@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBsetobjectiven</TITLE>
+<META NAME="description" CONTENT="GRBsetobjectiven">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_setpwlobj.html">
+<LINK REL="previous" HREF="c_delvars.html">
+<LINK REL="next" HREF="c_setpwlobj.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_setpwlobj.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_delvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_setpwlobj.html">GRBsetpwlobj</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_delvars.html">GRBdelvars</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000223700000000000000"></A>
+<A ID="routine:GRBsetobjectiven"></A>
+<BR>
+GRBsetobjectiven
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBsetobjectiven</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">index,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">priority,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">weight,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">abstol,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">reltol,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*name,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">constant,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">lnz,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*lind,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*lval )</TD>
+</TR>
+</TABLE>
+
+<P>
+Set an alternative optimization objective equal to a linear expression.
+
+<P>
+Please refer to the discussion of
+<A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple Objectives</A> for
+information on how to specify multiple objective functions and control
+the trade-off between them.
+
+<P>
+Note that you can also modify an alternative objective using the
+<A HREF="objn.html#attr:ObjN">ObjN</A> variable attribute.  If you wish to mix
+and match these two approaches, please note that this method replaces
+the entire existing objective, while the <code>ObjN</code> attribute can be
+used to modify individual terms.
+
+<P>
+Note that, due to our lazy update approach, the new alternative objective won't actually be added
+  until you update the model
+  (using <A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>),
+  optimize the model
+  (using <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>),
+  or write the model to disk
+  (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while setting the alternative objective.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model in which the new alternative objective
+  should be set.
+
+<P>
+ <SPAN  CLASS="textbf">index</SPAN>: Index for new objective.  If you use
+  an index of 0, this routine will change the primary
+  optimization objective.
+
+<P>
+ <SPAN  CLASS="textbf">priority</SPAN>: Priority for the alternative objective.  This
+  initializes the <A HREF="objnpriority.html#attr:ObjNPriority">ObjNPriority</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">weight</SPAN>: Weight for the alternative objective.  This
+  initializes the <A HREF="objnweight.html#attr:ObjNWeight">ObjNWeight</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">abstol</SPAN>: Absolute tolerance for the alternative objective.  This
+  initializes the <A HREF="objnabstol.html#attr:ObjNAbsTol">ObjNAbsTol</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">reltol</SPAN>: Relative tolerance for the alternative objective.  This
+  initializes the <A HREF="objnreltol.html#attr:ObjNRelTol">ObjNRelTol</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name of the alternative objective.  This
+  initializes the <A HREF="objnname.html#attr:ObjNName">ObjNName</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">constant</SPAN>: Constant part of the linear expression for the new
+alternative objective.
+
+<P>
+ <SPAN  CLASS="textbf">lnz</SPAN>: Number of non-zero coefficients in new alternative objective.
+
+<P>
+ <SPAN  CLASS="textbf">lind</SPAN>: Variable indices for non-zero values in new alternative
+  objective.
+
+<P>
+ <SPAN  CLASS="textbf">lval</SPAN>: Numerical values for non-zero values in new alternative
+  objective.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int ind[] = {0, 1, 2};
+  double val[] = {1.0, 1.0, 1.0};
+  /* Objective expression: x0 + x1 + x2 */
+  error = GRBsetobjectiven(model, 0, 1, 0.0, 0.0, 0.0, "primary",
+                           0.0, 3, ind, val);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_setpwlobj.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_delvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_setpwlobj.html">GRBsetpwlobj</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_delvars.html">GRBdelvars</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Multi-objective environments</TITLE>
+<META NAME="description" CONTENT="Multi-objective environments">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="concurrent_environments.html">
+<LINK REL="next" HREF="attributes.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="attributes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="concurrent_environments.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="concurrent_environments.html">Concurrent environments</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000165000000000000000"></A>
+<A ID="subsection:MultiObjEnvironment"></A>
+<BR>
+Multi-objective environments
+</H2>
+
+<P>
+When solving a <A HREF="multiple_objectives.html#sec:MultipleObjectives">multi-objective
+  model</A>, the solution process typically
+proceeds in phases, where each phase solves for one objective.
+The standard algorithmic parameters influence
+the strategy used to solve the overall multi-objective model.
+However, in some cases you may want finer-grain control over
+the strategies used in each phase.  The solver enables this
+through <SPAN  CLASS="textit">multi-objective environments</SPAN>.
+
+<P>
+Multi-objective environments are created via API routines (in
+<A HREF="c_getmultiobjenv.html#routine:GRBgetmultiobjenv">C</A>,
+<A HREF="cpp_model_getmultiobjenv.html#cppmethod:GRBModel::getMultiobjEnv">C++</A>,
+<A HREF="java_model_getmultiobjenv.html#javamethod:GRBModel.getMultiobjEnv">Java</A>,
+<A HREF="cs_model_getmultiobjenv.html#dotnetmethod:GRBModel.GetMultiobjEnv">.NET</A>, or
+<A HREF="py_model_getmultiobjenv.html#pythonmethod:Model.getMultiobjEnv">Python</A>).
+You set parameters on these environments as you would
+with any other environment, but in this case they only
+affect one of the several objective solves.
+
+<P>
+To give a simple example, in Python you could do the following:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  # Create multi-objective environments
+  env0 = model.getMultiobjEnv(0)
+  env1 = model.getMultiobjEnv(1)
+
+  # Set parameters on multi-objective environments
+  env0.setParam('Method', 2)
+  env1.setParam('Method', 1)
+  env1.setParam('Presolve', 0)
+
+  # Perform multi-objective optimization
+  model.optimize()
+</PRE>
+This would use the barrier solver (<code>Method=2</code>) for the first
+objective, and the dual simplex solver (<code>Method=1</code>) with no
+presolve (<code>Presolve=0</code>) for the second.  Note that you don't need
+a multi-objective environment for each objective - only for those
+where you want parameters to take different values from those of the
+model itself.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="attributes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="concurrent_environments.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="concurrent_environments.html">Concurrent environments</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

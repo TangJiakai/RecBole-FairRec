@@ -1,0 +1,293 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.AddVar()</TITLE>
+<META NAME="description" CONTENT="GRBModel.AddVar()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_addvars.html">
+<LINK REL="previous" HREF="cs_model_addsos.html">
+<LINK REL="next" HREF="cs_model_addvars.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_addvars.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_addsos.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_addvars.html">GRBModel.AddVars()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_addsos.html">GRBModel.AddSOS()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00082900000000000000"></A>
+<A ID="dotnetmethod:GRBModel.AddVar"></A>
+<BR>
+GRBModel.AddVar()
+</H3>
+
+<P>
+Add a single decision variable to a model.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">AddVar</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">lb,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">ub,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">obj,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">type,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT">name )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Add a variable to a model; non-zero entries will be added later.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lb</SPAN>: Lower bound for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">ub</SPAN>: Upper bound for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">obj</SPAN>: Objective coefficient for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">type</SPAN>: Variable type for new variable (<SPAN  CLASS="texttt">GRB.CONTINUOUS</SPAN>,
+  <SPAN  CLASS="texttt">GRB.BINARY</SPAN>, <SPAN  CLASS="texttt">GRB.INTEGER</SPAN>,  <SPAN  CLASS="texttt">GRB.SEMICONT</SPAN>, or <SPAN  CLASS="texttt">GRB.SEMIINT</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for new variable.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New variable object.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">AddVar</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">lb,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">ub,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">obj,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">type,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT">coeffs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT">name )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Add a variable to a model, and the associated non-zero coefficients.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lb</SPAN>: Lower bound for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">ub</SPAN>: Upper bound for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">obj</SPAN>: Objective coefficient for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">type</SPAN>: Variable type for new variable (<SPAN  CLASS="texttt">GRB.CONTINUOUS</SPAN>,
+  <SPAN  CLASS="texttt">GRB.BINARY</SPAN>, <SPAN  CLASS="texttt">GRB.INTEGER</SPAN>,  <SPAN  CLASS="texttt">GRB.SEMICONT</SPAN>, or <SPAN  CLASS="texttt">GRB.SEMIINT</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: Array of constraints in which the variable participates.
+
+<P>
+ <SPAN  CLASS="textbf">coeffs</SPAN>: Array of coefficients for each constraint in which
+  the variable participates.  The lengths of the <SPAN  CLASS="texttt">constrs</SPAN> and
+  <SPAN  CLASS="texttt">coeffs</SPAN> arrays must be identical.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for new variable.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New variable object.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">AddVar</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">lb,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">ub,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">obj,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">type,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBColumn</TD>
+<TD CLASS="LEFT">col,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT">name )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Add a variable to a model. This signature allows you to specify
+the set of constraints to which the new variable belongs using a
+<A HREF="cs_column.html#dotnetclass:GRBColumn">GRBColumn</A> object.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lb</SPAN>: Lower bound for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">ub</SPAN>: Upper bound for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">obj</SPAN>: Objective coefficient for new variable.
+
+<P>
+ <SPAN  CLASS="textbf">type</SPAN>: Variable type for new variable (<SPAN  CLASS="texttt">GRB.CONTINUOUS</SPAN>,
+  <SPAN  CLASS="texttt">GRB.BINARY</SPAN>, <SPAN  CLASS="texttt">GRB.INTEGER</SPAN>,  <SPAN  CLASS="texttt">GRB.SEMICONT</SPAN>, or <SPAN  CLASS="texttt">GRB.SEMIINT</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">col</SPAN>: GRBColumn object for specifying a set of constraints to
+which new variable belongs.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for new variable.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New variable object.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_addvars.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_addsos.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_addvars.html">GRBModel.AddVars()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_addsos.html">GRBModel.AddSOS()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

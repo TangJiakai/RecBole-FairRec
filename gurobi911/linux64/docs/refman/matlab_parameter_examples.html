@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>MATLAB Parameter Examples</TITLE>
+<META NAME="description" CONTENT="MATLAB Parameter Examples">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="python_parameter_examples.html">
+<LINK REL="previous" HREF="java_parameter_examples.html">
+<LINK REL="next" HREF="python_parameter_examples.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="python_parameter_examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_parameter_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="python_parameter_examples.html">Python Parameter Examples</A>
+<B> Up:</B> <A
+ HREF="parameter_examples.html">Parameter Examples</A>
+<B> Previous:</B> <A
+ HREF="java_parameter_examples.html">Java Parameter Examples</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000183500000000000000"></A>
+<A ID="MATLABParameterExamples"></A>
+<BR>
+MATLAB Parameter Examples
+</H3>
+
+<P>
+In the MATLAB interface, parameters are passed to Gurobi through a
+<code>struct</code>.  To modify a parameter, you create a field in the
+<code>struct</code> with the appropriate name, and set it to the desired
+value.  For example, to set the
+<A HREF="timelimit.html#parameter:TimeLimit">TimeLimit</A> parameter to 100 you'd
+do:
+<PRE>
+  params.timelimit = 100;
+</PRE>
+The case of the parameter name is ignored, as are underscores.  Thus,
+you could also do:
+<PRE>
+  params.timeLimit = 100;
+</PRE>
+...or...
+<PRE>
+  params.TIME_LIMIT = 100;
+</PRE>
+
+<P>
+All desired parameter changes should be stored in a single
+<code>struct</code>, which is passed as the second parameter to the
+<A HREF="matlab_grb.html#matlab:gurobi">gurobi</A> function.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="python_parameter_examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_parameter_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="python_parameter_examples.html">Python Parameter Examples</A>
+<B> Up:</B> <A
+ HREF="parameter_examples.html">Parameter Examples</A>
+<B> Previous:</B> <A
+ HREF="java_parameter_examples.html">Java Parameter Examples</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Avoid rounding of input</TITLE>
+<META NAME="description" CONTENT="Avoid rounding of input">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="real_numbers_are_not_real.html">
+<LINK REL="previous" HREF="guidelines_for_numerical_i.html">
+<LINK REL="next" HREF="real_numbers_are_not_real.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="real_numbers_are_not_real.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="real_numbers_are_not_real.html">Real numbers are not</A>
+<B> Up:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Previous:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000341000000000000000">
+Avoid rounding of input</A>
+</H2>
+
+<P>
+A common source of numerical issues is numerical rounding in the
+numbers that are used to represent constraint matrix coefficients.  To
+illustrate the issue, consider the following example:
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 6y &=&1\\
+0.333x - 2y &= & .333
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 5.79ex; vertical-align: -2.32ex; " SRC="img293.svg"
+ ALT="$\begin{array}{rcl}
+x - 6y &amp;=&amp;1\\
+0.333x - 2y &amp;= &amp; .333
+\end{array}$"></SPAN>
+</DIV>
+It may be tempting to say that the two equations are equivalent, but
+adding both to a model will lead to an incorrect result.  This is an
+important point for our users: Gurobi will always trust the input
+numbers that they provide, and will never change them unless the
+change can be shown to not affect the solution.
+
+<P>
+So, with this in mind, during presolve Gurobi can use the second
+constraint to determine:
+<DIV class="CENTER">
+<!-- MATH
+ $y := 0.1665x - 0.1665$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img294.svg"
+ ALT="$y := 0.1665x - 0.1665
+$"></SPAN>
+</DIV>
+When substituted into the first constraint, this yields
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 6\cdot(0.1665x - 0.1665) &=& 1\\
+\Leftrightarrow  0.001x &=& 0.001
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 5.79ex; vertical-align: -2.32ex; " SRC="img295.svg"
+ ALT="$\begin{array}{rcl}
+x - 6\cdot(0.1665x - 0.1665) &amp;=&amp; 1\\
+\Leftrightarrow 0.001x &amp;=&amp; 0.001
+\end{array}$"></SPAN>
+</DIV>
+and thus <SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img296.svg"
+ ALT="$x = 1,\ y = 0$"></SPAN> as the only solution.
+
+<P>
+If user had provided these two equations instead:
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 6y&=&1\\
+0.3333333333333333x - 2y&=&0.3333333333333333
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 5.79ex; vertical-align: -2.32ex; " SRC="img297.svg"
+ ALT="$\begin{array}{rcl}
+x - 6y&amp;=&amp;1\\
+0.3333333333333333x - 2y&amp;=&amp;0.3333333333333333
+\end{array}$"></SPAN>
+</DIV>
+this would give:
+<DIV class="CENTER">
+<!-- MATH
+ $y := 0.1666666666666667x - 0.1666666666666667$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img298.svg"
+ ALT="$y := 0.1666666666666667x - 0.1666666666666667
+$"></SPAN>
+</DIV>
+which yields:
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 6\cdot(0.1666666666666667x - 0.1666666666666667) &=& 1\\
+\Leftrightarrow 2\cdot10^{-16} x + 1 + 2\cdot10^{-16} &\approx& 1
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 5.79ex; vertical-align: -2.32ex; " SRC="img299.svg"
+ ALT="$\begin{array}{rcl}
+x - 6\cdot(0.1666666666666667x - 0.1666666666666667) &amp;=&amp; 1\\
+\Leftrightarrow 2\cdot10^{-16} x + 1 + 2\cdot10^{-16} &amp;\approx&amp; 1
+\end{array}$"></SPAN>
+</DIV>
+Even with a very small threshold for treating a coefficient as zero,
+the result here is that the first constraint is truly redundant.  Any
+solution with <SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img300.svg"
+ ALT="$x = 6y + 1$"></SPAN> would be accepted as feasible.
+
+<P>
+The main point is that constraints that are exactly parallel, or
+linearly dependent (within double-precision floating-point and small
+tolerances) are harmless, but constraints that are almost parallel to
+each other produce tiny coefficients in the linear system solves and
+in preprocessing, which can wreak havoc on the solution process.  In
+the next section, we expand on the limits
+<EM>double-precision floating-point</EM> numbers, and in particular
+why <!-- MATH
+ $1\approx 1+2\cdot10^{-16}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.31ex; vertical-align: -0.31ex; " SRC="img301.svg"
+ ALT="$1\approx 1+2\cdot10^{-16}$"></SPAN>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="real_numbers_are_not_real.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="real_numbers_are_not_real.html">Real numbers are not</A>
+<B> Up:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Previous:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

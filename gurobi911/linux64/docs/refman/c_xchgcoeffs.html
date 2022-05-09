@@ -1,0 +1,164 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBXchgcoeffs</TITLE>
+<META NAME="description" CONTENT="GRBXchgcoeffs">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_xloadmodel.html">
+<LINK REL="previous" HREF="c_xaddvars.html">
+<LINK REL="next" HREF="c_xloadmodel.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_xloadmodel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_xaddvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_xloadmodel.html">GRBXloadmodel</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_xaddvars.html">GRBXaddvars</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000224400000000000000"></A>
+<A ID="routine:GRBXchgcoeffs"></A>
+<BR>
+GRBXchgcoeffs
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBXchgcoeffs</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">size_t</TD>
+<TD CLASS="LEFT">numchgs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*cind,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*vind,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*val )</TD>
+</TR>
+</TABLE>
+
+<P>
+The <code>size_t</code> version of
+<A HREF="c_chgcoeffs.html#routine:GRBchgcoeffs">GRBchgcoeffs</A>.  The
+argument that counts non-zero values is of type <code>size_t</code> in this
+version to support models with more than 2 billion non-zero values.
+
+<P>
+Change a set of constraint matrix coefficients.  This routine can be
+used to set a non-zero coefficient to zero, to create a non-zero
+coefficient where the coefficient is currently zero, or to change an
+existing non-zero coefficient to a new non-zero value.  If you make
+multiple changes to the same coefficient, the last one will be
+applied.
+
+<P>
+Note that, due to our lazy update approach, the changes won't actually be integrated into the model
+  until you update the model
+  (using <A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>),
+  optimize the model
+  (using <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>),
+  or write the model to disk
+  (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while performing the modification.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to modify.
+
+<P>
+ <SPAN  CLASS="textbf">numchgs</SPAN>: The number of coefficients to modify.
+
+<P>
+ <SPAN  CLASS="textbf">cind</SPAN>: Constraint indices for the coefficients to modify.
+
+<P>
+ <SPAN  CLASS="textbf">vind</SPAN>: Variable indices for the coefficients to modify.
+
+<P>
+ <SPAN  CLASS="textbf">val</SPAN>: The new values for the coefficients.  For example, if
+  <SPAN  CLASS="texttt">cind[0] = 1</SPAN>, <SPAN  CLASS="texttt">vind[0] = 3</SPAN>, and <SPAN  CLASS="texttt">val[0] = 2.0</SPAN>,
+  then the coefficient in constraint 1 associated with variable 3
+  would be changed to 2.0.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int cind[] = {0, 1};
+  int vind[] = {0, 0};
+  double val[] = {1.0, 1.0};
+  error = GRBXchgcoeffs(model, 2, cind, vind, val);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_xloadmodel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_xaddvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_xloadmodel.html">GRBXloadmodel</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_xaddvars.html">GRBXaddvars</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

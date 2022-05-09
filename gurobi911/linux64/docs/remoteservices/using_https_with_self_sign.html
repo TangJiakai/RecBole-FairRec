@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using HTTPS with Self-Signed Certificates</TITLE>
+<META NAME="description" CONTENT="Using HTTPS with Self-Signed Certificates">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="firewalls.html">
+<LINK REL="previous" HREF="enabling_https.html">
+<LINK REL="next" HREF="firewalls.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="firewalls.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="enabling_https.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="firewalls.html">Firewalls</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="enabling_https.html">Enabling HTTPS</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00026200000000000000"></A>
+<A ID="sec:RSMHTTPSInsecure"></A>
+<BR>
+Using HTTPS with Self-Signed Certificates
+</H3>
+
+<P>
+Using self-signed certificates is not recommended for production
+deployment as it is less secure, but it can be useful when testing a
+deployment.  When using this mode, the data will be encrypted over the
+wire, but the certificate will not be validated.
+
+<P>
+If you do not specify a key and a certificate in the
+<TT>TLS_KEY</TT> and <TT>TLS_CERT</TT> properties, <TT>grb_rs</TT>
+and <TT>grb_rsm</TT> will generate them for you at startup.
+You can also specify your own
+self-signed certificate using <TT>TLS_KEY</TT> and <TT>TLS_CERT</TT>
+properties.
+
+<P>
+To use a self-signed certificate, you will need to activate insecure
+mode by setting the following property for <TT>grb_rs</TT>:
+
+<PRE>
+TLS_INSECURE=true
+MANAGER_INSECURE=true
+</PRE>
+
+<P>
+At the same time, similar properties must be set for <TT>grb_rsm</TT>:
+
+<PRE>
+TLS_INSECURE=true
+</PRE>
+
+<P>
+When using <TT>grbcluster</TT>, you will also need to activate this mode by
+using the <TT>--tls-insecure</TT> flag with the login command.
+
+<PRE>
+&gt; grbcluster login --manager=https://mymanager:61080 --username=sysadmin --tls-insecure
+info  : Using client license file '/Users/jones/gurobi.lic'
+Password for sysadmin:
+info  : User gurobi connected to https://mymanager:61080, session will expire on...
+
+&gt; grbcluster nodes
+ID       ADDRESS               STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db https://server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 &lt;1s  66.58 7.97
+eb07fe16 https://server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  1  &lt;1s  66.58 9.62
+</PRE>
+
+<P>
+When using other clients such as <TT>gurobi_cl</TT>, <TT>  grbtune</TT>, you can set the the <TT>GRB_TLS_INSECURE</TT>
+environment variable. In the programming language APIs, there is also
+a <TT>CSTLSINSECURE</TT> parameter.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="firewalls.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="enabling_https.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="firewalls.html">Firewalls</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="enabling_https.html">Enabling HTTPS</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

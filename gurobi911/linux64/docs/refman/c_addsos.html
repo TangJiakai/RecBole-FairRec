@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBaddsos</TITLE>
+<META NAME="description" CONTENT="GRBaddsos">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_addvar.html">
+<LINK REL="previous" HREF="c_addrangeconstrs.html">
+<LINK REL="next" HREF="c_addvar.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_addvar.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addrangeconstrs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_addvar.html">GRBaddvar</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addrangeconstrs.html">GRBaddrangeconstrs</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000222700000000000000"></A>
+<A ID="routine:GRBaddsos"></A>
+<BR>
+GRBaddsos
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBaddsos</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">numsos,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">nummembers,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*types,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*beg,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*ind,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*weight )</TD>
+</TR>
+</TABLE>
+
+<P>
+Add new Special Ordered Set (SOS) constraints to a model.
+
+  Note that, due to our lazy update approach, the new SOS constraints won't actually be added
+  until you update the model
+  (using <A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>),
+  optimize the model
+  (using <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>),
+  or write the model to disk
+  (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+
+<P>
+Please refer to
+<A HREF="constraints.html#subsubsection:SOSConstraints">this section</A>
+for details on SOS constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while adding the SOS constraints.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to which the new SOSs should be added.
+
+<P>
+ <SPAN  CLASS="textbf">numsos</SPAN>: The number of new SOSs to add.
+
+<P>
+ <SPAN  CLASS="textbf">nummembers</SPAN>: The total number of SOS members in the new SOSs.
+
+<P>
+ <SPAN  CLASS="textbf">types</SPAN>: The types of the SOS sets.  SOS sets can be of type
+  <SPAN  CLASS="texttt">GRB_SOS_TYPE1</SPAN> or <SPAN  CLASS="texttt">GRB_SOS_TYPE2</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">beg</SPAN>: The members of the added SOS sets are passed into this
+  routine in Compressed Sparse Row (CSR) format.  Each SOS is
+  represented as a list of index-value pairs, where each index entry
+  provides the variable index for an SOS member, and each value entry
+  provides the weight of that variable in the corresponding SOS set.
+  Each new SOS has an associated <SPAN  CLASS="texttt">beg</SPAN> value, indicating the
+  start position of the SOS member list in the <SPAN  CLASS="texttt">ind</SPAN> and
+  <SPAN  CLASS="texttt">weight</SPAN> arrays.  This routine requires that the members for SOS
+  <SPAN  CLASS="texttt">i</SPAN> immediately follow those for SOS <SPAN  CLASS="texttt">i-1</SPAN> in
+  <SPAN  CLASS="texttt">ind</SPAN> and <SPAN  CLASS="texttt">weight</SPAN>.  Thus, <SPAN  CLASS="texttt">beg[i]</SPAN> indicates both
+  the index of the first non-zero in constraint <SPAN  CLASS="texttt">i</SPAN> and the end
+  of the non-zeros for constraint <SPAN  CLASS="texttt">i-1</SPAN>.  To give an example of
+  how this representation is used, consider a case where
+  <SPAN  CLASS="texttt">beg[2] = 10</SPAN> and <SPAN  CLASS="texttt">beg[3] = 12</SPAN>.  This would indicate that SOS
+  number 2 has two members.  Their variable indices can be found in
+  <SPAN  CLASS="texttt">ind[10]</SPAN> and <SPAN  CLASS="texttt">ind[11]</SPAN>, and the associated weights can
+  be found in <SPAN  CLASS="texttt">weight[10]</SPAN> and <SPAN  CLASS="texttt">weight[11]</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">ind</SPAN>: Variable indices associated with SOS members.  See the
+  description of the <SPAN  CLASS="texttt">beg</SPAN> argument for more information.
+
+<P>
+ <SPAN  CLASS="textbf">weight</SPAN>: Weights associated with SOS members.  See the
+  description of the <SPAN  CLASS="texttt">beg</SPAN> argument for more information.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int    types[]  = {GRB_SOS_TYPE1, GRB_SOS_TYPE1};
+  int    beg[]    = {0, 2};
+  int    ind[]    = {1, 2, 1, 3};
+  double weight[] = {1, 2, 1, 2};
+  error = GRBaddsos(model, 2, 4, types, beg, ind, weight);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_addvar.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addrangeconstrs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_addvar.html">GRBaddvar</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addrangeconstrs.html">GRBaddrangeconstrs</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

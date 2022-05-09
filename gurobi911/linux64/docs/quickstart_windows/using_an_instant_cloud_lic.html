@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using an Instant Cloud license</TITLE>
+<META NAME="description" CONTENT="Using an Instant Cloud license">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="testing_your_license.html">
+<LINK REL="previous" HREF="sta_grb_remote_services.html">
+<LINK REL="next" HREF="testing_your_license.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="testing_your_license.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="retrieving_and_setting_up_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sta_grb_remote_services.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="testing_your_license.html">Testing your license</A>
+<B> Up:</B> <A
+ HREF="retrieving_and_setting_up_.html">Retrieving and Setting Up</A>
+<B> Previous:</B> <A
+ HREF="sta_grb_remote_services.html">Starting Gurobi Remote Services</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00036000000000000000"></A>
+<A ID="subsection:instantcloud"></A>
+<BR>
+Using an Instant Cloud license
+</H2>
+
+<P>
+You have two options for indicating that a Gurobi program will act as
+a client of a Gurobi Instant Cloud instance.  If you are writing a
+program that calls the Gurobi C, C++, Java, .NET, or Python APIs,
+these APIs provide routines that allow you to launch cloud instances
+(by creating an <code>empty environment</code> and then setting parameters
+related to the cloud on that environment).  If you use these routines,
+Gurobi licenses aren't required on the client.
+
+<P>
+Alternately, you can install a <code>gurobi.lic</code> file that points to
+your Gurobi Instant Cloud.  This option allows you to use Instant
+Cloud with nearly any program that calls Gurobi, without the need to
+modify the calling program.  You can download a client
+<code>gurobi.lic</code> file from your account on the Instant Cloud website.
+You should place this file in a default location (either your home directory or <TT>    c:&#92;gurobi</TT>), or set the
+<code>GRB_LICENSE_FILE</code> environment variable to point to it.
+
+<P>
+This file will contain two lines that look like this:
+
+<PRE>
+CLOUDACCESSID=312e9gef-e0bc-4114-b6fb-26ed7klaeff9
+CLOUDKEY=ae32L0H321dgaL
+</PRE>
+If you are using a non-default pool, the file should also indicate
+the name of that pool:
+
+<PRE>
+CLOUDPOOL=myPool
+</PRE>
+These lines allow your client program to launch and use cloud instances from
+your account.  You should keep this information private, since anyone
+with access to it can also use your cloud instances.
+
+<P>
+Please consult the <EM>Gurobi Instant Cloud</EM>
+section of the
+<A ID="tex2html23"
+  HREF="../remoteservices/remoteservices.html">Gurobi Remote Services Reference Manual</A>
+for more information.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="testing_your_license.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="retrieving_and_setting_up_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sta_grb_remote_services.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="testing_your_license.html">Testing your license</A>
+<B> Up:</B> <A
+ HREF="retrieving_and_setting_up_.html">Retrieving and Setting Up</A>
+<B> Previous:</B> <A
+ HREF="sta_grb_remote_services.html">Starting Gurobi Remote Services</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>DStart</TITLE>
+<META NAME="description" CONTENT="DStart">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="lazy.html">
+<LINK REL="previous" HREF="cbasis.html">
+<LINK REL="next" HREF="lazy.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lazy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="linear_constraint_attribut.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cbasis.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lazy.html">Lazy</A>
+<B> Up:</B> <A
+ HREF="linear_constraint_attribut.html">Linear Constraint Attributes</A>
+<B> Previous:</B> <A
+ HREF="cbasis.html">CBasis</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000173800000000000000"></A>
+<A ID="attr:DStart"></A>
+<BR>
+DStart
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+The current simplex start vector.  If you set <code>DStart</code> values
+for every linear constraint in the model and
+<A HREF="pstart.html#attr:PStart">PStart</A> values for every
+variable, then simplex will use those values to compute a warm start
+basis.  If you'd like to retract a previously specified start, set any
+<code>DStart</code> value to <code>GRB_UNDEFINED</code>.
+
+<P>
+Note that any model modifications made after setting <code>DStart</code>
+(adding variables or constraints, changing coefficients, etc.)  will
+discard the start.  You should only set this attribute after you are
+done modifying your model.
+
+<P>
+Note also that you'll get much better performance if you warm start
+your linear program from a simplex basis (using
+<A HREF="vbasis.html#attr:VBasis">VBasis</A> and
+<A HREF="cbasis.html#attr:CBasis">CBasis</A>).  The <code>DStart</code>
+attribute should only be used in situations where you don't have a
+basis.
+
+<P>
+If you'd like to provide a feasible starting solution for a MIP model,
+you should input it using the
+<A HREF="start.html#attr:Start">Start</A> attribute.
+
+<P>
+Only affects LP models; it will be ignored for QP, QCP, or MIP models.
+
+<P>
+Note that if you provide a valid starting extreme point, either through
+<TT><A HREF="pstart.html#attr:PStart">PStart</A>,
+<A HREF="#attr:DStart">DStart</A></TT>, or through <TT><A HREF="vbasis.html#attr:VBasis">VBasis</A>, <A HREF="cbasis.html#attr:CBasis">CBasis</A></TT>,
+then LP presolve will be disabled. For models where presolve
+greatly reduces the problem size, this might hurt performance.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lazy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="linear_constraint_attribut.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cbasis.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lazy.html">Lazy</A>
+<B> Up:</B> <A
+ HREF="linear_constraint_attribut.html">Linear Constraint Attributes</A>
+<B> Previous:</B> <A
+ HREF="cbasis.html">CBasis</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

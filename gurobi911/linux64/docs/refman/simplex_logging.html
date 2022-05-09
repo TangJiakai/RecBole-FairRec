@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Simplex Logging</TITLE>
+<META NAME="description" CONTENT="Simplex Logging">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="barrier_logging.html">
+<LINK REL="previous" HREF="header.html">
+<LINK REL="next" HREF="barrier_logging.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="barrier_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="header.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="barrier_logging.html">Barrier Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="header.html">Header</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000242000000000000000"></A>
+<A ID="subsection:SimplexLogging"></A>
+<BR>
+Simplex Logging
+</H2>
+
+<P>
+The simplex log can be divided into three sections: the presolve
+section, the simplex progress section, and the summary section.
+
+<P>
+<SPAN  CLASS="textbf">Presolve Section</SPAN>
+
+<P>
+The first thing the Gurobi optimizer does when optimizing a model is
+to apply a <EM>presolve</EM> algorithm in order to simplify the model.
+The first section of the Gurobi log provides information on the extent
+to which presolve succeeds in this effort.  Consider the following
+example output from NETLIB model <code>dfl001</code>:
+<PRE>
+Presolve removed 2349 rows and 3378 columns
+Presolve time: 0.04s
+Presolved: 3722 rows, 8852 columns, 30908 nonzeros
+</PRE>
+The example output shows that presolve was able to remove 2349 rows
+and 3378 columns, and it required 0.04 seconds.  The final line in the
+presolve section shows the size of the model after presolve.  This is
+size of the model that is passed to the simplex optimizer.  Note that
+the solution that is computed for this model is automatically
+transformed into a solution for the original problem once simplex
+finishes (in a process often called <EM>uncrushing</EM>), but this
+uncrush step is transparent and produces no log output.
+
+<P>
+<SPAN  CLASS="textbf">Progress Section</SPAN>
+
+<P>
+The second section of the Gurobi simplex output provides information
+on the progress of the simplex method:
+<PRE>
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0   -2.4571000e+32   4.000000e+30   2.457100e+02      0s
+   18420    1.1265574e+07   1.655263e+03   0.000000e+00      5s
+   20370    1.1266393e+07   0.000000e+00   0.000000e+00      6s
+</PRE>
+The five columns in each output row show the number of simplex
+iterations performed to that point, the objective value for the
+current basis, the magnitude of the primal infeasibility for the
+current basis (computed as the sum of the absolute values of all
+constraint and bound violations), the magnitude of the dual
+infeasibility (computed as the sum of the absolute values of all dual
+constraint violations), and the amount of time expended to that point
+(measured using wall clock time).  The default simplex algorithm in
+the Gurobi solver is dual simplex, which tries to maintain dual
+feasibility while performing simplex pivots to improve the objective.
+Thus, once the dual simplex algorithm has found an initial dual
+feasible basis, you will generally see a dual infeasibility value of
+zero.  When the primal and dual infeasibilities both reach zero, the
+basis is optimal and optimization is complete.
+
+<P>
+By default, the Gurobi optimizer produces a log line every 5 seconds.
+The frequency of log lines can be changed by modifying the
+<A HREF="displayinterval.html#parameter:DisplayInterval">DisplayInterval</A>
+parameter (see the
+<A HREF="parameters.html#sec:Parameters">Parameter</A> section of this document for
+more information).
+
+<P>
+<SPAN  CLASS="textbf">Summary Section</SPAN>
+
+<P>
+The third section of the simplex log provides summary information.  It
+provides a summary of the work that the simplex algorithm performed,
+including the iteration count and the runtime, and it provides
+information on outcome of the optimization.  The summary for a model
+that is solved to optimality would look like this:
+<PRE>
+Solved in 20370 iterations and 5.75 seconds
+Optimal objective  1.126639304e+07
+</PRE>
+Other termination states produce different summaries.  For example, a
+user interrupt would produce a summary that looks like:
+<PRE>
+Stopped in 7482 iterations and 3.41 seconds
+Solve interrupted
+</PRE>
+Hitting a time limit would produce a summary that looks like:
+<PRE>
+Stopped in 18082 iterations and 5.00 seconds
+Time limit reached
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="barrier_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="header.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="barrier_logging.html">Barrier Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="header.html">Header</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>FarkasProof</TITLE>
+<META NAME="description" CONTENT="FarkasProof">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="tuneresultcount.html">
+<LINK REL="previous" HREF="kappaexact.html">
+<LINK REL="next" HREF="tuneresultcount.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="tuneresultcount.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="kappaexact.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tuneresultcount.html">TuneResultCount</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="kappaexact.html">KappaExact</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001715200000000000000"></A>
+<A ID="attr:FarkasProof"></A>
+<BR>
+FarkasProof
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">No</TD>
+</TR>
+</TABLE>
+
+<P>
+Together, attributes <A HREF="farkasdual.html#attr:FarkasDual">FarkasDual</A> and
+<A HREF="#attr:FarkasProof">FarkasProof</A> provide a certificate of
+infeasibility for the given problem.  Specifically, they can
+be used to form the following inequality from the original
+constraints that is trivially infeasible:
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\bar{a}x = \lambda^tAx \leq \lambda^tb = -\beta + \sum\limits_{j:\bar{a}_j<0}\bar{a}_jU_j + \sum\limits_{j:\bar{a}_j>0}\bar{a}_jL_j,$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 4.79ex; vertical-align: -2.85ex; " SRC="img218.svg"
+ ALT="$\bar{a}x = \lambda^tAx \leq \lambda^tb = -\beta + \sum\limits_{j:\bar{a}_j&lt;0}\bar{a}_jU_j + \sum\limits_{j:\bar{a}_j&gt;0}\bar{a}_jL_j,
+$"></SPAN>
+</DIV>
+
+<P>
+where <SPAN CLASS="MATH"><IMG STYLE="height: 2.29ex; vertical-align: -0.57ex; " SRC="img219.svg"
+ ALT="$\beta&gt;0$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 2.48ex; vertical-align: -0.78ex; " SRC="img220.svg"
+ ALT="$L_j$"></SPAN> is the lower bound of variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.89ex; vertical-align: -0.78ex; " SRC="img24.svg"
+ ALT="$x_j$"></SPAN>, <SPAN CLASS="MATH"><IMG STYLE="height: 2.48ex; vertical-align: -0.78ex; " SRC="img221.svg"
+ ALT="$U_j$"></SPAN> is the upper
+bound of variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.89ex; vertical-align: -0.78ex; " SRC="img24.svg"
+ ALT="$x_j$"></SPAN>, <!-- MATH
+ $\lambda_i \geq 0$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.19ex; vertical-align: -0.46ex; " SRC="img222.svg"
+ ALT="$\lambda_i \geq 0$"></SPAN> if the <SPAN CLASS="MATH"><IMG STYLE="height: 1.76ex; vertical-align: -0.12ex; " SRC="img61.svg"
+ ALT="$i$"></SPAN>-th constraint
+has a <SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img98.svg"
+ ALT="$\leq$"></SPAN> sense, <!-- MATH
+ $\lambda_i \leq 0$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.19ex; vertical-align: -0.46ex; " SRC="img223.svg"
+ ALT="$\lambda_i \leq 0$"></SPAN> if the <SPAN CLASS="MATH"><IMG STYLE="height: 1.76ex; vertical-align: -0.12ex; " SRC="img61.svg"
+ ALT="$i$"></SPAN>-th constraint has a
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img39.svg"
+ ALT="$\geq$"></SPAN> sense, <!-- MATH
+ $\bar{a}_j \geq 0$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.39ex; vertical-align: -0.78ex; " SRC="img224.svg"
+ ALT="$\bar{a}_j \geq 0$"></SPAN> if <SPAN CLASS="MATH"><IMG STYLE="height: 2.48ex; vertical-align: -0.78ex; " SRC="img225.svg"
+ ALT="$U_j = \infty$"></SPAN>, and <!-- MATH
+ $\bar{a}_j
+\leq 0$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.39ex; vertical-align: -0.78ex; " SRC="img226.svg"
+ ALT="$\bar{a}_j
+\leq 0$"></SPAN> if <SPAN CLASS="MATH"><IMG STYLE="height: 2.48ex; vertical-align: -0.78ex; " SRC="img227.svg"
+ ALT="$L_j = -\infty$"></SPAN>.
+This constraint can not be satisfied for any <SPAN CLASS="MATH"><IMG STYLE="height: 2.29ex; vertical-align: -0.57ex; " SRC="img219.svg"
+ ALT="$\beta&gt;0$"></SPAN>.
+The FarkasProof attribute provides <SPAN CLASS="MATH"><IMG STYLE="height: 2.29ex; vertical-align: -0.57ex; " SRC="img228.svg"
+ ALT="$\beta$"></SPAN>, and the FarkasDual attributes
+provide <SPAN CLASS="MATH"><IMG STYLE="height: 1.84ex; vertical-align: -0.12ex; " SRC="img229.svg"
+ ALT="$\lambda$"></SPAN> multipliers for the original constraints.
+
+<P>
+This attribute is only available when parameter
+<A HREF="infunbdinfo.html#parameter:InfUnbdInfo">InfUnbdInfo</A> is set to 1.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="tuneresultcount.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="kappaexact.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tuneresultcount.html">TuneResultCount</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="kappaexact.html">KappaExact</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

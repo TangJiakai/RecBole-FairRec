@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>opttoolbox_lp.m</TITLE>
+<META NAME="description" CONTENT="opttoolbox_lp.m">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="opttoolbox_mip1_m.html">
+<LINK REL="previous" HREF="multiobj_m.html">
+<LINK REL="next" HREF="opttoolbox_mip1_m.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="opttoolbox_mip1_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="multiobj_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="opttoolbox_mip1_m.html">opttoolbox_mip1.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="multiobj_m.html">multiobj.m</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000271800000000000000"></A>
+<A ID="subsubsection:opttoolbox_lp.m"></A>
+<BR>
+opttoolbox_lp.m
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function opttoolbox_lp()
+% Copyright 2020, Gurobi Optimization, LLC
+%
+% This example uses Matlab 2017b problem based modeling feature, which
+% requires Optimization Toolbox, to formulate and solve the following
+% simple LP model, the same model as for lp.m
+%
+% maximize
+%       x + 2 y + 3 z
+% subject to
+%       x +   y        &lt;= 1
+%             y +   z  &lt;= 1
+%
+% To use Gurobi with this example, linprog.m must be in the current
+% directory or added to Matlab path
+
+x = optimvar('x', 'LowerBound',0);
+y = optimvar('y', 'LowerBound',0);
+z = optimvar('z', 'LowerBound',0);
+
+prob = optimproblem('ObjectiveSense','maximize');
+
+prob.Objective = x + 2 * y + 3 * z;
+
+prob.Constraints.cons1 = x + y &lt;= 1;
+prob.Constraints.cons2 = y + z &lt;= 1;
+
+options = optimoptions('linprog');
+
+% For Matlab R2017b use the following
+% sol = solve(prob, options)
+
+% Syntax for R2018a and later
+sol = solve(prob, 'Options', options);
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="opttoolbox_mip1_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="multiobj_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="opttoolbox_mip1_m.html">opttoolbox_mip1.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="multiobj_m.html">multiobj.m</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

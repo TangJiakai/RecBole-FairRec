@@ -1,0 +1,418 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Appendix B: grb_rs - Configuration Properties</TITLE>
+<META NAME="description" CONTENT="Appendix B: grb_rs - Configuration Properties">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="appendix_c_rsm.html">
+<LINK REL="previous" HREF="appendix_a_rs.html">
+<LINK REL="next" HREF="appendix_c_rsm.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="appendix_c_rsm.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_a_rs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_c_rsm.html">Appendix C: grb_rsm</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_a_rs.html">Appendix A: grb_rs</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00070000000000000000">
+Appendix B: grb_rs - Configuration Properties</A>
+</H1>
+The following list of properties can also be displayed using the <code>grb_rs properties</code> command.
+
+<P>
+<DL>
+<DT><STRONG>ADMINPASSWORD</STRONG></DT>
+<DD>Type string.
+    Client password to administrate the jobs.
+    The password can be in clear or can be hashed using 'grb_rs hash' command
+    for better security.
+
+<P>
+</DD>
+<DT><STRONG>AWS</STRONG></DT>
+<DD>Type bool, use <code>--aws</code> to override on the command line.
+    Enable AWS configuration using ec2 user-data.
+
+<P>
+</DD>
+<DT><STRONG>AWS_HOSTNAME_MODE</STRONG></DT>
+<DD>Type string.
+    Indicates how to get the node name, deprecated, see CLOUD_HOSTNAME_MODE
+
+<P>
+</DD>
+<DT><STRONG>AZURE</STRONG></DT>
+<DD>Type bool, use <code>--azure</code> to override on the command line.
+    Enable Azure configuration using user-data.
+
+<P>
+</DD>
+<DT><STRONG>CLIENT_DETAILS_ADMIN</STRONG></DT>
+<DD>Type bool.
+    Indicates client details such as host, IP are only accessible as an admin user
+    When a job is submitted, the client hostname, IP,
+    and process ID are recorded. By default, this information is displayed to
+    any user running the command line tool grbcluster or the REST API.
+    If this property is set to true, only the administrator will be able
+    to access this information.
+
+<P>
+</DD>
+<DT><STRONG>CLOUDKEY</STRONG></DT>
+<DD>Type string.
+    Cloud license key.
+
+<P>
+</DD>
+<DT><STRONG>CLOUD_HOSTNAME_MODE</STRONG></DT>
+<DD>Type string.
+    Indicates how to get the node name on the AWS or Azure: 'public' or 'private'.
+    The public mode will assign the public DNS name or IP, whereas the private mode will assign the
+    base name of the private DNS name. The private mode is used with a Gurobi router.
+
+<P>
+</DD>
+<DT><STRONG>CLUSTER_ADMINPASSWORD</STRONG></DT>
+<DD>Type string.
+    Client password to administrate the cluster.
+    The password can be in clear or can be hashed using 'grb_rs hash' command
+    for better security.
+
+<P>
+</DD>
+<DT><STRONG>CLUSTER_TOKEN</STRONG></DT>
+<DD>Type string.
+    Unique cluster identifier.
+    The token is en encrypted key to let nodes communicates between each other.
+    All nodes of a cluster must have the same token.
+    Use 'grb_rs token' command to generate a new token.
+
+<P>
+</DD>
+<DT><STRONG>CONSOLE_TS</STRONG></DT>
+<DD>Type bool, use <code>--console-ts</code> to override on the command line.
+    Add timestamps to console log messages.
+
+<P>
+</DD>
+<DT><STRONG>DATA_DIR</STRONG></DT>
+<DD>Type string (default data), use <code>--data</code> to override on the command line.
+    Root directory to store remote services data.
+
+<P>
+</DD>
+<DT><STRONG>DEGRADED_TIMEOUT</STRONG></DT>
+<DD>Type int (default 60).
+    Timeout to evict a node that is DEGRADED from the cluster. 0 for no timeout.
+
+<P>
+</DD>
+<DT><STRONG>FILE_DESCRIPTOR_LIMIT</STRONG></DT>
+<DD>Type int (default 2048).
+    Maximum number of file descriptors.
+
+<P>
+</DD>
+<DT><STRONG>FIXED_JOBLIMIT</STRONG></DT>
+<DD>Type bool.
+    Indicates if the job limit can be changed once the node started.
+
+<P>
+</DD>
+<DT><STRONG>GROUP</STRONG></DT>
+<DD>Type string.
+    Node grouping for job affinity assignment.
+
+<P>
+</DD>
+<DT><STRONG>HARDJOBLIMIT</STRONG></DT>
+<DD>Type int (default 0).
+    A hard limit on the number of simultaneous client jobs.
+    Certain jobs (those with priority 100) are allowed to ignore the JOBLIMIT,
+    but they aren't allowed to ignore this limit. Client requests beyond this
+    limit are queued. Use 0 to disable.
+
+<P>
+</DD>
+<DT><STRONG>HOSTNAME</STRONG></DT>
+<DD>Type string, use <code>--hostname</code> to override on the command line.
+    Advertised hostname of the cluster node.
+
+<P>
+</DD>
+<DT><STRONG>IDLESHUTDOWN</STRONG></DT>
+<DD>Type int (default -1), use <code>--idle-shutdown</code> to override on the command line.
+    Idle time limit (minutes) to trigger a shutdown of the server, -1 to disable.
+
+<P>
+</DD>
+<DT><STRONG>IDLESHUTDOWN_COMMAND</STRONG></DT>
+<DD>Type string.
+    Command to execute when the idle shutdown is reached, for example to shutdown the machine.
+
+<P>
+</DD>
+<DT><STRONG>IDLESHUTDOWN_STOPPED</STRONG></DT>
+<DD>Type int (default -1).
+    Idle time limit (minutes) to trigger a shutdown of the machine once the processing state is STOPPED, -1 to disable.
+
+<P>
+</DD>
+<DT><STRONG>IDLETIMEOUT</STRONG></DT>
+<DD>Type int (default 0).
+    Default idle timeout in seconds. If a job does not send a command for more than the timeout, it will be terminated. Use 0 to disable.
+
+<P>
+</DD>
+<DT><STRONG>IGNOREPRIORITIES</STRONG></DT>
+<DD>Type bool.
+    Disable job priority handling.
+
+<P>
+</DD>
+<DT><STRONG>JOBLIMIT</STRONG></DT>
+<DD>Type int (default 2).
+    A limit on the number of client jobs that are allowed to run on the server at a time.
+    Client requests beyond this limit are queued.
+
+<P>
+</DD>
+<DT><STRONG>JOIN</STRONG></DT>
+<DD>Type string, use <code>--join</code> to override on the command line.
+    List of other nodes to join.
+
+<P>
+</DD>
+<DT><STRONG>JOIN_TIMEOUT</STRONG></DT>
+<DD>Type int (default 20).
+    Timeout for a successful join, use 0 to disable.
+
+<P>
+</DD>
+<DT><STRONG>KEEPALIVE_TIMEOUT</STRONG></DT>
+<DD>Type int (default 60).
+    Default keep alive timeout in seconds. If a job does not send a keep alive message for more than the timeout, it will be terminated.
+
+<P>
+</DD>
+<DT><STRONG>KEEP_BATCH_DATA</STRONG></DT>
+<DD>Type bool.
+    Indicates if temporary batch files must be kept.
+    When a batch job is executed, input data are first generated in an input directory.
+    The output data is similarly stored in an output data. By default, these directories
+    are deleted once a batch is complete to save space. However, using this property,
+    the files can be kept until the jobs is evicted of the recent history (see MAX_RECENT.)
+
+<P>
+</DD>
+<DT><STRONG>LICENSEID</STRONG></DT>
+<DD>Type string.
+    Cloud license ID.
+
+<P>
+</DD>
+<DT><STRONG>LOGFILE</STRONG></DT>
+<DD>Type string, use <code>--logfile</code> to override on the command line.
+    Enable logging to a rotating log file.
+
+<P>
+</DD>
+<DT><STRONG>LOGFILE_MAX_AGE</STRONG></DT>
+<DD>Type int (default 5), use <code>--logfile-max-age</code> to override on the command line.
+    Limit the rotating log file to a number of days.
+
+<P>
+</DD>
+<DT><STRONG>LOGFILE_MAX_SIZE</STRONG></DT>
+<DD>Type int (default 500), use <code>--logfile-max-size</code> to override on the command line.
+    Limit the size of each file to a size in Mb.
+
+<P>
+</DD>
+<DT><STRONG>MANAGER</STRONG></DT>
+<DD>Type string, use <code>--manager</code> to override on the command line.
+    Cluster Manager URL
+
+<P>
+</DD>
+<DT><STRONG>MANAGER_INSECURE</STRONG></DT>
+<DD>Type bool.
+    Indicate if connection to manager is using TLS insecure
+
+<P>
+</DD>
+<DT><STRONG>MAX_QUEUE</STRONG></DT>
+<DD>Type int (default 1000).
+    Maximum number of jobs in the queue.
+
+<P>
+</DD>
+<DT><STRONG>MAX_RECENT</STRONG></DT>
+<DD>Type int (default 50).
+    Maximum number of executed jobs in the recent history.
+
+<P>
+</DD>
+<DT><STRONG>NOQUEUE</STRONG></DT>
+<DD>Type bool.
+    Disable job queueing.
+
+<P>
+</DD>
+<DT><STRONG>NO_CONSOLE</STRONG></DT>
+<DD>Type bool, use <code>--no-console</code> to override on the command line.
+    Disable the console log.
+
+<P>
+</DD>
+<DT><STRONG>NO_LOCAL_DISK</STRONG></DT>
+<DD>Type bool (default true).
+    Indicates if local disk can be used to store node files, solution files etc
+
+<P>
+</DD>
+<DT><STRONG>PASSWORD</STRONG></DT>
+<DD>Type string.
+    Client password to access the cluster.
+    The password can be in clear or can be hashed using 'grb_rs hash' command
+    for better security.
+
+<P>
+</DD>
+<DT><STRONG>PORT</STRONG></DT>
+<DD>Type int, use <code>--port</code> to override on the command line.
+    Port number for the REST API.
+
+<P>
+</DD>
+<DT><STRONG>REGISTRATION_PORT</STRONG></DT>
+<DD>Type int.
+    Port used to register worker, 0 means a dynamic port.
+
+<P>
+</DD>
+<DT><STRONG>STRICT_RUNTIME_MATCHING</STRONG></DT>
+<DD>Type bool (default true).
+    Indicates if matching of client and runtime version is strict
+    When the matching is strict, the runtime having the same technical release will be selected.
+    When it is not strict, the runtime having the latest technical release will be selected
+
+<P>
+</DD>
+<DT><STRONG>SYSLOG</STRONG></DT>
+<DD>Type bool, use <code>--syslog</code> to override on the command line.
+    Log to syslog or Windows event log.
+
+<P>
+</DD>
+<DT><STRONG>THREADLIMIT</STRONG></DT>
+<DD>Type int (default -1).
+    Maximum number of threads used by a worker.
+
+<P>
+</DD>
+<DT><STRONG>TLS</STRONG></DT>
+<DD>Type bool, use <code>--tls</code> to override on the command line.
+    Enable TLS encryption protocol.
+
+<P>
+</DD>
+<DT><STRONG>TLS_CERT</STRONG></DT>
+<DD>Type string, use <code>--tlscert</code> to override on the command line.
+    Path to TLS certificate file.
+    If not specified, a self-signed certificate will be generated.
+
+<P>
+</DD>
+<DT><STRONG>TLS_INSECURE</STRONG></DT>
+<DD>Type bool, use <code>--tls-insecure</code> to override on the command line.
+    Enable TLS encryption protocol but skip certificate verification.
+    This mode can be used with self-signed certificate so that data is encrypted.
+
+<P>
+</DD>
+<DT><STRONG>TLS_KEY</STRONG></DT>
+<DD>Type string, use <code>--tlskey</code> to override on the command line.
+    Path to TLS key file.
+    If not specified, a key will be generated to self-sign a certificate.
+
+<P>
+</DD>
+<DT><STRONG>USERNAME_ADMIN</STRONG></DT>
+<DD>Type bool.
+    Indicates that job username is only accessible as an admin user
+    When a job is submitted, the client process
+    username is recorded. By default, this information is displayed to
+    any user running the command line tool grbcluster or the REST API.
+    If this property is set to true, only the administrator will be able
+    to access this information.
+
+<P>
+</DD>
+<DT><STRONG>VERBOSE</STRONG></DT>
+<DD>Type bool, use <code>--verbose</code> to override on the command line.
+    Enable verbose logging.
+
+<P>
+</DD>
+<DT><STRONG>WORKER</STRONG></DT>
+<DD>Type bool, use <code>--worker</code> to override on the command line.
+    Declare the node as a distributed worker.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="appendix_c_rsm.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_a_rs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_c_rsm.html">Appendix C: grb_rsm</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_a_rs.html">Appendix A: grb_rs</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

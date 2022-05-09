@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>SOL format</TITLE>
+<META NAME="description" CONTENT="SOL format">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="json_solution_format.html">
+<LINK REL="previous" HREF="bas_format.html">
+<LINK REL="next" HREF="json_solution_format.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="json_solution_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="bas_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="json_solution_format.html">JSON solution format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="bas_format.html">BAS format</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0002311000000000000000"></A>
+<A ID="format:SOL"></A>
+<BR>
+SOL format
+</H2>
+
+<P>
+A Gurobi solution (SOL) file is used to output a solution vector.  It
+can be written (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>, for
+example) whenever a solution is available.
+
+<P>
+The file consists of variable-value pairs, each on its own line.
+The file contains one line for each variable in the model.
+The following is a simple example:
+<PRE>
+# Solution file
+x  1.0
+y  0.5
+z  0.2
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="json_solution_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="bas_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="json_solution_format.html">JSON solution format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="bas_format.html">BAS format</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

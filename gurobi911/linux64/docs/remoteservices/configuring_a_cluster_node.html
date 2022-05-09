@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Configuring a Cluster Node</TITLE>
+<META NAME="description" CONTENT="Configuring a Cluster Node">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="sta_a_cluster_node_as_a_pr.html">
+<LINK REL="previous" HREF="remote_services_agent__rs.html">
+<LINK REL="next" HREF="sta_a_cluster_node_as_a_pr.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sta_a_cluster_node_as_a_pr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="remote_services_agent__rs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_a_cluster_node_as_a_pr.html">Starting a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="remote_services_agent__rs.html">Remote Services Agent (grb_rs)</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00024300000000000000"></A>
+<A ID="sec:RSMNodeConfig"></A>
+<BR>
+Configuring a Cluster Node
+</H3>
+
+<P>
+The Remote Services agent has a number of configuration properties
+that affect its behavior.  These can be controlled using a <TT>  grb_rs.cnf</TT> configuration file.  The installation package includes
+a predefined configuration file that can be used as a starting point
+(<TT>&lt;installdir&gt;/bin/grb_rs.cnf</TT>).
+
+<P>
+The simplest way to modify the parameters is to edit the default
+configuration file.  Other options are available, though.  The
+<TT>grb_rs</TT> process uses the following precedence rules:
+
+<UL>
+<LI>First priority: command-line flag <TT>--config</TT>
+</LI>
+<LI>Second priority: a configuration file in the current directory
+</LI>
+<LI>Third priority: a configuration file in a shared directory (<TT>C:&#92;gurobi</TT>, <TT>/opt/gurobi</TT>, <TT>/Library/gurobi</TT> for Windows, Linux and Mac OS platforms, respectively)
+</LI>
+<LI>Fourth priority: a configuration file in the directory where <TT>grb_rs</TT> is located
+</LI>
+</UL>
+Most of the properties that are configured through this file are
+related to communication options and job processing options.
+The configuration file is only read once, when <TT>grb_rs</TT> first
+starts.  Subsequent changes to the file won't affect parameter values
+on a running server.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Configuration file format</SPAN></SPAN>
+
+<P>
+The configuration file contains a list of properties of the form
+<TT>PROPERTY=value</TT>.  Lines that begin with the # symbol are
+treated as comments and are ignored.  Here is an example:
+
+<PRE>
+# grb_rs.cnf configuration file
+PORT=61000
+MANAGER=http://mymanager:61080
+</PRE>
+While you could create this file from scratch, we recommend you start
+with the version of this file that is included with the product and
+modify it instead.
+
+<P>
+The command <TT>grb_rs properties</TT> lists all of
+the available properties, their default values, and provides
+documentation for each.  Some can be overridden on the
+command-line of <TT>grb_rs</TT>; the name of the command-line flag you
+would use to do so is provided as well.
+Some properties are important and must be changed for a production deployment.
+However, we need to distinguish between deployment with a Cluster Manager and
+without.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Important Properties with a Cluster Manager</SPAN></SPAN>
+
+<P>
+When deploying a node with a Cluster Manager, the configuration is easier
+and you need to review the following properties:
+<DL>
+<DT><STRONG>MANAGER</STRONG></DT>
+<DD>This is the URL of the manager.
+</DD>
+<DT><STRONG>HOSTNAME</STRONG></DT>
+<DD>This must be the DNS name of the node that can be resolved
+from the other nodes or from the Cluster Manager.  <TT>grb_rs</TT> tries to get a reasonable
+default value, but this value may still not be resolved by other nodes and could
+generate connection errors.  It this case, you need to override this name in the configuration
+file with a fully qualified name of your node, for example:
+
+<PRE>
+HOSTNAME=server1
+</PRE>
+Note that you do not need to give addresses that can be resolved by clients
+because all communication is routed through the Cluster Manager. The nodes
+are never accessed directly by the clients.
+
+<P>
+</DD>
+<DT><STRONG>CLUSTER_TOKEN</STRONG></DT>
+<DD>The token is a private key that enables different
+  nodes to join the same cluster.  All nodes of a cluster and the Cluster Manager must have
+  the same token.  We recommended that you generate a brand new token
+  when you set up your cluster.  The <TT>grb_rs token</TT> command
+  will generate a random token, which you can copy into
+  the configuration file.
+
+<P>
+</DD>
+<DT><STRONG>JOBLIMIT</STRONG></DT>
+<DD>This property sets the maximum number of jobs that
+  can run concurrently when using Compute Server on a specific node.
+  The limit can be
+  changed on a running cluster using the <TT>grbcluster node config</TT>
+  command, in which case the new value will persist and the value in
+  the configuration file will be ignored from that point on (even
+  if you stop and restart the cluster).
+
+<P>
+</DD>
+<DT><STRONG>HARDJOBLIMIT</STRONG></DT>
+<DD>Certain jobs (those with priority 100) are allowed
+  to ignore the JOBLIMIT, but they aren't allowed to ignore this limit.
+  Client requests beyond this limit are queued. This limit is set to 0
+  by default which means that it is disabled.
+
+<P>
+</DD>
+</DL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Important Properties without a Cluster Manager</SPAN></SPAN>
+
+<P>
+When installing a node that will not be connected to a Cluster Manager, authentication
+of clients uses predefined passwords that must be stored in the
+configuration file.  The default configuration files must be
+reviewed and the following properties must be changed for a production deployment:
+<DL>
+<DT><STRONG>HOSTNAME</STRONG></DT>
+<DD>This must be the DNS name of the node that can be resolved
+from the other nodes or the clients in your network. <TT>grb_rs</TT> tries to get a reasonable
+default value, but this value may still not be resolved by clients and could
+generate connection errors. It this case, you need to override this name in the configuration
+file with a fully qualified name of your node, for example:
+
+<PRE>
+HOSTNAME=server1
+</PRE>
+If the names cannot be resolved by clients, another option is to use IP addresses directly,
+in this case set this property to the IP address of the node.
+
+<P>
+</DD>
+<DT><STRONG>CLUSTER_TOKEN</STRONG></DT>
+<DD>The token is a private key that enables different
+  nodes to join the same cluster.  All nodes of a cluster must have
+  the same token.  We recommended that you generate a brand new token
+  when you set up your cluster.  The <TT>grb_rs token</TT> command
+  will generate a random token, which you can copy into
+  the configuration file.
+
+<P>
+</DD>
+<DT><STRONG>PASSWORD</STRONG></DT>
+<DD>This is the password that clients must supply in order
+  to access the cluster.  It can be stored in clear text or hashed.
+  We recommended that you create your own password, and that you
+  store it in hashed form.  You can use the <TT>grb_rs hash</TT> command
+  to compute the hashed value for your chosen password.
+
+<PRE>
+grb_rs hash newpass
+$$ppEieKZExlBR-pCSUMlmc4oWlG8nZsUOE2IM0hJbzsmV_Yjj
+</PRE>
+Then copy and paste the value in the configuration file:
+
+<PRE>
+PASSWORD=$$ppEieKZExlBR-pCSUMlmc4oWlG8nZsUOE2IM0hJbzsmV_Yjj
+</PRE>
+
+<P>
+The default password is <TT>pass</TT>.
+
+<P>
+</DD>
+<DT><STRONG>ADMINPASSWORD</STRONG></DT>
+<DD>This is the password that clients must supply in
+  order to run restricted administrative job commands.  It can be
+  stored in clear text or hashed.  We recommended that you create your
+  own password, and that you store it in hashed form.  You can use the
+  <TT>grb_rs hash</TT> command to compute the hashed value for your
+  chosen password.  The default password is <TT>admin</TT>.
+
+<P>
+</DD>
+<DT><STRONG>CLUSTER_ADMINPASSWORD</STRONG></DT>
+<DD>This is the password that clients must
+  supply in order to run restricted administrative cluster commands.
+  It can be stored in clear text or hashed.  We recommended that you
+  create your own password, and that you store it in hashed form.  You
+  can use the <TT>grb_rs hash</TT> command to compute the hashed value
+  for your chosen password.  The default password is <TT>cluster</TT>.
+
+<P>
+</DD>
+<DT><STRONG>JOBLIMIT</STRONG></DT>
+<DD>This property sets the maximum number of jobs that
+  can run concurrently when using Compute Server on a specific node.
+  The limit can be
+  changed on a running cluster using the <TT>grbcluster node config</TT>
+  command, in which case the new value will persist and the value in
+  the configuration file will be ignored from that point on (even
+  if you stop and restart the cluster).
+
+<P>
+</DD>
+<DT><STRONG>HARDJOBLIMIT</STRONG></DT>
+<DD>Certain jobs (those with priority 100) are allowed
+  to ignore the JOBLIMIT, but they aren't allowed to ignore this limit.
+  Client requests beyond this limit are queued. This limit is set to 0
+  by default which means that it is disabled.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sta_a_cluster_node_as_a_pr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_node.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="remote_services_agent__rs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sta_a_cluster_node_as_a_pr.html">Starting a Cluster Node</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<B> Previous:</B> <A
+ HREF="remote_services_agent__rs.html">Remote Services Agent (grb_rs)</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

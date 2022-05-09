@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Batch Status Codes</TITLE>
+<META NAME="description" CONTENT="Batch Status Codes">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cb_codes.html">
+<LINK REL="previous" HREF="optimization_status_codes.html">
+<LINK REL="next" HREF="cb_codes.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cb_codes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="optimization_status_codes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cb_codes.html">Callback Codes</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="optimization_status_codes.html">Optimization Status Codes</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000200000000000000000"></A>
+<A ID="sec:BatchStatusCodes"></A>
+<BR>
+Batch Status Codes
+</H1>
+
+<P>
+All batches have a current status, which is queried through the
+<A HREF="batchstatus.html#attr:BatchStatus">BatchStatus</A> attribute on a Batch
+object.  The attribute takes an integer value, but we recommend that
+you use one of the predefined status constants to check the status in
+your program. Each code has a name, and each language requires a
+prefix on this name to obtain the appropriate constant. You would
+access status code <code>COMPLETED</code> in the following ways from the
+available Gurobi interfaces:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Language</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Status Code</SPAN></TH>
+</TR>
+<TR><TD CLASS="LEFT">C</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_BATCH_COMPLETED</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">C++</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_BATCH_COMPLETED</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Java</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.BatchStatus.COMPLETED</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">.NET</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.BatchStatus.COMPLETED</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Python</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.BATCH_COMPLETED</SPAN></TD>
+</TR>
+</TABLE>
+
+<P>
+Possible batch status codes are as follows:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Status code</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Value</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Description</SPAN></TH>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">CREATED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">1</TD>
+<TD CLASS="LEFT">Batch was created, but is not ready to be scheduled.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">SUBMITTED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">2</TD>
+<TD CLASS="LEFT">The batch has been completely specified, and now is waiting
+    for a job to finish processing the request.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">ABORTED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">3</TD>
+<TD CLASS="LEFT">Batch processing was aborted by the user.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">FAILED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">4</TD>
+<TD CLASS="LEFT">Batch processing failed.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">COMPLETED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">5</TD>
+<TD CLASS="LEFT">A Batch Job successfully processed the Batch request.</TD>
+</TR>
+</TABLE>
+
+<P>
+See the <A HREF="batch_optimization.html#sec:BatchOptimization">Batch Optimization</A>
+section for more details.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cb_codes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="optimization_status_codes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cb_codes.html">Callback Codes</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="optimization_status_codes.html">Optimization Status Codes</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

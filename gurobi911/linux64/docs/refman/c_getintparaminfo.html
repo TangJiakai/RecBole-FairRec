@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBgetintparaminfo</TITLE>
+<META NAME="description" CONTENT="GRBgetintparaminfo">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_getstrparaminfo.html">
+<LINK REL="previous" HREF="c_getdblparaminfo.html">
+<LINK REL="next" HREF="c_getstrparaminfo.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_getstrparaminfo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_parameter_management_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getdblparaminfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getstrparaminfo.html">GRBgetstrparaminfo</A>
+<B> Up:</B> <A
+ HREF="c_parameter_management_and.html">Parameter Management and Tuning</A>
+<B> Previous:</B> <A
+ HREF="c_getdblparaminfo.html">GRBgetdblparaminfo</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000271000000000000000"></A>
+<A ID="routine:GRBgetintparaminfo"></A>
+<BR>
+GRBgetintparaminfo
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBgetintparaminfo</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBenv</TD>
+<TD CLASS="LEFT">*env,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*paramname,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*valueP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*minP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*maxP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*defaultP )</TD>
+</TR>
+</TABLE>
+
+<P>
+Retrieve information about an int-valued parameter.  Specifically,
+retrieve the current value of the parameter, the minimum and maximum
+allowed values, and the default value.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while retrieving parameter information.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">env</SPAN>: The environment whose parameter information is being queried.
+
+<P>
+ <SPAN  CLASS="textbf">paramname</SPAN>: The name of the parameter.  
+Please consult the <A HREF="parameters.html#sec:Parameters">parameter section</A>
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.
+
+<P>
+ <SPAN  CLASS="textbf">valueP (optional)</SPAN>: The location in which the current value of the
+  specified parameter should be placed.
+
+<P>
+ <SPAN  CLASS="textbf">minP (optional)</SPAN>: The location in which the minimum allowed value of
+  the specified parameter should be placed.
+
+<P>
+ <SPAN  CLASS="textbf">maxP (optional)</SPAN>: The location in which the maximum allowed value of
+  the specified parameter should be placed.
+
+<P>
+ <SPAN  CLASS="textbf">defaultP (optional)</SPAN>: The location in which the default value of the
+  specified parameter should be placed.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  error = GRBgetintparaminfo(GRBgetenv(model), "SolutionLimit", &amp;current,
+                             &amp;minAllowedLimit, NULL, &amp;defaultLimit);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_getstrparaminfo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_parameter_management_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getdblparaminfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getstrparaminfo.html">GRBgetstrparaminfo</A>
+<B> Up:</B> <A
+ HREF="c_parameter_management_and.html">Parameter Management and Tuning</A>
+<B> Previous:</B> <A
+ HREF="c_getdblparaminfo.html">GRBgetdblparaminfo</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

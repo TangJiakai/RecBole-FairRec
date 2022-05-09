@@ -1,0 +1,133 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>lpmethod_vb.vb</TITLE>
+<META NAME="description" CONTENT="lpmethod_vb.vb">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="lpmod_vb_vb.html">
+<LINK REL="previous" HREF="lp_vb_vb.html">
+<LINK REL="next" HREF="lpmod_vb_vb.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lpmod_vb_vb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="visual_basic_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lp_vb_vb.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lpmod_vb_vb.html">lpmod_vb.vb</A>
+<B> Up:</B> <A
+ HREF="visual_basic_examples.html">Visual Basic Examples</A>
+<B> Previous:</B> <A
+ HREF="lp_vb_vb.html">lp_vb.vb</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000251300000000000000"></A>
+<A ID="subsubsection:lpmethod_vb.vb"></A>
+<BR>
+lpmethod_vb.vb
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">' Copyright 2020, Gurobi Optimization, LLC
+'
+' Solve a model with different values of the Method parameter;
+' show which value gives the shortest solve time.
+
+Imports System
+Imports Gurobi
+
+Class lpmethod_vb
+
+    Shared Sub Main(ByVal args As String())
+
+        If args.Length &lt; 1 Then
+            Console.WriteLine("Usage: lpmethod_vb filename")
+            Return
+        End If
+
+        Try
+            ' Read model and verify that it is a MIP
+            Dim env As New GRBEnv()
+            Dim model As New GRBModel(env, args(0))
+
+            ' Solve the model with different values of Method
+            Dim bestMethod As Integer = -1
+            Dim bestTime As Double = model.get(GRB.DoubleParam.TimeLimit)
+            For i As Integer = 0 To 2
+                model.Reset()
+                model.Parameters.Method = i
+                model.Optimize()
+                If model.Status = GRB.Status.OPTIMAL Then
+                    bestTime = model.Runtime
+                    bestMethod = i
+                    ' Reduce the TimeLimit parameter to save time
+                    ' with other methods
+                    model.Parameters.TimeLimit = bestTime
+                End If
+            Next
+
+            ' Report which method was fastest
+            If bestMethod = -1 Then
+                Console.WriteLine("Unable to solve this model")
+            Else
+                Console.WriteLine("Solved in " &amp; bestTime &amp; _
+                                  " seconds with Method: " &amp; bestMethod)
+            End If
+
+            ' Dispose of model and env
+            model.Dispose()
+            env.Dispose()
+
+        Catch e As GRBException
+            Console.WriteLine("Error code: " &amp; e.ErrorCode &amp; ". " &amp; e.Message)
+        End Try
+    End Sub
+End Class
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lpmod_vb_vb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="visual_basic_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lp_vb_vb.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lpmod_vb_vb.html">lpmod_vb.vb</A>
+<B> Up:</B> <A
+ HREF="visual_basic_examples.html">Visual Basic Examples</A>
+<B> Previous:</B> <A
+ HREF="lp_vb_vb.html">lp_vb.vb</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

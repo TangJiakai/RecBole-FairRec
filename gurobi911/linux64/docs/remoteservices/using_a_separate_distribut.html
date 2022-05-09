@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using a Separate Distributed Manager</TITLE>
+<META NAME="description" CONTENT="Using a Separate Distributed Manager">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="sub_a_distributed_algorith.html">
+<LINK REL="next" HREF="programming_with_remote_se.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_a_distributed_algorith.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="sub_a_distributed_algorith.html">Submitting a Distributed Algorithm</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00036500000000000000">
+Using a Separate Distributed Manager</A>
+</H3>
+
+<P>
+While Distributed Workers always need to be part of a Remote Services
+cluster, note that the distributed manager itself does not.  Any
+machine that is licensed to run distributed algorithms can act as the
+distributed manager.  You simply need to set <TT>WorkerPool</TT>
+and <TT>WorkerPassword</TT> parameters to point to the Remote
+Services cluster that contains your distributed workers.  Note that
+the Cluster Manager can not act as the distributed manager.
+
+<P>
+To give an example:
+
+<PRE>
+&gt; gurobi_cl WorkerPool=server1:61000 WorkerPassword=passwd DistributedMIPJobs=2 misc07.mps
+</PRE>
+You should see the following output in the log:
+
+<PRE>
+Started distributed worker on server1:61000
+Started distributed worker on server2:61000
+
+Distributed MIP job count: 2
+</PRE>
+In this case, the distributed computation is managed by the machine
+where you launched this command, and the two distributed workers come
+from your Remote Services cluster.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_a_distributed_algorith.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="sub_a_distributed_algorith.html">Submitting a Distributed Algorithm</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

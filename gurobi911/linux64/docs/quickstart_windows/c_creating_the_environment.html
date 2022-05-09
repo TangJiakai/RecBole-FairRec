@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Creating the environment</TITLE>
+<META NAME="description" CONTENT="Creating the environment">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="c_creating_the_model.html">
+<LINK REL="previous" HREF="c_example_details.html">
+<LINK REL="next" HREF="c_creating_the_model.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_creating_the_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_example_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_creating_the_model.html">Creating the model</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_example_details.html">Example details</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00073000000000000000">
+Creating the environment</A>
+</H2>
+
+<P>
+After declaring the necessary program variables, the example continues
+by creating an environment, by first requesting an empty environment, then
+setting some options -- as log file name -- and then
+starting the environment.
+
+<P>
+As we'll discuss shortly, nearly every Gurobi method returns an error
+code.  A zero value indicates that no error was encountered.  It is
+important that you check every returned error code.
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+  /* Create environment */
+  error = GRBemptyenv(&amp;env);
+  if (error) goto QUIT;
+
+  error = GRBsetstrparam(env, "LogFile", "mip1.log");
+  if (error) goto QUIT;
+
+  error = GRBstartenv(env);
+  if (error) goto QUIT;
+</PRE>
+
+<P>
+Later requests to create optimization models will always require an
+active environment, so environment creation should always be the first step
+when using the Gurobi optimizer.
+
+<P>
+Note that environment creation may fail, so you should check the
+return value of the call.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_creating_the_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_example_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_creating_the_model.html">Creating the model</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_example_details.html">Example details</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

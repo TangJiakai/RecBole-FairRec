@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Header</TITLE>
+<META NAME="description" CONTENT="Header">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="simplex_logging.html">
+<LINK REL="previous" HREF="logging.html">
+<LINK REL="next" HREF="simplex_logging.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="simplex_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="simplex_logging.html">Simplex Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="logging.html">Logging</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000241000000000000000">
+Header</A>
+</H2>
+
+<P>
+When you solve a model, the first part of the resulting log contains
+basic information about the model you are solving and the machine you
+are solving it on.  You will first see a line that looks like this:
+<PRE>
+Thread count: 4 physical cores, 8 logical processors, using up to 8 threads
+</PRE>
+This shows the number of physical cores and logical processors in the
+machine.  The latter may be larger than the former due to Simultaneous
+Multi Threading (SMT), which allows one physical core to appear as
+multiple logical processors.  This log line also shows the maximum
+number of threads that the solver will use in this instance.  This
+depends on the number of (logical) processors in the machine, but also
+on the number requested (through the
+<A HREF="threads.html#parameter:Threads">Threads</A> parameter), and for some
+license types on the number enabled by your license.
+
+<P>
+Next you will see summary information about the model you are solving:
+<PRE>
+Optimize a model with 755 rows, 2756 columns and 8937 nonzeros
+Model fingerprint: 0x22935346
+Variable types: 0 continuous, 2756 integer (0 binary)
+</PRE>
+The first line shows the size of the model.  The second shows the
+model <EM>fingerprint</EM>, which is a hash value that takes into
+account the values of all attributes of all components of the model.
+The intent is that models that differ in any way will most always
+have different fingerprints.  The last log line above provides
+additional information about variable integrality (for MIP
+models).
+
+<P>
+The final portion of the header contains statistics about
+the constraint matrix:
+<PRE>
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+04]
+  Objective range  [1e+00, 1e+04]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 1e+04]
+</PRE>
+This information gives a very rough indication of whether you can
+expect numerical issues when solving your model.  Please consult the
+<A HREF="guidelines_for_numerical_i.html#sec:Numerics">numerical guidelines</A> section to learn
+more.
+
+<P>
+The format of the remainder of the log depends on the algorithm that
+is invoked
+(<A HREF="simplex_logging.html#subsection:SimplexLogging">simplex</A>,
+<A HREF="barrier_logging.html#subsection:BarrierLogging">barrier</A>,
+<A HREF="sifting_logging.html#subsection:SiftingLogging">sifting</A>,
+<A HREF="mip_logging.html#sec:MIPLogging">branch-and-cut</A>, or
+<A HREF="iis_logging.html#sec:IISLogging">IIS</A>.
+We now describe the contents of the log for each.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="simplex_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="simplex_logging.html">Simplex Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="logging.html">Logging</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

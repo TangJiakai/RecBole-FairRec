@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Retrieving Solutions for Multiple Scenarios</TITLE>
+<META NAME="description" CONTENT="Retrieving Solutions for Multiple Scenarios">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="tips_and_tricks.html">
+<LINK REL="previous" HREF="logging2.html">
+<LINK REL="next" HREF="tips_and_tricks.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="tips_and_tricks.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="logging2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tips_and_tricks.html">Tips and Tricks</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="logging2.html">Logging</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000284000000000000000">
+Retrieving Solutions for Multiple Scenarios</A>
+</H2>
+
+<P>
+Your first step in retrieving the solutions computed by an
+<code>optimize</code> call on a multi-scenario model is to query the
+<A HREF="status.html#attr:Status">Status</A> attribute.  A status of
+<code>OPTIMAL</code> indicates that optimal solutions were found (subject to
+tolerances) for all scenarios that have feasible solutions, and that
+the other scenarios were determined to be infeasible.  If all
+scenarios were found to be infeasible, the status will be
+<code>INFEASIBLE</code>.  If any scenario is unbounded, the status will be
+<code>UNBOUNDED</code>.  An early termination status code (e.g.,
+<code>TIME_LIMIT</code>) indicates that the outcomes may vary across the
+different scenarios, and you will have to look at individual scenarios
+for more information.
+
+<P>
+Results for individual scenarios can be found in three attributes:
+
+<UL>
+<LI><A HREF="scennobjval.html#attr:ScenNObjVal">ScenNObjVal</A>: The objective value for
+  the solution for scenario number <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN>.
+</LI>
+<LI><A HREF="scennobjbound.html#attr:ScenNObjBound">ScenNObjBound</A>: The best known
+  bound on the optimal objective value for scenario number <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN>.
+</LI>
+<LI><A HREF="scennx.html#attr:ScenNX">ScenNX</A>: The solution vector for scenario
+  number <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN>.
+</LI>
+</UL>
+The <code>ScenNObjVal</code> and <code>ScenNObjBound</code> attributes are model
+attributes, while <code>ScenNX</code> is a variable attribute.  Again, use
+the <A HREF="scenarionumber.html#parameter:ScenarioNumber">ScenarioNumber</A> parameter
+to select the scenario you'd like to query.
+
+<P>
+If your <code>optimize</code> call terminated early, you should use the
+<A HREF="scennobjbound.html#attr:ScenNObjBound">ScenNObjBound</A> attribute to
+interpret the results.  This attribute provides a bound on the optimal
+objective value for the selected scenario (much like
+<A HREF="objbound.html#attr:ObjBound">ObjBound</A> provides a bound for a single
+model).  For example, if <code>ScenNObjVal</code> is 100 for a scenario and
+<code>ScenNObjBound</code> is 90 (assuming minimization), then you have a
+solution with a 10% optimality gap for that scenario.
+
+<P>
+You can also query the <A HREF="objval.html#attr:ObjVal">ObjVal</A> and
+<A HREF="objbound.html#attr:ObjBound">ObjBound</A> attributes for a multi-scenario
+model.  The former gives the best objective value for any solution
+found in any scenario.  The latter provides a lower bound on the
+objective value for any solution that was not found.
+
+<P>
+Note that <code>ScenNObjVal</code> and <code>ScenNObjBound</code> are computed
+using the objective function for the corresponding scenario, which you
+may have changed from the base model.
+
+<P>
+If you query the <code>ScenNX</code> attribute and no feasible solution has been
+found for that scenario, you will get a <code>DATA_NOT_AVAILABLE</code>
+error.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="tips_and_tricks.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="logging2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tips_and_tricks.html">Tips and Tricks</A>
+<B> Up:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Previous:</B> <A
+ HREF="logging2.html">Logging</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

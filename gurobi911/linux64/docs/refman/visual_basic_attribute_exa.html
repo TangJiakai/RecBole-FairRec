@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Visual Basic Attribute Examples</TITLE>
+<META NAME="description" CONTENT="Visual Basic Attribute Examples">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="python_attribute_examples.html">
+<LINK REL="next" HREF="parameters.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attribute_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="python_attribute_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="parameters.html">Parameters</A>
+<B> Up:</B> <A
+ HREF="attribute_examples.html">Attribute Examples</A>
+<B> Previous:</B> <A
+ HREF="python_attribute_examples.html">Python Attribute Examples</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001711600000000000000"></A>
+<A ID="VBAttributeExamples"></A>
+<BR>
+Visual Basic Attribute Examples
+</H3>
+
+<P>
+Consider the case where you have a Gurobi model <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img251.svg"
+ ALT="$m$"></SPAN>.  You can
+retrieve the number of variables in the model by querying the
+<A HREF="numvars.html#attr:NumVars">NumVars</A> model attribute
+(which is implemented as a .NET <EM>property</EM>):
+<PRE>
+  cols = m.NumVars;
+</PRE>
+
+<P>
+If you've performed optimization on the model, the optimal objective
+value can be obtained by querying the
+<A HREF="objval.html#attr:ObjVal">ObjVal</A> model attribute:
+<PRE>
+  obj = m.ObjVal;
+</PRE>
+
+<P>
+If you'd like to query the value that a variable takes in the computed
+solution, you can query the <A HREF="x.html#attr:X">X</A> attribute for the
+corresponding variable object:
+<PRE>
+  vars = m.GetVars()
+  For j As Integer = 0 To cols - 1
+    xj = vars[j].X
+</PRE>
+You can also query the value of <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img254.svg"
+ ALT="$X$"></SPAN> for multiple variables in a single
+call using the
+<A HREF="cs_model_get.html#dotnetmethod:GRBModel.Get">Get</A> method
+on the model <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img251.svg"
+ ALT="$m$"></SPAN>:
+<PRE>
+  xvals = m.Get(GRB.DoubleAttr.X, m.GetVars()))
+</PRE>
+
+<P>
+For each attribute query method, there's an analogous <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img255.svg"
+ ALT="$Set$"></SPAN> routine.
+To set the upper bound of a variable, for example:
+<PRE>
+  v = m.GetVars()[0]
+  v.UB = 0
+</PRE>
+(In this example, we've set the upper bound for the first variable in the
+model to 0).
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attribute_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="python_attribute_examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="parameters.html">Parameters</A>
+<B> Up:</B> <A
+ HREF="attribute_examples.html">Attribute Examples</A>
+<B> Previous:</B> <A
+ HREF="python_attribute_examples.html">Python Attribute Examples</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

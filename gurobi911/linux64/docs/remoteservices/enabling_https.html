@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Enabling HTTPS</TITLE>
+<META NAME="description" CONTENT="Enabling HTTPS">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="using_https_with_self_sign.html">
+<LINK REL="previous" HREF="communication_options.html">
+<LINK REL="next" HREF="using_https_with_self_sign.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="using_https_with_self_sign.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_https_with_self_sign.html">Using HTTPS with Self-Signed</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00026100000000000000"></A>
+<A ID="sec:RSMHTTPS"></A>
+<BR>
+Enabling HTTPS
+</H3>
+
+<P>
+Enabling HTTPS on the Cluster Manager or the nodes follows the same principles.
+Several properties can be used to configure the communication options.
+In order to enable HTTPS with TLS data encryption over the wire, you need to set the <TT>TLS</TT> property.
+
+<PRE>
+TLS=true
+</PRE>
+
+<P>
+You will also need to provide the paths to the private key and the certificate files:
+
+<PRE>
+TLS_CERT=cert.pem
+TLS_KEY=key.pem
+</PRE>
+
+<P>
+When HTTPS is enabled on the cluster nodes, the standard HTTPS port 443 is then used as the
+default instead of port 80.  As with the port 80, you will need to
+start <TT>grb_rs</TT> with elevated privileges.  Otherwise, you will get
+a permission error.  On Linux, you'd see an error message like the following:
+
+<PRE>
+fatal : Gurobi Remote Services terminated, listen tcp :443: bind: permission denied
+</PRE>
+
+<P>
+As explained in the installation section, you can change the port
+using the <TT>PORT</TT> property.  Note that you cannot mix nodes using
+HTTP and nodes using HTTPS in the same cluster.  If you wish to use HTTPS,
+all of the nodes must be configured in the same way.  HTTPS will be used
+for communication between the nodes.
+
+<P>
+If you enable HTTPS, you will need to use the prefix <TT>https://</TT> to access the nodes of your cluster:
+
+<PRE>
+&gt; grbcluster nodes
+ADDRESS               STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE   %MEM  %CPU
+https://server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  2  46h59m 9.79  0.50
+https://server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  2  46h46m 8.75  0.00
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="using_https_with_self_sign.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_https_with_self_sign.html">Using HTTPS with Self-Signed</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="communication_options.html">Communication Options</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

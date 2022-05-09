@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Recommended ranges for variables and constraints</TITLE>
+<META NAME="description" CONTENT="Recommended ranges for variables and constraints">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="improving_ranges_for_varia.html">
+<LINK REL="previous" HREF="why_scaling_and_geometry_i.html">
+<LINK REL="next" HREF="improving_ranges_for_varia.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="improving_ranges_for_varia.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="why_scaling_and_geometry_i.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="improving_ranges_for_varia.html">Improving ranges for variables</A>
+<B> Up:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Previous:</B> <A
+ HREF="why_scaling_and_geometry_i.html">Why scaling and geometry</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000343300000000000000">
+Recommended ranges for variables and constraints</A>
+</H3>
+
+<P>
+Keeping the lessons of the previous section in mind, we recommended
+that right-hand sides of inequalities representing physical quantities
+(even budgets) should be scaled so that they are on the order of
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img319.svg"
+ ALT="$10^4$"></SPAN> or less.  The same applies to variable domains, as variable
+bounds are again linear constraints.
+
+<P>
+In the case of objective functions, we recommend that good solutions
+should have an optimal value that is less than <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img319.svg"
+ ALT="$10^4$"></SPAN>, and ideally
+also above one (unless the objective coefficients are all zero).  This is
+because the <TT>OptimalityTol</TT> is used to ensure that <EM>  reduced cost</EM> are <EM>close enough</EM> to zero. If coefficients are too large,
+we again face difficulties in determining whether
+an LP solution truly satisfies the optimality conditions
+or not.  On the other hand, if the coefficients are too
+small, then it may be too easy to satisfy the feasibility
+conditions.
+
+<P>
+The coefficients of the constraint matrix are actually more important
+than the right-hand side values, variable bounds, and objective
+coefficients mentioned here.  We'll discuss those shortly.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="improving_ranges_for_varia.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="why_scaling_and_geometry_i.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="improving_ranges_for_varia.html">Improving ranges for variables</A>
+<B> Up:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Previous:</B> <A
+ HREF="why_scaling_and_geometry_i.html">Why scaling and geometry</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

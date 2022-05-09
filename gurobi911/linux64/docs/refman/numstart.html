@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>NumStart</TITLE>
+<META NAME="description" CONTENT="NumStart">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="licenseexpiration.html">
+<LINK REL="previous" HREF="tuneresultcount.html">
+<LINK REL="next" HREF="licenseexpiration.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="licenseexpiration.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tuneresultcount.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="licenseexpiration.html">LicenseExpiration</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="tuneresultcount.html">TuneResultCount</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001715400000000000000"></A>
+<A ID="attr:NumStart"></A>
+<BR>
+NumStart
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+Number of MIP starts in the model.  Decreasing this attribute will
+discard existing MIP starts.  Increasing it will create new MIP starts
+(initialized to <code>undefined</code>).
+
+<P>
+You can use the <A HREF="startnumber.html#parameter:StartNumber">StartNumber</A>
+parameter to query or modify start values for different MIP starts,
+or to append a new one.
+The value of <code>StartNumber</code> should always be less
+than <code>NumStart</code>.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="licenseexpiration.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tuneresultcount.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="licenseexpiration.html">LicenseExpiration</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="tuneresultcount.html">TuneResultCount</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

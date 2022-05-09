@@ -265,11 +265,11 @@ class Config(object):
     def _set_default_parameters(self):
         self.final_config_dict['dataset'] = self.dataset
         self.final_config_dict['model'] = self.model
-        if self.dataset == 'ml-100k':
-            current_path = os.path.dirname(os.path.realpath(__file__))
-            self.final_config_dict['data_path'] = os.path.join(current_path, '../dataset_example/' + self.dataset)
-        else:
-            self.final_config_dict['data_path'] = os.path.join(self.final_config_dict['data_path'], self.dataset)
+        # if self.dataset == 'ml-100k':
+        #     current_path = os.path.dirname(os.path.realpath(__file__))
+        #     self.final_config_dict['data_path'] = os.path.join(current_path, '../dataset_example/' + self.dataset)
+        # else:
+        self.final_config_dict['data_path'] = os.path.join(self.final_config_dict['data_path'], self.dataset)
 
         if hasattr(self.model_class, 'input_type'):
             self.final_config_dict['MODEL_INPUT_TYPE'] = self.model_class.input_type

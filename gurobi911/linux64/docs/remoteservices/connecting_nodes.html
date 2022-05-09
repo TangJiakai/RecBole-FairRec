@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Connecting Nodes</TITLE>
+<META NAME="description" CONTENT="Connecting Nodes">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="compute_servers_and_distri.html">
+<LINK REL="previous" HREF="forming_a_cluster.html">
+<LINK REL="next" HREF="compute_servers_and_distri.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="compute_servers_and_distri.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="compute_servers_and_distri.html">Compute Servers and Distributed</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00025100000000000000"></A>
+<A ID="sec:RSMConnecting"></A>
+<BR>
+Connecting Nodes
+</H3>
+
+<P>
+Every Remote Services cluster starts with a single node. The steps for
+starting Remote Services on a single node, either as a
+<A HREF="sta_a_cluster_node_as_a_pr.html#sec:RSMNodeStartProcess">standard process</A> or as a
+<A HREF="sta_a_cluster_node_as_a_se.html#sec:RSMNodeStartService">service</A>, were covered in earlier
+sections.
+
+<P>
+Before adding nodes into your cluster, you first need to make sure
+that the cluster token (property <TT>CLUSTER_TOKEN</TT> in the
+configuration file) has the same value in each node and in the Cluster Manager.
+For better
+security, we recommend that you change the predefined value of the
+token by generating a new one and pasting the same value into each
+node configuration file.  You can generate a new token with the
+following command:
+
+<PRE>
+&gt; grb_rs token
+GRBTK-6o4xujs59WJO5508nmaNwc1TtjZJAL1UcwN4vTD4qK4nata8oLr9GnubyXrLTkggc/aw2A==
+</PRE>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Adding nodes with a Cluster Manager</SPAN></SPAN>
+
+<P>
+If you have started a Cluster Manager, you add additional nodes using
+the exact same command you used to add the first node.  You do this by
+providing the Cluster Manager address.  The Cluster Manager acts as a
+registry of nodes of your cluster, and the nodes will then connect
+between themselves.
+
+<P>
+
+<PRE>
+&gt; grb_rs --manager=http://mymanager:61080 --port=61000
+</PRE>
+
+<P>
+The <TT>MANAGER</TT> property can also be set through
+the configuration file:
+
+<PRE>
+MANAGER=http://mymanager:61080
+PORT=61000
+</PRE>
+You won't have the opportunity to provide command-line
+options when starting <TT>grb_rs</TT> as a service, so your only
+option in this case is to provide this information through the
+configuration file.
+
+<P>
+If you wish to start multiple <TT>grb_rs</TT> processes on the same
+machine for testing purposes (this is not recommended for production
+use), you will need to make sure each instance of <TT>grb_rs</TT> is started on a
+different port and using a different data directory. The command <TT>grb_rs init</TT>
+will help you by copying the default configuration and the data directory into a current
+directory.
+
+<P>
+For example, to start two nodes on the same machine with a hostname of <TT>myserver</TT>:
+
+<OL>
+<LI>In a first terminal window, create a new directory <TT>node1</TT>,
+</LI>
+<LI>Change your current directory to <TT>node1</TT> and run <TT>grb_rs init</TT>
+</LI>
+<LI>Start the first node:
+
+<PRE>
+grb_rs --manager=http://mymanager:61080 --port=61000
+</PRE>
+
+<P>
+</LI>
+<LI>In a second terminal window, create a new directory <TT>node2</TT>,
+</LI>
+<LI>Change your current directory to <TT>node2</TT> and run <TT>grb_rs init</TT>
+</LI>
+<LI>Start the second node on a different port and connect to the Cluster Manager:
+
+<PRE>
+grb_rs --manager=http://mymanager:61080 --port=61001
+</PRE>
+
+<P>
+</LI>
+</OL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Adding nodes to a Self-Managed Cluster</SPAN></SPAN>
+
+<P>
+If you have not started a Cluster Manager, nodes must be connected to each other.
+Once you've started a single-node cluster, you can add nodes using the
+<TT>--join</TT> flag to <TT>grb_rs</TT> or the <TT>JOIN</TT> configuration
+property.  For example, if you've already started a cluster on the
+default port of <TT>server1</TT>, you would run the following command on
+the new node (call it <TT>server2</TT>) to create a two-node cluster:
+
+<PRE>
+&gt; grb_rs --join=server1
+</PRE>
+
+<P>
+In the log output for <TT>server2</TT>, you should see the result of the
+handshake between the servers:
+
+<PRE>
+info  : Node server1, transition from JOINING to ALIVE
+</PRE>
+
+<P>
+Similarly, the log output of <TT>server1</TT> will include the line:
+
+<PRE>
+info  : Node server2, added to the cluster
+</PRE>
+
+<P>
+If you are using a non-default port, you can specify the target node
+port as part of the node URL in the <TT>--join</TT> flag.
+You can specify the port of the current node using the <TT>  --port</TT> flag.  You can use different ports on
+different machines, but it is a good practice to use the same one
+(port 61000 is typically a good choice).  The command
+would look like this:
+
+<PRE>
+&gt; grb_rs --join=server1:61000 --port=61000
+</PRE>
+
+<P>
+The <TT>JOIN</TT> property can also be set through the
+configuration file:
+
+<PRE>
+JOIN=server1:61000
+PORT=61000
+</PRE>
+Again, you won't have the opportunity to provide command-line
+options when starting <TT>grb_rs</TT> as a service, so your only
+option in this case is to provide this information through the
+configuration file.
+
+<P>
+Once you've created a multi-node cluster, you can add additional nodes
+by doing a <TT>JOIN</TT> with any member node.  Furthermore, the
+<TT>--join</TT> flag or the <TT>JOIN</TT> property can
+take a comma-separated list of node names, so a node can still join a
+cluster even if one of the member nodes is unavailable.  Note that
+when a list of nodes is specified, the joining node will try to join
+with all of the specified nodes at the same time. Joining is an
+asynchronous process, so if some target nodes are not reachable, the
+joining node will retry before giving up on joining. If all of the
+nodes are reachable, they will all join and form a single cluster.
+
+<P>
+If you wish to start multiple <TT>grb_rs</TT> processes on the
+same machine for testing purposes (this is not recommended for
+production use), you will need to make sure each instance of
+<TT>grb_rs</TT> is started on a different port and using a
+different data directory. The command <TT>grb_rs init</TT> will
+help you by copying the default configuration and the data directory
+into a current directory.
+
+<P>
+For example, to start two nodes on the same machine with a hostname of <TT>myserver</TT>:
+
+<OL>
+<LI>In a first terminal window, create a new directory <TT>node1</TT>,
+</LI>
+<LI>Change your current directory to <TT>node1</TT> and run <TT>grb_rs init</TT>
+</LI>
+<LI>Start the first node:
+
+<PRE>
+grb_rs --port=61000
+</PRE>
+
+<P>
+</LI>
+<LI>In a second terminal window, create a new directory <TT>node2</TT>,
+</LI>
+<LI>Change your current directory to <TT>node2</TT> and run <TT>grb_rs init</TT>
+</LI>
+<LI>Start the second node on a different port and join the first node:
+
+<PRE>
+grb_rs --port=61001 --join=myserver:61000
+</PRE>
+
+<P>
+</LI>
+</OL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Checking the status of your cluster</SPAN></SPAN>
+<A ID="sec:RSMNodeCheck"></A>
+<P>
+You can use <TT>grbcluster</TT> to check the status of the cluster:
+
+<PRE>
+&gt; grbcluster nodes
+ID       ADDRESS       STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 &lt;1s  61.42 9.72
+eb07fe16 server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  8  &lt;1s  61.42 8.82
+</PRE>
+The nodes of the cluster constantly share information about their status.
+Each node can be in one of the following states:
+<DL>
+<DT><STRONG>ALIVE</STRONG></DT>
+<DD>The node is up and running.
+
+<P>
+</DD>
+<DT><STRONG>DEGRADED</STRONG></DT>
+<DD>The node failed to respond to recent communications.
+  The node could return to the <TT>ALIVE</TT> state if it becomes
+  reachable again.  The node will stay in this state until a timeout
+  (controlled by the configuration property <TT>    DEGRADED_TIMEOUT</TT>), at which point it is considered as <TT>    FAILED</TT>
+
+<P>
+</DD>
+<DT><STRONG>FAILED</STRONG></DT>
+<DD>The node has been in <TT>DEGRADED</TT> state for too long,
+  and has been flagged as <TT>FAILED</TT>.
+  A node will remain in the <TT>FAILED</TT> state for a short time, and it
+  will eventually be removed from the cluster.  If the node comes back
+  online, it will not re-join the cluster automatically.
+
+<P>
+</DD>
+<DT><STRONG>JOINING</STRONG></DT>
+<DD>The node is in the process of joining the cluster.
+
+<P>
+</DD>
+<DT><STRONG>LEAVING</STRONG></DT>
+<DD>The node left the cluster.  It will stay in that state
+  for a short time period before being removed from the cluster.
+</DD>
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="compute_servers_and_distri.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="compute_servers_and_distri.html">Compute Servers and Distributed</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

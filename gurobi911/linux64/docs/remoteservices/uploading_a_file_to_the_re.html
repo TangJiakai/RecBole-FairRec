@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Uploading a File to the Repository</TITLE>
+<META NAME="description" CONTENT="Uploading a File to the Repository">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="using_a_file_from_the_repo.html">
+<LINK REL="previous" HREF="repository_commands.html">
+<LINK REL="next" HREF="using_a_file_from_the_repo.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="using_a_file_from_the_repo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_a_file_from_the_repo.html">Using a File from</A>
+<B> Up:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Previous:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00034100000000000000"></A>
+<A ID="sec:grbclusterRepoUpload"></A>
+<BR>
+Uploading a File to the Repository
+</H3>
+
+<P>
+Any files supported by the Gurobi Optimizer can be uploaded and shared
+in the repository.  For example, let's upload the <TT>  glass4.mps</TT> model file with the following command:
+
+<PRE>
+grbcluster repo upload /Library/gurobi910/mac64/examples/data/glass4.mps --container=training
+info  : Object 3f104672-52c8-4a53-ad79-4a01065ffefd created, upload done in container 'training'
+</PRE>
+
+<P>
+A container is like a directory and is used to group files together so that you can
+retrieve them more easily later on. Once uploaded, you can check that the new file is available
+in the specified container with the following command:
+
+<PRE>
+grbcluster repo list --container=training
+ID       CONTAINER NAME       CREATED             SIZE  USER  USERID
+3f104672 training  glass4.mps 2019-09-22 21:51:10 86579 admin admin
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="using_a_file_from_the_repo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="repository_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_a_file_from_the_repo.html">Using a File from</A>
+<B> Up:</B> <A
+ HREF="repository_commands.html">Repository Commands</A>
+<B> Previous:</B> <A
+ HREF="repository_commands.html">Repository Commands</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBfeasrelax</TITLE>
+<META NAME="description" CONTENT="GRBfeasrelax">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_fixmodel.html">
+<LINK REL="previous" HREF="c_computeiis.html">
+<LINK REL="next" HREF="c_fixmodel.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_fixmodel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_computeiis.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_fixmodel.html">GRBfixmodel</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_computeiis.html">GRBcomputeIIS</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023400000000000000"></A>
+<A ID="routine:GRBfeasrelax"></A>
+<BR>
+GRBfeasrelax
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBfeasrelax</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">relaxobjtype,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">minrelax,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*lbpen,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*ubpen,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*rhspen,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*feasobjP )</TD>
+</TR>
+</TABLE>
+
+<P>
+Modifies the input model to create a feasibility relaxation.  Note
+that you need to call <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>
+on the result to compute the actual relaxed solution.
+
+<P>
+The feasibility relaxation is a model that, when solved, minimizes the
+amount by which the solution violates the bounds and linear
+constraints of the original model.  This routine provides a number of
+options for specifying the relaxation.
+
+<P>
+If you specify <code>relaxobjtype=0</code>, the objective of the
+feasibility relaxation is to minimize the sum of the weighted
+magnitudes of the bound and constraint violations.  The <code>lbpen</code>,
+<code>ubpen</code>, and <code>rhspen</code> arguments specify the cost per unit
+violation in the lower bounds, upper bounds, and linear constraints,
+respectively.
+
+<P>
+If you specify <code>relaxobjtype=1</code>, the objective of the
+feasibility relaxation is to minimize the
+weighted sum of the squares of the bound and constraint violations.
+The <code>lbpen</code>, <code>ubpen</code>, and <code>rhspen</code> arguments specify
+the coefficients on the squares of the lower bound, upper bound, and
+linear constraint violations, respectively.
+
+<P>
+If you specify <code>relaxobjtype=2</code>, the objective of the
+feasibility relaxation is to minimize the
+weighted count of bound and constraint violations.  The <code>lbpen</code>,
+<code>ubpen</code>, and <code>rhspen</code> arguments specify the cost of
+violating a lower bound, upper bound, and linear constraint, respectively.
+
+<P>
+To give an example, a violation of 2.0 on constraint <code>i</code>
+would contribute <code>2*rhspen[i]</code> to the feasibility relaxation
+objective for <code>relaxobjtype=0</code>, it would contribute
+<code>2*2*rhspen[i]</code> for <code>relaxobjtype=1</code>, and
+it would contribute <code>rhspen[i]</code> for <code>relaxobjtype=2</code>.
+
+<P>
+The <code>minrelax</code> argument is a boolean that controls the type of
+feasibility relaxation that is created.  If <code>minrelax=0</code>, optimizing
+the returned model gives a solution that minimizes the cost of the
+violation.  If <code>minrelax=1</code>, optimizing the returned model finds
+a solution that minimizes the original objective, but only from among
+those solutions that minimize the cost of the violation.
+Note that <code>GRBfeasrelax</code> must solve an optimization problem to
+find the minimum possible relaxation for <code>minrelax=1</code>, which can
+be quite expensive.
+
+<P>
+In all cases, you can specify a penalty of <code>GRB_INFINITY</code> to
+indicate that a specific bound or linear constraint may not be violated.
+
+<P>
+Note that this is a destructive routine: it modifies the model
+passed to it.  If you don't want to modify your original model,
+use <A HREF="c_copymodel.html#routine:GRBcopymodel">GRBcopymodel</A> to create
+a copy before calling this routine.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while computing the feasibility relaxation.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The original (infeasible) model.  The model is modified
+by this routine.
+
+<P>
+ <SPAN  CLASS="textbf">relaxobjtype</SPAN>: The cost function used when finding the minimum cost
+relaxation.
+
+<P>
+ <SPAN  CLASS="textbf">minrelax</SPAN>: The type of feasibility relaxation to perform.
+
+<P>
+ <SPAN  CLASS="textbf">lbpen</SPAN>: The penalty associated with violating a lower bound.
+Can be <SPAN  CLASS="texttt">NULL</SPAN>, in which case no lower bound violations are allowed.
+
+<P>
+ <SPAN  CLASS="textbf">ubpen</SPAN>: The penalty associated with violating an upper bound.
+Can be <SPAN  CLASS="texttt">NULL</SPAN>, in which case no upper bound violations are allowed.
+
+<P>
+ <SPAN  CLASS="textbf">rhspen</SPAN>: The penalty associated with violating a linear constraint.
+Can be <SPAN  CLASS="texttt">NULL</SPAN>, in which case no constraint violations are allowed.
+
+<P>
+ <SPAN  CLASS="textbf">feasobjP</SPAN>: When <SPAN  CLASS="texttt">minrelax=1</SPAN>, this returns the objective
+value for the minimum cost relaxation.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  double penalties[];
+  error = GRBfeasrelax(model, 0, 0, NULL, NULL, penalties, NULL);
+  error = GRBoptimize(model);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_fixmodel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_computeiis.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_fixmodel.html">GRBfixmodel</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_computeiis.html">GRBcomputeIIS</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

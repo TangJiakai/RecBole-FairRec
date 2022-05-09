@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.sync()</TITLE>
+<META NAME="description" CONTENT="GRBModel.sync()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_terminate.html">
+<LINK REL="previous" HREF="java_model_singlescenariom.html">
+<LINK REL="next" HREF="java_model_terminate.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_terminate.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_singlescenariom.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_terminate.html">GRBModel.terminate()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_singlescenariom.html">GRBModel.singleScenarioModel()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000625200000000000000"></A>
+<A ID="javamethod:GRBModel.sync"></A>
+<BR>
+GRBModel.sync()
+</H3>
+
+<P>
+Wait for a previous asynchronous optimization call to complete.
+
+<P>
+Calling <A HREF="java_model_optimizeasync.html#javamethod:GRBModel.optimizeasync">optimizeasync</A>
+returns control to the calling routine immediately.  The caller can
+perform other computations while optimization proceeds, and can check
+on the progress of the optimization by querying various model
+attributes.  The <code>sync</code> call forces the calling program to wait
+until the asynchronous optimization call completes.  You <EM>must</EM>
+call <code>sync</code> before the corresponding model object is deleted.
+
+<P>
+The <code>sync</code> call throws an exception if the optimization itself
+ran into any problems.  In other words, exceptions thrown by this
+method are those that <code>optimize</code> itself would have thrown, had
+the original method not been asynchronous.
+
+<P>
+Note that you need to call <code>sync</code> even if you know that the
+asynchronous optimization has already completed.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">sync</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_terminate.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_singlescenariom.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_terminate.html">GRBModel.terminate()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_singlescenariom.html">GRBModel.singleScenarioModel()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>MST format</TITLE>
+<META NAME="description" CONTENT="MST format">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="hnt_format.html">
+<LINK REL="previous" HREF="opb_format.html">
+<LINK REL="next" HREF="hnt_format.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="hnt_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="opb_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="hnt_format.html">HNT format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="opb_format.html">OPB format</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000237000000000000000"></A>
+<A ID="format:MST"></A>
+<BR>
+MST format
+</H2>
+
+<P>
+A MIP start (MST) file is used to specify an initial solution for a
+mixed integer programming model.  The file lists values to assign to
+the variables in the model.  If a MIP start has been imported into a
+MIP model before optimization begins (using
+<A HREF="c_read.html#routine:GRBread">GRBread</A>, for example), the Gurobi
+optimizer will attempt to build a feasible solution from the specified
+start values.  A good initial solution often speeds the solution of
+the MIP model, since it provides an early bound on the optimal value,
+and also since the specified solution can be used to seed the local
+search heuristics employed by the MIP solver.
+
+<P>
+A MIP start file consists of variable-value pairs, each on its own
+line.  Any line that begins with the hash sign (#) is a comment line and
+is ignored.  The following is a simple example:
+<PRE>
+# MIP start
+x1  1
+x2  0
+x3  1
+</PRE>
+
+<P>
+Importing a MIP start into a model is equivalent to setting the
+<code>Start</code> attribute for each listed variable to the associated value.
+If the same variable appears more than once in a start file, the last
+assignment is used.  Importing multiple start files is equivalent to
+reading the concatenation of the imported files.
+
+<P>
+Note that start files don't need to specify values for all variables.
+When variable values are left unspecified, the Gurobi solver will try
+to extend the specified values into a feasible solution for the full
+model.
+
+<P>
+It is important to mention that when saving an MST file, Gurobi will not
+save the values of continuous variables. If you want to save a complete
+description of the best solution found, we recommend to save it as a
+solution file (SOL format). This will guarantee that you will save the
+values for each variable present in your model.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="hnt_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="opb_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="hnt_format.html">HNT format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="opb_format.html">OPB format</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

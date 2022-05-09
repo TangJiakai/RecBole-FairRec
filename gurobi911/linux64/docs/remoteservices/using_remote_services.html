@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using Remote Services</TITLE>
+<META NAME="description" CONTENT="Using Remote Services">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="programming_with_remote_se.html">
+<LINK REL="previous" HREF="cluster_setup_and_administ.html">
+<LINK REL="next" HREF="client_configuration.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_a_router_without_a_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="using_a_router_without_a_c.html">Using a Router without</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00030000000000000000"></A>
+<A ID="sec:UsingRemoteServices"></A>
+<BR>
+Using Remote Services
+</H1>
+
+<P>
+You can access and use your cluster from the command-line tools, from
+the Web User Interface of the Cluster Manager, or from any of our
+programming language APIs.  With only a few exceptions, the feature
+was designed to be transparent to both the develoeprs and the users of
+programs that use it.
+
+<P>
+In this section, we will review the common
+<A HREF="client_configuration.html#sec:CSClientConfig">client configuration</A> properties,
+and then we will explain  the most important
+commands that you can run from the command line:
+<A HREF="job_commands.html#sec:JobCommands">job commands</A>,
+<A HREF="batch_commands.html#sec:BatchCommands">batch commands</A>,
+<A HREF="repository_commands.html#sec:RepoCommands">repository commands</A>, and
+<A HREF="node_commands.html#sec:NodeCommands">node commands</A>.
+Some commands may be restricted to the administrator role,
+and others may be supported only if the Cluster Manager was installed.
+Finally, we will describe how the commands can be applied to
+execute <A HREF="distributed_algorithms2.html#sec:DistributedCluster">distributed algorithms</A>.
+
+<P>
+We will discuss later how to
+<A HREF="programming_with_remote_se.html#sec:ProgrammingWithRemoteServices">program with Remote Services</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html202"
+  HREF="client_configuration.html">Client Configuration</A>
+<UL>
+<LI><A ID="tex2html203"
+  HREF="client_license_file.html">Client License File</A>
+<LI><A ID="tex2html204"
+  HREF="generating_a_client_licens.html">Generating a Client License with grbcluster</A>
+<LI><A ID="tex2html205"
+  HREF="queueing_load_balancing_an.html">Queueing, Load Balancing, and Job Priorities</A>
+</UL>
+<BR>
+<LI><A ID="tex2html206"
+  HREF="job_commands.html">Job Commands</A>
+<UL>
+<LI><A ID="tex2html207"
+  HREF="sub_interactive_jobs.html">Submitting Interactive Jobs</A>
+<LI><A ID="tex2html208"
+  HREF="listing_jobs.html">Listing Jobs</A>
+<LI><A ID="tex2html209"
+  HREF="accessing_job_logs.html">Accessing Job Logs</A>
+<LI><A ID="tex2html210"
+  HREF="accessing_job_parameters.html">Accessing Job Parameters</A>
+<LI><A ID="tex2html211"
+  HREF="aborting_jobs.html">Aborting Jobs</A>
+<LI><A ID="tex2html212"
+  HREF="accessing_the_job_history.html">Accessing the Job History</A>
+</UL>
+<BR>
+<LI><A ID="tex2html213"
+  HREF="batch_commands.html">Batch Commands</A>
+<UL>
+<LI><A ID="tex2html214"
+  HREF="creating_batches.html">Creating Batches</A>
+<LI><A ID="tex2html215"
+  HREF="listing_batches.html">Listing Batches</A>
+<LI><A ID="tex2html216"
+  HREF="aborting_batches.html">Aborting Batches</A>
+<LI><A ID="tex2html217"
+  HREF="retrying_batches.html">Retrying Batches</A>
+<LI><A ID="tex2html218"
+  HREF="discarding_batches.html">Discarding Batches</A>
+</UL>
+<BR>
+<LI><A ID="tex2html219"
+  HREF="repository_commands.html">Repository Commands</A>
+<UL>
+<LI><A ID="tex2html220"
+  HREF="uploading_a_file_to_the_re.html">Uploading a File to the Repository</A>
+<LI><A ID="tex2html221"
+  HREF="using_a_file_from_the_repo.html">Using a File from the Repository</A>
+<LI><A ID="tex2html222"
+  HREF="deleting_a_file_from_the_r.html">Deleting a File from the Repository</A>
+</UL>
+<BR>
+<LI><A ID="tex2html223"
+  HREF="node_commands.html">Node Commands</A>
+<UL>
+<LI><A ID="tex2html224"
+  HREF="listing_cluster_nodes.html">Listing Cluster Nodes</A>
+<LI><A ID="tex2html225"
+  HREF="troubleshooting_connectivi.html">Troubleshooting Connectivity Issues</A>
+<LI><A ID="tex2html226"
+  HREF="listing_cluster_licenses.html">Listing Cluster Licenses</A>
+<LI><A ID="tex2html227"
+  HREF="changing_the_job_limit.html">Changing the Job Limit</A>
+</UL>
+<BR>
+<LI><A ID="tex2html228"
+  HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<UL>
+<LI><A ID="tex2html229"
+  HREF="distributed_workers_and_th.html">Distributed Workers and the Distributed Manager</A>
+<LI><A ID="tex2html230"
+  HREF="configuration.html">Configuration</A>
+<LI><A ID="tex2html231"
+  HREF="running_a_distributed_algo.html">Running a Distributed Algorithm as an Interactive Job</A>
+<LI><A ID="tex2html232"
+  HREF="sub_a_distributed_algorith.html">Submitting a Distributed Algorithm as a Batch</A>
+<LI><A ID="tex2html233"
+  HREF="using_a_separate_distribut.html">Using a Separate Distributed Manager</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_a_router_without_a_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="using_a_router_without_a_c.html">Using a Router without</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

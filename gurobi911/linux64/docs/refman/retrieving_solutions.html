@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Retrieving Solutions</TITLE>
+<META NAME="description" CONTENT="Retrieving Solutions">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="subtleties_and_limitations.html">
+<LINK REL="previous" HREF="examples.html">
+<LINK REL="next" HREF="subtleties_and_limitations.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="subtleties_and_limitations.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="subtleties_and_limitations.html">Subtleties and Limitations</A>
+<B> Up:</B> <A
+ HREF="solution_pool.html">Solution Pool</A>
+<B> Previous:</B> <A
+ HREF="examples.html">Examples</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000263000000000000000">
+Retrieving Solutions</A>
+</H2>
+
+<P>
+After optimization has completed, you can retrieve solutions from the
+solution pool using a few parameters and attributes.  The
+<A HREF="solcount.html#attr:SolCount">SolCount</A> attribute indicates how many
+solutions were retained by the MIP solver.  The best solution can
+always be obtained through the <A HREF="x.html#attr:X">X</A> attribute.
+Sub-optimal solutions can be obtained by first setting the
+<A HREF="solutionnumber.html#parameter:SolutionNumber">SolutionNumber</A> parameter and
+then querying the <A HREF="xn.html#attr:Xn">Xn</A> attribute to obtain the
+solution or the <A HREF="poolobjval.html#attr:PoolObjVal">PoolObjVal</A> attribute
+to obtain the objective value for the corresponding solution.
+
+<P>
+For example, to retrieve the worst solution kept by the MIP solver,
+you'd first query <code>SolCount</code> to determine how many solutions are
+available, then set the <code>SolutionNumber</code> parameter to
+<code>SolCount-1</code>, then query the <code>Xn</code> attribute.
+
+<P>
+The <A HREF="poolobjbound.html#attr:PoolObjBound">PoolObjBound</A> attribute gives a
+bound on the objective of undiscovered solutions.  Further tree
+exploration won't find better solutions.  You can use this parameter
+to get a count of how many of the <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN> best solutions you found: any
+solutions whose objective values are at least as good as
+<code>PoolObjBound</code> are among the <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN> best.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="subtleties_and_limitations.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="examples.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="subtleties_and_limitations.html">Subtleties and Limitations</A>
+<B> Up:</B> <A
+ HREF="solution_pool.html">Solution Pool</A>
+<B> Previous:</B> <A
+ HREF="examples.html">Examples</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBaddgenconstrXxx</TITLE>
+<META NAME="description" CONTENT="GRBaddgenconstrXxx">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_agc_max.html">
+<LINK REL="previous" HREF="c_addconstrs.html">
+<LINK REL="next" HREF="c_agc_max.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_agc_max.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addconstrs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_agc_max.html">GRBaddgenconstrMax</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addconstrs.html">GRBaddconstrs</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00022600000000000000"></A>
+<A ID="routine:GRBaddgenconstrXxx"></A>
+<BR>
+GRBaddgenconstrXxx
+</H3>
+
+<P>
+Each of the functions described below adds a new <EM>general constraint</EM> to a model.
+
+<P>
+Mathematical programming has traditionally defined a set of
+fundamental constraint types: variable bound constraints, linear
+constraints, quadratic constraints, integrality constraints, and SOS
+constraints.  These are typically treated directly by the underlying
+solver (although not always), and are fundamental to the overall
+algorithm.
+
+<P>
+Gurobi accepts a number of additional constraint types, which we
+collectively refer to as <EM>general (function) constraints</EM>.  These
+are typically <EM>not</EM> treated directly by the solver.  Rather, they
+are transformed by presolve into constraints (and variables) chosen from
+among the fundamental types listed above.  In some cases, the resulting
+constraint or constraints are mathematically equivalent to the original; in
+others, they are approximations.  If such constraints appear in your model,
+but if you prefer to reformulate them yourself using fundamental constraint
+types instead, you can certainly do so.  However, note that Gurobi can
+sometimes exploit information contained in the other constraints in the
+model to build a more efficient formulation than what you might create.
+
+<P>
+The additional constraint types that fall under this <EM>general
+  constraint</EM> umbrella are:
+
+<UL>
+<LI><A HREF="c_agc_max.html#routine:GRBaddgenconstrMax">GRBaddgenconstrMax</A>:
+       <!-- MATH
+ $y = max(x_1, x_2, ..., c)$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img3.svg"
+ ALT="$y = max(x_1, x_2, ..., c)$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_min.html#routine:GRBaddgenconstrMin">GRBaddgenconstrMin</A>:
+       <!-- MATH
+ $y = min(x_1, x_2, ..., c)$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img4.svg"
+ ALT="$y = min(x_1, x_2, ..., c)$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_abs.html#routine:GRBaddgenconstrAbs">GRBaddgenconstrAbs</A>:
+       <!-- MATH
+ $y = \vert x\vert$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img5.svg"
+ ALT="$y = \vert x\vert$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_and.html#routine:GRBaddgenconstrAnd">GRBaddgenconstrAnd</A>:
+       <!-- MATH
+ $y = x_1 \land x_2 \land x_3...$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.97ex; vertical-align: -0.57ex; " SRC="img6.svg"
+ ALT="$y = x_1 \land x_2 \land x_3...$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_or.html#routine:GRBaddgenconstrOr">GRBaddgenconstrOr</A>:
+       <!-- MATH
+ $y = x_1 \lor x_2 \lor x_3...$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.97ex; vertical-align: -0.57ex; " SRC="img7.svg"
+ ALT="$y = x_1 \lor x_2 \lor x_3...$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_indicator.html#routine:GRBaddgenconstrIndicator">GRBaddgenconstrIndicator</A>:
+       <!-- MATH
+ $y = 1 \rightarrow a'x \leq b$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.42ex; vertical-align: -0.57ex; " SRC="img8.svg"
+ ALT="$y = 1 \rightarrow a'x \leq b$"></SPAN> (an indicator constraint)
+</LI>
+<LI><A HREF="c_agc_pwl.html#routine:GRBaddgenconstrPWL">GRBaddgenconstrPWL</A>:
+      <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img9.svg"
+ ALT="$y = pwl(x)$"></SPAN> (a piecewise-linear function, specified using breakpoints)
+</LI>
+<LI><A HREF="c_agc_poly.html#routine:GRBaddgenconstrPoly">GRBaddgenconstrPoly</A>:
+       <!-- MATH
+ $y = p_0 x^d + p_1 x^{d-1} + ... + p_{d-1} x + p_{d}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.74ex; vertical-align: -0.66ex; " SRC="img10.svg"
+ ALT="$y = p_0 x^d + p_1 x^{d-1} + ... + p_{d-1} x + p_{d}$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_exp.html#routine:GRBaddgenconstrExp">GRBaddgenconstrExp</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.22ex; vertical-align: -0.57ex; " SRC="img11.svg"
+ ALT="$y = e^x$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_expa.html#routine:GRBaddgenconstrExpA">GRBaddgenconstrExpA</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.22ex; vertical-align: -0.57ex; " SRC="img12.svg"
+ ALT="$y = a^x$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_log.html#routine:GRBaddgenconstrLog">GRBaddgenconstrLog</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img13.svg"
+ ALT="$y = log_e(x)$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_loga.html#routine:GRBaddgenconstrLogA">GRBaddgenconstrLogA</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img14.svg"
+ ALT="$y = log_a(x)$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_pow.html#routine:GRBaddgenconstrPow">GRBaddgenconstrPow</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.22ex; vertical-align: -0.57ex; " SRC="img15.svg"
+ ALT="$y = x^a$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_sin.html#routine:GRBaddgenconstrSin">GRBaddgenconstrSin</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img16.svg"
+ ALT="$y = sin(x)$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_cos.html#routine:GRBaddgenconstrCos">GRBaddgenconstrCos</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img17.svg"
+ ALT="$y = cos(x)$"></SPAN>
+</LI>
+<LI><A HREF="c_agc_tan.html#routine:GRBaddgenconstrTan">GRBaddgenconstrTan</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img18.svg"
+ ALT="$y = tan(x)$"></SPAN>
+</LI>
+</UL>
+Please refer to <A HREF="constraints.html#subsubsection:GeneralConstraints">this section</A>
+for additional details on general constraints.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_agc_max.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_addconstrs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_agc_max.html">GRBaddgenconstrMax</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_addconstrs.html">GRBaddconstrs</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

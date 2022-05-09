@@ -1,0 +1,478 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>C API Details</TITLE>
+<META NAME="description" CONTENT="C API Details">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_api_overview.html">
+<LINK REL="previous" HREF="c_api_overview.html">
+<LINK REL="next" HREF="c_environment_creation_and.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_api_overview.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="c_api_overview.html">C API Overview</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00020000000000000000">
+C API Details</A>
+</H1>
+
+<P>
+<A ID="sec:C-details"></A>
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html1610"
+  HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<UL>
+<LI><A ID="tex2html1611"
+  HREF="c_loadenv.html">GRBloadenv</A>
+<LI><A ID="tex2html1612"
+  HREF="c_emptyenv.html">GRBemptyenv</A>
+<LI><A ID="tex2html1613"
+  HREF="c_startenv.html">GRBstartenv</A>
+<LI><A ID="tex2html1614"
+  HREF="c_loadclientenv.html">GRBloadclientenv</A>
+<LI><A ID="tex2html1615"
+  HREF="c_loadcloudenv.html">GRBloadcloudenv</A>
+<LI><A ID="tex2html1616"
+  HREF="c_freeenv.html">GRBfreeenv</A>
+<LI><A ID="tex2html1617"
+  HREF="c_getconcurrentenv.html">GRBgetconcurrentenv</A>
+<LI><A ID="tex2html1618"
+  HREF="c_getmultiobjenv.html">GRBgetmultiobjenv</A>
+<LI><A ID="tex2html1619"
+  HREF="c_discardconcurrentenvs.html">GRBdiscardconcurrentenvs</A>
+<LI><A ID="tex2html1620"
+  HREF="c_discardmultiobjenvs.html">GRBdiscardmultiobjenvs</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1621"
+  HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<UL>
+<LI><A ID="tex2html1622"
+  HREF="c_loadmodel.html">GRBloadmodel</A>
+<LI><A ID="tex2html1623"
+  HREF="c_newmodel.html">GRBnewmodel</A>
+<LI><A ID="tex2html1624"
+  HREF="c_copymodel.html">GRBcopymodel</A>
+<LI><A ID="tex2html1625"
+  HREF="c_addconstr.html">GRBaddconstr</A>
+<LI><A ID="tex2html1626"
+  HREF="c_addconstrs.html">GRBaddconstrs</A>
+<LI><A ID="tex2html1627"
+  HREF="c_agc_xxx.html">GRBaddgenconstrXxx</A>
+<LI><A ID="tex2html1628"
+  HREF="c_agc_max.html">GRBaddgenconstrMax</A>
+<LI><A ID="tex2html1629"
+  HREF="c_agc_min.html">GRBaddgenconstrMin</A>
+<LI><A ID="tex2html1630"
+  HREF="c_agc_abs.html">GRBaddgenconstrAbs</A>
+<LI><A ID="tex2html1631"
+  HREF="c_agc_and.html">GRBaddgenconstrAnd</A>
+<LI><A ID="tex2html1632"
+  HREF="c_agc_or.html">GRBaddgenconstrOr</A>
+<LI><A ID="tex2html1633"
+  HREF="c_agc_indicator.html">GRBaddgenconstrIndicator</A>
+<LI><A ID="tex2html1634"
+  HREF="c_agc_pwl.html">GRBaddgenconstrPWL</A>
+<LI><A ID="tex2html1635"
+  HREF="c_agc_poly.html">GRBaddgenconstrPoly</A>
+<LI><A ID="tex2html1636"
+  HREF="c_agc_exp.html">GRBaddgenconstrExp</A>
+<LI><A ID="tex2html1637"
+  HREF="c_agc_expa.html">GRBaddgenconstrExpA</A>
+<LI><A ID="tex2html1638"
+  HREF="c_agc_log.html">GRBaddgenconstrLog</A>
+<LI><A ID="tex2html1639"
+  HREF="c_agc_loga.html">GRBaddgenconstrLogA</A>
+<LI><A ID="tex2html1640"
+  HREF="c_agc_pow.html">GRBaddgenconstrPow</A>
+<LI><A ID="tex2html1641"
+  HREF="c_agc_sin.html">GRBaddgenconstrSin</A>
+<LI><A ID="tex2html1642"
+  HREF="c_agc_cos.html">GRBaddgenconstrCos</A>
+<LI><A ID="tex2html1643"
+  HREF="c_agc_tan.html">GRBaddgenconstrTan</A>
+<LI><A ID="tex2html1644"
+  HREF="c_addqconstr.html">GRBaddqconstr</A>
+<LI><A ID="tex2html1645"
+  HREF="c_addqpterms.html">GRBaddqpterms</A>
+<LI><A ID="tex2html1646"
+  HREF="c_addrangeconstr.html">GRBaddrangeconstr</A>
+<LI><A ID="tex2html1647"
+  HREF="c_addrangeconstrs.html">GRBaddrangeconstrs</A>
+<LI><A ID="tex2html1648"
+  HREF="c_addsos.html">GRBaddsos</A>
+<LI><A ID="tex2html1649"
+  HREF="c_addvar.html">GRBaddvar</A>
+<LI><A ID="tex2html1650"
+  HREF="c_addvars.html">GRBaddvars</A>
+<LI><A ID="tex2html1651"
+  HREF="c_chgcoeffs.html">GRBchgcoeffs</A>
+<LI><A ID="tex2html1652"
+  HREF="c_delconstrs.html">GRBdelconstrs</A>
+<LI><A ID="tex2html1653"
+  HREF="c_delgenconstrs.html">GRBdelgenconstrs</A>
+<LI><A ID="tex2html1654"
+  HREF="c_delq.html">GRBdelq</A>
+<LI><A ID="tex2html1655"
+  HREF="c_delqconstrs.html">GRBdelqconstrs</A>
+<LI><A ID="tex2html1656"
+  HREF="c_delsos.html">GRBdelsos</A>
+<LI><A ID="tex2html1657"
+  HREF="c_delvars.html">GRBdelvars</A>
+<LI><A ID="tex2html1658"
+  HREF="c_setobjectiven.html">GRBsetobjectiven</A>
+<LI><A ID="tex2html1659"
+  HREF="c_setpwlobj.html">GRBsetpwlobj</A>
+<LI><A ID="tex2html1660"
+  HREF="c_updatemodel.html">GRBupdatemodel</A>
+<LI><A ID="tex2html1661"
+  HREF="c_freemodel.html">GRBfreemodel</A>
+<LI><A ID="tex2html1662"
+  HREF="c_xaddconstrs.html">GRBXaddconstrs</A>
+<LI><A ID="tex2html1663"
+  HREF="c_xaddrangeconstrs.html">GRBXaddrangeconstrs</A>
+<LI><A ID="tex2html1664"
+  HREF="c_xaddvars.html">GRBXaddvars</A>
+<LI><A ID="tex2html1665"
+  HREF="c_xchgcoeffs.html">GRBXchgcoeffs</A>
+<LI><A ID="tex2html1666"
+  HREF="c_xloadmodel.html">GRBXloadmodel</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1667"
+  HREF="c_model_solution.html">Model Solution</A>
+<UL>
+<LI><A ID="tex2html1668"
+  HREF="c_optimize.html">GRBoptimize</A>
+<LI><A ID="tex2html1669"
+  HREF="c_optimizeasync.html">GRBoptimizeasync</A>
+<LI><A ID="tex2html1670"
+  HREF="c_computeiis.html">GRBcomputeIIS</A>
+<LI><A ID="tex2html1671"
+  HREF="c_feasrelax.html">GRBfeasrelax</A>
+<LI><A ID="tex2html1672"
+  HREF="c_fixmodel.html">GRBfixmodel</A>
+<LI><A ID="tex2html1673"
+  HREF="c_reset.html">GRBreset</A>
+<LI><A ID="tex2html1674"
+  HREF="c_sync.html">GRBsync</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1675"
+  HREF="c_model_queries.html">Model Queries</A>
+<UL>
+<LI><A ID="tex2html1676"
+  HREF="c_getcoeff.html">GRBgetcoeff</A>
+<LI><A ID="tex2html1677"
+  HREF="c_getconstrbyname.html">GRBgetconstrbyname</A>
+<LI><A ID="tex2html1678"
+  HREF="c_getconstrs.html">GRBgetconstrs</A>
+<LI><A ID="tex2html1679"
+  HREF="c_getenv.html">GRBgetenv</A>
+<LI><A ID="tex2html1680"
+  HREF="c_ggc_max.html">GRBgetgenconstrMax</A>
+<LI><A ID="tex2html1681"
+  HREF="c_ggc_min.html">GRBgetgenconstrMin</A>
+<LI><A ID="tex2html1682"
+  HREF="c_ggc_abs.html">GRBgetgenconstrAbs</A>
+<LI><A ID="tex2html1683"
+  HREF="c_ggc_and.html">GRBgetgenconstrAnd</A>
+<LI><A ID="tex2html1684"
+  HREF="c_ggc_or.html">GRBgetgenconstrOr</A>
+<LI><A ID="tex2html1685"
+  HREF="c_ggc_indicator.html">GRBgetgenconstrIndicator</A>
+<LI><A ID="tex2html1686"
+  HREF="c_ggc_pwl.html">GRBgetgenconstrPWL</A>
+<LI><A ID="tex2html1687"
+  HREF="c_ggc_poly.html">GRBgetgenconstrPoly</A>
+<LI><A ID="tex2html1688"
+  HREF="c_ggc_exp.html">GRBgetgenconstrExp</A>
+<LI><A ID="tex2html1689"
+  HREF="c_ggc_expa.html">GRBgetgenconstrExpA</A>
+<LI><A ID="tex2html1690"
+  HREF="c_ggc_log.html">GRBgetgenconstrLog</A>
+<LI><A ID="tex2html1691"
+  HREF="c_ggc_loga.html">GRBgetgenconstrLogA</A>
+<LI><A ID="tex2html1692"
+  HREF="c_ggc_pow.html">GRBgetgenconstrPow</A>
+<LI><A ID="tex2html1693"
+  HREF="c_ggc_sin.html">GRBgetgenconstrSin</A>
+<LI><A ID="tex2html1694"
+  HREF="c_ggc_cos.html">GRBgetgenconstrCos</A>
+<LI><A ID="tex2html1695"
+  HREF="c_ggc_tan.html">GRBgetgenconstrTan</A>
+<LI><A ID="tex2html1696"
+  HREF="c_getjsonsolution.html">GRBgetjsonsolution</A>
+<LI><A ID="tex2html1697"
+  HREF="c_getpwlobj.html">GRBgetpwlobj</A>
+<LI><A ID="tex2html1698"
+  HREF="c_getq.html">GRBgetq</A>
+<LI><A ID="tex2html1699"
+  HREF="c_getqconstr.html">GRBgetqconstr</A>
+<LI><A ID="tex2html1700"
+  HREF="c_getqconstrbyname.html">GRBgetqconstrbyname</A>
+<LI><A ID="tex2html1701"
+  HREF="c_getsos.html">GRBgetsos</A>
+<LI><A ID="tex2html1702"
+  HREF="c_getvarbyname.html">GRBgetvarbyname</A>
+<LI><A ID="tex2html1703"
+  HREF="c_getvars.html">GRBgetvars</A>
+<LI><A ID="tex2html1704"
+  HREF="c_singlescenariomodel.html">GRBsinglescenariomodel</A>
+<LI><A ID="tex2html1705"
+  HREF="c_xgetconstrs.html">GRBXgetconstrs</A>
+<LI><A ID="tex2html1706"
+  HREF="c_xgetvars.html">GRBXgetvars</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1707"
+  HREF="c_input_output.html">Input/Output</A>
+<UL>
+<LI><A ID="tex2html1708"
+  HREF="c_readmodel.html">GRBreadmodel</A>
+<LI><A ID="tex2html1709"
+  HREF="c_read.html">GRBread</A>
+<LI><A ID="tex2html1710"
+  HREF="c_write.html">GRBwrite</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1711"
+  HREF="c_attribute_management.html">Attribute Management</A>
+<UL>
+<LI><A ID="tex2html1712"
+  HREF="c_getattrinfo.html">GRBgetattrinfo</A>
+<LI><A ID="tex2html1713"
+  HREF="c_getintattr.html">GRBgetintattr</A>
+<LI><A ID="tex2html1714"
+  HREF="c_setintattr.html">GRBsetintattr</A>
+<LI><A ID="tex2html1715"
+  HREF="c_getintattrelement.html">GRBgetintattrelement</A>
+<LI><A ID="tex2html1716"
+  HREF="c_setintattrelement.html">GRBsetintattrelement</A>
+<LI><A ID="tex2html1717"
+  HREF="c_getintattrarray.html">GRBgetintattrarray</A>
+<LI><A ID="tex2html1718"
+  HREF="c_setintattrarray.html">GRBsetintattrarray</A>
+<LI><A ID="tex2html1719"
+  HREF="c_getintattrlist.html">GRBgetintattrlist</A>
+<LI><A ID="tex2html1720"
+  HREF="c_setintattrlist.html">GRBsetintattrlist</A>
+<LI><A ID="tex2html1721"
+  HREF="c_getdblattr.html">GRBgetdblattr</A>
+<LI><A ID="tex2html1722"
+  HREF="c_setdblattr.html">GRBsetdblattr</A>
+<LI><A ID="tex2html1723"
+  HREF="c_getdblattrelement.html">GRBgetdblattrelement</A>
+<LI><A ID="tex2html1724"
+  HREF="c_setdblattrelement.html">GRBsetdblattrelement</A>
+<LI><A ID="tex2html1725"
+  HREF="c_getdblattrarray.html">GRBgetdblattrarray</A>
+<LI><A ID="tex2html1726"
+  HREF="c_setdblattrarray.html">GRBsetdblattrarray</A>
+<LI><A ID="tex2html1727"
+  HREF="c_getdblattrlist.html">GRBgetdblattrlist</A>
+<LI><A ID="tex2html1728"
+  HREF="c_setdblattrlist.html">GRBsetdblattrlist</A>
+<LI><A ID="tex2html1729"
+  HREF="c_getcharattrelement.html">GRBgetcharattrelement</A>
+<LI><A ID="tex2html1730"
+  HREF="c_setcharattrelement.html">GRBsetcharattrelement</A>
+<LI><A ID="tex2html1731"
+  HREF="c_getcharattrarray.html">GRBgetcharattrarray</A>
+<LI><A ID="tex2html1732"
+  HREF="c_setcharattrarray.html">GRBsetcharattrarray</A>
+<LI><A ID="tex2html1733"
+  HREF="c_getcharattrlist.html">GRBgetcharattrlist</A>
+<LI><A ID="tex2html1734"
+  HREF="c_setcharattrlist.html">GRBsetcharattrlist</A>
+<LI><A ID="tex2html1735"
+  HREF="c_getstrattr.html">GRBgetstrattr</A>
+<LI><A ID="tex2html1736"
+  HREF="c_setstrattr.html">GRBsetstrattr</A>
+<LI><A ID="tex2html1737"
+  HREF="c_getstrattrelement.html">GRBgetstrattrelement</A>
+<LI><A ID="tex2html1738"
+  HREF="c_setstrattrelement.html">GRBsetstrattrelement</A>
+<LI><A ID="tex2html1739"
+  HREF="c_getstrattrarray.html">GRBgetstrattrarray</A>
+<LI><A ID="tex2html1740"
+  HREF="c_setstrattrarray.html">GRBsetstrattrarray</A>
+<LI><A ID="tex2html1741"
+  HREF="c_getstrattrlist.html">GRBgetstrattrlist</A>
+<LI><A ID="tex2html1742"
+  HREF="c_setstrattrlist.html">GRBsetstrattrlist</A>
+<LI><A ID="tex2html1743"
+  HREF="c_getbatchattrinfo.html">GRBgetbatchattrinfo</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1744"
+  HREF="c_parameter_management_and.html">Parameter Management and Tuning</A>
+<UL>
+<LI><A ID="tex2html1745"
+  HREF="c_tunemodel.html">GRBtunemodel</A>
+<LI><A ID="tex2html1746"
+  HREF="c_gettuneresult.html">GRBgettuneresult</A>
+<LI><A ID="tex2html1747"
+  HREF="c_getdblparam.html">GRBgetdblparam</A>
+<LI><A ID="tex2html1748"
+  HREF="c_getintparam.html">GRBgetintparam</A>
+<LI><A ID="tex2html1749"
+  HREF="c_getstrparam.html">GRBgetstrparam</A>
+<LI><A ID="tex2html1750"
+  HREF="c_setdblparam.html">GRBsetdblparam</A>
+<LI><A ID="tex2html1751"
+  HREF="c_setintparam.html">GRBsetintparam</A>
+<LI><A ID="tex2html1752"
+  HREF="c_setstrparam.html">GRBsetstrparam</A>
+<LI><A ID="tex2html1753"
+  HREF="c_getdblparaminfo.html">GRBgetdblparaminfo</A>
+<LI><A ID="tex2html1754"
+  HREF="c_getintparaminfo.html">GRBgetintparaminfo</A>
+<LI><A ID="tex2html1755"
+  HREF="c_getstrparaminfo.html">GRBgetstrparaminfo</A>
+<LI><A ID="tex2html1756"
+  HREF="c_readparams.html">GRBreadparams</A>
+<LI><A ID="tex2html1757"
+  HREF="c_writeparams.html">GRBwriteparams</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1758"
+  HREF="c_monitoring_progress_logg.html">Monitoring Progress - Logging and Callbacks</A>
+<UL>
+<LI><A ID="tex2html1759"
+  HREF="c_msg.html">GRBmsg</A>
+<LI><A ID="tex2html1760"
+  HREF="c_setcb_func.html">GRBsetcallbackfunc</A>
+<LI><A ID="tex2html1761"
+  HREF="c_getcb_func.html">GRBgetcallbackfunc</A>
+<LI><A ID="tex2html1762"
+  HREF="c_cbget.html">GRBcbget</A>
+<LI><A ID="tex2html1763"
+  HREF="c_version.html">GRBversion</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1764"
+  HREF="c_modifying_solver_behavio.html">Modifying Solver Behavior - Callbacks</A>
+<UL>
+<LI><A ID="tex2html1765"
+  HREF="c_cbcut.html">GRBcbcut</A>
+<LI><A ID="tex2html1766"
+  HREF="c_cblazy.html">GRBcblazy</A>
+<LI><A ID="tex2html1767"
+  HREF="c_cbsolution.html">GRBcbsolution</A>
+<LI><A ID="tex2html1768"
+  HREF="c_cbstoponemultiobj.html">GRBcbstoponemultiobj</A>
+<LI><A ID="tex2html1769"
+  HREF="c_terminate.html">GRBterminate</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1770"
+  HREF="c_batch_requests.html">Batch Requests</A>
+<UL>
+<LI><A ID="tex2html1771"
+  HREF="c_abortbatch.html">GRBabortbatch</A>
+<LI><A ID="tex2html1772"
+  HREF="c_discardbatch.html">GRBdiscardbatch</A>
+<LI><A ID="tex2html1773"
+  HREF="c_freebatch.html">GRBfreebatch</A>
+<LI><A ID="tex2html1774"
+  HREF="c_getbatch.html">GRBgetbatch</A>
+<LI><A ID="tex2html1775"
+  HREF="c_getbatchenv.html">GRBgetbatchenv</A>
+<LI><A ID="tex2html1776"
+  HREF="c_getbatchintattr.html">GRBgetbatchintattr</A>
+<LI><A ID="tex2html1777"
+  HREF="c_getbatchjsonsolution.html">GRBgetbatchjsonsolution</A>
+<LI><A ID="tex2html1778"
+  HREF="c_getbatchstrattr.html">GRBgetbatchstrattr</A>
+<LI><A ID="tex2html1779"
+  HREF="c_optimizebatch.html">GRBoptimizebatch</A>
+<LI><A ID="tex2html1780"
+  HREF="c_retrybatch.html">GRBretrybatch</A>
+<LI><A ID="tex2html1781"
+  HREF="c_updatebatch.html">GRBupdatebatch</A>
+<LI><A ID="tex2html1782"
+  HREF="c_writebatchjsonsolution.html">GRBwritebatchjsonsolution</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1783"
+  HREF="c_error_handling.html">Error Handling</A>
+<UL>
+<LI><A ID="tex2html1784"
+  HREF="c_geterrormsg.html">GRBgeterrormsg</A>
+</UL>
+<BR>
+<LI><A ID="tex2html1785"
+  HREF="c_advanced_simplex_routine.html">Advanced simplex routines</A>
+<UL>
+<LI><A ID="tex2html1786"
+  HREF="c_fsolve.html">GRBFSolve</A>
+<LI><A ID="tex2html1787"
+  HREF="c_bsolve.html">GRBBSolve</A>
+<LI><A ID="tex2html1788"
+  HREF="c_binvcolj.html">GRBBinvColj</A>
+<LI><A ID="tex2html1789"
+  HREF="c_binvrowi.html">GRBBinvRowi</A>
+<LI><A ID="tex2html1790"
+  HREF="c_getbasishead.html">GRBgetBasisHead</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_api_overview.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="c_api_overview.html">C API Overview</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Partition</TITLE>
+<META NAME="description" CONTENT="Partition">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="vbasis.html">
+<LINK REL="previous" HREF="branchpriority.html">
+<LINK REL="next" HREF="vbasis.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="vbasis.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="branchpriority.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="vbasis.html">VBasis</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="branchpriority.html">BranchPriority</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001721500000000000000"></A>
+<A ID="attr:Partition"></A>
+<BR>
+Partition
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+Variable partition.  The MIP solver can perform a solution improvement
+heuristic using user-provided partition information.  The provided
+partition number can be positive, which indicates that the variable
+should be included when the correspondingly numbered sub-MIP is
+solved, 0 which indicates that the variable should be included in
+every sub-MIP, or -1 which indicates that the variable should not be
+included in any sub-MIP.  Variables that are not included in the
+sub-MIP are fixed to their values in the current incumbent solution.
+By default, all variables start with a value of -1.
+
+<P>
+To give an example, imagine you are solving a model with 400 variables
+and you set the partition attribute to -1 for variables 0-99, 0 for
+variables 100-199, 1 for variables 200-299, and 2 for variables
+300-399.  The heuristic would solve two sub-MIP models: sub-MIP 1
+would fix variables 0-99 and 300-399 to their values in the incumbent
+and solve for the rest, while sub-MIP 2 would fix variables 0-99 and
+200-299.
+
+<P>
+Use the <A HREF="partitionplace.html#parameter:PartitionPlace">PartitionPlace</A> parameter
+to control where the partition heuristic runs.
+
+<P>
+Only affects MIP models.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="vbasis.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="branchpriority.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="vbasis.html">VBasis</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="branchpriority.html">BranchPriority</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

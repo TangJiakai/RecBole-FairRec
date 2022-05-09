@@ -1,0 +1,181 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using an API to Create a Batch</TITLE>
+<META NAME="description" CONTENT="Using an API to Create a Batch">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="performance_considerations.html">
+<LINK REL="previous" HREF="using_an_api_to_create_a_c.html">
+<LINK REL="next" HREF="performance_considerations.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="performance_considerations.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_an_api_to_create_a_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="performance_considerations.html">Performance Considerations on a</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="using_an_api_to_create_a_c.html">Using an API to</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00042000000000000000"></A>
+<A ID="sec:APIBatches"></A>
+<BR>
+Using an API to Create a Batch
+</H2>
+
+<P>
+Batch Optimization is a feature only available with the Gurobi Cluster
+Manager.  It allows a client to create a model, tag a set of
+relevant elements in that model, and then submit that model as a
+batch. A unique batch ID is returned in response, allowing the client
+to query and monitor the status of the batch (submitted, completed,
+etc.). Once the batch request has been processed, the client can
+retrieve its solution and the relevant attributes of the tagged
+elements in the model as a JSON document.
+
+<P>
+In this section, we just want to introduce the principles of the API
+by briefly illustrating these steps. The code snippets that follow
+show the main concepts, but aren't necessarily complete programs.  You
+can refer to the <A ID="tex2html12"
+  HREF="../refman/refman.html">Gurobi Reference
+  Manual</A>
+for details on the full API and for a
+complete and functional example.
+
+<P>
+The first step in this process is to create a batch environment by
+connecting to a Cluster Manager and enabling batch mode with the
+<code>CSBatchMode</code> parameter. In order to authenticate the application
+with the Cluster Manager, you have two options.
+The first is to use your user name and password,
+by setting the <code>UserName</code> and <code>ServerPassword</code>
+parameters.  The second, which we recommend, is to use API keys and set
+the <code>CSAPIAccessID</code> and <code>CSAPISecret</code> parameters instead.
+We set these parameters directly in the code snippet for simplicity, but
+we recommended that you set them in the license file or read their values from
+environment variables to avoid the need to hard-code them.
+
+<P>
+Then you can build a model, tag the
+variables and other elements that you will want to export in the
+solution, and finally you can submit the batch, which gives a batch
+ID.
+
+<P>
+The following Python code illustrates these steps:
+
+<PRE>
+import gurobipy as gp
+
+# create a batch environment
+with gp.Env(empty=True) as env:
+    env.setParam('CSManager',     'http://localhost:61080')
+    env.setParam('CSAPIAccessID', '0e8c35d5-ff20-4e5d-a639-10105e56b264')
+    env.setParam('CSAPISecret',   'd588f010-ad47-4310-933e-1902057661c9')
+    env.setParam('CSBatchMode',   1)
+    env.start()
+
+    # build the model
+    with gp.read('misc07.mps', env) as model:
+
+        # set tags to control the solution export
+        [...]
+
+        # submit and get the batch ID
+        batchid = model.optimizeBatch()
+</PRE>
+
+<P>
+Then your client or application can monitor the batch status.
+Here is an example that accesses and prints the current status:
+
+<PRE>
+# create a batch environment
+with gp.Env(empty=True) as env:
+    env.setParam('CSManager',     'http://localhost:61080')
+    env.setParam('CSAPIAccessID', '0e8c35d5-ff20-4e5d-a639-10105e56b264')
+    env.setParam('CSAPISecret',   'd588f010-ad47-4310-933e-1902057661c9')
+    env.setParam('CSBatchMode',    1)
+    env.start()
+
+    # get the batch information
+    with gp.Batch(batchid, env) as batch:
+
+        print("Batch ID {}: Error code {} ({})".format(
+            batch.BatchID, batch.BatchErrorCode, batch.BatchErrorMessage))
+</PRE>
+
+<P>
+Once the batch is complete, you can retrieve the solution as a JSON
+object:
+
+<PRE>
+# create a batch environment
+with gp.Env(empty=True) as env:
+    env.setParam('CSManager',     'http://localhost:61080')
+    env.setParam('CSAPIAccessID', '0e8c35d5-ff20-4e5d-a639-10105e56b264')
+    env.setParam('CSAPISecret',   'd588f010-ad47-4310-933e-1902057661c9')
+    env.setParam('CSBatchMode',   1)
+    env.start()
+
+    # get the batch information
+    with gp.Batch(batchid, env) as batch:
+
+        # Get JSON solution as string, create dict from it
+        sol = json.loads(batch.getJSONSolution())
+
+        # Pretty printing the general solution information
+        print(json.dumps(sol["SolutionInfo"], indent=4))
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="performance_considerations.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="programming_with_remote_se.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="using_an_api_to_create_a_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="performance_considerations.html">Performance Considerations on a</A>
+<B> Up:</B> <A
+ HREF="programming_with_remote_se.html">Programming with Remote Services</A>
+<B> Previous:</B> <A
+ HREF="using_an_api_to_create_a_c.html">Using an API to</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

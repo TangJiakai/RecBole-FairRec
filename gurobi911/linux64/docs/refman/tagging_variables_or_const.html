@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Tagging Variables or Constraints</TITLE>
+<META NAME="description" CONTENT="Tagging Variables or Constraints">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="sub_a_batch_optimization_r.html">
+<LINK REL="previous" HREF="setting_up_a_batch_environ.html">
+<LINK REL="next" HREF="sub_a_batch_optimization_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_a_batch_optimization_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="setting_up_a_batch_environ.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_a_batch_optimization_r.html">Submitting a Batch Optimization</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="setting_up_a_batch_environ.html">Setting Up a Batch</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000292000000000000000">
+Tagging Variables or Constraints</A>
+</H2>
+
+<P>
+Batch optimization separates the process of building a
+model from the process of retrieving and acting on its solution.  For
+example, you can build your model on one machine, submit a batch
+request, and then use the resulting
+<A HREF="batchid.html#attr:BatchID">BatchID</A> to retrieve the solution on a
+completely different machine.
+
+<P>
+Of course, disconnecting a model from its solution introduces a
+mapping problem: the process that retrieves the solution needs to know
+how to map the elements of the solution back to the corresponding
+elements of the model.  This is done through <SPAN  CLASS="textit">tags</SPAN>.  When a
+model is built, the user associates unique strings with the variables
+and constraints of interest in the model.  Solution values are then
+associated with these strings.  If the user doesn't provide a tag for
+a model element, no solution information is stored or returned for
+that element.
+
+<P>
+You can tag variables (using the <A HREF="vtag.html#attr:VTag">VTag</A>
+attribute), linear constraints (using the
+<A HREF="ctag.html#attr:CTag">CTag</A> attribute), and quadratic constraints
+(using the <A HREF="qctag.html#attr:QCTag">QCTag</A> attribute).  We should
+point out that solutions to mixed-integer models don't contain any
+constraint information, so constraint tags have no effect
+for such models.
+
+<P>
+For details on the information that is available in the solution in
+different situations, please refer to the <A HREF="json_solution_format.html#format:JSON">JSON
+solution format</A> section.
+
+<P>
+Here's a simple example that tags the first 10 variables in a model:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        # Define tags for some variables in order to access their values later
+        for count, v in enumerate(model.getVars()):
+            v.VTag = "Variable{}".format(count)
+            if count &gt;= 10:
+                break
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sub_a_batch_optimization_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="setting_up_a_batch_environ.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_a_batch_optimization_r.html">Submitting a Batch Optimization</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="setting_up_a_batch_environ.html">Setting Up a Batch</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

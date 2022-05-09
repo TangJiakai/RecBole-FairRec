@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.computeIIS()</TITLE>
+<META NAME="description" CONTENT="Model.computeIIS()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_copy.html">
+<LINK REL="previous" HREF="py_model_chgcoeff.html">
+<LINK REL="next" HREF="py_model_copy.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_copy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_chgcoeff.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_copy.html">Model.copy()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_chgcoeff.html">Model.chgCoeff()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001023900000000000000"></A>
+<A ID="pythonmethod:Model.computeIIS"></A>
+<BR>
+Model.computeIIS()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">computeIIS</SPAN></FONT></SPAN> ( void )
+
+<P>
+Compute an Irreducible Inconsistent Subsystem (IIS).
+An IIS is a subset of the constraints and variable bounds with the following properties:
+
+<UL>
+<LI>It is still infeasible, and
+</LI>
+<LI>If a single constraint or bound is removed, the subsystem becomes feasible.
+</LI>
+</UL>
+Note that an infeasible model may have multiple IISs. The one returned
+by Gurobi is not necessarily the smallest one; there may exist others
+with fewer constraints or bounds.
+
+<P>
+IIS results are returned in a number of attributes:
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iislb.html#attr:IISLB">IISLB</A>,
+<A HREF="iislb.html#attr:IISLB">IISUB</A>,
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>, and
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>.
+Each indicates whether the corresponding model element is a member
+of the computed IIS.
+
+<P>
+The <A HREF="iis_logging.html#sec:IISLogging">IIS log</A> provides information about
+the progress of the algorithm, including a guess at the eventual IIS
+size.
+
+<P>
+If an IIS computation is interrupted before completion, Gurobi will
+return the smallest infeasible subsystem found to that point.
+
+<P>
+This method populates the
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>, and
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>
+constraint attributes,
+the
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+SOS attribute, and the
+<A HREF="iislb.html#attr:IISLB">IISLB</A> and
+<A HREF="iislb.html#attr:IISLB">IISUB</A>
+variable attributes.
+You can also
+obtain information about the results of the IIS computation by writing
+an <code>.ilp</code> format file (see
+<A HREF="py_model_write.html#pythonmethod:Model.write">Model.write</A>).  This file
+contains only the IIS from the original model.
+
+<P>
+Use the <A HREF="iismethod.html#parameter:IISMethod">IISMethod</A> parameter to
+adjust the behavior of the IIS algorithm.
+
+<P>
+Note that this method can be used to compute IISs for both continuous
+and MIP models.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  model.computeIIS()
+  model.write("model.ilp")
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_copy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_chgcoeff.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_copy.html">Model.copy()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_chgcoeff.html">Model.chgCoeff()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

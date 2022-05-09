@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Distributed MIP Logging</TITLE>
+<META NAME="description" CONTENT="Distributed MIP Logging">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="iis_logging.html">
+<LINK REL="previous" HREF="multi_objective_logging.html">
+<LINK REL="next" HREF="iis_logging.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="iis_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="multi_objective_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="iis_logging.html">IIS Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="multi_objective_logging.html">Multi-Objective Logging</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000248000000000000000"></A>
+<A ID="sec:DistributedMIPLogging"></A>
+<BR>
+Distributed MIP Logging
+</H2>
+
+<P>
+Logging for distributed MIP is very similar to the standard MIP logging.  The main
+difference is in the progress section.  The header for the standard MIP logging looks
+like this:
+<PRE>
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+</PRE>
+In contrast, the distributed MIP header has a different label for the
+second-to-last field:
+<PRE>
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | ParUtil Time
+</PRE>
+Instead of showing iterations per node, this field in the distributed
+log shows parallel utilization.  Specifically, it shows the fraction of the
+preceding time period (the time since the previous progress log line)
+that the workers spent actively processing MIP nodes.
+
+<P>
+Here is an example of a distributed MIP progress log:
+<PRE>
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | ParUtil Time
+
+H    0                          157344.61033          -      -          0s
+H    0                          40707.729144          -      -          0s
+H    0                          28468.534497          -      -          0s
+H    0                          18150.083886          -      -          0s
+H    0                          14372.871258          -      -          0s
+H    0                          13725.475382          -      -          0s
+     0     0 10543.7611    0   19 13725.4754 10543.7611  23.2%   99%    0s
+*  266                          12988.468031 10543.7611  18.8%          0s
+H 1503                          12464.099984 10630.6187  14.7%          0s
+* 2350                          12367.608657 10632.7061  14.0%          1s
+* 3360                          12234.641804 10641.4586  13.0%          1s
+H 3870                          11801.185729 10641.4586  9.83%          1s
+
+Ramp-up phase complete - continuing with instance 2 (best bd 10661)
+
+ 16928  2731 10660.9626    0   12 11801.1857 10660.9635  9.66%   99%    2s
+ 135654 57117 11226.5449   19   12 11801.1857 11042.3036  6.43%   98%    5s
+ 388736 135228 11693.0268   23   12 11801.1857 11182.6300  5.24%   96%   10s
+ 705289 196412     cutoff           11801.1857 11248.8963  4.68%   98%   15s
+ 1065224 232839 11604.6587   28   10 11801.1857 11330.2111  3.99%   98%   20s
+ 1412054 238202 11453.2202   31   12 11801.1857 11389.7119  3.49%   99%   25s
+ 1782362 209060     cutoff           11801.1857 11437.2670  3.08%   97%   30s
+ 2097018 158137 11773.6235   20   11 11801.1857 11476.1690  2.75%   92%   35s
+ 2468495 11516     cutoff           11801.1857 11699.9393  0.86%   78%   40s
+ 2481830     0     cutoff           11801.1857 11801.1857  0.00%   54%   40s
+</PRE>
+
+<P>
+One thing you may find in the progress section is that node counts may
+not increase monotonically.  Distributed MIP tries to create a single,
+unified view of node numbers, but with multiple machines processing
+nodes independently, possibly at different rates, some inconsistencies
+are inevitable.
+
+<P>
+Another difference is the line that indicates that the distributed
+ramp-up phase is complete.  At this point, the distributed strategy
+transitions from a concurrent approach to a distributed approach.  The
+log line indicates which worker was the <EM>winner</EM> in the
+concurrent approach.  Distributed MIP continues by dividing the
+partially explored MIP search tree from this worker among all of the
+workers.
+
+<P>
+Another difference in the distributed log is in the summary section.
+The distributed MIP log includes a breakdown of how runtime was spent:
+<PRE>
+Runtime breakdown:
+Runtime breakdown:
+  Active:  37.85s (93%)
+  Sync:     2.43s (6%)
+  Comm:     0.34s (1%)
+</PRE>
+This is an aggregated view of the utilization data that is displayed in the progress
+log lines.  In this example, the workers spent 93% of runtime actively working on
+MIP nodes, 6% waiting to synchronize with other workers, and 1% communicating
+data between machines.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="iis_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="multi_objective_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="iis_logging.html">IIS Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="multi_objective_logging.html">Multi-Objective Logging</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

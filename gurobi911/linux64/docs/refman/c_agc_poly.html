@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBaddgenconstrPoly</TITLE>
+<META NAME="description" CONTENT="GRBaddgenconstrPoly">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_agc_exp.html">
+<LINK REL="previous" HREF="c_agc_pwl.html">
+<LINK REL="next" HREF="c_agc_exp.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_agc_exp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_agc_pwl.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_agc_exp.html">GRBaddgenconstrExp</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_agc_pwl.html">GRBaddgenconstrPWL</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000221400000000000000"></A>
+<A ID="routine:GRBaddgenconstrPoly"></A>
+<BR>
+GRBaddgenconstrPoly
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBaddgenconstrPoly</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*name,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">xvar,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">yvar,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">plen,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*p,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*options )</TD>
+</TR>
+</TABLE>
+
+<P>
+Add a new general constraint of type <SPAN  CLASS="texttt">GRB_GENCONSTR_POLY</SPAN> to a model.
+
+  Note that, due to our lazy update approach, the new constraint won't actually be added
+  until you update the model
+  (using <A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>),
+  optimize the model
+  (using <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>),
+  or write the model to disk
+  (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+
+<P>
+A polynomial function constraint states that the relationship
+<!-- MATH
+ $y = p_0 x^d + p_1 x^{d-1} + ... + p_{d-1} x + p_{d}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.74ex; vertical-align: -0.66ex; " SRC="img10.svg"
+ ALT="$y = p_0 x^d + p_1 x^{d-1} + ... + p_{d-1} x + p_{d}$"></SPAN>
+should hold between variables <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> and <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>.
+
+<P>
+A piecewise-linear approximation of the function is
+added to the model.  The details of the approximation are controlled
+using the following four attributes (or using the
+parameters with the same names):
+<A HREF="funcpieces.html#attr:FuncPieces">FuncPieces</A>,
+<A HREF="funcpieceerror.html#attr:FuncPieceError">FuncPieceError</A>,
+<A HREF="funcpiecelength.html#attr:FuncPieceLength">FuncPiecesLength</A>, and
+<A HREF="funcpieceratio.html#attr:FuncPieceRatio">FuncPieceRatio</A>.
+For details, consult the
+<A HREF="constraints.html#subsubsection:GenConstrFunction">General Constraint</A>
+discussion.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while adding the general constraint.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to which the new general constraint should be added.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for the new general constraint.  This
+  argument can be <SPAN  CLASS="texttt">NULL</SPAN>, in which case the constraint is
+  given a default name.
+
+<P>
+ <SPAN  CLASS="textbf">xvar</SPAN>: The index of variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">yvar</SPAN>: The index of variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">plen</SPAN>: The length of coefficient array <SPAN  CLASS="texttt">p</SPAN>. If <SPAN CLASS="MATH"><IMG STYLE="height: 2.20ex; vertical-align: -0.12ex; " SRC="img43.svg"
+ ALT="$x^d$"></SPAN> is the highest power term, then <SPAN  CLASS="texttt">plen</SPAN> should be <SPAN CLASS="MATH"><IMG STYLE="height: 2.03ex; vertical-align: -0.31ex; " SRC="img44.svg"
+ ALT="$d+1$"></SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">p</SPAN>: The coefficients for the polynomial function (starting with
+  the coefficient for the highest power).
+
+<P>
+ <SPAN  CLASS="textbf">options</SPAN>: 
+A string that can be used to set the attributes that control
+the piecewise-linear approximation of this function constraint.
+To assign a value to an attribute, follow the attribute
+name with an equal sign and the desired value (with no spaces).
+Assignments for different attributes should be separated by spaces
+(e.g. "FuncPieces=-1 FuncPieceError=0.001").
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  /* y = 3 x^4 + 7 x + 3 = 3 x^4 + 0 x^3 + 0 x^2 + 7 x + 3 */
+  int plen = 5;
+  double p[] = {3, 0, 0, 7, 3};
+  error = GRBaddgenconstrPoly(model, "poly", xvar, yvar, 5, p, "");
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_agc_exp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_agc_pwl.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_agc_exp.html">GRBaddgenconstrExp</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_agc_pwl.html">GRBaddgenconstrPWL</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

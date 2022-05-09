@@ -1237,11 +1237,9 @@ class DifferentialFairness(AbstractMetric):
                 indices = (iid_indices==i)*(sst_indices==j)
                 score_matric[i,j] = (score[indices].sum()+dirichlet_alpha)/(indices.sum()+concentration_parameter)
 
-        for i in range(len(iid_unique_values)):
-            epsilon = np.array(0.,dtype=np.float32)
-            for j in range(len(sst_unique_values)):
-                for k in range(j+1, len(sst_unique_values)):
-                    epsilon = max(epsilon, np.abs(np.log(score_matric[i,j])-np.log(score_matric[i,k])))
-            epsilon_values[i] = epsilon
+        for i in range(len(sst_unique_values)):
+            for j in range(i+1, len(sst_unique_values)):
+                epsilon = np.abs(np.log(score_matric[:,i])-np.log(score_matric[:,j]))
+                epsilon_values = np.where(epsilon>epsilon_values, epsilon, epsilon_values)
         
         return epsilon_values.mean()

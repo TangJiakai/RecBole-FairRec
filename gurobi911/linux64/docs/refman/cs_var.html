@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBVar</TITLE>
+<META NAME="description" CONTENT="GRBVar">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_constr.html">
+<LINK REL="previous" HREF="cs_model.html">
+<LINK REL="next" HREF="cs_var_get.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_var_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_write.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_var_get.html">GRBVar.Get()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_model_write.html">GRBModel.Write()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00083000000000000000"></A>
+<A ID="dotnetclass:GRBVar"></A>
+<BR>
+GRBVar
+</H2>
+
+<P>
+Gurobi variable object.  Variables are always associated with a
+particular model.  You create a variable object by adding a variable
+to a model (using
+<A HREF="cs_model_addvar.html#dotnetmethod:GRBModel.AddVar">GRBModel.AddVar</A>), rather
+than by using a <code>GRBVar</code> constructor.
+
+<P>
+The methods on variable objects are used to get and set variable
+attributes.  For example, solution information can be queried by
+calling <A HREF="cs_var_get.html#dotnetmethod:GRBVar.Get">Get</A>(<code>GRB.DoubleAttr.X</code>).
+Note, however, that it is generally more efficient to query attributes
+for a set of variables at once.  This is done using the attribute
+query method on the <code>GRBModel</code> object
+(<A HREF="cs_model_get.html#dotnetmethod:GRBModel.Get">GRBModel.Get</A>).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3131"
+  HREF="cs_var_get.html">GRBVar.Get()</A>
+<LI><A ID="tex2html3132"
+  HREF="cs_var_index.html">GRBVar.Index</A>
+<LI><A ID="tex2html3133"
+  HREF="cs_var_sameas.html">GRBVar.SameAs()</A>
+<LI><A ID="tex2html3134"
+  HREF="cs_var_set.html">GRBVar.Set()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_var_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_write.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_var_get.html">GRBVar.Get()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_model_write.html">GRBModel.Write()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

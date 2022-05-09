@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBConstr</TITLE>
+<META NAME="description" CONTENT="GRBConstr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_qconstr.html">
+<LINK REL="previous" HREF="cs_var.html">
+<LINK REL="next" HREF="cs_constr_get.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_constr_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_var_set.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_constr_get.html">GRBConstr.Get()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_var_set.html">GRBVar.Set()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00084000000000000000"></A>
+<A ID="dotnetclass:GRBConstr"></A>
+<BR>
+GRBConstr
+</H2>
+
+<P>
+Gurobi constraint object.  Constraints are always associated with a
+particular model.  You create a constraint object by adding a
+constraint to a model (using
+<A HREF="cs_model_addconstr.html#dotnetmethod:GRBModel.AddConstr">GRBModel.AddConstr</A>),
+rather than by using a <code>GRBConstr</code> constructor.
+
+<P>
+The methods on constraint objects are used to get and set constraint
+attributes.  For example, constraint right-hand sides can be queried
+by calling
+<A HREF="cs_constr_get.html#dotnetmethod:GRBConstr.Get">Get</A>(<code>GRB.DoubleAttr.RHS</code>).
+Note, however, that it is generally more efficient to query attributes
+for a set of constraints at once.  This is done using the attribute
+query method on the <code>GRBModel</code> object
+(<A HREF="cs_model_get.html#dotnetmethod:GRBModel.Get">GRBModel.Get</A>).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3135"
+  HREF="cs_constr_get.html">GRBConstr.Get()</A>
+<LI><A ID="tex2html3136"
+  HREF="cs_constr_index.html">GRBConstr.Index</A>
+<LI><A ID="tex2html3137"
+  HREF="cs_constr_sameas.html">GRBConstr.SameAs()</A>
+<LI><A ID="tex2html3138"
+  HREF="cs_constr_set.html">GRBConstr.Set()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_constr_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_var_set.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_constr_get.html">GRBConstr.Get()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_var_set.html">GRBVar.Set()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Changing the Job Limit</TITLE>
+<META NAME="description" CONTENT="Changing the Job Limit">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="listing_cluster_licenses.html">
+<LINK REL="next" HREF="distributed_algorithms2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="listing_cluster_licenses.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="listing_cluster_licenses.html">Listing Cluster Licenses</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00035400000000000000"></A>
+<A ID="sec:grbclusterconfig"></A>
+<BR>
+Changing the Job Limit
+</H3>
+
+<P>
+Each node of a Remote Services has a job limit, which indicates the
+maximum number of jobs that can be run simultaneously on that node.  This job
+limit can be changed using the <TT>grbcluster node config</TT> command,
+together with the <TT>--job-limit=</TT> flag.  For example, to change
+the job limit to 5:
+
+<PRE>
+&gt; grbcluster node config --job-limit=5
+</PRE>
+
+<P>
+Changes to the job limit parameter only apply to the specified node;
+other nodes in the cluster are unaffected.  Once changed, the new
+value will persist, even if you stop and restart the node.
+
+<P>
+Recall that you can run the <TT>nodes</TT> command to view the current job
+limit for each node in a cluster:
+
+<PRE>
+&gt; grbcluster nodes
+ID       ADDRESS       STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  2  19m  15.30 5.64
+735c595f server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  2  19m  10.45 8.01
+</PRE>
+The <TT>JL</TT> column shows the job limit, which is 2 for both nodes in
+the cluster in this example.
+
+<P>
+We can change the limit for one node:
+
+<PRE>
+&gt; grbcluster node config --server=server1:61000 --job-limit=5
+</PRE>
+
+<P>
+By rerunning the <TT>nodes</TT> command, we can see that the limit
+for <TT>server1</TT> has been changed to 5:
+
+<P>
+
+<PRE>
+&gt; grbcluster nodes
+ID       ADDRESS       STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  5  19m  15.30 5.64
+735c595f server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  2  19m  10.45 8.01
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="node_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="listing_cluster_licenses.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Up:</B> <A
+ HREF="node_commands.html">Node Commands</A>
+<B> Previous:</B> <A
+ HREF="listing_cluster_licenses.html">Listing Cluster Licenses</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

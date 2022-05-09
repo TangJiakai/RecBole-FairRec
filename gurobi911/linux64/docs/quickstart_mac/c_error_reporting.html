@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Error reporting</TITLE>
+<META NAME="description" CONTENT="Error reporting">
+<META NAME="keywords" CONTENT="quickstart_mac">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_mac.css">
+
+<LINK REL="next" HREF="c_building_and_running_the.html">
+<LINK REL="previous" HREF="c_optimizing_the_model.html">
+<LINK REL="next" HREF="c_building_and_running_the.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_building_and_running_the.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_optimizing_the_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_building_and_running_the.html">Building and running the</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_optimizing_the_model.html">Optimizing the model</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00079000000000000000">
+Error reporting</A>
+</H2>
+
+<P>
+We would like to point out one additional aspect of the example.
+Almost all of the Gurobi methods return an error code.  The code will
+typically be zero, indicating that no error was encountered, but it is
+important to check the value of the code in case an error arises.
+
+<P>
+While you may want to print a specialized error code at each point
+where an error may occur, the Gurobi interface provides a more
+flexible facility for reporting errors.  The
+<TT>GRBgeterrormsg()</TT> routine returns a textual description of
+the most recent error associated with an environment:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+  /* Error reporting */
+  if (error) {
+    printf("ERROR: %s\n", GRBgeterrormsg(env));
+    exit(1);
+  }
+</PRE>
+
+<P>
+Once the error reporting is done, the only remaining task in our
+example is to release the resources associated with our optimization
+task.  In this case, we populated one model and created one
+environment.  We call <code>GRBfreemodel(model)</code> to free the model,
+and <code>GRBfreeenv(env)</code> to free the environment (in that order).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_building_and_running_the.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_optimizing_the_model.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_building_and_running_the.html">Building and running the</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_optimizing_the_model.html">Optimizing the model</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

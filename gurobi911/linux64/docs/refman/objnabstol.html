@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>ObjNAbsTol</TITLE>
+<META NAME="description" CONTENT="ObjNAbsTol">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="objnval.html">
+<LINK REL="previous" HREF="objnreltol.html">
+<LINK REL="next" HREF="objnval.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="objnval.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_objective_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objnreltol.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="objnval.html">ObjNVal</A>
+<B> Up:</B> <A
+ HREF="multi_objective_attributes.html">Multi-objective Attributes</A>
+<B> Previous:</B> <A
+ HREF="objnreltol.html">ObjNRelTol</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000178600000000000000"></A>
+<A ID="attr:ObjNAbsTol"></A>
+<BR>
+ObjNAbsTol
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+This attribute is used to set the allowable degradation for objective
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN> when doing hierarchical multi-objective optimization.  You set <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN>
+using the <A HREF="objnumber.html#parameter:ObjNumber">ObjNumber</A> parameter.
+
+<P>
+Hierarchical multi-objective MIP optimization will optimize for the
+different objectives in the model one at a time, in priority order.
+If it achieves objective value <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img33.svg"
+ ALT="$z$"></SPAN> when it optimizes for this
+objective, then subsequent steps are allowed to degrade this value by
+at most <code>ObjNAbsTol</code>.
+
+<P>
+Objective degradations are handled differently for multi-objective LP
+models.  For LP models, solution quality for higher-priority objectives is
+maintained by fixing some variables to their values in previous
+optimal solutions.  These fixings are decided using variable reduced
+costs.  The value of the <code>ObjNAbsTol</code> parameter indicates the
+amount by which a fixed variable's reduced cost is allowed to violate
+dual feasibility.
+The value of the related <A HREF="objnreltol.html#attr:ObjNRelTol">ObjNRelTol</A>
+attribute is ignored.
+
+<P>
+The default absolute tolerance for an objective is <code>1e-6</code>.
+
+<P>
+The number of objectives in the model can be queried (or modified)
+using the <A HREF="numobj.html#attr:NumObj">NumObj</A> attribute.
+
+<P>
+Please refer to the discussion of
+<A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple Objectives</A> for
+more information on the use of alternative objectives.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="objnval.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_objective_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objnreltol.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="objnval.html">ObjNVal</A>
+<B> Up:</B> <A
+ HREF="multi_objective_attributes.html">Multi-objective Attributes</A>
+<B> Previous:</B> <A
+ HREF="objnreltol.html">ObjNRelTol</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

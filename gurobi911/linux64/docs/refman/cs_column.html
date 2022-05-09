@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBColumn</TITLE>
+<META NAME="description" CONTENT="GRBColumn">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_overloaded_opers.html">
+<LINK REL="previous" HREF="cs_tempconstr.html">
+<LINK REL="next" HREF="cs_column2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_column2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_tempconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_column2.html">GRBColumn()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_tempconstr.html">GRBTempConstr</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000812000000000000000"></A>
+<A ID="dotnetclass:GRBColumn"></A>
+<BR>
+GRBColumn
+</H2>
+
+<P>
+Gurobi column object.  A column consists of a list of coefficient,
+constraint pairs.  Columns are used to represent the set of
+constraints in which a variable participates, and the associated
+coefficients.  They are temporary objects that typically have short
+lifespans.
+
+<P>
+You generally build columns by starting with an empty column (using
+the <A HREF="cs_column2.html#dotnetmethod:GRBColumn">GRBColumn</A> constructor), and
+then adding terms.  Terms can be added individually, using
+<A HREF="cs_column_addterm.html#dotnetmethod:GRBColumn.AddTerm">AddTerm</A>, or in groups,
+using <A HREF="cs_column_addterms.html#dotnetmethod:GRBColumn.AddTerms">AddTerms</A>.  Terms
+can also be removed from a column, using
+<A HREF="cs_column_remove.html#dotnetmethod:GRBColumn.Remove">Remove</A>.
+
+<P>
+Individual terms in a column can be queried using the
+<A HREF="cs_column_getconstr.html#dotnetmethod:GRBColumn.GetConstr">GetConstr</A>, and
+<A HREF="cs_column_getcoeff.html#dotnetmethod:GRBColumn.GetCoeff">GetCoeff</A> methods.  You
+can query the number of terms in the column using the
+<A HREF="cs_column_size.html#dotnetmethod:GRBColumn.Size">Size</A> property.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3172"
+  HREF="cs_column2.html">GRBColumn()</A>
+<LI><A ID="tex2html3173"
+  HREF="cs_column_addterm.html">GRBColumn.AddTerm()</A>
+<LI><A ID="tex2html3174"
+  HREF="cs_column_addterms.html">GRBColumn.AddTerms()</A>
+<LI><A ID="tex2html3175"
+  HREF="cs_column_clear.html">GRBColumn.Clear()</A>
+<LI><A ID="tex2html3176"
+  HREF="cs_column_getcoeff.html">GRBColumn.GetCoeff()</A>
+<LI><A ID="tex2html3177"
+  HREF="cs_column_getconstr.html">GRBColumn.GetConstr()</A>
+<LI><A ID="tex2html3178"
+  HREF="cs_column_remove.html">GRBColumn.Remove()</A>
+<LI><A ID="tex2html3179"
+  HREF="cs_column_size.html">GRBColumn.Size</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_column2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_net_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_tempconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_column2.html">GRBColumn()</A>
+<B> Up:</B> <A
+ HREF="cs_net_api_details.html">.NET API Details</A>
+<B> Previous:</B> <A
+ HREF="cs_tempconstr.html">GRBTempConstr</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

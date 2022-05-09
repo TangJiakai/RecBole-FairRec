@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.addGenConstrXxx()</TITLE>
+<META NAME="description" CONTENT="GRBModel.addGenConstrXxx()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_addqconstr.html">
+<LINK REL="previous" HREF="java_model_addconstrs.html">
+<LINK REL="next" HREF="java_model_agc_max.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_agc_max.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_addconstrs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_max.html">GRBModel.addGenConstrMax()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_addconstrs.html">GRBModel.addConstrs()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00062400000000000000"></A>
+<A ID="javamethod:GRBModel.addGenConstrXxx"></A>
+<BR>
+GRBModel.addGenConstrXxx()
+</H3>
+
+<P>
+Each of the functions described below adds a new <EM>general constraint</EM> to a model.
+
+<P>
+Mathematical programming has traditionally defined a set of
+fundamental constraint types: variable bound constraints, linear
+constraints, quadratic constraints, integrality constraints, and SOS
+constraints.  These are typically treated directly by the underlying
+solver (although not always), and are fundamental to the overall
+algorithm.
+
+<P>
+Gurobi accepts a number of additional constraint types, which we
+collectively refer to as <EM>general (function) constraints</EM>.  These
+are typically <EM>not</EM> treated directly by the solver.  Rather, they
+are transformed by presolve into constraints (and variables) chosen from
+among the fundamental types listed above.  In some cases, the resulting
+constraint or constraints are mathematically equivalent to the original; in
+others, they are approximations.  If such constraints appear in your model,
+but if you prefer to reformulate them yourself using fundamental constraint
+types instead, you can certainly do so.  However, note that Gurobi can
+sometimes exploit information contained in the other constraints in the
+model to build a more efficient formulation than what you might create.
+
+<P>
+The additional constraint types that fall under this <EM>general
+  constraint</EM> umbrella are:
+
+<UL>
+<LI><A HREF="java_model_agc_max.html#javamethod:GRBModel.addGenConstrMax">addGenConstrMax</A>:
+       <!-- MATH
+ $y = max(x_1, x_2, ..., c)$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img3.svg"
+ ALT="$y = max(x_1, x_2, ..., c)$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_min.html#javamethod:GRBModel.addGenConstrMin">addGenConstrMin</A>:
+       <!-- MATH
+ $y = min(x_1, x_2, ..., c)$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img4.svg"
+ ALT="$y = min(x_1, x_2, ..., c)$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_abs.html#javamethod:GRBModel.addGenConstrAbs">addGenConstrAbs</A>:
+       <!-- MATH
+ $y = \vert x\vert$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img5.svg"
+ ALT="$y = \vert x\vert$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_and.html#javamethod:GRBModel.addGenConstrAnd">addGenConstrAnd</A>:
+       <!-- MATH
+ $y = x_1 \land x_2 \land x_3...$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.97ex; vertical-align: -0.57ex; " SRC="img6.svg"
+ ALT="$y = x_1 \land x_2 \land x_3...$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_or.html#javamethod:GRBModel.addGenConstrOr">addGenConstrOr</A>:
+       <!-- MATH
+ $y = x_1 \lor x_2 \lor x_3...$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.97ex; vertical-align: -0.57ex; " SRC="img7.svg"
+ ALT="$y = x_1 \lor x_2 \lor x_3...$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_indicator.html#javamethod:GRBModel.addGenConstrIndicator">addGenConstrIndicator</A>:
+       <!-- MATH
+ $y = 1 \rightarrow a'x \leq b$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.42ex; vertical-align: -0.57ex; " SRC="img8.svg"
+ ALT="$y = 1 \rightarrow a'x \leq b$"></SPAN> (an indicator constraint)
+</LI>
+<LI><A HREF="java_model_agc_pwl.html#javamethod:GRBModel.addGenConstrPWL">addGenConstrPWL</A>:
+      <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img9.svg"
+ ALT="$y = pwl(x)$"></SPAN> (a piecewise-linear function, specified using breakpoints)
+</LI>
+<LI><A HREF="java_model_agc_poly.html#javamethod:GRBModel.addGenConstrPoly">addGenConstrPoly</A>:
+       <!-- MATH
+ $y = p_0 x^d + p_1 x^{d-1} + ... + p_{d-1} x + p_{d}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.74ex; vertical-align: -0.66ex; " SRC="img10.svg"
+ ALT="$y = p_0 x^d + p_1 x^{d-1} + ... + p_{d-1} x + p_{d}$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_exp.html#javamethod:GRBModel.addGenConstrExp">addGenConstrExp</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.22ex; vertical-align: -0.57ex; " SRC="img11.svg"
+ ALT="$y = e^x$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_expa.html#javamethod:GRBModel.addGenConstrExpA">addGenConstrExpA</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.22ex; vertical-align: -0.57ex; " SRC="img12.svg"
+ ALT="$y = a^x$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_log.html#javamethod:GRBModel.addGenConstrLog">addGenConstrLog</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img13.svg"
+ ALT="$y = log_e(x)$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_loga.html#javamethod:GRBModel.addGenConstrLogA">addGenConstrLogA</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img14.svg"
+ ALT="$y = log_a(x)$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_pow.html#javamethod:GRBModel.addGenConstrPow">addGenConstrPow</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.22ex; vertical-align: -0.57ex; " SRC="img15.svg"
+ ALT="$y = x^a$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_sin.html#javamethod:GRBModel.addGenConstrSin">addGenConstrSin</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img16.svg"
+ ALT="$y = sin(x)$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_cos.html#javamethod:GRBModel.addGenConstrCos">addGenConstrCos</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img17.svg"
+ ALT="$y = cos(x)$"></SPAN>
+</LI>
+<LI><A HREF="java_model_agc_tan.html#javamethod:GRBModel.addGenConstrTan">addGenConstrTan</A>:
+       <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img18.svg"
+ ALT="$y = tan(x)$"></SPAN>
+</LI>
+</UL>
+For additional details please refer to the
+<A HREF="constraints.html#subsubsection:GeneralConstraints">General Constraints</A>
+section in the Reference Manual.
+
+<P>
+
+<P><P>
+<BR>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2681"
+  HREF="java_model_agc_max.html">GRBModel.addGenConstrMax()</A>
+<LI><A ID="tex2html2682"
+  HREF="java_model_agc_min.html">GRBModel.addGenConstrMin()</A>
+<LI><A ID="tex2html2683"
+  HREF="java_model_agc_abs.html">GRBModel.addGenConstrAbs()</A>
+<LI><A ID="tex2html2684"
+  HREF="java_model_agc_and.html">GRBModel.addGenConstrAnd()</A>
+<LI><A ID="tex2html2685"
+  HREF="java_model_agc_or.html">GRBModel.addGenConstrOr()</A>
+<LI><A ID="tex2html2686"
+  HREF="java_model_agc_indicator.html">GRBModel.addGenConstrIndicator()</A>
+<LI><A ID="tex2html2687"
+  HREF="java_model_agc_pwl.html">GRBModel.addGenConstrPWL()</A>
+<LI><A ID="tex2html2688"
+  HREF="java_model_agc_poly.html">GRBModel.addGenConstrPoly()</A>
+<LI><A ID="tex2html2689"
+  HREF="java_model_agc_exp.html">GRBModel.addGenConstrExp()</A>
+<LI><A ID="tex2html2690"
+  HREF="java_model_agc_expa.html">GRBModel.addGenConstrExpA()</A>
+<LI><A ID="tex2html2691"
+  HREF="java_model_agc_log.html">GRBModel.addGenConstrLog()</A>
+<LI><A ID="tex2html2692"
+  HREF="java_model_agc_loga.html">GRBModel.addGenConstrLogA()</A>
+<LI><A ID="tex2html2693"
+  HREF="java_model_agc_pow.html">GRBModel.addGenConstrPow()</A>
+<LI><A ID="tex2html2694"
+  HREF="java_model_agc_sin.html">GRBModel.addGenConstrSin()</A>
+<LI><A ID="tex2html2695"
+  HREF="java_model_agc_cos.html">GRBModel.addGenConstrCos()</A>
+<LI><A ID="tex2html2696"
+  HREF="java_model_agc_tan.html">GRBModel.addGenConstrTan()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_agc_max.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_addconstrs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_max.html">GRBModel.addGenConstrMax()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_addconstrs.html">GRBModel.addConstrs()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

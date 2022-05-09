@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Source code for the experiment on a thin feasible region</TITLE>
+<META NAME="description" CONTENT="Source code for the experiment on a thin feasible region">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="_code_for_the_experiment_w.html">
+<LINK REL="previous" HREF="_code_for_the_experiment_o.html">
+<LINK REL="next" HREF="_code_for_the_experiment_w.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="_code_for_the_experiment_w.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="_code_for_the_experiment_o.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="_code_for_the_experiment_w.html">Source code for the</A>
+<B> Up:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A>
+<B> Previous:</B> <A
+ HREF="_code_for_the_experiment_o.html">Source code for the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000348200000000000000"></A>
+<A ID="code:thin"></A>
+<BR>
+Source code for the experiment on a thin feasible region
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">from gurobipy import *
+import random
+import sys
+
+# Test the effect of small perturbations on the optimal solutions
+# for a problem with a thin feasible region
+rhs = 1e3
+m   = Model('Thin line Optimization')
+x   = m.addVar(obj=1)
+y   = m.addVar(obj=0, lb=-GRB.INFINITY, ub=GRB.INFINITY)
+c1  = m.addConstr(  1e-5 * y + 1e-0 * x &lt;= rhs)
+c2  = m.addConstr(- 1e-5 * y + 1e-0 * x &lt;= rhs)
+m.Params.OutputFlag = 0
+m.Params.Presolve   = 0
+m.optimize()
+xval    = x.X
+yval    = y.X
+maxdiff = 0
+for i in range(1024*1024):
+  c1.Rhs = rhs + 2e-6 * random.random()
+  c2.Rhs = rhs + 2e-6 * random.random()
+  x.Obj  = 1   + 2e-6 * random.random()
+  y.Obj  = 0   + 2e-6 * random.random()
+  m.optimize()
+  x2val = x.X
+  y2val = y.X
+  error = (xval-x2val)*(xval-x2val) + (yval-y2val)*(yval-y2val)
+  if error &gt; 1e-5 + maxdiff:
+    print('New maxdiff %g Iter %d Kappa %g Violations: %g %g %g' %
+          (error, i, m.KappaExact, m.BoundVio, m.ConstrVio,
+           m.DualVio))
+    sys.stdout.flush()
+    maxdiff = error
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="_code_for_the_experiment_w.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="_code_for_the_experiment_o.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="_code_for_the_experiment_w.html">Source code for the</A>
+<B> Up:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A>
+<B> Previous:</B> <A
+ HREF="_code_for_the_experiment_o.html">Source code for the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

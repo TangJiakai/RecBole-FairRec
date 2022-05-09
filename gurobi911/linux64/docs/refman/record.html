@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Record</TITLE>
+<META NAME="description" CONTENT="Record">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="resultfile.html">
+<LINK REL="previous" HREF="quad.html">
+<LINK REL="next" HREF="resultfile.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="resultfile.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="quad.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="resultfile.html">ResultFile</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="quad.html">Quad</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00018212500000000000000"></A>
+<A ID="parameter:Record"></A>
+<BR>
+Record
+</H3>
+Enables API call recording
+
+<TABLE class="PAD " style="">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Default value:</SPAN></TD>
+<TD CLASS="LEFT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Minimum value:</SPAN></TD>
+<TD CLASS="LEFT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Maximum value:</SPAN></TD>
+<TD CLASS="LEFT">1</TD>
+</TR>
+</TABLE>
+
+<P>
+Enables API call recording.  When enabled, Gurobi will write one or
+more files (named <code>gurobi000.grbr</code> or similar) that capture the
+sequence of Gurobi commands that your program issued.  This file can
+subsequently be replayed using the
+<A HREF="grb_command_line_tool.html#sec:CommandLine">Gurobi command-line tool</A>.  Replaying
+the file will repeat the exact same sequence of commands, and when
+completed will show the time spent in Gurobi API routines, the time
+spent in Gurobi algorithms, and will indicate whether any Gurobi
+environments or models were leaked by your program.  Replay files are
+particularly useful in tech support situations.  They provide an easy
+way to relay to Gurobi tech support the exact sequence of Gurobi
+commands that led to a question or issue.
+
+<P>
+This parameter must be set before starting an
+<A HREF="environments.html#sec:Environment">empty environment</A>
+(or in a <code>gurobi.env</code> file).  All Gurobi commands
+will be recorded until the environment is freed or the program ends.
+
+<P>
+
+<P>
+For examples of how to query or modify parameter values from
+our different APIs, refer to our
+<A HREF="parameter_examples.html#sec:ParameterExamples">Parameter Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="resultfile.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="quad.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="resultfile.html">ResultFile</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="quad.html">Quad</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

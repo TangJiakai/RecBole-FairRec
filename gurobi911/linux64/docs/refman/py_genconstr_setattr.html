@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GenConstr.setAttr()</TITLE>
+<META NAME="description" CONTENT="GenConstr.setAttr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="py_genconstr_getattr.html">
+<LINK REL="next" HREF="py_lex.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_lex.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_genconstr.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_genconstr_getattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_lex.html">LinExpr</A>
+<B> Up:</B> <A
+ HREF="py_genconstr.html">GenConstr</A>
+<B> Previous:</B> <A
+ HREF="py_genconstr_getattr.html">GenConstr.getAttr()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000109200000000000000"></A>
+<A ID="pythonmethod:GenConstr.setAttr"></A>
+<BR>
+GenConstr.setAttr()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">setAttr</SPAN></FONT></SPAN> ( attrname, newvalue )
+
+<P>
+Set the value of a general constraint attribute.
+
+  Note that, due to our lazy update approach, the change won't actually
+  take effect until you update the model
+  (using <A HREF="py_model_update.html#pythonmethod:Model.update">Model.update</A>),
+  optimize the model
+  (using <A HREF="py_model_optimize.html#pythonmethod:Model.optimize">Model.optimize</A>),
+  or write the model to disk
+  (using <A HREF="py_model_write.html#pythonmethod:Model.write">Model.write</A>).
+
+<P>
+The full list of available attributes can be found in the
+<A HREF="attributes.html#sec:Attributes">Attributes</A> section.
+
+<P>
+Raises an <code>AttributeError</code> if the specified attribute doesn't
+exist or can't be set.
+Raises a <code>GurobiError</code> if there is a problem with the
+<code>GenConstr</code> object (e.g., it was removed from the model).
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attrname</SPAN>: The attribute being modified.
+
+<P>
+ <SPAN  CLASS="textbf">newvalue</SPAN>: The desired new value of the attribute.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_lex.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_genconstr.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_genconstr_getattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_lex.html">LinExpr</A>
+<B> Up:</B> <A
+ HREF="py_genconstr.html">GenConstr</A>
+<B> Previous:</B> <A
+ HREF="py_genconstr_getattr.html">GenConstr.getAttr()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

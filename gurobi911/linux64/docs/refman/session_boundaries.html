@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Session boundaries</TITLE>
+<META NAME="description" CONTENT="Session boundaries">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="configuration_parameters.html">
+<LINK REL="previous" HREF="environments.html">
+<LINK REL="next" HREF="configuration_parameters.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="configuration_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuration_parameters.html">Configuration parameters</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="environments.html">Environments</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000161000000000000000"></A>
+<A ID="subsection:DelineateSession"></A>
+<BR>
+Session boundaries
+</H2>
+
+<P>
+One of the main purposes of an environment is to indicate when your
+program will start to use Gurobi, and when it is done.  When Gurobi is
+running on your own machine, creating an environment will obtain a
+license, and disposing of the environment will release that license.
+When you are a client of a Gurobi Compute Server, starting an
+environment will start a job on the server (or enter the queue if
+the server is fully occupied).  Disposing of the environment will end
+that job, allowing the next job in the queue to start.  On Gurobi
+Instant Cloud, creating an environment will launch a cloud instance
+(if it hasn't been launched already).  Disposing of the environment
+will end that session, which may result in the cloud instance being
+shut down (depending on the policy you've set in your Instant Cloud
+configuration).
+
+<P>
+If your program repeatedly creates, solves, and destroys optimization
+models, we strongly recommend that you do so within a single Gurobi
+environment.  Creating a Gurobi environment incurs
+overhead, ranging anywhere from a quick local license check all the
+way to spinning up a machine on the cloud.  By reusing a single
+environment, you avoid paying this overhead multiple times.
+
+<P>
+We also recommend that you dispose of your environment as soon as your
+program is done using Gurobi.  Doing so releases all resources
+associated with that session, which in many cases can make those
+resources available to other users.  You should pay particular
+attention to this topic when using programming languages that perform
+garbage-collection.  While it is true that environments will be
+disposed of eventually by automated garbage-collection, that will
+often happen much earlier if you dispose of them explicitly.
+
+<P>
+The actual steps for disposing of an environment will depend on the
+API you are using:
+<DL>
+<DT><STRONG>Python</STRONG></DT>
+<DD>Call
+<A HREF="py_model_dispose.html#pythonmethod:Model.dispose">Model.dispose()</A>
+on all <SPAN  CLASS="texttt">Model</SPAN> objects,
+<A HREF="py_env_dispose.html#pythonmethod:Env.dispose">Env.dispose()</A>
+on any <SPAN  CLASS="texttt">Env</SPAN> objects you created, or
+<A HREF="py_disposedefaultenv.html#pythonmethod:disposeDefaultEnv">disposeDefaultEnv()</A>
+if you used the default environment instead.
+For example:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Clean up model and environment
+model.dispose()
+env.dispose()
+gp.disposeDefaultEnv()
+</PRE>
+</DD>
+<DT><STRONG>Java</STRONG></DT>
+<DD>Call
+<A HREF="java_model_dispose.html#javamethod:GRBModel.dispose">GRBModel.dispose()</A>
+on all <SPAN  CLASS="texttt">GRBModel</SPAN> objects, then call
+<A HREF="java_env_dispose.html#javamethod:GRBEnv.dispose">GRBEnv.dispose()</A>
+on the
+<SPAN  CLASS="texttt">GRBEnv</SPAN> object. For example:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  // Clean up model and environment
+  model.dispose()
+  env.dispose()
+</PRE>
+</DD>
+<DT><STRONG>.NET</STRONG></DT>
+<DD>Call
+<A HREF="cs_model_dispose.html#dotnetmethod:GRBModel.Dispose">GRBModel.Dispose()</A>
+on all <SPAN  CLASS="texttt">GRBModel</SPAN> objects, then call
+<A HREF="cs_env_dispose.html#dotnetmethod:GRBEnv.Dispose">GRBEnv.Dispose()</A>
+on the <SPAN  CLASS="texttt">GRBEnv</SPAN> object.
+</DD>
+<DT><STRONG>C++</STRONG></DT>
+<DD>Call the <SPAN  CLASS="texttt">delete</SPAN> operator on all <SPAN  CLASS="texttt">GRBModel</SPAN>
+objects, and then on the <SPAN  CLASS="texttt">GRBEnv</SPAN> object.
+</DD>
+<DT><STRONG>C</STRONG></DT>
+<DD>Call
+<A HREF="c_freemodel.html#routine:GRBfreemodel">GRBfreemodel()</A>
+for each model, then call
+<A HREF="c_freeenv.html#routine:GRBfreeenv">GRBfreeenv()</A>
+for the Gurobi environment. For example:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  /* Clean up model and environment */
+  GRBfreemodel(model);
+  GRBfreeenv(env);
+</PRE>
+</DD>
+</DL>
+
+<P>
+Note that the boundaries established by an environment are for a
+single thread.  Gurobi environments are not thread-safe, so you can't
+have more than one thread of control within a single environment.  You
+can however have a single program that launches multiple threads, each
+with its own environment.
+
+<P>
+In Python you can take advantage of context managers for environment and model
+objects.  Using them will guarantee that these objects are automatically
+disposed of.  Refer to <A HREF="py_env.html#pythonclass:Env">Env class documentation</A>
+for more information.  A typical use pattern is also shown in the example
+<TT>mip1_remote.py</TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="configuration_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuration_parameters.html">Configuration parameters</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="environments.html">Environments</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

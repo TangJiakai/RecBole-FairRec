@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Accessing the Job History</TITLE>
+<META NAME="description" CONTENT="Accessing the Job History">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="aborting_jobs.html">
+<LINK REL="next" HREF="batch_commands.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="aborting_jobs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="aborting_jobs.html">Aborting Jobs</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00032600000000000000">
+Accessing the Job History</A>
+</H3>
+
+<P>
+The job history is only supported by the Cluster Manager.
+While the nodes have a limited recent history of jobs,
+the Cluster Manager is able to record the jobs and the logs over a
+longer period of time.  The exact lifespan is a configuration
+parameter that can be set by the system administrator.
+History information is persistent and can be accessed even
+if the cluster nodes are not available.
+
+<P>
+By default, the <TT>job history</TT> command will display
+the last jobs in your cluster.
+
+<PRE>
+&gt; grbcluster job history
+JOBID    BATCHID  ADDRESS       STATUS    STIME               USER   OPT     API
+910878b9 4aba4ad3 server1:61000 COMPLETED 2019-09-22 15:55:24 jones  OPTIMAL grbcluster
+594d82fc 9bc34333 server1:61000 ABORTED   2019-09-22 15:52:36 admin          grbcluster
+ce7ab3a4 2e05810c server1:61000 COMPLETED 2019-09-22 14:20:14 jones  OPTIMAL grbcluster
+66d4783b ada0a345 server1:61000 COMPLETED 2019-09-22 14:17:58 admin  OPTIMAL grbcluster
+</PRE>
+
+<P>
+In addition, flags are available to query the history by status,
+username, time period, application name, and more. For example, the
+following command lists the last two jobs that were
+<TT>ABORTED</TT> by the user gurobi:
+
+<PRE>
+&gt; grbcluster job history --status=ABORTED --length=2 --username=gurobi
+JOBID    BATCHID  ADDRESS       STATUS  STIME               USER   OPT API
+80334e25 5a4764cc server1:61000 ABORTED 2019-09-20 16:53:23 gurobi     Python
+0d6d140b f94228b6 server1:61000 ABORTED 2019-09-16 22:04:09 gurobi     Python
+</PRE>
+
+<P>
+This <code>history</code> command gives you access to the same views as the
+<TT>job recent</TT> command, but with more filters.  For example,
+the following command shows the model characteristics of the last two
+jobs that were <TT>COMPLETED</TT> by the application
+<TT>app1</TT>:
+
+<PRE>
+&gt; grbcluster job history --status=COMPLETED --length=2  --view=model --app=app1
+JOBID    STATUS    STIME               ROWS COLS NONZ ALG OBJ DURATION
+b9063f12 COMPLETED 2019-09-19 11:22:18 13   9    45   MIP 5   319ms
+964a9405 COMPLETED 2019-09-19 11:22:17 13   9    45   MIP 5   126ms
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="aborting_jobs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="aborting_jobs.html">Aborting Jobs</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

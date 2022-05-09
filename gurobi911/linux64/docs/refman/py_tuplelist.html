@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>tuplelist</TITLE>
+<META NAME="description" CONTENT="tuplelist">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_tupledict.html">
+<LINK REL="previous" HREF="py_.html">
+<LINK REL="next" HREF="py_tuplelist2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_tuplelist2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_param.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_tuplelist2.html">tuplelist()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_param.html">GRB.Param</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0001022000000000000000"></A>
+<A ID="pythonclass:tuplelist"></A>
+<BR>
+tuplelist
+</H2>
+
+<P>
+Gurobi tuple list.  This is a sub-class of the Python <code>list</code>
+class that is designed to efficiently support a usage pattern that is
+quite common when building optimization models.  In particular, if a
+<code>tuplelist</code> is populated with a list of tuples, the
+<A HREF="py_tuplelist_select.html#pythonmethod:tuplelist.select">select</A> function on this
+class efficiently selects tuples whose values match specified values
+in specified tuple fields.  To give an example, the statement
+<code>l.select(1, '*', 5)</code> would select all member tuples whose first
+field is equal to '1' and whose third field is equal to '5'.  The
+<code>'*'</code> character is used as a wildcard to indicate that any value is
+acceptable in that field.
+
+<P>
+You generally build <code>tuplelist</code> objects in the same way
+you would build standard Python lists.  For example, you
+can use the <code>+=</code> operator to append a new list of items to
+an existing <code>tuplelist</code>, or the <code>+</code> operator to concatenate
+a pair of <code>tuplelist</code> objects.  You can also call the <code>append</code>,
+<code>extend</code>, <code>insert</code>, <code>pop</code>, and <code>remove</code> functions.
+
+<P>
+To access the members of a <code>tuplelist</code>, you also use standard list
+functions.  For example, <code>l[0]</code> returns the first member of a
+<code>tuplelist</code>, while <code>l[0:10]</code> returns a <code>tuplelist</code>
+containing the first ten members.  You can also use <code>len(l)</code> to
+query the length of a list.
+
+<P>
+Note that <code>tuplelist</code> objects build and maintain a set of internal
+data structures to support efficient <code>select</code> operations.  If
+you wish to reclaim the storage associated with these data structures,
+you can call the <A HREF="py_tuplelist_clean.html#pythonmethod:tuplelist.clean">clean</A>
+function.
+
+<P>
+A <code>tuplelist</code> is designed to store tuples containing scalar
+values (<code>int</code>, <code>float</code>, <code>string</code>, ...).  It may produce
+unpredictable results with other Python objects, such as tuples of
+tuples.  Thus, you can store <code>(1, 2.0, 'abc')</code> in a
+<code>tuplelist</code>, but you shouldn't store <code>((1, 2.0), 'abc')</code>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3670"
+  HREF="py_tuplelist2.html">tuplelist()</A>
+<LI><A ID="tex2html3671"
+  HREF="py_tuplelist_select.html">tuplelist.select()</A>
+<LI><A ID="tex2html3672"
+  HREF="py_tuplelist_clean.html">tuplelist.clean()</A>
+<LI><A ID="tex2html3673"
+  HREF="py_tuplelist_contains_.html">tuplelist.__contains__()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_tuplelist2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_param.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_tuplelist2.html">tuplelist()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_param.html">GRB.Param</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

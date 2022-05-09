@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Batch.abort()</TITLE>
+<META NAME="description" CONTENT="Batch.abort()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_batch_discard.html">
+<LINK REL="previous" HREF="py_batch2.html">
+<LINK REL="next" HREF="py_batch_discard.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_batch_discard.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch_discard.html">Batch.discard()</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch2.html">Batch()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001020200000000000000"></A>
+<A ID="pythonmethod:Batch.abort"></A>
+<BR>
+Batch.abort()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">abort</SPAN></FONT></SPAN> (  )
+
+<P>
+This method instructs the Cluster Manager to abort the processing of this
+batch request, changing its status to
+<TT>ABORTED</TT>.  Please refer to the <A HREF="batch_status_codes.html#sec:BatchStatusCodes">Batch
+Status Codes</A> section for further details.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+        starttime = time.time()
+        while batch.BatchStatus == GRB.BATCH_SUBMITTED:
+            # Abort this batch if it is taking too long
+            curtime = time.time()
+            if curtime - starttime &gt; maxwaittime:
+                batch.abort()
+                break
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_batch_discard.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch_discard.html">Batch.discard()</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch2.html">Batch()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

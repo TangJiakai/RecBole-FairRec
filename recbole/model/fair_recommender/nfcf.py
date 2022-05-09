@@ -1,5 +1,6 @@
 from email.policy import strict
 from tabnanny import check
+from numpy import concatenate
 import torch
 import torch.nn as nn
 from torch.nn.init import normal_
@@ -40,7 +41,6 @@ class NFCF(GeneralRecommender):
 
     def reset_params(self, pretrain_path, user_data):
         checkpoint = torch.load(pretrain_path)
-        self.item_embedding.weight.data = torch.zeros_like(checkpoint['state_dict']['item_embedding.weight'])
         self.load_state_dict(checkpoint['state_dict'], strict=False)
 
         sst_value = user_data[self.sst_attr]
@@ -67,25 +67,25 @@ class NFCF(GeneralRecommender):
         return self.sigmoid(output.squeeze(-1))
 
     def get_differential_fairness(self, interaction, score):
-        sst_unique_values, sst_indices = torch.unique(interaction[self.sst_attr], return_inverse=True)
-        iid_unique_values, iid_indices = torch.unique(interaction[self.ITEM_ID], return_inverse=True)
+        pos_idx = interaction[self.LABEL]==1
+        score = score[pos_idx]
+        sst_unique_values, sst_indices = torch.unique(interaction[self.sst_attr][pos_idx], return_inverse=True)
+        iid_unique_values, iid_indices = torch.unique(interaction[self.ITEM_ID][pos_idx], return_inverse=True)
         score_matric = torch.zeros((len(iid_unique_values), len(sst_unique_values)), device=self.device)
+        norm_matrix = torch.zeros((len(iid_unique_values), len(sst_unique_values)), device=self.device)
         epsilon_values = torch.zeros(len(iid_unique_values), device=self.device)
 
         concentration_parameter = 1.0
         dirichlet_alpha = concentration_parameter/len(iid_unique_values)
 
-        for i in range(len(iid_unique_values)):
-            for j in range(len(sst_unique_values)):
-                indices = (iid_indices==i)*(sst_indices==j)
-                score_matric[i,j] = (score[indices].sum()+dirichlet_alpha)/(indices.sum()+concentration_parameter)
+        score_matric.index_put_((iid_indices, sst_indices), score, accumulate=True)
+        norm_matrix.index_put_((iid_indices, sst_indices), torch.ones(len(sst_indices), device=self.device), accumulate=True)
+        score_matric = (score_matric + dirichlet_alpha) / (norm_matrix + concentration_parameter)
 
-        for i in range(len(iid_unique_values)):
-            epsilon = torch.tensor(0.,dtype=torch.float32)
-            for j in range(len(sst_unique_values)):
-                for k in range(j+1, len(sst_unique_values)):
-                    epsilon = max(epsilon, abs(torch.log(score_matric[i,j])-torch.log(score_matric[i,k])))
-            epsilon_values[i] = epsilon
+        for i in range(len(sst_unique_values)):
+            for j in range(i+1, len(sst_unique_values)):
+                epsilon = abs(torch.log(score_matric[:,i])-torch.log(score_matric[:,j]))
+                epsilon_values = torch.where(epsilon>epsilon_values, epsilon, epsilon_values)
         
         return epsilon_values.mean()
 

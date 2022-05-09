@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBcomputeIIS</TITLE>
+<META NAME="description" CONTENT="GRBcomputeIIS">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_feasrelax.html">
+<LINK REL="previous" HREF="c_optimizeasync.html">
+<LINK REL="next" HREF="c_feasrelax.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_feasrelax.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_optimizeasync.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_feasrelax.html">GRBfeasrelax</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_optimizeasync.html">GRBoptimizeasync</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023300000000000000"></A>
+<A ID="routine:GRBcomputeIIS"></A>
+<BR>
+GRBcomputeIIS
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBcomputeIIS</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model )</TD>
+</TR>
+</TABLE>
+
+<P>
+Compute an Irreducible Inconsistent Subsystem (IIS).
+An IIS is a subset of the constraints and variable bounds with the following properties:
+
+<UL>
+<LI>It is still infeasible, and
+</LI>
+<LI>If a single constraint or bound is removed, the subsystem becomes feasible.
+</LI>
+</UL>
+Note that an infeasible model may have multiple IISs. The one returned
+by Gurobi is not necessarily the smallest one; there may exist others
+with fewer constraints or bounds.
+
+<P>
+IIS results are returned in a number of attributes:
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iislb.html#attr:IISLB">IISLB</A>,
+<A HREF="iislb.html#attr:IISLB">IISUB</A>,
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>, and
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>.
+Each indicates whether the corresponding model element is a member
+of the computed IIS.
+
+<P>
+The <A HREF="iis_logging.html#sec:IISLogging">IIS log</A> provides information about
+the progress of the algorithm, including a guess at the eventual IIS
+size.
+
+<P>
+If an IIS computation is interrupted before completion, Gurobi will
+return the smallest infeasible subsystem found to that point.
+
+<P>
+This routine populates the
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>,
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+<A HREF="iislb.html#attr:IISLB">IISLB</A>, and
+<A HREF="iisub.html#attr:IISUB">IISUB</A>
+attributes.  You can
+also obtain information about the results of the IIS computation by
+writing a <code>.ilp</code> format file (see <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+This file contains only the IIS from the original model.
+
+<P>
+Use the <A HREF="iismethod.html#parameter:IISMethod">IISMethod</A> parameter to
+adjust the behavior of the IIS algorithm.
+
+<P>
+Note that this routine can be used to compute IISs for both continuous
+and MIP models.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while computing the IIS.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The infeasible model.  This routine will return an
+  error if the input model is feasible.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Important note:</SPAN></SPAN>
+
+<P>
+This routine only reports whether the computation ran into an error.
+Query the
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>,
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+<A HREF="iislb.html#attr:IISLB">IISLB</A>, or
+<A HREF="iisub.html#attr:IISUB">IISUB</A>
+attributes to determine the result of the computation
+(see the <A HREF="attributes.html#sec:Attributes">Attributes</A> section for more
+information on querying attributes).
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  error = GRBcomputeIIS(model);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_feasrelax.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_solution.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_optimizeasync.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_feasrelax.html">GRBfeasrelax</A>
+<B> Up:</B> <A
+ HREF="c_model_solution.html">Model Solution</A>
+<B> Previous:</B> <A
+ HREF="c_optimizeasync.html">GRBoptimizeasync</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBCallback::stopOneMultiObj()</TITLE>
+<META NAME="description" CONTENT="GRBCallback::stopOneMultiObj()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_cb_usesolution.html">
+<LINK REL="previous" HREF="cpp_cb_setsolution.html">
+<LINK REL="next" HREF="cpp_cb_usesolution.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_cb_usesolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_setsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_usesolution.html">GRBCallback::useSolution()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_setsolution.html">GRBCallback::setSolution()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0004131100000000000000"></A>
+<A ID="cppmethod:GRBCallback::stopOneMultiObj"></A>
+<BR>
+GRBCallback::stopOneMultiObj()
+</H3>
+
+<P>
+Interrupt the optimization process of one of the optimization steps in
+a multi-objective MIP problem without stopping the hierarchical
+optimization process.
+Only available for multi-objective MIP models and when the <TT>where</TT> member variable is not equal to <TT>GRB_CB_MULTIOBJ</TT> (see the
+<A HREF="cb_codes.html#sec:CallbackCodes">Callback Codes</A> section for more
+information).
+
+<P>
+You would typically stop a multi-objective optimization step
+by querying the last finished number of multi-objectives steps,
+and using that number to stop the current step and move
+on to the next hierarchical objective (if any) as shown in the
+following example:
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+#include &lt;ctime&gt;
+
+class mycallback: public GDBCallback
+{
+  public:
+    int    objcnt    = 0;
+    time_t starttime = time();
+
+  protected:
+    void callback () {
+      if (where == GRB_CB_MULTIOBJ) {
+        /* get current objective number */
+        objcnt = getIntInfo(GRB_CB_MULTIOBJ_OBJCNT);
+
+        /* reset start time to current time */
+        starttime = time();
+      } else if (time() - startime &gt; BIG ||
+          /* takes too long or good enough  */) {
+        /* stop only this optimization step */
+        stopOneMultiObj(objcnt);
+      }
+    }
+}
+</PRE>
+
+<P>
+You should refer to the section on <A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple
+Objectives</A> for information on how to
+specify multiple objective functions and control the trade-off between
+them.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">stopOneMultiObj</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">objcnt )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">objnum</SPAN>: The number of the multi-objective optimization step
+to interrupt. For processes running locally, this argument can have the
+special value -1, meaning to stop the current step.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_cb_usesolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_setsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_usesolution.html">GRBCallback::useSolution()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_setsolution.html">GRBCallback::setSolution()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

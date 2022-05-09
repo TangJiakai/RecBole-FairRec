@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBcbstoponemultiobj</TITLE>
+<META NAME="description" CONTENT="GRBcbstoponemultiobj">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_terminate.html">
+<LINK REL="previous" HREF="c_cbsolution.html">
+<LINK REL="next" HREF="c_terminate.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_terminate.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_modifying_solver_behavio.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_cbsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_terminate.html">GRBterminate</A>
+<B> Up:</B> <A
+ HREF="c_modifying_solver_behavio.html">Modifying Solver Behavior -</A>
+<B> Previous:</B> <A
+ HREF="c_cbsolution.html">GRBcbsolution</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00029400000000000000"></A>
+<A ID="routine:GRBcbstoponemultiobj"></A>
+<BR>
+GRBcbstoponemultiobj
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBcbstoponemultiobj</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">void*</TD>
+<TD CLASS="LEFT">cbdata,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">objnum )</TD>
+</TR>
+</TABLE>
+
+<P>
+Interrupt the optimization process of one of the optimization steps in
+a multi-objective MIP problem without stopping the hierarchical
+optimization process.
+Note that this routine can only be called for multi-objective MIP models
+and when the <TT>where</TT> value on the callback routine is not
+equal to <TT>GRB_CB_MULTIOBJ</TT>  (see the <A HREF="cb_codes.html#sec:CallbackCodes">Callback
+Codes</A> section for more information).
+
+<P>
+You would typically stop a multi-objective optimization step
+by querying the last finished number of multi-objectives steps,
+and using that number to stop the current step and move
+on to the next hierarchical objective (if any) as shown in the
+following example:
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+#include &lt;time.h&gt;
+
+typedef struct {
+  int    objcnt;
+  time_t starttime;
+} usrdata_t;
+
+int mycallback(GRBmodel *model,
+               void     *cbdata,
+               int       where,
+               void     *usrdata)
+{
+  int error = 0;
+  usrdata_t *ud = (usrdata_t*)usrdata;
+
+  if (where == GRB_CB_MULTIOBJ) {
+    /* get current objective number */
+    error = GRBcbget(cbdata, where, MULTIOBJ_OBJCNT, (void*)&amp;ud-&gt;objcnt);
+    if (error) goto QUIT;
+
+    /* reset start time to current time */
+    ud-&gt;starttime = time();
+
+  } else if (time() - ud-&gt;starttime &gt; BIG ||
+             /* takes too long or good enough */) {
+    /* stop only this optimization step */
+    error = GRBcbstoponemultiobj(model, cbdata, ud-&gt;objcnt);
+    if (error) goto QUIT;
+  }
+
+QUIT:
+  return error;
+}
+</PRE>
+
+<P>
+You should refer to the section on <A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple
+Objectives</A> for information on how to
+specify multiple objective functions and control the trade-off between
+them.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while stopping the multi-objective step specified by objcnt.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The <SPAN  CLASS="texttt">model</SPAN> argument that was passed into the user
+callback by the Gurobi optimizer. This argument must be passed
+unmodified from the user callback to <SPAN  CLASS="texttt">GRBcbstoponemultiobj()</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">cbdata</SPAN>: The <SPAN  CLASS="texttt">cbdata</SPAN> argument that was passed into the user
+callback by the Gurobi optimizer. This argument must be passed
+unmodified from the user callback to <SPAN  CLASS="texttt">GRBcbstoponemultiobj()</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">objnum</SPAN>: The number of the multi-objective optimization step
+to interrupt. For processes running locally, this argument can have the
+special value -1, meaning to stop the current step.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_terminate.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_modifying_solver_behavio.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_cbsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_terminate.html">GRBterminate</A>
+<B> Up:</B> <A
+ HREF="c_modifying_solver_behavio.html">Modifying Solver Behavior -</A>
+<B> Previous:</B> <A
+ HREF="c_cbsolution.html">GRBcbsolution</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

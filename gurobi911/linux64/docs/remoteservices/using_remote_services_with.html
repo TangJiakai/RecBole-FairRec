@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using Remote Services with Gurobi Instant Cloud</TITLE>
+<META NAME="description" CONTENT="Using Remote Services with Gurobi Instant Cloud">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="appendix_a_rs.html">
+<LINK REL="previous" HREF="programming_with_remote_se.html">
+<LINK REL="next" HREF="client_setup.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cluster_rest_api.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_setup.html">Client Setup</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="cluster_rest_api.html">Cluster REST API</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00050000000000000000"></A>
+<A ID="sec:RemoteServicesWithInstantCloud"></A>
+<BR>
+Using Remote Services with Gurobi Instant Cloud
+</H1>
+
+<P>
+Our Gurobi Instant Cloud product is built on top of either Amazon's
+Elastic Compute Cloud (EC2) platform or Microsoft's Azure platform.
+When you launch an Instant Cloud machine, we launch a machine instance
+on EC2 or Azure and then start Gurobi Remote Services on that machine.
+You also have the option of launching multiple machines, in which case
+we'll create a Remote Services cluster on those machines.  Once you
+have <A HREF="client_setup.html#sec:ICSetup">set up your client</A> with a client
+license file, you will be able to use <TT>grbcluster</TT> to
+<A HREF="client_commands.html#sec:ICMonitor">monitor</A> and
+<A HREF="administrative_commands.html#sec:ICAdministrate">administer</A> the cluster.  Note,
+however, that cluster administrative commands are not accessible,
+since the Gurobi Instant Cloud Manager already plays the cluster
+administrator role.  Note also that communication with your Instant
+Cloud machine will always use HTTPS, and it will go through a
+<A HREF="region_router.html#sec:ICRouter">region router</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html267"
+  HREF="client_setup.html">Client Setup</A>
+<LI><A ID="tex2html268"
+  HREF="client_commands.html">Client Commands</A>
+<LI><A ID="tex2html269"
+  HREF="administrative_commands.html">Administrative Commands</A>
+<LI><A ID="tex2html270"
+  HREF="region_router.html">Region Router</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cluster_rest_api.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_setup.html">Client Setup</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="cluster_rest_api.html">Cluster REST API</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

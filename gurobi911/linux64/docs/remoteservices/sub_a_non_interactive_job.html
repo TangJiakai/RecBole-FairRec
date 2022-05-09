@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Submitting a Non-Interactive Job</TITLE>
+<META NAME="description" CONTENT="Submitting a Non-Interactive Job">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="sub_an_interactive_job.html">
+<LINK REL="next" HREF="cluster_setup_and_administ.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cluster_setup_and_administ.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_an_interactive_job.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_setup_and_administ.html">Cluster Setup and Administration</A>
+<B> Up:</B> <A
+ HREF="simple_example.html">Simple Example</A>
+<B> Previous:</B> <A
+ HREF="sub_an_interactive_job.html">Submitting an Interactive Job</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00014300000000000000"></A>
+<A ID="sec:CSSimpleExampleBatch"></A>
+<BR>
+Submitting a Non-Interactive Job
+</H3>
+
+<P>
+You can use <TT>grbcluster</TT> to create a batch (i.e., a
+non-interactive job):
+
+<P>
+
+<PRE>
+&gt; grbcluster batch solve ResultFile=solution.sol misc07.mps --download
+info  : Batch 5d0ea600-5068-4a0b-bee0-efa26c18f35b created
+info  : Uploading misc07.mps...
+info  : Batch 5d0ea600-5068-4a0b-bee0-efa26c18f35b submitted with job a9700b72...
+info  : Batch 5d0ea600-5068-4a0b-bee0-efa26c18f35b status is COMPLETED
+info  : Results will be stored in directory 5d0ea600-5068-4a0b-bee0-efa26c18f35b
+info  : Downloading solution.sol...
+info  : Downloading gurobi.log...
+info  : Discarding batch data
+</PRE>
+
+<P>
+This command performs a number of steps.  First, a batch specification
+is created and the batch ID is displayed. Then, the model file is
+uploaded and a batch job is submitted.  Once the job reaches the front
+of the Compute Server queue, it is processed.  At that point, the
+batch is marked as completed and the result file with the log file is
+automatically downloaded to the client. By default, the directory name
+where the result file is stored is the batch ID.  Finally, the batch
+data is discarded, which allows the Cluster Manager to delete the
+associated data from its database.
+
+<P>
+This is a non-interactive optimization task because it happens in two
+distinct phases.  The first phase uploads the model to the server and
+creates a batch.  The second waits for the batch to complete and
+retrieves the result.  In general, stopping the client has no effect
+on a batch once it has been submitted to the Cluster Manager. Our
+example waits for the completion of the batch, but that's only because
+we used the <TT>--download</TT> flag.  You could check on
+the status of the batch and download the results whenever (and
+wherever) they are needed, since they are stored in the Cluster
+Manager until they are discarded.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cluster_setup_and_administ.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_an_interactive_job.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_setup_and_administ.html">Cluster Setup and Administration</A>
+<B> Up:</B> <A
+ HREF="simple_example.html">Simple Example</A>
+<B> Previous:</B> <A
+ HREF="sub_an_interactive_job.html">Submitting an Interactive Job</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

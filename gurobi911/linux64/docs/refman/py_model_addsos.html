@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.addSOS()</TITLE>
+<META NAME="description" CONTENT="Model.addSOS()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_addvar.html">
+<LINK REL="previous" HREF="py_model_addrange.html">
+<LINK REL="next" HREF="py_model_addvar.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_addvar.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_addrange.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addvar.html">Model.addVar()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_addrange.html">Model.addRange()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001022700000000000000"></A>
+<A ID="pythonmethod:Model.addSOS"></A>
+<BR>
+Model.addSOS()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addSOS</SPAN></FONT></SPAN> ( type, vars, wts=None )
+
+<P>
+Add an SOS constraint to the model.  Please refer to
+<A HREF="constraints.html#subsubsection:SOSConstraints">this section</A>
+for details on SOS constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">type</SPAN>: SOS type (can be <SPAN  CLASS="texttt">GRB.SOS_TYPE1</SPAN> or
+<SPAN  CLASS="texttt">GRB.SOS_TYPE2</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: List of variables that participate in the SOS constraint.
+
+<P>
+ <SPAN  CLASS="textbf">weights (optional)</SPAN>: Weights for the variables in the SOS
+  constraint.  Default weights are 1, 2, ...
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New <A HREF="py_sos.html#pythonclass:SOS">SOS</A> object.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  model.addSOS(GRB.SOS_TYPE1, [x, y, z], [1, 2, 4])
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_addvar.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_addrange.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addvar.html">Model.addVar()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_addrange.html">Model.addRange()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

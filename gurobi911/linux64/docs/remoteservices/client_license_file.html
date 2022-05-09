@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Client License File</TITLE>
+<META NAME="description" CONTENT="Client License File">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="generating_a_client_licens.html">
+<LINK REL="previous" HREF="client_configuration.html">
+<LINK REL="next" HREF="generating_a_client_licens.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="generating_a_client_licens.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="generating_a_client_licens.html">Generating a Client License</A>
+<B> Up:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Previous:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00031100000000000000"></A>
+<A ID="sec:CSLicenseFile"></A>
+<BR>
+Client License File
+</H3>
+
+<P>
+A client program needs to be told how to reach a Remote
+Services cluster.  There are generally two ways to do this.  The first
+is through the programming language APIs.  We'll discuss this option
+in a later section on <A HREF="programming_with_remote_se.html#sec:ProgrammingWithRemoteServices">programming with Remote
+  Services</A>.  The second is
+through a license file.  You can create a client license file yourself
+or edit an existing one, using your favorite text editor
+(<TT>Notepad</TT> is a good choice on Windows).  The license file should
+be named <TT>gurobi.lic</TT>.
+
+<P>
+The license file contains a list of properties of the form
+<TT>PROPERTY=value</TT>.  Lines that begin with the # symbol are treated
+as comments and are ignored.  The license file must be placed in your
+home directory or in one of the following locations:
+
+<UL>
+<LI><TT>C:&#92;gurobi&#92;</TT> on Windows
+</LI>
+<LI><TT>/opt/gurobi/</TT>  on Linux
+</LI>
+<LI><TT>/Library/gurobi/</TT>  on Mac OS
+</LI>
+<LI>The user's home directory
+</LI>
+</UL>
+You can also set the environment variable <TT>GRB_LICENSE_FILE</TT> to
+point to this file.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Connecting to a Cluster Manager</SPAN></SPAN>
+
+<P>
+Here are the properties you can set to connect to a Cluster Manager:
+<DL>
+<DT><STRONG>CSMANAGER</STRONG></DT>
+<DD>The URL of the Cluster Manager, including the protocol scheme and port.
+  For example, use <TT>http://mymanager:61080</TT> to access a Cluster Manager using HTTP on
+  port 61080, or <TT>https://mymanager:61443</TT> to
+  access a cluster over HTTPS on port 61443.
+</DD>
+<DT><STRONG>CSAPIACCESSID</STRONG></DT>
+<DD>A unique identifier used to authenticate an application on a cluster.
+</DD>
+<DT><STRONG>CSAPISECRET</STRONG></DT>
+<DD>The secret password associated with an API access ID.
+</DD>
+<DT><STRONG>USERNAME</STRONG></DT>
+<DD>The username to access the cluster.
+</DD>
+<DT><STRONG>PASSWORD</STRONG></DT>
+<DD>The client password to access the cluster.
+</DD>
+<DT><STRONG>CSAUTHTOKEN</STRONG></DT>
+<DD>Used internally to store the JWT authentication token.
+</DD>
+</DL>
+
+<P>
+These don't all need to be set - you just set the properties that are
+relevant for the authentication method you are using.  If the license
+file specifies several authentication methods to a Cluster Manager,
+the following precedence order applies:
+
+<UL>
+<LI>API key defined with <TT>CSAPIACCESSID</TT> and <TT>CSAPISECRET</TT>
+</LI>
+<LI>JWT authentication token with <TT>CSAUTHTOKEN</TT>
+</LI>
+<LI>Username and password with <TT>USERNAME</TT> and <TT>PASSWORD</TT>
+</LI>
+</UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Connecting to a Cluster Node</SPAN></SPAN>
+
+<P>
+Here are the properties you can set to connect to a cluster node in a
+self-managed cluster:
+<DL>
+<DT><STRONG>COMPUTESERVER</STRONG></DT>
+<DD>The fully qualified name of the main node used to
+  access the cluster, plus the protocol scheme and port (if needed).
+  For example, you can just use <TT>server1</TT> to access a
+  cluster using HTTP on the default port, or <TT>    https://server1:61000</TT> to access a cluster over HTTPS using port
+  61000.  You can also specify a comma-separated list of names so that
+  other nodes can be used in case the first node can't be reached.
+</DD>
+<DT><STRONG>ROUTER</STRONG></DT>
+<DD>The router URL (if you are using a router).
+</DD>
+<DT><STRONG>PASSWORD</STRONG></DT>
+<DD>The client password to access the cluster.
+</DD>
+</DL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Other Properties</SPAN></SPAN>
+
+<P>
+You can also specify additional properties that affect job processing
+(whether you use a Cluster Manager or not):
+<DL>
+<DT><STRONG>CSAPPNAME</STRONG></DT>
+<DD>Application name. Once defined, the application name will be assigned to
+  all jobs and batches created so that you can better track the activity of the cluster
+  by application.
+
+<P>
+</DD>
+<DT><STRONG>PRIORITY</STRONG></DT>
+<DD>Job Priority.  Higher priority jobs take precedence
+  over lower priority jobs.
+
+<P>
+</DD>
+<DT><STRONG>GROUP</STRONG></DT>
+<DD>Job group.  If your cluster has been set up with groups,
+  you can specify the group to submit the job to.  The job will only be
+  executed on nodes that are members of this group if specified. The value of this
+ property can also be a list of groups, and you can also specify a priority for each
+ group.  For example: <TT>group1:10,group2:50</TT>
+
+<P>
+</DD>
+<DT><STRONG>QUEUETIMEOUT</STRONG></DT>
+<DD>Queuing timeout (in seconds).  A job that has been sitting in the
+  queue for longer than the specified <TT>QUEUETIMEOUT</TT> value
+  will return with a <TT>JOB_REJECTED</TT> error.
+
+<P>
+</DD>
+<DT><STRONG>IDLETIMEOUT</STRONG></DT>
+<DD>Idle job timeout (in seconds). This property allows you to set a limit
+  on how long a Compute Server job can sit idle before the server kills the job.
+
+<P>
+</DD>
+</DL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Examples</SPAN></SPAN>
+
+<P>
+Here is an example of a client license file that would allow a client
+to connect to a Cluster Manager with an API key, and submit all the
+jobs under a specific application name:
+
+<PRE>
+CSMANAGER=http://mymanager:61080
+CSAPIACCESSID=0e8c35d5-ff20-4e5d-a639-10105e56b264
+CSAPISECRET=d588f010-ad47-4310-933e-1902057661c9
+CSAPPNAME=app1
+</PRE>
+
+<P>
+Here is another example that would allow you to connect a self-managed
+Compute Server with a specific password, and submit all the jobs with
+priority 10:
+
+<PRE>
+COMPUTESERVER=http://server1:61000
+PASSWORD=abcd
+PRIORITY=10
+</PRE>
+
+<P>
+The <TT>gurobi_cl</TT> or <TT>grbcluster</TT> tools provide command-line
+flags that allow you to set most of these properties.  These tools
+will read the license file, but values specified via these
+command-line flags will override any values provided in the license
+file.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="generating_a_client_licens.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_configuration.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="generating_a_client_licens.html">Generating a Client License</A>
+<B> Up:</B> <A
+ HREF="client_configuration.html">Client Configuration</A>
+<B> Previous:</B> <A
+ HREF="client_configuration.html">Client Configuration</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

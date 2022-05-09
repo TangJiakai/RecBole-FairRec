@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBEnv.set()</TITLE>
+<META NAME="description" CONTENT="GRBEnv.set()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_env_start.html">
+<LINK REL="previous" HREF="java_env_resetparams.html">
+<LINK REL="next" HREF="java_env_start.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_env_start.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_env.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_env_resetparams.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_env_start.html">GRBEnv.start()</A>
+<B> Up:</B> <A
+ HREF="java_env.html">GRBEnv</A>
+<B> Previous:</B> <A
+ HREF="java_env_resetparams.html">GRBEnv.resetParams()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000611000000000000000"></A>
+<A ID="javamethod:GRBEnv.set"></A>
+<BR>
+GRBEnv.set()
+</H3>
+
+<P>
+Set the value of a parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Important notes:</SPAN></SPAN>
+
+<P>
+Note that a model gets its own copy of the environment when it is
+created.  Changes to the original environment have no effect on the
+copy.  Use <A HREF="java_model_set.html#javamethod:GRBModel.set">GRBModel.set</A>
+to change a parameter on an existing model.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">set</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="java_doubleparam.html#javaenum:GRB.DoubleParam">GRB.DoubleParam</A></TD>
+<TD CLASS="LEFT">param,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">newval )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Set the value of a double-valued parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">param</SPAN>: The parameter being modified. 
+Please consult the <A HREF="parameters.html#sec:Parameters">parameter section</A>
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.
+
+<P>
+ <SPAN  CLASS="textbf">newval</SPAN>: The desired new value of the parameter.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">set</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="java_intparam.html#javaenum:GRB.IntParam">GRB.IntParam</A></TD>
+<TD CLASS="LEFT">param,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">newval )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Set the value of an int-valued parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">param</SPAN>: The parameter being modified. 
+Please consult the <A HREF="parameters.html#sec:Parameters">parameter section</A>
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.
+
+<P>
+ <SPAN  CLASS="textbf">newval</SPAN>: The desired new value of the parameter.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">set</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT"><A HREF="java_stringparam.html#javaenum:GRB.StringParam">GRB.StringParam</A></TD>
+<TD CLASS="LEFT">param,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">String</TD>
+<TD CLASS="LEFT">newval )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Set the value of a string-valued parameter.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">param</SPAN>: The parameter being modified. 
+Please consult the <A HREF="parameters.html#sec:Parameters">parameter section</A>
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.
+
+<P>
+ <SPAN  CLASS="textbf">newval</SPAN>: The desired new value of the parameter.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">set</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">String</TD>
+<TD CLASS="LEFT">param,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">String</TD>
+<TD CLASS="LEFT">newval )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Set the value of any parameter using strings alone.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">param</SPAN>: The name of the parameter being modified. 
+Please consult the <A HREF="parameters.html#sec:Parameters">parameter section</A>
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.
+
+<P>
+ <SPAN  CLASS="textbf">newval</SPAN>: The desired new value of the parameter.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_env_start.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_env.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_env_resetparams.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_env_start.html">GRBEnv.start()</A>
+<B> Up:</B> <A
+ HREF="java_env.html">GRBEnv</A>
+<B> Previous:</B> <A
+ HREF="java_env_resetparams.html">GRBEnv.resetParams()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

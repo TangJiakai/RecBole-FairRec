@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>qcp.R</TITLE>
+<META NAME="description" CONTENT="qcp.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="qp_r.html">
+<LINK REL="previous" HREF="poolsearch_r.html">
+<LINK REL="next" HREF="qp_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="qp_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="poolsearch_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="qp_r.html">qp.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="poolsearch_r.html">poolsearch.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000281900000000000000"></A>
+<A ID="subsubsection:qcp.R"></A>
+<BR>
+qcp.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# This example formulates and solves the following simple QCP model:
+#  maximize
+#        x
+#  subject to
+#        x + y + z   =  1
+#        x^2 + y^2 &lt;= z^2  (second-order cone)
+#        x^2 &lt;= yz         (rotated second-order cone)
+#        x, y, z non-negative
+
+library(gurobi)
+library(Matrix)
+
+model &lt;- list()
+
+model$A          &lt;- matrix(c(1,1,1), nrow=1, byrow=T)
+model$modelsense &lt;- 'max'
+model$obj        &lt;- c(1,0,0)
+model$rhs        &lt;- c(1)
+model$sense      &lt;- c('=')
+
+# First quadratic constraint: x^2 + y^2 - z^2 &lt;= 0
+qc1 &lt;- list()
+qc1$Qc &lt;- spMatrix(3, 3, c(1, 2, 3), c(1, 2, 3), c(1.0, 1.0, -1.0))
+qc1$rhs &lt;- 0.0
+
+# Second quadratic constraint: x^2 - yz &lt;= 0
+qc2 &lt;- list()
+qc2$Qc &lt;- spMatrix(3, 3, c(1, 2), c(1, 3), c(1.0, -1.0))
+qc2$rhs &lt;- 0.0
+
+model$quadcon &lt;- list(qc1, qc2)
+
+result &lt;- gurobi(model)
+
+print(result$objval)
+print(result$x)
+
+# Clear space
+rm(model, result)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="qp_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="poolsearch_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="qp_r.html">qp.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="poolsearch_r.html">poolsearch.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

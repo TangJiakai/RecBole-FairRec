@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Configuration</TITLE>
+<META NAME="description" CONTENT="Configuration">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="running_a_distributed_algo.html">
+<LINK REL="previous" HREF="distributed_workers_and_th.html">
+<LINK REL="next" HREF="running_a_distributed_algo.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="running_a_distributed_algo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_workers_and_th.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="running_a_distributed_algo.html">Running a Distributed Algorithm</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="distributed_workers_and_th.html">Distributed Workers and the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00036200000000000000">
+Configuration</A>
+</H3>
+
+<P>
+Before launching a distributed optimization job, you should
+run the <TT>grbcluster nodes</TT> command to make sure the
+cluster contains more than one live machine:
+
+<PRE>
+&gt; grbcluster nodes
+</PRE>
+
+<P>
+If you see multiple live nodes, then that cluster is good to go:
+
+<PRE>
+ID       ADDRESS       STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  2  1m   3.00 2.23
+eb07fe16 server2:61001 ALIVE  WORKER  N/A     ACCEPTING  0  0  1  1m   2.95 5.33
+</PRE>
+
+<P>
+We should reiterate a point that was raised earlier: you do not need a
+Gurobi license to run Gurobi Remote Services on a machine.  While some
+services are only available with a license, any machine that is
+running Gurobi Remote Services will provide the Distributed Worker
+service.
+
+<P>
+Running a distributed algorithm is simply a matter of setting the
+appropriate Gurobi parameter.  Gurobi supports distributed MIP,
+concurrent LP and MIP, and distributed tuning.  These are controlled
+with three parameters: <TT>DistributedMIPJobs</TT>,
+<TT>ConcurrentJobs</TT>, and <TT>TuneJobs</TT>, respectively.  These
+parameters indicate how many distinct Distributed Worker jobs you
+would like to start.  Keep in mind that the initial Compute Server job
+will act as the first worker.
+
+<P>
+Note that jobs are allocated on a first-come,
+first-served basis, so if multiple users are sharing a cluster, you
+should be prepared for the possibility that some or all of your
+nodes may be busy when you request them. Your program
+will grab as many as it can, up to the requested count.  If none are
+available, it will return an error.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="running_a_distributed_algo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_workers_and_th.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="running_a_distributed_algo.html">Running a Distributed Algorithm</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="distributed_workers_and_th.html">Distributed Workers and the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

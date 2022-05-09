@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Source code for the experiment with column scalings</TITLE>
+<META NAME="description" CONTENT="Source code for the experiment with column scalings">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="_code_for_the_experiment_o2.html">
+<LINK REL="next" HREF="copyright_notices_for_3rd_.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="copyright_notices_for_3rd_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="_code_for_the_experiment_o2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="copyright_notices_for_3rd_.html">Copyright Notices for 3rd</A>
+<B> Up:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A>
+<B> Previous:</B> <A
+ HREF="_code_for_the_experiment_o2.html">Source code for the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000348300000000000000"></A>
+<A ID="code:rescale"></A>
+<BR>
+Source code for the experiment with column scalings
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">import sys
+import random
+import argparse
+import gurobipy as gp
+
+# Use parameters for greater flexibility
+parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+parser.add_argument('-f','--infile', help='Problem File',
+                    default=None, required=True)
+parser.add_argument('-s','--scale', help='Scaling Factor',
+                    type=float, default=10000.0)
+args = parser.parse_args()
+
+# Load input problem
+m = gp.read(args.infile)
+
+# Scale domain of all columns randomly in the given domain
+for var in m.getVars():
+    if var.vtype == gp.GRB.CONTINUOUS:
+        scale = random.uniform(args.scale/2.0, args.scale*2.0)
+        flip = random.randint(0,3)
+        if flip == 0:
+            scale = 1.0
+        elif flip == 1:
+            scale = 1.0/scale
+        col = m.getCol(var)
+        for i in range(col.size()):
+            coeff = col.getCoeff(i)
+            row   = col.getConstr(i)
+            m.chgCoeff(row, var, coeff*scale)
+        var.obj = var.obj*scale
+        if var.lb &gt; -gp.GRB.INFINITY:
+            var.lb  = var.lb/scale
+        if var.ub &lt; gp.GRB.INFINITY:
+            var.ub  = var.ub/scale
+
+# Optimize
+m.optimize()
+if m.Status == gp.GRB.OPTIMAL:
+    print('Kappa: %e\n' % m.KappaExact)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="copyright_notices_for_3rd_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="_code_for_the_experiment_o2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="copyright_notices_for_3rd_.html">Copyright Notices for 3rd</A>
+<B> Up:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A>
+<B> Previous:</B> <A
+ HREF="_code_for_the_experiment_o2.html">Source code for the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

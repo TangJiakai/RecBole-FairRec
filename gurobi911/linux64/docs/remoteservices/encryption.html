@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Encryption</TITLE>
+<META NAME="description" CONTENT="Encryption">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="security_in_a_self_managed.html">
+<LINK REL="previous" HREF="authentication.html">
+<LINK REL="next" HREF="security_in_a_self_managed.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="security_in_a_self_managed.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="authentication.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="security_in_a_self_managed.html">Security in a Self-Managed</A>
+<B> Up:</B> <A
+ HREF="security.html">Security</A>
+<B> Previous:</B> <A
+ HREF="authentication.html">Authentication</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00013300000000000000"></A>
+<A ID="sec:RemoteServicesEncryption"></A>
+<BR>
+Encryption
+</H3>
+
+<P>
+All of the components deployed in a Remote Services cluster can
+support TLS-encrypted communication. The Cluster Manager and the
+Compute Server nodes can be configured to use HTTPS with TLS
+v1.2. MongoDB also supports encrypted communications and data
+encryption at rest, if necessary.
+
+<P>
+In addition, you have the option to use the Cluster Manager or the
+load balancer in front of the Cluster Manager to terminate the TLS
+encryption. In this case, HTTPS is used by clients, but internal
+communication between the Cluster Manager and the nodes can be
+unencrypted using HTTP. This is convenient when the cluster nodes
+reside in an isolated, secure network.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="security_in_a_self_managed.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="security.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="authentication.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="security_in_a_self_managed.html">Security in a Self-Managed</A>
+<B> Up:</B> <A
+ HREF="security.html">Security</A>
+<B> Previous:</B> <A
+ HREF="authentication.html">Authentication</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

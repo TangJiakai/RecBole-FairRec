@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Changing parameters</TITLE>
+<META NAME="description" CONTENT="Changing parameters">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="parameter_tuning_tool.html">
+<LINK REL="previous" HREF="simple_experimentation_wit.html">
+<LINK REL="next" HREF="parameter_tuning_tool.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="parameter_tuning_tool.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="interactive_shell.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="simple_experimentation_wit.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="parameter_tuning_tool.html">Parameter tuning tool</A>
+<B> Up:</B> <A
+ HREF="interactive_shell.html">Interactive Shell</A>
+<B> Previous:</B> <A
+ HREF="simple_experimentation_wit.html">Simple experimentation with a</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00055000000000000000">
+Changing parameters</A>
+</H2>
+
+<P>
+Rather than continuing optimization on a difficult model like
+<code>glass4</code>, it is sometimes useful to try different parameter
+settings.  When the lower bound moves slowly, as it does on this
+model, one potentially useful parameter is <code>MIPFocus</code>, which
+adjusts the high-level MIP solution strategy.  Let us now set this
+parameter to value 1, which changes the focus of the MIP search to
+finding good feasible solutions.  There are two ways to change the
+parameter value.  You can either use method <TT>m.setParam()</TT>:
+
+<PRE>
+gurobi&gt; m.setParam('MIPFocus', 1)
+Changed value of parameter MIPFocus to 1
+   Prev: 0   Min: 0   Max: 3   Default: 0
+</PRE>
+...or you can use the <code>m.Params</code> class...
+
+<PRE>
+gurobi&gt; m.Params.MIPFocus = 1
+Changed value of parameter MIPFocus to 1
+   Prev: 0   Min: 0   Max: 3   Default: 0
+</PRE>
+Once the parameter has been changed, we call
+<TT>m.reset()</TT> to reset the optimization on our model and then
+<TT>m.optimize()</TT> to start a new optimization run:
+<BR><TT>gurobi&gt; m.reset()
+<BR>
+Discarded solution information
+<BR>
+gurobi&gt; m.optimize()
+<BR>
+Gurobi Optimizer version 9.1.0 build v9.1.0rc0 (linux64)
+<BR></TT><PRE>
+Optimize a model with 396 rows, 322 columns and 1815 nonzeros
+Model fingerprint: 0x541d0ad3
+Variable types: 20 continuous, 302 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 8e+06]
+  Objective range  [1e+00, 1e+06]
+  Bounds range     [1e+00, 8e+02]
+  RHS range        [1e+00, 8e+06]
+Presolve removed 4 rows and 5 columns
+Presolve time: 0.00s
+Presolved: 392 rows, 317 columns, 1815 nonzeros
+Variable types: 19 continuous, 298 integer (298 binary)
+Found heuristic solution: objective 3.133356e+09
+
+Root relaxation: objective 8.000024e+08, 72 iterations, 0.00 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 8.0000e+08    0   72 3.1334e+09 8.0000e+08  74.5%     -    0s
+H    0     0                    2.400019e+09 8.0000e+08  66.7%     -    0s
+H    0     0                    2.220019e+09 8.0000e+08  64.0%     -    0s
+     0     0 8.0000e+08    0   72 2.2200e+09 8.0000e+08  64.0%     -    0s
+H    0     0                    2.166685e+09 8.0000e+08  63.1%     -    0s
+     0     0 8.0000e+08    0   72 2.1667e+09 8.0000e+08  63.1%     -    0s
+     0     0 8.0000e+08    0   77 2.1667e+09 8.0000e+08  63.1%     -    0s
+H    0     0                    2.133351e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   80 2.1334e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   80 2.1334e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   83 2.1334e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   78 2.1334e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   83 2.1334e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   83 2.1334e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   88 2.1334e+09 8.0000e+08  62.5%     -    0s
+     0     0 8.0000e+08    0   66 2.1334e+09 8.0000e+08  62.5%     -    0s
+H    0     0                    2.050017e+09 8.0000e+08  61.0%     -    0s
+     0     2 8.0000e+08    0   65 2.0500e+09 8.0000e+08  61.0%     -    0s
+H    1     4                    2.050017e+09 8.0000e+08  61.0%  74.0    0s
+H    6     8                    2.000016e+09 8.0000e+08  60.0%  41.8    0s
+H  130   128                    1.700015e+09 8.0000e+08  52.9%  12.7    0s
+H  199   203                    1.644459e+09 8.0000e+08  51.4%  10.8    0s
+H  213   213                    1.644459e+09 8.0000e+08  51.4%  10.8    1s
+H  244   269                    1.633347e+09 8.0001e+08  51.0%  11.0    1s
+  1428  1027 1.5333e+09   40   44 1.6333e+09 8.0001e+08  51.0%  15.5    5s
+  3138  1602 1.3750e+09   58   22 1.6333e+09 8.0001e+08  51.0%  20.5   10s
+* 4233  2185              66    1.600017e+09 8.0001e+08  50.0%  21.5   12s
+* 4238  2082              67    1.550017e+09 8.0001e+08  48.4%  21.5   12s
+H 4308  2026                    1.500016e+09 8.0001e+08  46.7%  21.6   14s
+  4457  2226 1.1000e+09   36   65 1.5000e+09 8.0001e+08  46.7%  22.6   15s
+H 4809  2136                    1.450016e+09 8.0001e+08  44.8%  23.4   16s
+H 4908  2043                    1.400013e+09 8.0001e+08  42.9%  23.9   17s
+H 5098  2027                    1.350013e+09 8.0001e+08  40.7%  24.8   18s
+H 5282  1752                    1.200013e+09 8.0001e+08  33.3%  25.7   18s
+
+Interrupt request received
+
+Cutting planes:
+  Gomory: 37
+  Cover: 9
+  Implied bound: 41
+  MIR: 51
+  Flow cover: 266
+  RLT: 107
+  Relax-and-lift: 99
+
+Explored 5332 nodes (140122 simplex iterations) in 19.00 seconds
+Thread count was 8 (of 8 available processors)
+
+Solution count 10: 1.20001e+09 1.35001e+09 1.40001e+09 ... 1.64446e+09
+
+Solve interrupted
+Best objective 1.200012600000e+09, best bound 8.000066838804e+08, gap 33.3335%
+</PRE>
+
+<P>
+Results are consistent with our expectations.  We find a better
+solution sooner by shifting the focus towards finding feasible
+solutions (objective value <code>1.2e9</code> versus <code>1.5e9</code>).
+
+<P>
+The <TT>setParam()</TT> method is designed to be quite flexible and
+forgiving.  It accepts wildcards as arguments, and it ignores
+character case.  Thus, the following commands are all equivalent:
+
+<PRE>
+gurobi&gt; m.setParam('NODELIMIT', 100)
+gurobi&gt; m.setParam('NodeLimit', 100)
+gurobi&gt; m.setParam('Node*', 100)
+gurobi&gt; m.setParam('N???Limit, 100)
+</PRE>
+You can use wildcards to get a list of matching parameters:
+
+<PRE>
+gurobi&gt; m.setParam('*Cuts', 2)
+Matching parameters: ['Cuts', 'CliqueCuts', 'CoverCuts', 'FlowCoverCuts',
+'FlowPathCuts', 'GUBCoverCuts', 'ImpliedCuts', 'MIPSepCuts', 'MIRCuts', 'ModKCuts',
+'NetworkCuts', 'SubMIPCuts', 'ZeroHalfCuts']
+</PRE>
+
+<P>
+Note that <code>Model.Params</code> is a bit less forgiving than
+<TT>setParam()</TT>.  In particular, wildcards are not allowed
+with this approach.  You don't have to worry about capitalization of
+parameter names in either approach, though, so
+<code>m.Params.Heuristics</code> and <code>m.Params.heuristics</code> are
+equivalent.
+
+<P>
+The full set of available parameters can be browsed using the
+<TT>paramHelp()</TT> command.  You can obtain further information on a
+specific parameter (e.g., <code>MIPGap</code>) by typing
+<code>paramHelp('MIPGap')</code>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="parameter_tuning_tool.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="interactive_shell.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="simple_experimentation_wit.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="parameter_tuning_tool.html">Parameter tuning tool</A>
+<B> Up:</B> <A
+ HREF="interactive_shell.html">Interactive Shell</A>
+<B> Previous:</B> <A
+ HREF="simple_experimentation_wit.html">Simple experimentation with a</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

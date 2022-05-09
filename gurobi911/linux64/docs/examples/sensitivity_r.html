@@ -1,0 +1,191 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>sensitivity.R</TITLE>
+<META NAME="description" CONTENT="sensitivity.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="sos_r.html">
+<LINK REL="previous" HREF="qp_r.html">
+<LINK REL="next" HREF="sos_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sos_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="qp_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sos_r.html">sos.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="qp_r.html">qp.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000282100000000000000"></A>
+<A ID="subsubsection:sensitivity.R"></A>
+<BR>
+sensitivity.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# A simple sensitivity analysis example which reads a MIP model
+# from a file and solves it. Then each binary variable is set
+# to 1-X, where X is its value in the optimal solution, and
+# the impact on the objective function value is reported.
+
+library(Matrix)
+library(gurobi)
+
+args &lt;- commandArgs(trailingOnly = TRUE)
+if (length(args) &lt; 1) {
+  stop('Usage: Rscript sensitivity.R filename\n')
+}
+
+# Read model
+cat('Reading model',args[1],'...')
+model &lt;- gurobi_read(args[1])
+cat('... done\n')
+
+# Detect set of non-continous variables
+numvars    &lt;- ncol(model$A)
+intvars    &lt;- which(model$vtype != 'C')
+numintvars &lt;- length(intvars)
+if (numintvars &lt; 1) {
+  stop('All model\'s variables are continuous, nothing to do\n')
+}
+maxanalyze &lt;- 10
+
+# Optimize
+result &lt;- gurobi(model)
+
+# Capture solution information
+if (result$status != 'OPTIMAL') {
+  cat('Optimization finished with status', result$status, '\n')
+  stop('Stop now\n')
+}
+origx       &lt;- result$x
+origobjval  &lt;- result$objval
+
+# create lb and ub if they do not exists, and set them to default values
+if (!('lb' %in% names(model))) {
+  model$lb &lt;- numeric(numvars)
+}
+if (!('ub' %in% names(model))) {
+  # This line is not needed, as we must have ub defined
+  model$ub &lt;- Inf + numeric(numvars)
+}
+
+# Disable output for subsequent solves
+params            &lt;- list()
+params$OutputFlag &lt;- 0
+
+# We limit the sensitivity analysis to a maximum number of variables
+numanalyze &lt;- 0
+
+# Iterate through unfixed binary variables in the model
+for (j in 1:numvars) {
+  if (model$vtype[j] != 'B' &amp;&amp;
+      model$vtype[j] != 'I'   ) next
+  if (model$vtype[j] == 'I') {
+    if (model$lb[j] != 0.0)     next
+    if (model$ub[j] != 1.0)     next
+  } else {
+    if (model$lb[j] &gt; 0.0)      next
+    if (model$ub[j] &lt; 1.0)      next
+  }
+
+  # Update MIP start for all variables
+  model$start &lt;- origx
+
+  # Set variable to 1-X, where X is its value in optimal solution
+  if (origx[j] &lt; 0.5) {
+    model$start[j] &lt;- 1
+    model$lb[j]    &lt;- 1
+  } else {
+    model$start[j] &lt;- 0
+    model$ub[j]    &lt;- 0
+  }
+
+  # Optimize
+  result &lt;- gurobi(model, params)
+
+  # Display result
+  varnames &lt;- ''
+  if ('varnames' %in% names(model)) {
+    varnames &lt;- model$varnames[j]
+  } else {
+    varnames &lt;- sprintf('%s%d', model$vtype[j], j)
+  }
+  gap &lt;- 0
+  if (result$status != 'OPTIMAL') {
+    gap &lt;- Inf
+  } else {
+    gap &lt;- result$objval - origobjval
+  }
+  cat('Objective sensitivity for variable', varnames, 'is', gap, '\n')
+
+  # Restore original bounds
+  model$lb[j] &lt;- 0
+  model$ub[j] &lt;- 1
+
+  numanalyze &lt;- numanalyze + 1
+
+  # Stop when we reached the maximum number of sensitivity analysis steps
+  if (numanalyze &gt;= maxanalyze) {
+      cat('Limit sensitivity analysis to the first', maxanalyze, 'variables\n')
+      break
+  }
+}
+
+# Clear space
+rm(model, params, result, origx)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sos_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="qp_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sos_r.html">sos.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="qp_r.html">qp.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

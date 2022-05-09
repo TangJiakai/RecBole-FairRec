@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.SetObjectiveN()</TITLE>
+<META NAME="description" CONTENT="GRBModel.SetObjectiveN()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_setpwlobj.html">
+<LINK REL="previous" HREF="cs_model_setobjective.html">
+<LINK REL="next" HREF="cs_model_setpwlobj.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_setpwlobj.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_setobjective.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_setpwlobj.html">GRBModel.SetPWLObj()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_setobjective.html">GRBModel.SetObjective()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000825000000000000000"></A>
+<A ID="dotnetmethod:GRBModel.SetObjectiveN"></A>
+<BR>
+GRBModel.SetObjectiveN()
+</H3>
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">SetObjectiveN</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT">expr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">index,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">priority,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">weight,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">abstol,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">reltol,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT">name )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Set an alternative optimization objective equal to a linear expression.
+
+<P>
+Please refer to the discussion of
+<A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple Objectives</A> for
+more information on the use of alternative objectives.
+
+<P>
+Note that you can also modify an alternative objective using the
+<A HREF="objn.html#attr:ObjN">ObjN</A> variable attribute.  If you wish to mix
+and match these two approaches, please note that this method replaces
+the entire existing objective, while the <code>ObjN</code> attribute can be
+used to modify individual terms.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">expr</SPAN>: New alternative objective.
+
+<P>
+ <SPAN  CLASS="textbf">index</SPAN>: Index for new objective.  If you use
+  an index of 0, this routine will change the primary
+  optimization objective.
+
+<P>
+ <SPAN  CLASS="textbf">priority</SPAN>: Priority for the alternative objective.  This
+  initializes the <A HREF="objnpriority.html#attr:ObjNPriority">ObjNPriority</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">weight</SPAN>: Weight for the alternative objective.  This
+  initializes the <A HREF="objnweight.html#attr:ObjNWeight">ObjNWeight</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">abstol</SPAN>: Absolute tolerance for the alternative objective.  This
+  initializes the <A HREF="objnabstol.html#attr:ObjNAbsTol">ObjNAbsTol</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">reltol</SPAN>: Relative tolerance for the alternative objective.  This
+  initializes the <A HREF="objnreltol.html#attr:ObjNRelTol">ObjNRelTol</A>
+  attribute for this objective.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name of the alternative objective.  This
+  initializes the <A HREF="objnname.html#attr:ObjNName">ObjNName</A>
+  attribute for this objective.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_setpwlobj.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_setobjective.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_setpwlobj.html">GRBModel.SetPWLObj()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_setobjective.html">GRBModel.SetObjective()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,246 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.addConstrs()</TITLE>
+<META NAME="description" CONTENT="GRBModel.addConstrs()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_agc_xxx.html">
+<LINK REL="previous" HREF="java_model_addconstr.html">
+<LINK REL="next" HREF="java_model_agc_xxx.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_agc_xxx.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_addconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_xxx.html">GRBModel.addGenConstrXxx()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_addconstr.html">GRBModel.addConstr()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00062300000000000000"></A>
+<A ID="javamethod:GRBModel.addConstrs"></A>
+<BR>
+GRBModel.addConstrs()
+</H3>
+
+<P>
+Add new linear constraints to a model.
+
+<P>
+We recommend that you build your model one constraint at a time (using
+<A HREF="java_model_addconstr.html#javamethod:GRBModel.addConstr">addConstr</A>), since it
+introduces no significant overhead and we find that it produces
+simpler code.  Feel free to use these methods if you disagree, though.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addConstrs</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">count )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+Add <code>count</code> new linear constraints to a model.  The new
+constraints are all of the form <code>0 &lt;= 0</code>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">count</SPAN>: Number of constraints to add.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+Array of new constraint objects.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addConstrs</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBLinExpr[]</TD>
+<TD CLASS="LEFT">lhsExprs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT">senses,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT">rhss,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">String[]</TD>
+<TD CLASS="LEFT">names )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Add new linear constraints to a model.  The number of added
+constraints is determined by the length of the input arrays (which
+must be consistent across all arguments).
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lhsExprs</SPAN>: Left-hand side expressions for the new linear constraints.
+
+<P>
+ <SPAN  CLASS="textbf">senses</SPAN>: Senses for new linear constraints
+(<SPAN  CLASS="texttt">GRB.LESS_EQUAL</SPAN>, <SPAN  CLASS="texttt">GRB.EQUAL</SPAN>, or <SPAN  CLASS="texttt">GRB.GREATER_EQUAL</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">rhss</SPAN>: Right-hand side values for the new linear constraints.
+
+<P>
+ <SPAN  CLASS="textbf">names</SPAN>: Names for new constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+Array of new constraint objects.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addConstrs</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBLinExpr[]</TD>
+<TD CLASS="LEFT">lhsExprs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char[]</TD>
+<TD CLASS="LEFT">senses,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT">rhss,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">String[]</TD>
+<TD CLASS="LEFT">names,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">start,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Add new linear constraints to a model.  This signature
+allows you to use arrays to hold the various constraint attributes
+(left-hand side, sense, etc.), without forcing you to add one constraint
+for each entry in the array.  The <code>start</code> and <code>len</code>
+arguments allow you to specify which constraints to add.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lhsExprs</SPAN>: Left-hand side expressions for the new linear constraints.
+
+<P>
+ <SPAN  CLASS="textbf">senses</SPAN>: Senses for new linear constraints
+(<SPAN  CLASS="texttt">GRB.LESS_EQUAL</SPAN>, <SPAN  CLASS="texttt">GRB.EQUAL</SPAN>, or <SPAN  CLASS="texttt">GRB.GREATER_EQUAL</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">rhss</SPAN>: Right-hand side values for the new linear constraints.
+
+<P>
+ <SPAN  CLASS="textbf">names</SPAN>: Names for new constraints.
+
+<P>
+ <SPAN  CLASS="textbf">start</SPAN>: The first constraint in the list to add.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of constraints to add.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+Array of new constraint objects.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_agc_xxx.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_addconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_xxx.html">GRBModel.addGenConstrXxx()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_addconstr.html">GRBModel.addConstr()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

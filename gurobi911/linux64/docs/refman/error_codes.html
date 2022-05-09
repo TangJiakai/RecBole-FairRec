@@ -1,0 +1,304 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Error Codes</TITLE>
+<META NAME="description" CONTENT="Error Codes">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="model_file_formats.html">
+<LINK REL="previous" HREF="cb_codes.html">
+<LINK REL="next" HREF="model_file_formats.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cb_codes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="cb_codes.html">Callback Codes</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000220000000000000000"></A>
+<A ID="sec:ErrorCodes"></A>
+<BR>
+Error Codes
+</H1>
+
+<P>
+Errors can arise in most of the Gurobi library routines.  In the C
+interface, library routines return an integer error code.  In the C++,
+Java, .NET, and Python interfaces, Gurobi methods can throw an
+exception (a <A HREF="cpp_exception.html#cppclass:GRBException">C++ exception</A>, a
+<A HREF="java_exception.html#javaclass:GRBException">Java exception</A>, a
+<A HREF="cs_exception.html#dotnetclass:GRBException">.NET exception</A>, or a
+<A HREF="py_grberror.html#pythonclass:GurobiError">Python exception</A>)
+
+<P>
+Underlying all Gurobi error reporting is a set of error codes.  These
+are integer values, but we recommend that you use one of the
+predefined error code constants to check the error status in your
+program.  Each error code has a name, and each language requires a
+prefix on this name to obtain the appropriate constant.  You would
+access error code <code>OUT_OF_MEMORY</code> in the following ways
+from the available Gurobi interfaces:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Language</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Error Code</SPAN></TH>
+</TR>
+<TR><TD CLASS="LEFT">C</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_ERROR_OUT_OF_MEMORY</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">C++</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB_ERROR_OUT_OF_MEMORY</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Java</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.Error.OUT_OF_MEMORY</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">.NET</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.Error.OUT_OF_MEMORY</SPAN></TD>
+</TR>
+<TR><TD CLASS="LEFT">Python</TD>
+<TD CLASS="LEFT"><SPAN  CLASS="texttt">GRB.Error.OUT_OF_MEMORY</SPAN></TD>
+</TR>
+</TABLE>
+
+<P>
+Note that when an error occurs, it produces both an error code and an
+error message. The message can be obtained through
+<A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormessage</A> in C,
+through
+<A HREF="cpp_exception_getmessage.html#cppmethod:GRBException::getMessage">GRBException::getMessage()</A>
+in C++, through the inherited <code>getMessage()</code> method on the
+<A HREF="java_exception.html#javaclass:GRBException">GRBException</A> class in Java,
+through the inherited <code>Message</code> property on the
+<A HREF="cs_exception.html#dotnetclass:GRBException">GRBException</A> class in .NET, or
+through the <code>e.message</code> attribute on the
+<A HREF="py_grberror.html#pythonclass:GurobiError">GurobiError</A> object in Python.
+
+<P>
+Possible error codes are:
+
+<P>
+<TABLE class="PAD  BORDER" style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Error code</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Error number</SPAN></TH>
+<TH CLASS="LEFT"><SPAN  CLASS="textbf">Description</SPAN></TH>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">OUT_OF_MEMORY</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10001</TD>
+<TD CLASS="LEFT">Available memory was exhausted</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NULL_ARGUMENT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10002</TD>
+<TD CLASS="LEFT"><code>NULL</code> input value provided for a required argument</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INVALID_ARGUMENT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10003</TD>
+<TD CLASS="LEFT">An invalid value was provided for a routine argument</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">UNKNOWN_ATTRIBUTE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10004</TD>
+<TD CLASS="LEFT">Tried to query or set an unknown attribute</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">DATA_NOT_AVAILABLE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10005</TD>
+<TD CLASS="LEFT">Attempted to query or set an attribute that could not be accessed at that time</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INDEX_OUT_OF_RANGE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10006</TD>
+<TD CLASS="LEFT">Tried to query or set an attribute, but one or more of the provided indices (e.g., constraint index, variable index) was outside the range of valid values</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">UNKNOWN_PARAMETER</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10007</TD>
+<TD CLASS="LEFT">Tried to query or set an unknown parameter</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">VALUE_OUT_OF_RANGE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10008</TD>
+<TD CLASS="LEFT">Tried to set a parameter to a value that is outside the parameter's valid range</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NO_LICENSE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10009</TD>
+<TD CLASS="LEFT">Failed to obtain a valid license</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">SIZE_LIMIT_EXCEEDED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10010</TD>
+<TD CLASS="LEFT">Attempted to solve a model that is larger than the limit for a demo license</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">CALLBACK</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10011</TD>
+<TD CLASS="LEFT">Problem in callback</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">FILE_READ</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10012</TD>
+<TD CLASS="LEFT">Failed to read the requested file</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">FILE_WRITE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10013</TD>
+<TD CLASS="LEFT">Failed to write the requested file</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NUMERIC</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10014</TD>
+<TD CLASS="LEFT">Numerical error during requested operation</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">IIS_NOT_INFEASIBLE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10015</TD>
+<TD CLASS="LEFT">Attempted to perform infeasibility analysis on a feasible model</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NOT_FOR_MIP</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10016</TD>
+<TD CLASS="LEFT">Requested operation not valid for a MIP model</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">OPTIMIZATION_IN_PROGRESS</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10017</TD>
+<TD CLASS="LEFT">Tried to query or modify a model while optimization was in progress</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">DUPLICATES</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10018</TD>
+<TD CLASS="LEFT">Constraint, variable, or SOS contained duplicated indices</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NODEFILE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10019</TD>
+<TD CLASS="LEFT">Error in reading or writing a node file during MIP optimization</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">Q_NOT_PSD</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10020</TD>
+<TD CLASS="LEFT">Q matrix in QP model is not positive semi-definite</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">QCP_EQUALITY_CONSTRAINT</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10021</TD>
+<TD CLASS="LEFT">QCP equality constraint specified (only inequalities are supported
+    unless the NonConvex parameter is set to 2)</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NETWORK</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10022</TD>
+<TD CLASS="LEFT">Problem communicating with the Gurobi Compute Server</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">JOB_REJECTED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10023</TD>
+<TD CLASS="LEFT">Gurobi Compute Server responded, but was unable to process the job
+    (typically because the queuing time exceeded the user-specified
+     timeout or because the queue has exceeded its maximum capacity)</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NOT_SUPPORTED</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10024</TD>
+<TD CLASS="LEFT">Indicates that a Gurobi feature is not supported under your
+    usage environment (for example, some advanced features are
+    not supported in a Compute Server environment)</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">EXCEED_2B_NONZEROS</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10025</TD>
+<TD CLASS="LEFT">Indicates that the user has called a query routine on a model
+    with more than 2 billion non-zero entries, and the result
+    would exceed the maximum size that can be returned by that
+    query routine.  The solution is typically to move to the
+    <code>GRBX</code> version of that query routine.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INVALID_PIECEWISE_OBJ</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10026</TD>
+<TD CLASS="LEFT">Piecewise-linear objectives must have certain properties (as described
+    in the documentation for the various <code>setPWLObj</code> methods).
+    This error indicates that one of those properties was violated.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">UPDATEMODE_CHANGE</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10027</TD>
+<TD CLASS="LEFT">The <code>UpdateMode</code> parameter can not be modified once a model
+    has been created.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">CLOUD</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10028</TD>
+<TD CLASS="LEFT">Problems launching a Gurobi Instant Cloud job.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">MODEL_MODIFICATION</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10029</TD>
+<TD CLASS="LEFT">Indicates that the user has modified the model in
+    such a way that the model became invalid. For example, this happens
+    when a general constraint exists in the model and the user deletes
+    the resultant variable of this constraint. In such a case, the
+    general constraint does not have any meaningful interpretation
+    anymore.  The solution is to also delete the general constraint
+    when a resultant variable is deleted.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">CSWORKER</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10030</TD>
+<TD CLASS="LEFT">When you are using a client-server feature, this error indicates that
+    there was an application problem.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">TUNE_MODEL_TYPES</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10031</TD>
+<TD CLASS="LEFT">Indicates that tuning was invoked on a set of models, but the
+    models were of different types (e.g., one an LP, another a MIP).</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">SECURITY</SPAN></SPAN></TH>
+<TD CLASS="LEFT">10032</TD>
+<TD CLASS="LEFT">Indicates that an authentication step failed or that an operation
+    was attempted for which the current credentials do not warrant
+    permission.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">NOT_IN_MODEL</SPAN></SPAN></TH>
+<TD CLASS="LEFT">20001</TD>
+<TD CLASS="LEFT">Tried to use a constraint or variable that is not in the model,
+    either because it was removed or because it has not yet been added.</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">FAILED_TO_CREATE_MODEL</SPAN></SPAN></TH>
+<TD CLASS="LEFT">20002</TD>
+<TD CLASS="LEFT">Failed to create the requested model</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf"><SPAN  CLASS="texttt">INTERNAL</SPAN></SPAN></TH>
+<TD CLASS="LEFT">20003</TD>
+<TD CLASS="LEFT">Internal Gurobi error</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cb_codes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="cb_codes.html">Callback Codes</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

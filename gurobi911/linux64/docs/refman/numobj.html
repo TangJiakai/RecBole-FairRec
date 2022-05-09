@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>NumObj</TITLE>
+<META NAME="description" CONTENT="NumObj">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="objnname.html">
+<LINK REL="next" HREF="multi_scenario_attributes.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="multi_scenario_attributes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_objective_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objnname.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multi_scenario_attributes.html">Multi-Scenario Attributes</A>
+<B> Up:</B> <A
+ HREF="multi_objective_attributes.html">Multi-objective Attributes</A>
+<B> Previous:</B> <A
+ HREF="objnname.html">ObjNName</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000178900000000000000"></A>
+<A ID="attr:NumObj"></A>
+<BR>
+NumObj
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+Number of objectives in the model.  If you modify this attribute, it will
+change the number of objectives in the model.  Decreasing it will discard
+existing objectives.  Increasing it will create new objectives (initialized
+to 0).  Setting it to 0 will create a model with no objective (i.e., a
+feasibility model). If you want to switch from a multi-objective model to a
+single-objective model you also need to set <code>NumObj</code> to 0 and call
+model update before installing a new single objective.
+
+<P>
+You can use the <A HREF="objnumber.html#parameter:ObjNumber">ObjNumber</A>
+parameter, in conjunction with multi-objective attributes
+(<A HREF="objn.html#attr:ObjN">ObjN</A>, <A HREF="objnname.html#attr:ObjNName">ObjNName</A>,
+etc.), to query or modify attributes for different objectives.  The
+value of <code>ObjNumber</code> should always be less than <code>NumObj</code>.
+
+<P>
+Please refer to the discussion of
+<A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple Objectives</A> for
+more information on the use of alternative objectives.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="multi_scenario_attributes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multi_objective_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objnname.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multi_scenario_attributes.html">Multi-Scenario Attributes</A>
+<B> Up:</B> <A
+ HREF="multi_objective_attributes.html">Multi-objective Attributes</A>
+<B> Previous:</B> <A
+ HREF="objnname.html">ObjNName</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Environments</TITLE>
+<META NAME="description" CONTENT="Environments">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="attributes.html">
+<LINK REL="previous" HREF="variables_and_constraints_.html">
+<LINK REL="next" HREF="session_boundaries.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="session_boundaries.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tolerances_and_ill_conditi.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="session_boundaries.html">Session boundaries</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="tolerances_and_ill_conditi.html">Tolerances and Ill Conditioning</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000160000000000000000"></A>
+<A ID="sec:Environment"></A>
+<BR>
+Environments
+</H1>
+
+<P>
+An environment is a multi-purpose data structure in Gurobi.  It is
+typically the first Gurobi object you create and the last one you
+destroy.  While the workings of environments are actually quite simple,
+the breadth of uses can sometimes cause confusion.  This section lays
+out the different usage scenarios to make this clearer.
+
+<P>
+At the highest level, environments provide three basic functions: (i) to
+capture a set of parameter settings, (ii) to delineate a
+(single-threaded) Gurobi session, and (iii) to hold a Gurobi license.
+Things only get interesting once
+you consider the many different ways these capabilities are used
+throughout the product:
+
+<UL>
+<LI><A HREF="configuration_parameters.html#subsection:ConfigurationParameters">Configuration parameters</A>:
+  Environments allow you to configure your session (whether
+  you will run locally or on a Compute Server or on the Instant Cloud,
+  your login credentials, etc.).
+</LI>
+<LI><A HREF="algorithmic_parameters.html#subsection:AlgorithmicParameters">Algorithmic parameters</A>:
+  Environments enable you to modify algorithmic parameters, which influence
+  how the solver solves your model.
+</LI>
+<LI><A HREF="concurrent_environments.html#subsection:ConcurrentEnvironment">Concurrent environments</A>:
+  When using a concurrent algorithm, concurrent environments allow you
+  to control the algorithmic parameters used in each independent solve.
+</LI>
+<LI><A HREF="multi_objective_environmen.html#subsection:MultiObjEnvironment">Multi-objective environments</A>:
+  When solving a multi-objective model, multi-objective environments allow
+  you to control the algorithmic parameters used for each objective.
+</LI>
+<LI><A HREF="session_boundaries.html#subsection:DelineateSession">Session boundaries</A>: Environments
+  indicate when your program starts and stops using Gurobi.
+</LI>
+</UL>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3733"
+  HREF="session_boundaries.html">Session boundaries</A>
+<LI><A ID="tex2html3734"
+  HREF="configuration_parameters.html">Configuration parameters</A>
+<LI><A ID="tex2html3735"
+  HREF="algorithmic_parameters.html">Algorithmic parameters</A>
+<LI><A ID="tex2html3736"
+  HREF="concurrent_environments.html">Concurrent environments</A>
+<LI><A ID="tex2html3737"
+  HREF="multi_objective_environmen.html">Multi-objective environments</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="session_boundaries.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tolerances_and_ill_conditi.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="session_boundaries.html">Session boundaries</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="tolerances_and_ill_conditi.html">Tolerances and Ill Conditioning</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

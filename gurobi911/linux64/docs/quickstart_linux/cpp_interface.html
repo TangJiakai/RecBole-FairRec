@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>C++ Interface</TITLE>
+<META NAME="description" CONTENT="C++ Interface">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="java_interface.html">
+<LINK REL="previous" HREF="c_interface.html">
+<LINK REL="next" HREF="cpp_example_mip1_cpp_cpp.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_example_mip1_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="quickstart_linux.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_building_and_running_the.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_example_mip1_cpp_cpp.html">Example mip1_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="quickstart_linux.html">Gurobi Optimizer Quick Start</A>
+<B> Previous:</B> <A
+ HREF="c_building_and_running_the.html">Building and running the</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00080000000000000000"></A>
+<A ID="section:C++"></A>
+<BR>
+C++ Interface
+</H1>
+
+<P>
+This section will work through a simple C++ example in order to
+illustrate the use of the Gurobi C++ interface.  The example builds a
+model, optimizes it, and outputs the optimal objective value.  This
+section assumes that you are already familiar with the C++ programming
+language.  If not, a variety of books are available for learning the
+language (for example, <EM>The C++ Programming Language</EM>, by
+Stroustrup).
+
+<P>
+Our example optimizes the following model:
+<DIV class="CENTER">
+<TABLE class="PAD " style="">
+<TR><TD CLASS="RIGHT"><B>maximize</B></TD>
+<TD CLASS="RIGHT">x</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">y</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">2 z</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+</TR>
+<TR><TD CLASS="RIGHT"><B>subject to</B></TD>
+<TD CLASS="RIGHT">x</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">2 y</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">3 z</TD>
+<TD CLASS="RIGHT"><SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img5.svg"
+ ALT="$\leq$"></SPAN></TD>
+<TD CLASS="RIGHT">4</TD>
+</TR>
+<TR><TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT">x</TD>
+<TD CLASS="RIGHT">+</TD>
+<TD CLASS="RIGHT">y</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="RIGHT"><SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img6.svg"
+ ALT="$\geq$"></SPAN></TD>
+<TD CLASS="RIGHT">1</TD>
+</TR>
+<TR><TD CLASS="RIGHT">&nbsp;</TD>
+<TD CLASS="CENTER" COLSPAN=6><SPAN>x, y, z binary</SPAN></TD>
+<TD CLASS="RIGHT">&nbsp;</TD>
+</TR>
+</TABLE>
+</DIV>
+Note that this is the same model that was modeled and optimized in the
+<A HREF="c_interface.html#section:C">C Interface</A>
+section.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html275"
+  HREF="cpp_example_mip1_cpp_cpp.html">Example mip1_c++.cpp</A>
+<LI><A ID="tex2html276"
+  HREF="cpp_example_details.html">Example details</A>
+<LI><A ID="tex2html277"
+  HREF="cpp_creating_the_environme.html">Creating the environment</A>
+<LI><A ID="tex2html278"
+  HREF="cpp_creating_the_model.html">Creating the model</A>
+<LI><A ID="tex2html279"
+  HREF="cpp_adding_variables_to_th.html">Adding variables to the model</A>
+<LI><A ID="tex2html280"
+  HREF="cpp_setting_the_objective.html">Setting the objective</A>
+<LI><A ID="tex2html281"
+  HREF="cpp_adding_constraints_to_.html">Adding constraints to the model</A>
+<LI><A ID="tex2html282"
+  HREF="cpp_optimizing_the_model.html">Optimizing the model</A>
+<LI><A ID="tex2html283"
+  HREF="cpp_reporting_results_attr.html">Reporting results - attributes</A>
+<LI><A ID="tex2html284"
+  HREF="cpp_error_handling.html">Error handling</A>
+<LI><A ID="tex2html285"
+  HREF="cpp_building_and_running_t.html">Building and running the example</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_example_mip1_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="quickstart_linux.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_building_and_running_the.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_example_mip1_cpp_cpp.html">Example mip1_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="quickstart_linux.html">Gurobi Optimizer Quick Start</A>
+<B> Previous:</B> <A
+ HREF="c_building_and_running_the.html">Building and running the</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

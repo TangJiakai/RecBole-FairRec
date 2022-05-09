@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Env()</TITLE>
+<META NAME="description" CONTENT="Env()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_env_clientenv.html">
+<LINK REL="previous" HREF="py_env.html">
+<LINK REL="next" HREF="py_env_clientenv.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_env_clientenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_env.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_env.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_env_clientenv.html">Env.ClientEnv()</A>
+<B> Up:</B> <A
+ HREF="py_env.html">Env</A>
+<B> Previous:</B> <A
+ HREF="py_env.html">Env</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001019100000000000000"></A>
+<A ID="pythonmethod:Env"></A>
+<BR>
+Env()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Env</SPAN></FONT></SPAN> ( logfilename=&rdquo;&rdquo;, empty=False, params=None )
+
+
+<P>
+Env constructor.  You will generally want to use the default
+environment in Gurobi Python programs.  The exception is when you want
+explicit control over environment garbage collection.  By creating
+your own environment object and always passing it to methods that take
+an environment as input (<A HREF="py_read.html#pythonmethod:read">read</A> or the
+<A HREF="py_model.html#pythonclass:Model">Model</A> constructor), you will avoid
+creating the default environment.  Once every model created using an
+Env object is garbage collected, and once the Env object itself is no
+longer referenced, the garbage collector will reclaim the environment
+and release all associated resources.
+
+<P>
+If the environment is not empty,
+This method will also populate any
+parameter (<TT>ComputeServer</TT>, <TT>TokenServer</TT>,
+<TT>ServerPassword</TT>, etc.) specified in your <TT>gurobi.lic</TT> file. This method will also check the current working directory for a file
+named <TT>gurobi.env</TT>, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in <A HREF="prm_format.html#format:PRM">PRM</A> format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).
+
+<P>
+In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">logfilename</SPAN>: Name of the log file for this environment.  Pass an
+  empty string if you don't want a log file.
+
+<P>
+ <SPAN  CLASS="textbf">empty</SPAN>: Indicates whether the environment should be empty.
+You should use <TT>empty=True</TT> if you want to set parameters before actually
+starting the environment.  This can be useful if you want to
+connect to a Compute Server, a Token Server, the Gurobi
+Instant Cloud or a Cluster Manager. See the
+<A HREF="environments.html#sec:Environment">Environment</A>&nbsp;Section for more details.
+
+<P>
+ <SPAN  CLASS="textbf">params</SPAN>: A dict containing Gurobi parameter/value pairs that should
+    be set already upon environment creation. Any server related parameters
+    can be set through this dict, too.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New environment object.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  env = Env("gurobi.log")
+  m = read("misc07.mps", env)
+  m.optimize()
+</PRE>
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  p = {"ComputeServer": "localhost:33322",
+       "ServerPassword": "pass",
+       "TimeLimit": 120.0}
+  with Env(params=p) as env, read('misc07.mps', env=env) as model:
+      model.optimize()
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_env_clientenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_env.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_env.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_env_clientenv.html">Env.ClientEnv()</A>
+<B> Up:</B> <A
+ HREF="py_env.html">Env</A>
+<B> Previous:</B> <A
+ HREF="py_env.html">Env</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

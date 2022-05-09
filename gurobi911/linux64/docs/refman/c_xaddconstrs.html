@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBXaddconstrs</TITLE>
+<META NAME="description" CONTENT="GRBXaddconstrs">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_xaddrangeconstrs.html">
+<LINK REL="previous" HREF="c_freemodel.html">
+<LINK REL="next" HREF="c_xaddrangeconstrs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_xaddrangeconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_freemodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_xaddrangeconstrs.html">GRBXaddrangeconstrs</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_freemodel.html">GRBfreemodel</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000224100000000000000"></A>
+<A ID="routine:GRBXaddconstrs"></A>
+<BR>
+GRBXaddconstrs
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBXaddconstrs</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">numconstrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">size_t</TD>
+<TD CLASS="LEFT">numnz,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">size_t</TD>
+<TD CLASS="LEFT">*cbeg,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*cind,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*cval,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">*sense,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*rhs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">**constrnames )</TD>
+</TR>
+</TABLE>
+
+<P>
+The <code>size_t</code> version of
+<A HREF="c_addconstrs.html#routine:GRBaddconstrs">GRBaddconstrs</A>.  The two
+arguments that count non-zero values are of type <code>size_t</code> in this
+version to support models with more than 2 billion non-zero values.
+
+<P>
+Add new linear constraints to a model.
+
+  Note that, due to our lazy update approach, the new constraints won't actually be added
+  until you update the model
+  (using <A HREF="c_updatemodel.html#routine:GRBupdatemodel">GRBupdatemodel</A>),
+  optimize the model
+  (using <A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>),
+  or write the model to disk
+  (using <A HREF="c_write.html#routine:GRBwrite">GRBwrite</A>).
+
+<P>
+We recommend that you build your model one constraint at a time (using
+<A HREF="c_addconstr.html#routine:GRBaddconstr">GRBaddconstr</A>), since it
+introduces no significant overhead and we find that it produces
+simpler code.  Feel free to use this routine if you disagree, though.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while adding the constraints.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to which the new constraints should be added.
+
+<P>
+ <SPAN  CLASS="textbf">numconstrs</SPAN>: The number of new constraints to add.
+
+<P>
+ <SPAN  CLASS="textbf">numnz</SPAN>: The total number of non-zero coefficients in the new constraints.
+
+<P>
+ <SPAN  CLASS="textbf">cbeg</SPAN>: Constraint matrix non-zero values are passed into this
+  routine in Compressed Sparse Row (CSR) format by this routine.  Each
+  constraint in the constraint matrix is represented as a list of
+  index-value pairs, where each index entry provides the variable
+  index for a non-zero coefficient, and each value entry provides the
+  corresponding non-zero value.  Each new constraint has an associated
+  <SPAN  CLASS="texttt">cbeg</SPAN> value, indicating the start position of the non-zeros
+  for that constraint in the <SPAN  CLASS="texttt">cind</SPAN> and <SPAN  CLASS="texttt">cval</SPAN> arrays.
+  This routine requires that the non-zeros for constraint <SPAN  CLASS="texttt">i</SPAN>
+  immediately follow those for constraint <SPAN  CLASS="texttt">i-1</SPAN> in <SPAN  CLASS="texttt">cind</SPAN>
+  and <SPAN  CLASS="texttt">cval</SPAN>.  Thus, <SPAN  CLASS="texttt">cbeg[i]</SPAN> indicates both the index of
+  the first non-zero in constraint <SPAN  CLASS="texttt">i</SPAN> and the end of the
+  non-zeros for constraint <SPAN  CLASS="texttt">i-1</SPAN>.  To give an example of how
+  this representation is used, consider a case where <SPAN  CLASS="texttt">cbeg[2] =
+    10</SPAN> and <SPAN  CLASS="texttt">cbeg[3] = 12</SPAN>.  This would indicate that
+  constraint 2 has two non-zero values associated with it.  Their
+  variable indices can be found in <SPAN  CLASS="texttt">cind[10]</SPAN> and
+  <SPAN  CLASS="texttt">cind[11]</SPAN>, and the numerical values for those non-zeros can be
+  found in <SPAN  CLASS="texttt">cval[10]</SPAN> and <SPAN  CLASS="texttt">cval[11]</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">cind</SPAN>: Variable indices associated with non-zero values.
+  See the description of the <SPAN  CLASS="texttt">cbeg</SPAN> argument for more information.
+
+<P>
+ <SPAN  CLASS="textbf">cval</SPAN>: Numerical values associated with constraint matrix non-zeros.
+  See the description of the <SPAN  CLASS="texttt">cbeg</SPAN> argument for more information.
+
+<P>
+ <SPAN  CLASS="textbf">sense</SPAN>: Sense for the new constraints.  Options are
+<SPAN  CLASS="texttt">GRB_LESS_EQUAL</SPAN>, <SPAN  CLASS="texttt">GRB_EQUAL</SPAN>,
+or <SPAN  CLASS="texttt">GRB_GREATER_EQUAL</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">rhs</SPAN>: Right-hand side values for the new constraints.  This
+  argument can be <SPAN  CLASS="texttt">NULL</SPAN>, in which case the right-hand side
+  values are set to <SPAN  CLASS="texttt">0.0</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">constrnames</SPAN>: Names for the new constraints.  This argument can be
+  <SPAN  CLASS="texttt">NULL</SPAN>, in which case all constraints are given default
+  names.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_xaddrangeconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_freemodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_xaddrangeconstrs.html">GRBXaddrangeconstrs</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_freemodel.html">GRBfreemodel</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

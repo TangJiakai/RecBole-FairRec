@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>mip1_vb.vb</TITLE>
+<META NAME="description" CONTENT="mip1_vb.vb">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="mip2_vb_vb.html">
+<LINK REL="previous" HREF="lpmod_vb_vb.html">
+<LINK REL="next" HREF="mip2_vb_vb.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="mip2_vb_vb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="visual_basic_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lpmod_vb_vb.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="mip2_vb_vb.html">mip2_vb.vb</A>
+<B> Up:</B> <A
+ HREF="visual_basic_examples.html">Visual Basic Examples</A>
+<B> Previous:</B> <A
+ HREF="lpmod_vb_vb.html">lpmod_vb.vb</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000251500000000000000"></A>
+<A ID="subsubsection:mip1_vb.vb"></A>
+<BR>
+mip1_vb.vb
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">' Copyright 2020, Gurobi Optimization, LLC
+'
+' This example formulates and solves the following simple MIP model:
+'
+'    maximize    x +   y + 2 z
+'    subject to  x + 2 y + 3 z &lt;= 4
+'                x +   y       &gt;= 1
+'                x, y, z binary
+
+Imports System
+Imports Gurobi
+
+Class mip1_vb
+    Shared Sub Main()
+        Try
+            Dim env As GRBEnv = New GRBEnv("mip1.log")
+            Dim model As GRBModel = New GRBModel(env)
+
+            ' Create variables
+
+            Dim x As GRBVar = model.AddVar(0.0, 1.0, 0.0, GRB.BINARY, "x")
+            Dim y As GRBVar = model.AddVar(0.0, 1.0, 0.0, GRB.BINARY, "y")
+            Dim z As GRBVar = model.AddVar(0.0, 1.0, 0.0, GRB.BINARY, "z")
+
+            ' Set objective: maximize x + y + 2 z
+
+            model.SetObjective(x + y + 2 * z, GRB.MAXIMIZE)
+
+            ' Add constraint: x + 2 y + 3 z &lt;= 4
+
+            model.AddConstr(x + 2 * y + 3 * z &lt;= 4.0, "c0")
+
+            ' Add constraint: x + y &gt;= 1
+
+            model.AddConstr(x + 2 * y + 3 * z &lt;= 4.0, "c1")
+
+            ' Optimize model
+
+            model.Optimize()
+
+            Console.WriteLine(x.VarName &amp; " " &amp; x.X)
+            Console.WriteLine(y.VarName &amp; " " &amp; y.X)
+            Console.WriteLine(z.VarName &amp; " " &amp; z.X)
+
+            Console.WriteLine("Obj: " &amp; model.ObjVal)
+
+            ' Dispose of model and env
+
+            model.Dispose()
+            env.Dispose()
+
+        Catch e As GRBException
+            Console.WriteLine("Error code: " &amp; e.ErrorCode &amp; ". " &amp; e.Message)
+        End Try
+    End Sub
+End Class
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="mip2_vb_vb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="visual_basic_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lpmod_vb_vb.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="mip2_vb_vb.html">mip2_vb.vb</A>
+<B> Up:</B> <A
+ HREF="visual_basic_examples.html">Visual Basic Examples</A>
+<B> Previous:</B> <A
+ HREF="lpmod_vb_vb.html">lpmod_vb.vb</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

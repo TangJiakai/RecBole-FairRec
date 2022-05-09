@@ -1,0 +1,166 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Avoid hiding large coefficients</TITLE>
+<META NAME="description" CONTENT="Avoid hiding large coefficients">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="dealing_with_big_m_constra.html">
+<LINK REL="previous" HREF="advanced_user_scaling.html">
+<LINK REL="next" HREF="dealing_with_big_m_constra.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="dealing_with_big_m_constra.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="advanced_user_scaling.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="dealing_with_big_m_constra.html">Dealing with big-M constraints</A>
+<B> Up:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Previous:</B> <A
+ HREF="advanced_user_scaling.html">Advanced user scaling</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000343600000000000000">
+Avoid hiding large coefficients</A>
+</H3>
+
+<P>
+As we said before, a typical recommendation for improving numerics is to limit the
+range of constraint matrix coefficients. The rationale behind
+this guideline is that terms to be added in a linear expression should
+be of comparable magnitudes so that rounding errors are minimized.
+For example:
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 10^{6} y &\geq& 0 \\
+y&\in&[0,10]
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 5.79ex; vertical-align: -2.32ex; " SRC="img333.svg"
+ ALT="$\begin{array}{rcl}
+x - 10^{6} y &amp;\geq&amp; 0 \\
+y&amp;\in&amp;[0,10]
+\end{array}$"></SPAN>
+</DIV>
+is usually considered a potential source of numerical instabilities
+due to the wide range of the coefficients in the constraint.
+However, it is easy to implement a simple (but useless) alternative:
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 10 y_1 &\geq& 0\\
+y_1 - 10 y_2 &=& 0\\
+y_2 - 10 y_3 &=& 0\\
+y_3 - 10 y_4 &=& 0\\
+y_4 - 10 y_5 &=& 0\\
+y_5 - 10 y &=& 0\\
+y&\in&[0,10]
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 19.67ex; vertical-align: -9.29ex; " SRC="img334.svg"
+ ALT="$\begin{array}{rcl}
+x - 10 y_1 &amp;\geq&amp; 0\\
+y_1 - 10 y_2 &amp;=&amp; 0\\
+y_2 - 10 y_3 &amp;=...
+...y_4 &amp;=&amp; 0\\
+y_4 - 10 y_5 &amp;=&amp; 0\\
+y_5 - 10 y &amp;=&amp; 0\\
+y&amp;\in&amp;[0,10]
+\end{array}$"></SPAN>
+</DIV>
+This form certainly has nicer values in the matrix.  However, the
+solution <!-- MATH
+ $y=-10^{-6},\ x=-1$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.57ex; vertical-align: -0.57ex; " SRC="img335.svg"
+ ALT="$y=-10^{-6},\ x=-1$"></SPAN> might still be considered feasible as the
+bounds on variables and constraints might be violated within the
+tolerances. A better alternative is to reformulate
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 10^{6} y &\geq& 0 \\
+y&\in& [0,10]
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 5.79ex; vertical-align: -2.32ex; " SRC="img333.svg"
+ ALT="$\begin{array}{rcl}
+x - 10^{6} y &amp;\geq&amp; 0 \\
+y&amp;\in&amp;[0,10]
+\end{array}$"></SPAN>
+</DIV>
+as
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{rcl}
+x - 10^{3} y' &\geq& 0 \\
+y'&\in&[0,10^4]\\
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 5.79ex; vertical-align: -2.32ex; " SRC="img336.svg"
+ ALT="$\begin{array}{rcl}
+x - 10^{3} y' &amp;\geq&amp; 0 \\
+y'&amp;\in&amp;[0,10^4]\\
+\end{array}$"></SPAN>
+</DIV>
+where <!-- MATH
+ $10^{-3} y' = y$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.57ex; vertical-align: -0.57ex; " SRC="img337.svg"
+ ALT="$10^{-3} y' = y$"></SPAN>. In this setting, the most negative values for
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> which might be considered feasible would be <SPAN CLASS="MATH"><IMG STYLE="height: 2.31ex; vertical-align: -0.31ex; " SRC="img338.svg"
+ ALT="$-10^{-3}$"></SPAN>, and for
+the original <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> variable it would be <SPAN CLASS="MATH"><IMG STYLE="height: 2.31ex; vertical-align: -0.31ex; " SRC="img339.svg"
+ ALT="$-10^{-9}$"></SPAN>, which is a clear
+improvement over the original situation.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="dealing_with_big_m_constra.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="tolerances_and_user_scalin.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="advanced_user_scaling.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="dealing_with_big_m_constra.html">Dealing with big-M constraints</A>
+<B> Up:</B> <A
+ HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<B> Previous:</B> <A
+ HREF="advanced_user_scaling.html">Advanced user scaling</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model</TITLE>
+<META NAME="description" CONTENT="Model">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_var.html">
+<LINK REL="previous" HREF="py_global_functions.html">
+<LINK REL="next" HREF="py_model2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_writeparams.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model2.html">Model()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_writeparams.html">writeParams()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000102000000000000000"></A>
+<A ID="pythonclass:Model"></A>
+<BR>
+Model
+</H2>
+
+<P>
+Gurobi model object.  Commonly used methods on the model object in the
+Gurobi shell include
+<A HREF="py_model_optimize.html#pythonmethod:Model.optimize">optimize</A> (optimizes the
+model), <A HREF="py_model_printstats.html#pythonmethod:Model.printStats">printStats</A>
+(prints statistics about the model),
+<A HREF="py_model_printattr.html#pythonmethod:Model.printAttr">printAttr</A> (prints the
+values of an attribute), and
+<A HREF="py_model_write.html#pythonmethod:Model.write">write</A> (writes information
+about the model to a file).  Commonly used methods when building a
+model include
+<A HREF="py_model_addvar.html#pythonmethod:Model.addVar">addVar</A> (adds a new variable),
+<A HREF="py_model_addvars.html#pythonmethod:Model.addVars">addVars</A> (adds multiple new variables),
+<A HREF="py_model_addmvar.html#pythonmethod:Model.addMVar">addMVar</A> (adds an a NumPy ndarray of Gurobi variables),
+<A HREF="py_model_addconstr.html#pythonmethod:Model.addConstr">addConstr</A> (adds a new constraint),
+and
+<A HREF="py_model_addconstrs.html#pythonmethod:Model.addConstrs">addConstrs</A> (adds multiple new constraints).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3474"
+  HREF="py_model2.html">Model()</A>
+<LI><A ID="tex2html3475"
+  HREF="py_model_addconstr.html">Model.addConstr()</A>
+<LI><A ID="tex2html3476"
+  HREF="py_model_addconstrs.html">Model.addConstrs()</A>
+<LI><A ID="tex2html3477"
+  HREF="py_model_agc_xxx.html">Model.addGenConstrXxx()</A>
+<LI><A ID="tex2html3478"
+  HREF="py_model_agc_max.html">Model.addGenConstrMax()</A>
+<LI><A ID="tex2html3479"
+  HREF="py_model_agc_min.html">Model.addGenConstrMin()</A>
+<LI><A ID="tex2html3480"
+  HREF="py_model_agc_abs.html">Model.addGenConstrAbs()</A>
+<LI><A ID="tex2html3481"
+  HREF="py_model_agc_and.html">Model.addGenConstrAnd()</A>
+<LI><A ID="tex2html3482"
+  HREF="py_model_agc_or.html">Model.addGenConstrOr()</A>
+<LI><A ID="tex2html3483"
+  HREF="py_model_agc_indicator.html">Model.addGenConstrIndicator()</A>
+<LI><A ID="tex2html3484"
+  HREF="py_model_agc_pwl.html">Model.addGenConstrPWL()</A>
+<LI><A ID="tex2html3485"
+  HREF="py_model_agc_poly.html">Model.addGenConstrPoly()</A>
+<LI><A ID="tex2html3486"
+  HREF="py_model_agc_exp.html">Model.addGenConstrExp()</A>
+<LI><A ID="tex2html3487"
+  HREF="py_model_agc_expa.html">Model.addGenConstrExpA()</A>
+<LI><A ID="tex2html3488"
+  HREF="py_model_agc_log.html">Model.addGenConstrLog()</A>
+<LI><A ID="tex2html3489"
+  HREF="py_model_agc_loga.html">Model.addGenConstrLogA()</A>
+<LI><A ID="tex2html3490"
+  HREF="py_model_agc_pow.html">Model.addGenConstrPow()</A>
+<LI><A ID="tex2html3491"
+  HREF="py_model_agc_sin.html">Model.addGenConstrSin()</A>
+<LI><A ID="tex2html3492"
+  HREF="py_model_agc_cos.html">Model.addGenConstrCos()</A>
+<LI><A ID="tex2html3493"
+  HREF="py_model_agc_tan.html">Model.addGenConstrTan()</A>
+<LI><A ID="tex2html3494"
+  HREF="py_model_addlconstr.html">Model.addLConstr()</A>
+<LI><A ID="tex2html3495"
+  HREF="py_model_addmconstr.html">Model.addMConstr()</A>
+<LI><A ID="tex2html3496"
+  HREF="py_model_addmqconstr.html">Model.addMQConstr()</A>
+<LI><A ID="tex2html3497"
+  HREF="py_model_addmvar.html">Model.addMVar()</A>
+<LI><A ID="tex2html3498"
+  HREF="py_model_addqconstr.html">Model.addQConstr()</A>
+<LI><A ID="tex2html3499"
+  HREF="py_model_addrange.html">Model.addRange()</A>
+<LI><A ID="tex2html3500"
+  HREF="py_model_addsos.html">Model.addSOS()</A>
+<LI><A ID="tex2html3501"
+  HREF="py_model_addvar.html">Model.addVar()</A>
+<LI><A ID="tex2html3502"
+  HREF="py_model_addvars.html">Model.addVars()</A>
+<LI><A ID="tex2html3503"
+  HREF="py_model_cbcut.html">Model.cbCut()</A>
+<LI><A ID="tex2html3504"
+  HREF="py_model_cbget.html">Model.cbGet()</A>
+<LI><A ID="tex2html3505"
+  HREF="py_model_cbgetnoderel.html">Model.cbGetNodeRel()</A>
+<LI><A ID="tex2html3506"
+  HREF="py_model_cbgetsolution.html">Model.cbGetSolution()</A>
+<LI><A ID="tex2html3507"
+  HREF="py_model_cblazy.html">Model.cbLazy()</A>
+<LI><A ID="tex2html3508"
+  HREF="py_model_cbsetsolution.html">Model.cbSetSolution()</A>
+<LI><A ID="tex2html3509"
+  HREF="py_model_cbstoponemultiobj.html">Model.cbStopOneMultiObj()</A>
+<LI><A ID="tex2html3510"
+  HREF="py_model_cbusesolution.html">Model.cbUseSolution()</A>
+<LI><A ID="tex2html3511"
+  HREF="py_model_chgcoeff.html">Model.chgCoeff()</A>
+<LI><A ID="tex2html3512"
+  HREF="py_model_computeiis.html">Model.computeIIS()</A>
+<LI><A ID="tex2html3513"
+  HREF="py_model_copy.html">Model.copy()</A>
+<LI><A ID="tex2html3514"
+  HREF="py_model_discardconcurrent.html">Model.discardConcurrentEnvs()</A>
+<LI><A ID="tex2html3515"
+  HREF="py_model_discardmultiobjen.html">Model.discardMultiobjEnvs()</A>
+<LI><A ID="tex2html3516"
+  HREF="py_model_dispose.html">Model.dispose()</A>
+<LI><A ID="tex2html3517"
+  HREF="py_model_feasrelaxs.html">Model.feasRelaxS()</A>
+<LI><A ID="tex2html3518"
+  HREF="py_model_feasrelax.html">Model.feasRelax()</A>
+<LI><A ID="tex2html3519"
+  HREF="py_model_fixed.html">Model.fixed()</A>
+<LI><A ID="tex2html3520"
+  HREF="py_model_geta.html">Model.getA()</A>
+<LI><A ID="tex2html3521"
+  HREF="py_model_getattr.html">Model.getAttr()</A>
+<LI><A ID="tex2html3522"
+  HREF="py_model_getcoeff.html">Model.getCoeff()</A>
+<LI><A ID="tex2html3523"
+  HREF="py_model_getcol.html">Model.getCol()</A>
+<LI><A ID="tex2html3524"
+  HREF="py_model_getconcurrentenv.html">Model.getConcurrentEnv()</A>
+<LI><A ID="tex2html3525"
+  HREF="py_model_getconstrbyname.html">Model.getConstrByName()</A>
+<LI><A ID="tex2html3526"
+  HREF="py_model_getconstrs.html">Model.getConstrs()</A>
+<LI><A ID="tex2html3527"
+  HREF="py_model_ggc_max.html">Model.getGenConstrMax()</A>
+<LI><A ID="tex2html3528"
+  HREF="py_model_ggc_min.html">Model.getGenConstrMin()</A>
+<LI><A ID="tex2html3529"
+  HREF="py_model_ggc_abs.html">Model.getGenConstrAbs()</A>
+<LI><A ID="tex2html3530"
+  HREF="py_model_ggc_and.html">Model.getGenConstrAnd()</A>
+<LI><A ID="tex2html3531"
+  HREF="py_model_ggc_or.html">Model.getGenConstrOr()</A>
+<LI><A ID="tex2html3532"
+  HREF="py_model_ggc_indicator.html">Model.getGenConstrIndicator()</A>
+<LI><A ID="tex2html3533"
+  HREF="py_model_ggc_pwl.html">Model.getGenConstrPWL()</A>
+<LI><A ID="tex2html3534"
+  HREF="py_model_ggc_poly.html">Model.getGenConstrPoly()</A>
+<LI><A ID="tex2html3535"
+  HREF="py_model_ggc_exp.html">Model.getGenConstrExp()</A>
+<LI><A ID="tex2html3536"
+  HREF="py_model_ggc_expa.html">Model.getGenConstrExpA()</A>
+<LI><A ID="tex2html3537"
+  HREF="py_model_ggc_log.html">Model.getGenConstrLog()</A>
+<LI><A ID="tex2html3538"
+  HREF="py_model_ggc_loga.html">Model.getGenConstrLogA()</A>
+<LI><A ID="tex2html3539"
+  HREF="py_model_ggc_pow.html">Model.getGenConstrPow()</A>
+<LI><A ID="tex2html3540"
+  HREF="py_model_ggc_sin.html">Model.getGenConstrSin()</A>
+<LI><A ID="tex2html3541"
+  HREF="py_model_ggc_cos.html">Model.getGenConstrCos()</A>
+<LI><A ID="tex2html3542"
+  HREF="py_model_ggc_tan.html">Model.getGenConstrTan()</A>
+<LI><A ID="tex2html3543"
+  HREF="py_model_ggc_s.html">Model.getGenConstrs()</A>
+<LI><A ID="tex2html3544"
+  HREF="py_model_getjsonsolution.html">Model.getJSONSolution()</A>
+<LI><A ID="tex2html3545"
+  HREF="py_model_getmultiobjenv.html">Model.getMultiobjEnv()</A>
+<LI><A ID="tex2html3546"
+  HREF="py_model_getobjective.html">Model.getObjective()</A>
+<LI><A ID="tex2html3547"
+  HREF="py_model_getparaminfo.html">Model.getParamInfo()</A>
+<LI><A ID="tex2html3548"
+  HREF="py_model_getpwlobj.html">Model.getPWLObj()</A>
+<LI><A ID="tex2html3549"
+  HREF="py_model_getqconstrs.html">Model.getQConstrs()</A>
+<LI><A ID="tex2html3550"
+  HREF="py_model_getqcrow.html">Model.getQCRow()</A>
+<LI><A ID="tex2html3551"
+  HREF="py_model_getrow.html">Model.getRow()</A>
+<LI><A ID="tex2html3552"
+  HREF="py_model_getsos.html">Model.getSOS()</A>
+<LI><A ID="tex2html3553"
+  HREF="py_model_getsoss.html">Model.getSOSs()</A>
+<LI><A ID="tex2html3554"
+  HREF="py_model_gettuneresult.html">Model.getTuneResult()</A>
+<LI><A ID="tex2html3555"
+  HREF="py_model_getvarbyname.html">Model.getVarByName()</A>
+<LI><A ID="tex2html3556"
+  HREF="py_model_getvars.html">Model.getVars()</A>
+<LI><A ID="tex2html3557"
+  HREF="py_model_message.html">Model.message()</A>
+<LI><A ID="tex2html3558"
+  HREF="py_model_optimize.html">Model.optimize()</A>
+<LI><A ID="tex2html3559"
+  HREF="py_model_optimizebatch.html">Model.optimizeBatch()</A>
+<LI><A ID="tex2html3560"
+  HREF="py_model_presolve.html">Model.presolve()</A>
+<LI><A ID="tex2html3561"
+  HREF="py_model_printattr.html">Model.printAttr()</A>
+<LI><A ID="tex2html3562"
+  HREF="py_model_printquality.html">Model.printQuality()</A>
+<LI><A ID="tex2html3563"
+  HREF="py_model_printstats.html">Model.printStats()</A>
+<LI><A ID="tex2html3564"
+  HREF="py_model_read.html">Model.read()</A>
+<LI><A ID="tex2html3565"
+  HREF="py_model_relax.html">Model.relax()</A>
+<LI><A ID="tex2html3566"
+  HREF="py_model_remove.html">Model.remove()</A>
+<LI><A ID="tex2html3567"
+  HREF="py_model_reset.html">Model.reset()</A>
+<LI><A ID="tex2html3568"
+  HREF="py_model_resetparams.html">Model.resetParams()</A>
+<LI><A ID="tex2html3569"
+  HREF="py_model_setattr.html">Model.setAttr()</A>
+<LI><A ID="tex2html3570"
+  HREF="py_model_setmobjective.html">Model.setMObjective()</A>
+<LI><A ID="tex2html3571"
+  HREF="py_model_setobjective.html">Model.setObjective()</A>
+<LI><A ID="tex2html3572"
+  HREF="py_model_setobjectiven.html">Model.setObjectiveN()</A>
+<LI><A ID="tex2html3573"
+  HREF="py_model_setpwlobj.html">Model.setPWLObj()</A>
+<LI><A ID="tex2html3574"
+  HREF="py_model_setparam.html">Model.setParam()</A>
+<LI><A ID="tex2html3575"
+  HREF="py_model_singlescenariomod.html">Model.singleScenarioModel()</A>
+<LI><A ID="tex2html3576"
+  HREF="py_model_terminate.html">Model.terminate()</A>
+<LI><A ID="tex2html3577"
+  HREF="py_model_tune.html">Model.tune()</A>
+<LI><A ID="tex2html3578"
+  HREF="py_model_update.html">Model.update()</A>
+<LI><A ID="tex2html3579"
+  HREF="py_model_write.html">Model.write()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_writeparams.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model2.html">Model()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_writeparams.html">writeParams()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

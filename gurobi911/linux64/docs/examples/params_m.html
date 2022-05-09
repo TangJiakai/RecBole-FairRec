@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>params.m</TITLE>
+<META NAME="description" CONTENT="params.m">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="piecewise_m.html">
+<LINK REL="previous" HREF="opttoolbox_mip1_m.html">
+<LINK REL="next" HREF="piecewise_m.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="piecewise_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="opttoolbox_mip1_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="piecewise_m.html">piecewise.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="opttoolbox_mip1_m.html">opttoolbox_mip1.m</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000272000000000000000"></A>
+<A ID="subsubsection:params.m"></A>
+<BR>
+params.m
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function params(filename)
+% Copyright 2020, Gurobi Optimization, LLC
+%
+% Use parameters that are associated with a model.
+%
+% A MIP is solved for a few seconds with different sets of parameters.
+% The one with the smallest MIP gap is selected, and the optimization
+% is resumed until the optimal solution is found.
+
+% Read model
+fprintf('Reading model %s\n', filename);
+
+model = gurobi_read(filename);
+
+ivars = find(model.vtype ~= 'C');
+
+if length(ivars) &lt;= 0
+    fprintf('All variables of the model are continuous, nothing to do\n');
+    return;
+end
+
+% Set a 2 second time limit
+params.TimeLimit = 2;
+
+% Now solve the model with different values of MIPFocus
+
+params.MIPFocus = 0;
+result          = gurobi(model, params);
+bestgap         = result.mipgap;
+bestparams      = params;
+for i = 1:3
+    params.MIPFocus = i;
+    result          = gurobi(model, params);
+    if result.mipgap &lt; bestgap
+        bestparams = params;
+        bestgap    = result.mipgap;
+    end
+end
+
+% Finally, reset the time limit and Re-solve model to optimality
+bestparams.TimeLimit = Inf;
+result = gurobi(model, bestparams);
+fprintf('Solution status: %s, objective value %g\n', ...
+    result.status, result.objval);
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="piecewise_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="opttoolbox_mip1_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="piecewise_m.html">piecewise.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="opttoolbox_mip1_m.html">opttoolbox_mip1.m</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

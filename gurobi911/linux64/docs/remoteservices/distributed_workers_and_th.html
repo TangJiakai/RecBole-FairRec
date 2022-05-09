@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Distributed Workers and the Distributed Manager</TITLE>
+<META NAME="description" CONTENT="Distributed Workers and the Distributed Manager">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="configuration.html">
+<LINK REL="previous" HREF="distributed_algorithms2.html">
+<LINK REL="next" HREF="configuration.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="configuration.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuration.html">Configuration</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00036100000000000000"></A>
+<A ID="sec:DistributedWorkers"></A>
+<BR>
+Distributed Workers and the Distributed Manager
+</H3>
+
+<P>
+Running distributed algorithms requires several machines.  One acts as
+the manager, coordinating the activities of the set of machines, and
+the others act as workers, receiving tasks from the manager.  The
+manager typically acts as a worker itself, although not always.  More
+machines generally produce better performance, although the marginal
+benefit of an additional machine typically falls off as you add more.
+
+<P>
+As we mentioned <A HREF="compute_servers_and_distri.html#sec:RSMNodeTypes">earlier</A>, Distributed
+Workers do not require Gurobi licenses.  You can add any machine to a
+Remote Services cluster to act as a Distributed Worker.  The manager
+does require a distributed algorithm license (you'll see a
+<TT>DISTRIBUTED=</TT> line in your license file if distributed
+algorithms are enabled).
+
+<P>
+A typical distributed optimization will look like the following, with
+all machines belonging to the same Remote Services cluster:
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=2.5in]{graphics/distributed2}}$
+ -->
+<IMG STYLE=""
+ SRC="img11.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=2.5in]{graphics/distributed2}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+The workload associated with managing distributed algorithms is quite
+light, so a machine can handle both the manager and worker roles
+without degrading performance.
+
+<P>
+Another option is to use a machine outside of your Remote Services
+cluster as the manager:
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=3in]{graphics/distributed}}$
+ -->
+<IMG STYLE=""
+ SRC="img12.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=3in]{graphics/distributed}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+Note that we only allow a machine to act as manager for a single
+distributed job.  If you want to run multiple distributed jobs
+simultaneously, you'll need multiple manager machines.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="configuration.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuration.html">Configuration</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

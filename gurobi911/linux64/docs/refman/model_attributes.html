@@ -1,0 +1,211 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model Attributes</TITLE>
+<META NAME="description" CONTENT="Model Attributes">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="variable_attributes.html">
+<LINK REL="previous" HREF="attributes.html">
+<LINK REL="next" HREF="numconstrs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="numconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="numconstrs.html">NumConstrs</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="attributes.html">Attributes</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000171000000000000000">
+Model Attributes</A>
+</H2>
+
+<P>
+These are model attributes, meaning that they are associated with the
+overall model (as opposed to being associated with a particular
+variable or constraint of the model).  You should use one of the
+various <code>get</code> routines to retrieve the value of an attribute.
+These are described at the beginning of
+<A HREF="attributes.html#sec:Attributes">this section</A>).
+For the object-oriented interfaces, model attributes are retrieved by
+invoking the <code>get</code> method on the model object itself.  For
+attributes that can be modified directly by the user, you can use one
+of the various <code>set</code> methods.
+
+<P>
+Attempting to query an attribute that is not available will produce an
+error.  In C, the attribute query routine will return a
+<code>GRB_ERROR_DATA_NOT_AVAILABLE</code>
+error code.  The object-oriented
+interfaces will throw an exception.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3924"
+  HREF="numconstrs.html">NumConstrs</A>
+<LI><A ID="tex2html3925"
+  HREF="numvars.html">NumVars</A>
+<LI><A ID="tex2html3926"
+  HREF="numsos.html">NumSOS</A>
+<LI><A ID="tex2html3927"
+  HREF="numqconstrs.html">NumQConstrs</A>
+<LI><A ID="tex2html3928"
+  HREF="numgenconstrs.html">NumGenConstrs</A>
+<LI><A ID="tex2html3929"
+  HREF="numnzs.html">NumNZs</A>
+<LI><A ID="tex2html3930"
+  HREF="dnumnzs.html">DNumNZs</A>
+<LI><A ID="tex2html3931"
+  HREF="numqnzs.html">NumQNZs</A>
+<LI><A ID="tex2html3932"
+  HREF="numqcnzs.html">NumQCNZs</A>
+<LI><A ID="tex2html3933"
+  HREF="numintvars.html">NumIntVars</A>
+<LI><A ID="tex2html3934"
+  HREF="numbinvars.html">NumBinVars</A>
+<LI><A ID="tex2html3935"
+  HREF="numpwlobjvars.html">NumPWLObjVars</A>
+<LI><A ID="tex2html3936"
+  HREF="modelname.html">ModelName</A>
+<LI><A ID="tex2html3937"
+  HREF="modelsense.html">ModelSense</A>
+<LI><A ID="tex2html3938"
+  HREF="objcon.html">ObjCon</A>
+<LI><A ID="tex2html3939"
+  HREF="fingerprint.html">Fingerprint</A>
+<LI><A ID="tex2html3940"
+  HREF="objval.html">ObjVal</A>
+<LI><A ID="tex2html3941"
+  HREF="objbound.html">ObjBound</A>
+<LI><A ID="tex2html3942"
+  HREF="objboundc.html">ObjBoundC</A>
+<LI><A ID="tex2html3943"
+  HREF="poolobjbound.html">PoolObjBound</A>
+<LI><A ID="tex2html3944"
+  HREF="poolobjval.html">PoolObjVal</A>
+<LI><A ID="tex2html3945"
+  HREF="mipgap.html">MIPGap</A>
+<LI><A ID="tex2html3946"
+  HREF="runtime.html">Runtime</A>
+<LI><A ID="tex2html3947"
+  HREF="status.html">Status</A>
+<LI><A ID="tex2html3948"
+  HREF="solcount.html">SolCount</A>
+<LI><A ID="tex2html3949"
+  HREF="itercount.html">IterCount</A>
+<LI><A ID="tex2html3950"
+  HREF="baritercount.html">BarIterCount</A>
+<LI><A ID="tex2html3951"
+  HREF="nodecount.html">NodeCount</A>
+<LI><A ID="tex2html3952"
+  HREF="ismip.html">IsMIP</A>
+<LI><A ID="tex2html3953"
+  HREF="isqp.html">IsQP</A>
+<LI><A ID="tex2html3954"
+  HREF="isqcp.html">IsQCP</A>
+<LI><A ID="tex2html3955"
+  HREF="ismultiobj.html">IsMultiObj</A>
+<LI><A ID="tex2html3956"
+  HREF="iisminimal.html">IISMinimal</A>
+<LI><A ID="tex2html3957"
+  HREF="maxcoeff.html">MaxCoeff</A>
+<LI><A ID="tex2html3958"
+  HREF="mincoeff.html">MinCoeff</A>
+<LI><A ID="tex2html3959"
+  HREF="maxbound.html">MaxBound</A>
+<LI><A ID="tex2html3960"
+  HREF="minbound.html">MinBound</A>
+<LI><A ID="tex2html3961"
+  HREF="maxobjcoeff.html">MaxObjCoeff</A>
+<LI><A ID="tex2html3962"
+  HREF="minobjcoeff.html">MinObjCoeff</A>
+<LI><A ID="tex2html3963"
+  HREF="maxrhs.html">MaxRHS</A>
+<LI><A ID="tex2html3964"
+  HREF="minrhs.html">MinRHS</A>
+<LI><A ID="tex2html3965"
+  HREF="maxqccoeff.html">MaxQCCoeff</A>
+<LI><A ID="tex2html3966"
+  HREF="minqccoeff.html">MinQCCoeff</A>
+<LI><A ID="tex2html3967"
+  HREF="maxqclcoeff.html">MaxQCLCoeff</A>
+<LI><A ID="tex2html3968"
+  HREF="minqclcoeff.html">MinQCLCoeff</A>
+<LI><A ID="tex2html3969"
+  HREF="maxqcrhs.html">MaxQCRHS</A>
+<LI><A ID="tex2html3970"
+  HREF="minqcrhs.html">MinQCRHS</A>
+<LI><A ID="tex2html3971"
+  HREF="maxqobjcoeff.html">MaxQObjCoeff</A>
+<LI><A ID="tex2html3972"
+  HREF="minqobjcoeff.html">MinQObjCoeff</A>
+<LI><A ID="tex2html3973"
+  HREF="kappa.html">Kappa</A>
+<LI><A ID="tex2html3974"
+  HREF="kappaexact.html">KappaExact</A>
+<LI><A ID="tex2html3975"
+  HREF="farkasproof.html">FarkasProof</A>
+<LI><A ID="tex2html3976"
+  HREF="tuneresultcount.html">TuneResultCount</A>
+<LI><A ID="tex2html3977"
+  HREF="numstart.html">NumStart</A>
+<LI><A ID="tex2html3978"
+  HREF="licenseexpiration.html">LicenseExpiration</A>
+<LI><A ID="tex2html3979"
+  HREF="server.html">Server</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="numconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="numconstrs.html">NumConstrs</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="attributes.html">Attributes</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

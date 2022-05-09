@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBBatch()</TITLE>
+<META NAME="description" CONTENT="GRBBatch()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_batch_abort.html">
+<LINK REL="previous" HREF="cs_batch.html">
+<LINK REL="next" HREF="cs_batch_abort.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_batch_abort.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_batch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_batch_abort.html">GRBBatch.Abort()</A>
+<B> Up:</B> <A
+ HREF="cs_batch.html">GRBBatch</A>
+<B> Previous:</B> <A
+ HREF="cs_batch.html">GRBBatch</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000816100000000000000"></A>
+<A ID="dotnetmethod:GRBBatch"></A>
+<BR>
+GRBBatch()
+</H3>
+
+<P>
+Constructor for <code>GRBBatch</code>.
+
+<P>
+Given a <TT>BatchID</TT>, as returned by 
+<A HREF="cs_model_optimizebatch.html#dotnetmethod:GRBModel.OptimizeBatch">optimizeBatch</A>, and a Gurobi
+  environment that can connect to the appropriate
+  Cluster Manager (i.e., one where parameters
+  <A HREF="csmanager.html#parameter:CSManager">CSManager</A>,
+  <A HREF="username.html#parameter:UserName">UserName</A>, and
+  <A HREF="serverpassword.html#parameter:ServerPassword">ServerPassword</A>
+  have been set appropriately), this function returns a 
+<A HREF="cs_batch.html#dotnetclass:GRBBatch">GRBBatch</A> object.
+  With it, you can query the current status
+  of the associated batch request and, once the batch request has
+  been processed, you can query its solution. Please refer to the
+  <A HREF="batch_optimization.html#sec:BatchOptimization">Batch Optimization</A> section for
+  details and examples.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBBatch</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBBatch</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBEnv&amp;</TD>
+<TD CLASS="LEFT">env,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">string&amp;</TD>
+<TD CLASS="LEFT">batchID )</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">env</SPAN>: The environment in which the new batch object should be
+created.
+
+<P>
+ <SPAN  CLASS="textbf">batchID</SPAN>: ID of the batch request for which you want to
+access status and other information.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New batch object.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  GRBBatch batch = GRBBatch(env, batchID);
+</PRE>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_batch_abort.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_batch.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_batch_abort.html">GRBBatch.Abort()</A>
+<B> Up:</B> <A
+ HREF="cs_batch.html">GRBBatch</A>
+<B> Previous:</B> <A
+ HREF="cs_batch.html">GRBBatch</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

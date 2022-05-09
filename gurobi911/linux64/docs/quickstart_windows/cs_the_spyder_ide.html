@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>The Spyder IDE</TITLE>
+<META NAME="description" CONTENT="The Spyder IDE">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="previous" HREF="cs_jupyter_notebook.html">
+<LINK REL="next" HREF="cs_grbpy_the_gurobi_python.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_grbpy_the_gurobi_python.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_tools.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_jupyter_notebook.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_grbpy_the_gurobi_python.html">gurobipy, the Gurobi Python</A>
+<B> Up:</B> <A
+ HREF="cs_python_tools.html">Python Tools</A>
+<B> Previous:</B> <A
+ HREF="cs_jupyter_notebook.html">Jupyter Notebook</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000112200000000000000"></A>
+<A ID="subsubsection:Spyder"></A>
+<BR>
+The Spyder IDE
+</H3>
+
+<P>
+To launch the <code>Spyder</code> Python IDE, which is included in the Anaconda
+distribution, from the Windows Program menu (the installer should have placed it in the Anaconda folder).
+Gurobi Interactive Shell commands can be typed directly into the Spyder <TT>Console</TT> window:
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=6.5in]{graphics/spyder_linux1}}$
+ -->
+<IMG STYLE=""
+ SRC="img15.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=6.5in]{graphics/spyder_linux1}}">
+</DIV>
+
+<P>
+If your Python environment doesn't have Spyder installed, you should
+be able to install it via the command <TT>python -m pip install spyder</TT>.
+
+<P>
+Note that a general-purpose Python IDE like Spyder requires one extra
+step to use Gurobi that isn't required when you launch the Gurobi shell from the
+
+Gurobi icon or by using the <TT>gurobi.bat</TT> command:
+you must manually load the Gurobi module by typing
+<code>from gurobipy import *</code> (or <code>import gurobipy as gp</code>)
+before issuing any Gurobi commands.
+
+<P>
+You can also use Spyder to run any of the Gurobi examples.  For
+example, if you use <code>Open</code> under the <code>File</code> menu to open
+Gurobi example <code>mip1.py</code>, and then click on the <code>Run</code> icon
+(the green triangle), you should see:
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=6.5in]{graphics/spyder_linux2}}$
+ -->
+<IMG STYLE=""
+ SRC="img16.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=6.5in]{graphics/spyder_linux2}}">
+</DIV>
+
+<P>
+Some Gurobi examples require command-line arguments. Those can be
+input from the <code>Configure...</code> item of the <code>Run</code> menu.
+For example, to run the <TT>sudoku.py</TT> example with file
+<TT>sudoku1</TT> as input ...
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=6.5in]{graphics/spyder_linux3}}$
+ -->
+<IMG STYLE=""
+ SRC="img17.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=6.5in]{graphics/spyder_linux3}}">
+</DIV>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_grbpy_the_gurobi_python.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_tools.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_jupyter_notebook.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_grbpy_the_gurobi_python.html">gurobipy, the Gurobi Python</A>
+<B> Up:</B> <A
+ HREF="cs_python_tools.html">Python Tools</A>
+<B> Previous:</B> <A
+ HREF="cs_jupyter_notebook.html">Jupyter Notebook</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

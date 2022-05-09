@@ -1,0 +1,152 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBsetcallbackfunc</TITLE>
+<META NAME="description" CONTENT="GRBsetcallbackfunc">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_getcb_func.html">
+<LINK REL="previous" HREF="c_msg.html">
+<LINK REL="next" HREF="c_getcb_func.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_getcb_func.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_monitoring_progress_logg.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_msg.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getcb_func.html">GRBgetcallbackfunc</A>
+<B> Up:</B> <A
+ HREF="c_monitoring_progress_logg.html">Monitoring Progress - Logging</A>
+<B> Previous:</B> <A
+ HREF="c_msg.html">GRBmsg</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00028200000000000000"></A>
+<A ID="routine:GRBsetcallbackfunc"></A>
+<BR>
+GRBsetcallbackfunc
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBsetcallbackfunc</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">(*cb)(GRBmodel *model, void *cbdata, int where, void *usrdata),</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT">*usrdata )</TD>
+</TR>
+</TABLE>
+
+<P>
+Set up a user callback function. Note that a model can only have a single
+callback method, so this call will replace an existing callback.
+To disable a previously set callback, call this function with a
+<code>cb</code> argument of <code>NULL</code>.
+
+<P>
+When solving a model using multiple threads, the user
+callback is only ever called from a single thread, so you don't need
+to worry about the thread-safety of your callback.
+
+<P>
+Note that changing parameters from within a callback is not supported,
+doing so may lead to undefined behavior.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while setting the user callback.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model in which the callback should be installed.
+
+<P>
+ <SPAN  CLASS="textbf">cb</SPAN>: A function pointer to the user callback function.
+  The callback will be called regularly from the Gurobi optimizer.
+  The <SPAN  CLASS="texttt">where</SPAN> argument to the callback function will indicate
+  where in the optimization process the callback was invoked.
+  Possible values are described in the <A HREF="cb_codes.html#sec:CallbackCodes">Callback
+    Codes</A> section.  The user callback can then
+  call a number of routines to retrieve additional details about the
+  state of the optimization (e.g.,
+  <A HREF="c_cbget.html#routine:GRBcbget">GRBcbget</A>), or to inject new
+  information (e.g., <A HREF="c_cbcut.html#routine:GRBcbcut">GRBcbcut</A>,
+  <A HREF="c_cbsolution.html#routine:GRBcbsolution">GRBcbsolution</A>).  The user
+  callback function should return 0 if no error was encountered,
+  or it can return one of the Gurobi
+  <A HREF="error_codes.html#sec:ErrorCodes">Error Codes</A>
+  if the user callback would like the optimization to stop and return
+  an error result.
+
+<P>
+ <SPAN  CLASS="textbf">usrdata</SPAN>: An optional pointer to user data that will be
+  passed back to the user callback function each time it is invoked
+  (in the <SPAN  CLASS="texttt">usrdata</SPAN> argument).
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int mycallback(GRBmodel *model, void *cbdata, int where, void *usrdata);
+  error = GRBsetcallbackfunc(model, mycallback, NULL);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_getcb_func.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_monitoring_progress_logg.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_msg.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getcb_func.html">GRBgetcallbackfunc</A>
+<B> Up:</B> <A
+ HREF="c_monitoring_progress_logg.html">Monitoring Progress - Logging</A>
+<B> Previous:</B> <A
+ HREF="c_msg.html">GRBmsg</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

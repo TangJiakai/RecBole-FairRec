@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Submitting a Distributed Algorithm as a Batch</TITLE>
+<META NAME="description" CONTENT="Submitting a Distributed Algorithm as a Batch">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="using_a_separate_distribut.html">
+<LINK REL="previous" HREF="running_a_distributed_algo.html">
+<LINK REL="next" HREF="using_a_separate_distribut.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="using_a_separate_distribut.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="running_a_distributed_algo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_a_separate_distribut.html">Using a Separate Distributed</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="running_a_distributed_algo.html">Running a Distributed Algorithm</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00036400000000000000">
+Submitting a Distributed Algorithm as a Batch</A>
+</H3>
+
+<P>
+With a Cluster Manager, you can also submit your distributed MIP and concurrent MIP  as a batch
+using the <TT>batch solve</TT> command. Distributed tuning is not yet
+supported. Here is an example:
+
+<P>
+
+<PRE>
+ ./grbcluster batch solve DistributedMIPJobs=2 misc07.mps
+info  : Batch f1026bf5-d5cf-44c9-81f8-0f73764f674a created
+info  : Uploading misc07.mps...
+info  : Batch f1026bf5-d5cf-44c9-81f8-0f73764f674a submitted with job d71f3ceb...
+</PRE>
+
+<P>
+As we can see, the model was uploaded and the batch was
+submitted. This creates a parent job as a proxy for the client.  This
+job will in turn start two worker jobs because we set <TT>  DistributedMIPJobs=2</TT>. This can be observed in the job history:
+
+<P>
+
+<PRE>
+&gt; grbcluster job history --length=3
+JOBID    BATCHID  ADDRESS       STATUS    STIME               USER  OPT     API        PARENT
+d71f3ceb f1026bf5 server1:61000 COMPLETED 2019-09-23 14:17:57 jones OPTIMAL grbcluster
+6212ed73          server1:61000 COMPLETED 2019-09-23 14:17:57 jones OPTIMAL            d71f3ceb
+63cfa00d          server2:61000 COMPLETED 2019-09-23 14:17:57 jones OPTIMAL            d71f3ceb
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="using_a_separate_distribut.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="running_a_distributed_algo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_a_separate_distribut.html">Using a Separate Distributed</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="running_a_distributed_algo.html">Running a Distributed Algorithm</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

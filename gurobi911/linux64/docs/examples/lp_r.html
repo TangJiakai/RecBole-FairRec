@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>lp.R</TITLE>
+<META NAME="description" CONTENT="lp.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="lp2_r.html">
+<LINK REL="previous" HREF="genconstr_r.html">
+<LINK REL="next" HREF="lp2_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lp2_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="genconstr_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp2_r.html">lp2.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="genconstr_r.html">genconstr.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00028900000000000000"></A>
+<A ID="subsubsection:lp.R"></A>
+<BR>
+lp.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# This example formulates and solves the following simple LP model:
+#  maximize
+#        x + 2 y + 3 z
+#  subject to
+#        x +   y       &lt;= 1
+#              y +   z &lt;= 1
+
+library(Matrix)
+library(gurobi)
+
+model &lt;- list()
+
+model$A          &lt;- matrix(c(1,1,0,0,1,1), nrow=2, byrow=T)
+model$obj        &lt;- c(1,2,3)
+model$modelsense &lt;- 'max'
+model$rhs        &lt;- c(1,1)
+model$sense      &lt;- c('&lt;', '&lt;')
+
+result &lt;- gurobi(model)
+
+print(result$objval)
+print(result$x)
+
+# Second option for A - as a sparseMatrix (using the Matrix package)...
+
+model$A &lt;- spMatrix(2, 3, c(1, 1, 2, 2), c(1, 2, 2, 3), c(1, 1, 1, 1))
+
+params &lt;- list(Method=2, TimeLimit=100)
+
+result &lt;- gurobi(model, params)
+
+print(result$objval)
+print(result$x)
+
+# Third option for A - as a sparse triplet matrix (using the slam package)...
+
+model$A &lt;- simple_triplet_matrix(c(1, 1, 2, 2), c(1, 2, 2, 3), c(1, 1, 1, 1))
+
+params &lt;- list(Method=2, TimeLimit=100)
+
+result &lt;- gurobi(model, params)
+
+print(result$objval)
+print(result$x)
+
+# Clear space
+rm(result, params, model)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lp2_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="genconstr_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp2_r.html">lp2.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="genconstr_r.html">genconstr.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

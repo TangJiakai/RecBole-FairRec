@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Additional Details</TITLE>
+<META NAME="description" CONTENT="Additional Details">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="working_with_multiple_obje.html">
+<LINK REL="next" HREF="multiple_scenarios.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_objectives.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="working_with_multiple_obje.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Up:</B> <A
+ HREF="multiple_objectives.html">Multiple Objectives</A>
+<B> Previous:</B> <A
+ HREF="working_with_multiple_obje.html">Working With Multiple Objectives</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000273000000000000000">
+Additional Details</A>
+</H2>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Multi-Objective Environments</SPAN></SPAN>
+
+<P>
+By default, the termination criteria (e.g.
+<A HREF="timelimit.html#parameter:TimeLimit">TimeLimit</A>,
+<A HREF="solutionlimit.html#parameter:SolutionLimit">SolutionLimit</A>,
+etc.) for each pass in a
+hierarchical multiple-objective optimization are controlled by the
+parameters defined in the model environment.  However, we provide a
+feature called <SPAN  CLASS="textit">multi-objective environments</SPAN> that allows you to
+create a Gurobi environment for each objective function and set
+parameters on those environments.  Those settings will only affect the
+corresponding pass of the multi-objective optimization.  Thus, for
+example, if the <A HREF="timelimit.html#parameter:TimeLimit">TimeLimit</A>
+parameter for the model is 100, but you use a multi-objective
+environment to set the parameter to 10 for a particular multi-objective pass,
+then the multi-objective optimization will spend at most 10 seconds on
+that particular pass (and at most 100 seconds in total).
+
+<P>
+To create a multi-objective environment for a particular multi-objective pass,
+use the <code>getMultiobjEnv</code> method from your language API (e.g.
+<A HREF="py_model_getmultiobjenv.html#pythonmethod:Model.getMultiobjEnv">Model.getMultiobjEnv</A>
+in Python).  The <code>index</code> argument gives the index of the
+multi-objective pass that you want to control.
+
+<P>
+Note that multi-objective environments are tied to a given
+multi-objective optimization pass and not to a given multi-objective
+function, so multi-objective environment 0 is always tied to the highest
+priority (possibly blended) objective, while multi-objective environment
+1 is always tied to the second highest priority objective (if any).
+
+<P>
+Once you create multi-objective environments, they will be used for
+every subsequent multi-objective optimization on that model. Use the
+<code>discardMultiobjEnvs</code> method from your language API (e.g.
+<A HREF="py_model_discardmultiobjen.html#pythonmethod:Model.discardMultiobjEnvs">Model.discardMultiobjEnvs</A>
+in Python) to revert back to default multi-objective optimization
+behavior.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Other Details</SPAN></SPAN>
+
+<P>
+We haven't attempted to generalize the notions of dual solutions or
+simplex bases for continuous multi-objective models, so you can't
+query attributes such as <A HREF="pi.html#attr:Pi">Pi</A>,
+<A HREF="rc.html#attr:RC">RC</A>, <A HREF="vbasis.html#attr:VBasis">VBasis</A>, or
+<A HREF="cbasis.html#attr:CBasis">CBasis</A> for multi-objective solutions.
+Because of this, we've concluded that the most consistent result
+to return for attribute <A HREF="ismip.html#attr:IsMIP">IsMIP</A> is 1.
+Note, however, that several MIP-specific attributes such as
+<A HREF="objbound.html#attr:ObjBound">ObjBound</A>,
+<A HREF="objboundc.html#attr:ObjBoundC">ObjBoundC</A> and
+<A HREF="mipgap.html#attr:MIPGap">MIPGap</A> don't make sense
+for multi-objective models and are also not available.
+
+<P>
+Gurobi will only solve multi-objective models with strictly linear
+objectives.  If the primary objective is quadratic or piecewise
+linear, the solve call will return an error.
+
+<P>
+When solving a continuous multi-objective model using a hierarchical
+approach, you have a choice of which optimization algorithm to use for
+the different steps (primal simplex, dual simplex, or barrier).  The
+first step will always use the algorithm specified in the
+<A HREF="method.html#parameter:Method">Method</A> parameter.  The algorithm for
+subsequent steps is controlled by the
+<A HREF="multiobjmethod.html#parameter:MultiObjMethod">MultiObjMethod</A> parameter.
+This parameter has no effect for multi-objective MIP models.
+Note you can get finer-grained control over the algorithm choice
+using our multi-objective environment feature, by setting the
+<A HREF="method.html#parameter:Method">Method</A> parameter for individual
+objectives.
+
+<P>
+For the hierarchical approach, Gurobi will perform a conservative
+presolve step at the beginning of the multi-objective optimization,
+and a more aggressive presolve step at the beginning of each step
+(assuming presolve hasn't been turned off).  You can optionally
+perform a more aggressive presolve step at the beginning of the
+multi-objective optimization by setting parameter
+<A HREF="multiobjpre.html#parameter:MultiObjPre">MultiObjPre</A> to value 2.  This
+can help performance, but it makes a few simplifying assumptions that
+could lead to small degradations in the values achieved for
+lower-priority objectives.
+
+<P>
+The log file when using a hierarchical approach will show optimization
+progress for each step of the process.  You'll see log lines that look
+like this:
+<PRE>
+Multi-objectives: optimize objective 1 (Obj1Name) ...
+...
+Multi-objectives: optimize objective 2 (weighted) ...
+...
+</PRE>
+For further details, please see section <A HREF="multi_objective_logging.html#sec:MultiObjectiveLogging">Multi-Objective Logging</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="multiple_scenarios.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="multiple_objectives.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="working_with_multiple_obje.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multiple_scenarios.html">Multiple Scenarios</A>
+<B> Up:</B> <A
+ HREF="multiple_objectives.html">Multiple Objectives</A>
+<B> Previous:</B> <A
+ HREF="working_with_multiple_obje.html">Working With Multiple Objectives</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

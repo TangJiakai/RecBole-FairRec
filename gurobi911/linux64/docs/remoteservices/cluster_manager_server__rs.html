@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Cluster Manager Server (grb_rsm)</TITLE>
+<META NAME="description" CONTENT="Cluster Manager Server (grb_rsm)">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="configuring_the_cluster_ma.html">
+<LINK REL="previous" HREF="ins_the_database.html">
+<LINK REL="next" HREF="configuring_the_cluster_ma.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="configuring_the_cluster_ma.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ins_the_database.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuring_the_cluster_ma.html">Configuring the Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="ins_the_database.html">Installing the Database</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00023200000000000000"></A>
+<A ID="sec:RSMAgent"></A>
+<BR>
+Cluster Manager Server (grb_rsm)
+</H3>
+
+<P>
+You will need to choose one or more machines to act as your Cluster
+Manager(s).  The primary tasks of the Cluster Manager are to provide
+an API gateway to the cluster and to manage cluster nodes.  The
+Cluster Manager also acts as a web server for the Web User Interface.
+The cluster manager must be reachable on your network from all client
+machines and from all cluster nodes.
+
+<P>
+You will need to run the <EM>Cluster Manager executable</EM>
+(<TT>grb_rsm</TT>) on your Cluster Manager(s).  If you wish to set
+up a scalable and high-available deployment, you can install and start
+several instances of the server and place a load balancer such as
+<code>Nginx</code> in front of these servers.
+
+<P>
+The <TT>grb_rsm</TT> executable provides several commands and
+flags to help with configuration and execution.  We will review
+these commands step by step in the following sections.  You can see
+the full list of commands in the <A HREF="appendix_c_rsm.html#sec:RSMAgentRef">reference
+  section</A> or by using the command-line help:
+
+<PRE>
+&gt; grb_rsm --help
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="configuring_the_cluster_ma.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="ins_a_cluster_manager.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ins_the_database.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="configuring_the_cluster_ma.html">Configuring the Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<B> Previous:</B> <A
+ HREF="ins_the_database.html">Installing the Database</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

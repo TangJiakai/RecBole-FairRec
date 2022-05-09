@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>sos.R</TITLE>
+<META NAME="description" CONTENT="sos.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="sudoku_r.html">
+<LINK REL="previous" HREF="sensitivity_r.html">
+<LINK REL="next" HREF="sudoku_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sudoku_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sensitivity_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sudoku_r.html">sudoku.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="sensitivity_r.html">sensitivity.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000282200000000000000"></A>
+<A ID="subsubsection:sos.R"></A>
+<BR>
+sos.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+#
+# This example formulates and solves the following simple SOS model:
+#  maximize
+#        2 x + y + z
+#  subject to
+#        x1 = 0 or x2 = 0 (SOS1 constraint)
+#        x1 = 0 or x3 = 0 (SOS1 constraint)
+#        x1 &lt;= 1, x2 &lt;= 1, x3 &lt;= 2
+
+library(gurobi)
+
+model &lt;- list()
+
+model$A          &lt;- matrix(c(0,0,0), nrow=1, byrow=T)
+model$obj        &lt;- c(2,1,1)
+model$modelsense &lt;- 'max'
+model$ub         &lt;- c(1,1,2)
+model$rhs        &lt;- c(0)
+model$sense      &lt;- c('=')
+
+# First SOS: x1 = 0 or x2 = 0
+sos1 &lt;- list()
+sos1$type &lt;- 1
+sos1$index &lt;- c(1, 2)
+sos1$weight &lt;- c(1, 2)
+
+# Second SOS: x1 = 0 or x3 = 0
+sos2 &lt;- list()
+sos2$type &lt;- 1
+sos2$index &lt;- c(1, 3)
+sos2$weight &lt;- c(1, 2)
+
+model$sos &lt;- list(sos1, sos2)
+
+result &lt;- gurobi(model)
+
+print(result$objval)
+print(result$x)
+
+# Clear space
+rm(model, result)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sudoku_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sensitivity_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sudoku_r.html">sudoku.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="sensitivity_r.html">sensitivity.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

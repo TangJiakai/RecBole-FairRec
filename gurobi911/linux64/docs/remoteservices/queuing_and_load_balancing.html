@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Queuing and Load Balancing</TITLE>
+<META NAME="description" CONTENT="Queuing and Load Balancing">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="cluster_manager.html">
+<LINK REL="previous" HREF="client_api.html">
+<LINK REL="next" HREF="cluster_manager.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cluster_manager.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_api.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_manager.html">Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="client_api.html">Client API</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00011200000000000000"></A>
+<A ID="sec:QueueingLoadBalancing"></A>
+<BR>
+Queuing and Load Balancing
+</H3>
+
+<P>
+Gurobi Remote Services support queuing and load balancing.  You can
+set a limit on the number of simultaneous jobs each Compute Server
+will run.  When this limit has been reached, subsequent jobs will be
+queued.  If you have multiple Compute Server nodes configured in a
+cluster, the current job load is automatically balanced among the
+available servers.
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=4in]{graphics/cs_queue}}$
+ -->
+<IMG STYLE=""
+ SRC="img5.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=4in]{graphics/cs_queue}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+By default, the Gurobi job queue is serviced in a First-In, First-Out
+(FIFO) fashion.  However, jobs can be given different priorities.  Jobs with
+higher priorities are then selected from the queue before jobs with
+lower priorities.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cluster_manager.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_api.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cluster_manager.html">Cluster Manager</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="client_api.html">Client API</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.addConstr()</TITLE>
+<META NAME="description" CONTENT="Model.addConstr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_addconstrs.html">
+<LINK REL="previous" HREF="py_model2.html">
+<LINK REL="next" HREF="py_model_addconstrs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_addconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addconstrs.html">Model.addConstrs()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model2.html">Model()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000102200000000000000"></A>
+<A ID="pythonmethod:Model.addConstr"></A>
+<BR>
+Model.addConstr()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addConstr</SPAN></FONT></SPAN> ( constr, name="" )
+
+<P>
+Add a constraint to a model.
+
+<P>
+This method accepts a
+<A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A> as its first
+argument, and the constraint name as its optional second argument.
+You use operator overloading to create the argument (see
+<A HREF="py_tempconstr.html#pythonclass:TempConstr">this section</A> for details).
+This one method allows you to add linear constraints, matrix
+constraints, quadratic constraints, and general constraints.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">constr</SPAN>: <A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A> argument.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for new constraint.
+Note that <SPAN  CLASS="texttt">name</SPAN> will be stored as an ASCII string. Thus, a name
+like <TT>'A<SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img74.svg"
+ ALT="${\rightarrow}$"></SPAN>B'</TT> will produce an error, because
+'<SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img74.svg"
+ ALT="${\rightarrow}$"></SPAN>' can not be represented as an ASCII character. Note
+also that names that contain spaces are strongly discouraged,
+because they can't be written to LP format files.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New constraint object.  This can be a
+  <A HREF="py_constr.html#pythonclass:Constr">Constr</A>, an
+  <A HREF="py_mconstr.html#pythonclass:MConstr">MConstr</A>, or a
+  <A HREF="py_qconstr.html#pythonclass:QConstr">QConstr</A>, depending
+  on the type of the argument.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  model.addConstr(x + y &lt;= 2.0, "c1")
+  model.addConstr(x*x + y*y &lt;= 4.0, "qc0")
+  model.addConstr(x + y + z == [1, 2], "rgc0")
+  model.addConstr(A @ t &gt;= b)
+  model.addConstr(z == and_(x, y, w), "gc0")
+  model.addConstr(z == min_(x, y), "gc1")
+  model.addConstr((w == 1) &gt;&gt; (x + y &lt;= 1), "ic0")
+</PRE>
+
+<P>
+<DL>
+<DT><STRONG><SPAN CLASS="LARGE"></SPAN><SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Warning</SPAN></SPAN></STRONG></DT>
+<DD>A constraint can only have
+a single comparison operator.  While <TT>1 &lt;= x + y &lt;= 2</TT>
+may look like a valid constraint, <SPAN  CLASS="texttt">addConstr</SPAN> won't accept it.
+</DD>
+</DL>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_addconstrs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addconstrs.html">Model.addConstrs()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model2.html">Model()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.ComputeIIS()</TITLE>
+<META NAME="description" CONTENT="GRBModel.ComputeIIS()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_discardconcurrent.html">
+<LINK REL="previous" HREF="cs_model_chgcoeffs.html">
+<LINK REL="next" HREF="cs_model_discardconcurrent.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_discardconcurrent.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_chgcoeffs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_discardconcurrent.html">GRBModel.DiscardConcurrentEnvs()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_chgcoeffs.html">GRBModel.ChgCoeffs()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000821300000000000000"></A>
+<A ID="dotnetmethod:GRBModel.ComputeIIS"></A>
+<BR>
+GRBModel.ComputeIIS()
+</H3>
+
+<P>
+Compute an Irreducible Inconsistent Subsystem (IIS).
+An IIS is a subset of the constraints and variable bounds with the following properties:
+
+<UL>
+<LI>It is still infeasible, and
+</LI>
+<LI>If a single constraint or bound is removed, the subsystem becomes feasible.
+</LI>
+</UL>
+Note that an infeasible model may have multiple IISs. The one returned
+by Gurobi is not necessarily the smallest one; there may exist others
+with fewer constraints or bounds.
+
+<P>
+IIS results are returned in a number of attributes:
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iislb.html#attr:IISLB">IISLB</A>,
+<A HREF="iislb.html#attr:IISLB">IISUB</A>,
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>, and
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>.
+Each indicates whether the corresponding model element is a member
+of the computed IIS.
+
+<P>
+The <A HREF="iis_logging.html#sec:IISLogging">IIS log</A> provides information about
+the progress of the algorithm, including a guess at the eventual IIS
+size.
+
+<P>
+If an IIS computation is interrupted before completion, Gurobi will
+return the smallest infeasible subsystem found to that point.
+
+<P>
+This method populates the
+<A HREF="iisconstr.html#attr:IISConstr">IISConstr</A>,
+<A HREF="iisqconstr.html#attr:IISQConstr">IISQConstr</A>, and
+<A HREF="iisgenconstr.html#attr:IISGenConstr">IISGenConstr</A>
+constraint attributes,
+the
+<A HREF="iissos.html#attr:IISSOS">IISSOS</A>,
+SOS attribute, and the
+<A HREF="iislb.html#attr:IISLB">IISLB</A> and
+<A HREF="iislb.html#attr:IISLB">IISUB</A>
+variable attributes.
+You can also
+obtain information about the results of the IIS computation by writing
+a <code>.ilp</code> format file (see
+<A HREF="cs_model_write.html#dotnetmethod:GRBModel.Write">GRBModel.Write</A>).  This
+file contains only the IIS from the original model.
+
+<P>
+Use the <A HREF="iismethod.html#parameter:IISMethod">IISMethod</A> parameter to
+adjust the behavior of the IIS algorithm.
+
+<P>
+Note that this method can be used to compute IISs for both continuous
+and MIP models.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">ComputeIIS</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_discardconcurrent.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_chgcoeffs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_discardconcurrent.html">GRBModel.DiscardConcurrentEnvs()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_chgcoeffs.html">GRBModel.ChgCoeffs()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

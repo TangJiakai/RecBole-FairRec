@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Listing Batches</TITLE>
+<META NAME="description" CONTENT="Listing Batches">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="aborting_batches.html">
+<LINK REL="previous" HREF="creating_batches.html">
+<LINK REL="next" HREF="aborting_batches.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="aborting_batches.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="creating_batches.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="aborting_batches.html">Aborting Batches</A>
+<B> Up:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Previous:</B> <A
+ HREF="creating_batches.html">Creating Batches</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00033200000000000000">
+Listing Batches</A>
+</H3>
+
+<P>
+Optimization jobs running on a Compute Server cluster can be listed by
+using the <TT>batches</TT> command. The <TT>batches</TT> command
+is actually a shortcut for the <TT>batch list</TT> command.
+For example:
+
+<P>
+
+<PRE>
+&gt; grbcluster batches
+ID       JOB      CREATED STATUS    STIME   USER  PRIO API        D SIZE   INPUT      OUTPUT
+2e05810c ce7ab3a4 2019... COMPLETED 2019... jones 0    grbcluster X 0      glass4.mps solution.sol
+ada0a345 66d4783b 2019... COMPLETED 2019... jones 0    grbcluster   288960 misc07.mps solution.sol
+</PRE>
+
+<P>
+Note that you can get more information by using the <TT>  --long</TT> flag.  With this flag, the command will also
+display the batch ID and the complete job ID, which is unique, instead
+of the short ID. To get an explanation of the meanings of the
+different fields, add the <TT>--describe</TT> flag.  For
+example:
+
+<PRE>
+&gt; grbcluster batches --describe
+ID        - Unique batch ID, use --long to display full ID
+JOB       - Unique job ID, use --long to display full ID
+CREATED   - Batch created  time
+Status    - Batch Status
+STIME     - Batch status updated time
+USER      - Client username (not displayed if empty or restricted)
+APP       - Application name (not displayed if empty or restricted)
+PRIO      - Batch priority
+API       - API type - Python, C++, Java, .NET, Matlab, R... (not displayed if empty or restricted)
+D         - Indicate if batch data was discarded
+SIZE      - Size of batch
+INPUT     - List filenames of input files (not displayed if empty or restricted)
+OUTPUT    - List filenames of output files (not displayed if empty or restricted)
+RUNTIME   - Batch runtime version, use --long
+PID       - Client process ID, use --long (not displayed if empty or restricted)
+HOST      - Client hostname, use --long (not displayed if empty or restricted)
+IP        - Client IP address, use --long (not displayed if empty or restricted)
+APP       - Client application name, use --long (not displayed if empty or restricted)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="aborting_batches.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="creating_batches.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="aborting_batches.html">Aborting Batches</A>
+<B> Up:</B> <A
+ HREF="batch_commands.html">Batch Commands</A>
+<B> Previous:</B> <A
+ HREF="creating_batches.html">Creating Batches</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

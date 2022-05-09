@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel::setPWLObj()</TITLE>
+<META NAME="description" CONTENT="GRBModel::setPWLObj()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_model_singlescenariomo.html">
+<LINK REL="previous" HREF="cpp_model_setobjectiven.html">
+<LINK REL="next" HREF="cpp_model_singlescenariomo.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_model_singlescenariomo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_setobjectiven.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_model_singlescenariomo.html">GRBModel::singleScenarioModel()</A>
+<B> Up:</B> <A
+ HREF="cpp_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_setobjectiven.html">GRBModel::setObjectiveN()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000424900000000000000"></A>
+<A ID="cppmethod:GRBModel::setPWLObj"></A>
+<BR>
+GRBModel::setPWLObj()
+</H3>
+
+<P>
+Set a piecewise-linear objective function for a variable.
+
+<P>
+The arguments to this method specify a list of points that define a
+piecewise-linear objective function for a single variable.
+Specifically, the <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> and <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> arguments give coordinates for the
+vertices of the function.
+
+<P>
+For additional details on piecewise-linear objective functions, refer
+to <A HREF="objectives.html#subsubsection:PiecewiseObj">this discussion</A>.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">setPWLObj</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBvar</TD>
+<TD CLASS="LEFT">var,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">npoints,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT">x,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT">y )</TD>
+</TR>
+</TABLE>
+
+<UL>
+Set the piecewise-linear objective function for a variable.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: The variable whose objective function is being set.
+
+<P>
+ <SPAN  CLASS="textbf">npoints</SPAN>: Number of points that define the piecewise-linear function.
+
+<P>
+ <SPAN  CLASS="textbf">x</SPAN>: The <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN> values for the points that define the piecewise-linear function.  Must be in non-decreasing order. 
+
+<P>
+ <SPAN  CLASS="textbf">y</SPAN>: The <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN> values for the points that define the piecewise-linear function.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_model_singlescenariomo.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_setobjectiven.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_model_singlescenariomo.html">GRBModel::singleScenarioModel()</A>
+<B> Up:</B> <A
+ HREF="cpp_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_setobjectiven.html">GRBModel::setObjectiveN()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

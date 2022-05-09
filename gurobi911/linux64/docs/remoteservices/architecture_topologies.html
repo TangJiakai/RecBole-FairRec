@@ -1,0 +1,158 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Architecture Topologies</TITLE>
+<META NAME="description" CONTENT="Architecture Topologies">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="architecture.html">
+<LINK REL="next" HREF="security.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="security.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="architecture.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="architecture.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="security.html">Security</A>
+<B> Up:</B> <A
+ HREF="architecture.html">Architecture</A>
+<B> Previous:</B> <A
+ HREF="architecture.html">Architecture</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00012100000000000000"></A>
+<A ID="sec:ArchitectureTopologies"></A>
+<BR>
+Architecture Topologies
+</H3>
+
+<P>
+Let us now review a few common deployment configurations.
+
+<P>
+<SPAN  CLASS="textbf">Cluster Manager with a single node</SPAN>
+
+<P>
+In this deployment, we only need to deploy one instance of a
+Cluster Manager with the Database and a single Compute Server node.
+This is appropriate for small environments so that you
+can offload simple optimization tasks to one Compute Server.
+
+<P>
+<SPAN  CLASS="textbf">Cluster Manager with multiple nodes</SPAN>
+
+<P>
+If you need to handle more jobs concurrently, you will need to add
+more Compute Server nodes. Also, if you want to run distributed
+algorithms, several Distributed Worker nodes will be needed. To this
+end, you can deploy one instance of the Cluster Manager (with a
+Database), and connect those nodes to the Cluster Manager.
+
+<P>
+<SPAN  CLASS="textbf">Scalable Cluster Manager</SPAN>
+
+<P>
+If you have even more concurrent users, or if you need a scalable and
+high available architecture, several instances of the Cluster Manager
+can be started. In this case, you may need to install and set up a
+regular HTTP load balancer (such as <code>Nginx</code>) in front of the
+Cluster Manager instances. Cluster Manager server instances are
+stateless and can be scaled up or down.
+
+<P>
+The database itself, as supported by MongoDB, can be deployed in a
+cluster.  In a MongoDB cluster, one of the nodes is chosen dynamically
+as the primary, while the others are deemed secondary.  Secondary nodes
+replicate the data from the primary node.  In the event of a failure
+of the primary node, the Cluster Manager will choose a new primary
+node and continue to operate.
+
+<P>
+In this deployment, several Compute Server nodes are also recommended.
+In the event of a node failure, any jobs currently running on the
+failed node will fail, but new jobs will continue to be processed
+on the remaining nodes.
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=7.5in]{graphics/csgraphics/csmanager_scalable}}$
+ -->
+<IMG STYLE=""
+ SRC="img8.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=7.5in]{graphics/csgraphics/csmanager_scalable}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+<SPAN  CLASS="textbf">Self-Managed Cluster</SPAN>
+<A ID="sec:SelfManagedCluster"></A>
+<P>
+Finally, Compute Server nodes and Distributed Worker nodes can be
+deployed by themselves, without a Cluster Manager or a Database.  This
+was actually the only option in Gurobi version 8 and earlier.  In this
+configuration, you will not benefit from the latest features: secured
+access using user accounts and API keys, persistent job history, batch
+management, and the Web User Interface.
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=4in]{graphics/csgraphics/cscluster}}$
+ -->
+<IMG STYLE=""
+ SRC="img9.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=4in]{graphics/csgraphics/cscluster}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="security.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="architecture.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="architecture.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="security.html">Security</A>
+<B> Up:</B> <A
+ HREF="architecture.html">Architecture</A>
+<B> Previous:</B> <A
+ HREF="architecture.html">Architecture</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

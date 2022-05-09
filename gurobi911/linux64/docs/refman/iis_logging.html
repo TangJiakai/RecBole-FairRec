@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>IIS Logging</TITLE>
+<META NAME="description" CONTENT="IIS Logging">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="distributed_mip_logging.html">
+<LINK REL="next" HREF="grb_command_line_tool.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="grb_command_line_tool.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_mip_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="grb_command_line_tool.html">Gurobi Command-Line Tool</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="distributed_mip_logging.html">Distributed MIP Logging</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000249000000000000000"></A>
+<A ID="sec:IISLogging"></A>
+<BR>
+IIS Logging
+</H2>
+
+<P>
+Recall that an Irreducible Infeasible Subsystem (IIS) is a subset of
+the constraints and variable bounds in your infeasible model with the
+following properties:
+
+<UL>
+<LI>It is still infeasible, and
+</LI>
+<LI>If a single constraint or bound is removed, the subsystem becomes feasible.
+</LI>
+</UL>
+The process of identifying an IIS is one of addition and subtraction.
+The algorithm grows a set of constraints and bounds that are known to
+be part of an IIS, and also a set that are known not to be.  You can
+track the progress of this process in the IIS log.
+<PRE>
+Computing Irreducible Inconsistent Subsystem (IIS)...
+
+           Constraints          |            Bounds           |  Runtime
+      Min       Max     Guess   |   Min       Max     Guess   |
+--------------------------------------------------------------------------
+        0     17509         -         0         4         -           0s
+        0     12996         -         0         4         -           5s
+        0     10398        20         0         0         -          10s
+        0      9749        20         0         0         -          15s
+        1      9584        20         0         0         -          20s
+        4      9576        20         0         0         -          25s
+        6      9406        20         0         0         -          30s
+        8      8432        40         0         0         -          35s
+       11      8422        40         0         0         -          40s
+       15      8413        60         0         0         -          45s
+       18      8241        60         0         0         -          50s
+       21      7908        50         0         0         -          55s
+       24      7735        50         0         0         -          60s
+...
+</PRE>
+The first two columns show the minimum and maximum sizes of the set
+of constraints in the IIS.  The fourth and fifth column give the same
+information for the set of variable bounds.  The final column shows
+elapsed runtime.
+
+<P>
+The third and sixth columns in the IIS log provide guesses at the
+final size of the IIS.  Computing an IIS can be quite time-consuming,
+and it is often useful to have a sense of how large the result will
+be.  These guesses can be quite accurate in some cases, but
+unfortunately there are some models that can fool our heuristic.  You
+should treat these as very rough estimates.
+
+<P>
+When the process completes, the algorithm outputs the size of the IIS
+(the number of constraints and bounds in the irreducible subsystem):
+<PRE>
+IIS computed: 102 constraints, 0 bounds
+IIS runtime: 129.91 seconds
+</PRE>
+Note in this case that early guesses were in the neighborhood of 50
+constraints, but the IIS contained 102.
+
+<P>
+If you terminate the process early, you will get a non-minimal
+infeasible subsystem instead:
+<PRE>
+Non-minimal IIS computed: 3179 constraints, 0 bounds
+IIS runtime: 120.29 seconds
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="grb_command_line_tool.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="distributed_mip_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="grb_command_line_tool.html">Gurobi Command-Line Tool</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="distributed_mip_logging.html">Distributed MIP Logging</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

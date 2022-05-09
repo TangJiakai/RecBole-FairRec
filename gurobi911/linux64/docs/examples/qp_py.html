@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>qp.py</TITLE>
+<META NAME="description" CONTENT="qp.py">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="sensitivity_py.html">
+<LINK REL="previous" HREF="qcp_py.html">
+<LINK REL="next" HREF="sensitivity_py.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sensitivity_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="qcp_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sensitivity_py.html">sensitivity.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="qcp_py.html">qcp.py</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000263300000000000000"></A>
+<A ID="subsubsection:qp.py"></A>
+<BR>
+qp.py
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#!/usr/bin/env python3.7
+
+# Copyright 2020, Gurobi Optimization, LLC
+
+# This example formulates and solves the following simple QP model:
+#  minimize
+#      x^2 + x*y + y^2 + y*z + z^2 + 2 x
+#  subject to
+#      x + 2 y + 3 z &gt;= 4
+#      x +   y       &gt;= 1
+#      x, y, z non-negative
+#
+# It solves it once as a continuous model, and once as an integer model.
+
+import gurobipy as gp
+from gurobipy import GRB
+
+# Create a new model
+m = gp.Model("qp")
+
+# Create variables
+x = m.addVar(ub=1.0, name="x")
+y = m.addVar(ub=1.0, name="y")
+z = m.addVar(ub=1.0, name="z")
+
+# Set objective: x^2 + x*y + y^2 + y*z + z^2 + 2 x
+obj = x**2 + x*y + y**2 + y*z + z**2 + 2*x
+m.setObjective(obj)
+
+# Add constraint: x + 2 y + 3 z &lt;= 4
+m.addConstr(x + 2 * y + 3 * z &gt;= 4, "c0")
+
+# Add constraint: x + y &gt;= 1
+m.addConstr(x + y &gt;= 1, "c1")
+
+m.optimize()
+
+for v in m.getVars():
+    print('%s %g' % (v.varName, v.x))
+
+print('Obj: %g' % obj.getValue())
+
+x.vType = GRB.INTEGER
+y.vType = GRB.INTEGER
+z.vType = GRB.INTEGER
+
+m.optimize()
+
+for v in m.getVars():
+    print('%s %g' % (v.varName, v.x))
+
+print('Obj: %g' % obj.getValue())
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sensitivity_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="qcp_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sensitivity_py.html">sensitivity.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="qcp_py.html">qcp.py</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

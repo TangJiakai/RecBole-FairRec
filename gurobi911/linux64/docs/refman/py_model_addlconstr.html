@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.addLConstr()</TITLE>
+<META NAME="description" CONTENT="Model.addLConstr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_addmconstr.html">
+<LINK REL="previous" HREF="py_model_agc_tan.html">
+<LINK REL="next" HREF="py_model_addmconstr.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_addmconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_agc_tan.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addmconstr.html">Model.addMConstr()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_agc_tan.html">Model.addGenConstrTan()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001022100000000000000"></A>
+<A ID="pythonmethod:Model.addLConstr"></A>
+<BR>
+Model.addLConstr()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addLConstr</SPAN></FONT></SPAN> ( lhs, sense=None, rhs=None, name="" )
+
+<P>
+Add a linear constraint to a model.  This method is faster than
+addConstr() (as much as 50% faster for very sparse constraints), but
+can only be used to add linear constraints.
+
+<P>
+Note that this method also accepts a
+<A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A> as its first
+argument (with the name as its second argument).  This allows you
+to use operator overloading to create constraints.
+See <A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A> for more
+information.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lhs</SPAN>: Left-hand side for the new constraint.  Can be a
+  constant, a <A HREF="py_var.html#pythonclass:Var">Var</A>, a
+  <A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A>, or a
+  <A HREF="py_tempconstr.html#pythonclass:TempConstr">TempConstr</A>
+  (while the TempConstr can only be of linear form).
+
+<P>
+ <SPAN  CLASS="textbf">sense</SPAN>: Sense for the new constraint
+(<SPAN  CLASS="texttt">GRB.LESS_EQUAL</SPAN>, <SPAN  CLASS="texttt">GRB.EQUAL</SPAN>, or <SPAN  CLASS="texttt">GRB.GREATER_EQUAL</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">rhs</SPAN>: Right-hand side for the new constraint.  Can be a
+  constant, a <A HREF="py_var.html#pythonclass:Var">Var</A>, or a
+  <A HREF="py_lex.html#pythonclass:LinExpr">LinExpr</A>.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for new constraint.
+Note that <SPAN  CLASS="texttt">name</SPAN> will be stored as an ASCII string. Thus, a name
+like <TT>'A<SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img74.svg"
+ ALT="${\rightarrow}$"></SPAN>B'</TT> will produce an error, because
+'<SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img74.svg"
+ ALT="${\rightarrow}$"></SPAN>' can not be represented as an ASCII character. Note
+also that names that contain spaces are strongly discouraged,
+because they can't be written to LP format files.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New constraint object.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  model.addLConstr(x + 2*y, GRB.EQUAL, 3*z, "c0")
+  model.addLConstr(x + y &lt;= 2.0, "c1")
+  model.addLConstr(LinExpr([1.0,1.0], [x,y]), GRB.LESS_EQUAL, 1)
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_addmconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_agc_tan.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_addmconstr.html">Model.addMConstr()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_agc_tan.html">Model.addGenConstrTan()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

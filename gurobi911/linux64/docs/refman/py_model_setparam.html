@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.setParam()</TITLE>
+<META NAME="description" CONTENT="Model.setParam()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_singlescenariomod.html">
+<LINK REL="previous" HREF="py_model_setpwlobj.html">
+<LINK REL="next" HREF="py_model_singlescenariomod.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_singlescenariomod.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_setpwlobj.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_singlescenariomod.html">Model.singleScenarioModel()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_setpwlobj.html">Model.setPWLObj()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00010210100000000000000"></A>
+<A ID="pythonmethod:Model.setParam"></A>
+<BR>
+Model.setParam()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">setParam</SPAN></FONT></SPAN> ( paramname, newvalue )
+
+<P>
+Set the value of a parameter to a new value.  Note that this method
+only affects the parameter setting for this model.  Use global
+function <A HREF="py_setparam.html#pythonmethod:setParam">setParam</A> to change
+the parameter for all models.
+
+<P>
+You can also set parameters using the <code>Model.Params</code> class.  For
+example, to set parameter <code>MIPGap</code> to value 0 for model
+<code>m</code>, you can do either <code>m.setParam('MIPGap', 0)</code> or
+<code>m.Params.MIPGap=0</code>.
+
+<P>
+Please consult the <A HREF="parameters.html#sec:Parameters">parameter section</A>
+for a complete list of Gurobi parameters, including descriptions of
+their purposes and their minimum, maximum, and default values.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">paramname</SPAN>: String containing the name of parameter that you
+  would like to modify.  The name can include '*' and '?' wildcards.
+  If more than one parameter matches, the matching names are listed
+  and none are modified.  Note that case is ignored.
+
+<P>
+ <SPAN  CLASS="textbf">newvalue</SPAN>: Desired new value for parameter.  Can be
+  'default', which indicates that the parameter should be reset to its
+  default value.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  model.setParam("heu*", 0.5)
+  model.setParam(GRB.Param.heuristics, 0.5)
+  model.setParam("heu*", "default")
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_singlescenariomod.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_setpwlobj.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_singlescenariomod.html">Model.singleScenarioModel()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_setpwlobj.html">Model.setPWLObj()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

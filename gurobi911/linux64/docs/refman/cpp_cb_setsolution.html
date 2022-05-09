@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBCallback::setSolution()</TITLE>
+<META NAME="description" CONTENT="GRBCallback::setSolution()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_cb_stoponemultiobj.html">
+<LINK REL="previous" HREF="cpp_cb_getstringinfo.html">
+<LINK REL="next" HREF="cpp_cb_stoponemultiobj.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_cb_stoponemultiobj.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_getstringinfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_stoponemultiobj.html">GRBCallback::stopOneMultiObj()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_getstringinfo.html">GRBCallback::getStringInfo()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0004131000000000000000"></A>
+<A ID="cppmethod:GRBCallback::setSolution"></A>
+<BR>
+GRBCallback::setSolution()
+</H3>
+
+<P>
+Import solution values for a heuristic solution.  Only available when
+the <code>where</code> member variable is equal to <SPAN  CLASS="texttt">GRB_CB_MIPNODE</SPAN>.
+
+<P>
+When you specify a heuristic solution from a callback, variables
+initially take undefined values.  You should use this method to
+specify variable values.  You can make multiple calls to
+<code>setSolution</code> from one callback invocation to specify values for
+multiple sets of variables.  After the callback, if values
+have been specified for any variables, the Gurobi optimizer will try
+to compute a feasible solution from the specified values, possibly
+filling in values for variables whose values were left undefined.
+You can also optionally call
+<A HREF="cpp_cb_usesolution.html#cppmethod:GRBCallback::useSolution">useSolution</A>
+within your callback function
+to try to immediately compute a feasible solution from the specified
+values.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">setSolution</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">v,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">val )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">v</SPAN>: The variable whose values is being set.
+
+<P>
+ <SPAN  CLASS="textbf">val</SPAN>: The value of the variable in the new solution.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">setSolution</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">const GRBVar*</TD>
+<TD CLASS="LEFT">xvars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const double*</TD>
+<TD CLASS="LEFT">sol,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">len )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">xvars</SPAN>: The variables whose values are being set.
+
+<P>
+ <SPAN  CLASS="textbf">sol</SPAN>: The values of the variables in the new solution.
+
+<P>
+ <SPAN  CLASS="textbf">len</SPAN>: The number of variables.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_cb_stoponemultiobj.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_getstringinfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_stoponemultiobj.html">GRBCallback::stopOneMultiObj()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_getstringinfo.html">GRBCallback::getStringInfo()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

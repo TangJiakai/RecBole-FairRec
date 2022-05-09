@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Configuration parameters</TITLE>
+<META NAME="description" CONTENT="Configuration parameters">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="algorithmic_parameters.html">
+<LINK REL="previous" HREF="session_boundaries.html">
+<LINK REL="next" HREF="algorithmic_parameters.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="algorithmic_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="session_boundaries.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="algorithmic_parameters.html">Algorithmic parameters</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="session_boundaries.html">Session boundaries</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000162000000000000000"></A>
+<A ID="subsection:ConfigurationParameters"></A>
+<BR>
+Configuration parameters
+</H2>
+
+<P>
+When you start a Gurobi session, you often have to provides details
+about your configuration.  You may need to indicate whether you want
+to use a license on your local machine, a license from a Token Server,
+or perhaps you want to offload your computation to a Compute Server or
+to Gurobi Instant Cloud.  In the case of a Token Server or a Compute
+Server, you have to provide the name of the server.  For Compute
+Server and Instant Cloud, you also need to provide login credentials.
+
+<P>
+In many situations, the configuration information you need is already
+stored in your license file (<code>gurobi.lic</code>) or in your environment
+file (<code>gurobi.env</code>).  These files are read automatically, so you
+can simply create a standard Gurobi environment object (using
+<A HREF="c_loadenv.html#routine:GRBloadenv">GRBloadenv</A> in <B>C</B>, or through
+the appropriate <code>GRBEnv</code> constructor in the object-oriented
+interfaces).
+
+<P>
+What if you need to provide configuration information from your
+application at runtime instead?  You can use an <SPAN  CLASS="textit">empty
+  environment</SPAN> to split environment creation into a few steps (as
+opposed to the standard, single-step approach mentioned above).  In
+the first step, you would create an empty environment object (using
+<A HREF="c_emptyenv.html#routine:GRBemptyenv">GRBemptyenv</A> in <B>C</B>, or through
+the appropriate <code>GRBEnv</code> constructor in the object-oriented
+interfaces).  You would then set configuration parameters on this
+environment using the standard parameter API.  Finally, you would
+start the environment (using
+<A HREF="c_startenv.html#routine:GRBstartenv">GRBstartenv</A> in <B>C</B>, or using
+the <code>env.start()</code> method in the object-oriented interfaces),
+which will use the configuration parameters you just set.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Empty environment example</SPAN></SPAN>
+
+<P>
+To give a simple example, if you want your <B>Python</B> program to
+offload the optimization computation to a Compute Server named
+<code>server1</code>, you could say:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">import gurobipy as gp
+from gurobipy import GRB
+
+# Set up environment
+env = gp.Env(empty=True)
+env.setParam('ComputeServer', 'server1:61000')
+env.setParam('ServerPassword', 'passwd')
+env.start()
+
+# Load model and optimize
+model = gp.read('misc07.mps', env=env)
+model.optimize()
+</PRE>
+
+<P>
+An equivalent <B>Java</B> program would look like this:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">import gurobi.*;
+...
+  // Set up environment
+  GRBenv env = new GRBEnv(true);
+  env.set(GRB.StringParam.ComputeServer,  "server1:61000");
+  env.set(GRB.StringParam.ServerPassword, "passwd");
+  env.start();
+
+  // Load model and optimize
+  GRBModel model = new GRBModel(env, "misc07.mps");
+  model.optimize()
+</PRE>
+
+<P>
+An equivalent <B>C</B> program would look like this:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#include "gurobi_c.h"
+int main(void) {
+  GRBenv   *env   = NULL;
+  GRBmodel *model = NULL;
+  int error   = 0;
+
+  /* Set up environment */
+  error = GRBemptyenv(&amp;env);
+  if (error) goto QUIT;
+  error = GRBsetstrparam(GRB_STR_PAR_COMPUTESERVER, "server1:61000");
+  if (error) goto QUIT;
+  error = GRBsetstrparam(GRB_STR_PAR_SERVERPASSWORD, "passwd");
+  if (error) goto QUIT;
+  error = GRBstartenv(env);
+  if (error) goto QUIT;
+
+  /* Load model and optimize */
+  error = GRBreadmodel(env, "misc07.mps", &amp;model);
+  if (error) goto QUIT;
+  error = GRBoptimize(model);
+  if (error) goto QUIT;
+</PRE>
+
+<P>
+This example uses the
+<A HREF="computeserver.html#parameter:ComputeServer">ComputeServer</A> parameter to
+connect to a Compute Server.
+To give a few more examples of configuration parameters, you can use
+the <A HREF="cloudaccessid.html#parameter:CloudAccessID">CloudAccessID</A> and
+<A HREF="cloudsecretkey.html#parameter:CloudSecretKey">CloudSecretKey</A> parameters to
+provide your credentials in order to launch an Instant Cloud instance.
+To connect to a token server, you would use the
+<A HREF="tokenserver.html#parameter:TokenServer">TokenServer</A> parameter.
+The full list of Gurobi parameters can be found
+<A HREF="parameters.html#sec:Parameters">here</A>.
+
+<P>
+Configuration parameters must be set before you start the Gurobi
+environment.  Changes have no effect once the environment has been
+started.
+
+<P>
+In Python you can also provide such configuration parameters directly as a
+<TT>dict</TT> argument to the environment constructor, without creating an
+empty environment first.  Please refer to the <A HREF="py_env2.html#pythonmethod:Env">Env()
+documentation</A> for an example.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="algorithmic_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="environments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="session_boundaries.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="algorithmic_parameters.html">Algorithmic parameters</A>
+<B> Up:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Previous:</B> <A
+ HREF="session_boundaries.html">Session boundaries</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

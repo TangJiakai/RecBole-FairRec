@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Batch.retry()</TITLE>
+<META NAME="description" CONTENT="Batch.retry()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_batch_update.html">
+<LINK REL="previous" HREF="py_batch_getjsonsolution.html">
+<LINK REL="next" HREF="py_batch_update.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_batch_update.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch_getjsonsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch_update.html">Batch.update()</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch_getjsonsolution.html">Batch.getJSONSolution()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001020600000000000000"></A>
+<A ID="pythonmethod:Batch.retry"></A>
+<BR>
+Batch.retry()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">retry</SPAN></FONT></SPAN> (  )
+
+<P>
+This method instructs the Cluster Manager to retry optimization of a failed
+or aborted batch request, changing its status to
+<TT>SUBMITTED</TT>. Please refer to the <A HREF="batch_status_codes.html#sec:BatchStatusCodes">Batch
+Status Codes</A> section for further details.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        starttime = time.time()
+        while batch.BatchStatus == GRB.BATCH_SUBMITTED:
+            # Abort this batch if it is taking too long
+            curtime = time.time()
+            if curtime - starttime &gt; maxwaittime:
+                batch.abort()
+                break
+
+            # Wait for two seconds
+            time.sleep(2)
+
+            # Update the resident attribute cache of the Batch object with the
+            # latest values from the cluster manager.
+            batch.update()
+
+            # If the batch failed, we retry it
+            if batch.BatchStatus == GRB.BATCH_FAILED:
+                batch.retry()
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_batch_update.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_batch_getjsonsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_batch_update.html">Batch.update()</A>
+<B> Up:</B> <A
+ HREF="py_batch.html">Batch</A>
+<B> Previous:</B> <A
+ HREF="py_batch_getjsonsolution.html">Batch.getJSONSolution()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

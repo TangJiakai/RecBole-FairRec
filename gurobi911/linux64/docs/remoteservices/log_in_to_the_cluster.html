@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Log In to the Cluster</TITLE>
+<META NAME="description" CONTENT="Log In to the Cluster">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="sub_an_interactive_job.html">
+<LINK REL="previous" HREF="simple_example.html">
+<LINK REL="next" HREF="sub_an_interactive_job.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_an_interactive_job.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_an_interactive_job.html">Submitting an Interactive Job</A>
+<B> Up:</B> <A
+ HREF="simple_example.html">Simple Example</A>
+<B> Previous:</B> <A
+ HREF="simple_example.html">Simple Example</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00014100000000000000"></A>
+<A ID="sec:CSSimpleExampleLogin"></A>
+<BR>
+Log In to the Cluster
+</H3>
+
+<P>
+The first step in submitting a job to the cluster is to log in to the
+Cluster Manager with the <TT>grbcluster login</TT> command.
+
+<P>
+
+<PRE>
+&gt; grbcluster login --manager=http://localhost:61080 -u=gurobi
+info  : Using client license file '/Users/john/gurobi.lic'
+Password for gurobi:
+info  : User gurobi connected to http://localhost:61080, session will expire on 2019-09...
+</PRE>
+
+<P>
+This command indicates that you want to connect to the Cluster Manager
+running on port 61080 of machine <code>localhost</code> as the <TT>  gurobi</TT> user.  The output from the command first shows that the
+client license file <TT>gurobi.lic</TT> located in the home
+directory of the user will be used to store the connection
+parameters. It then prompts you for the password for the specified
+user (in a secure manner).  After contacting the Cluster Manager, the
+client retrieves a session token that will expire at the indicated
+date and time.
+
+<P>
+Using this approach to logging in removes the need to display the user
+password or save it in clear text, which improves security.  The
+session token and all of the connection parameters are saved in the
+client license file, so they can be used by all of the command-line
+tools (<TT>gurobi_cl</TT>, <TT>grbtune</TT>, and <TT>  grbcluster</TT>). When the token session expires, the commands will fail
+and you will need to log in again.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sub_an_interactive_job.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="simple_example.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_an_interactive_job.html">Submitting an Interactive Job</A>
+<B> Up:</B> <A
+ HREF="simple_example.html">Simple Example</A>
+<B> Previous:</B> <A
+ HREF="simple_example.html">Simple Example</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

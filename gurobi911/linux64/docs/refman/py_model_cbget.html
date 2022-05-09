@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.cbGet()</TITLE>
+<META NAME="description" CONTENT="Model.cbGet()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_cbgetnoderel.html">
+<LINK REL="previous" HREF="py_model_cbcut.html">
+<LINK REL="next" HREF="py_model_cbgetnoderel.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_cbgetnoderel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_cbcut.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_cbgetnoderel.html">Model.cbGetNodeRel()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_cbcut.html">Model.cbCut()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001023100000000000000"></A>
+<A ID="pythonmethod:Model.cbGet"></A>
+<BR>
+Model.cbGet()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">cbGet</SPAN></FONT></SPAN> ( what )
+
+<P>
+Query the optimizer from within the user callback.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">what</SPAN>: Integer code that indicates what type of information
+  is being requested by the callback.  The set of valid codes depends
+  on the <SPAN  CLASS="texttt">where</SPAN> value that is passed into the user callback
+  function.  Please refer to the <A HREF="cb_codes.html#sec:CallbackCodes">Callback
+    Codes</A> section for a list of possible
+  <SPAN  CLASS="texttt">where</SPAN> and <SPAN  CLASS="texttt">what</SPAN> values.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  def mycallback(model, where):
+    if where == GRB.Callback.SIMPLEX:
+      print(model.cbGet(GRB.Callback.SPX_OBJVAL))
+
+  model.optimize(mycallback)
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_cbgetnoderel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_cbcut.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_cbgetnoderel.html">Model.cbGetNodeRel()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_cbcut.html">Model.cbCut()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

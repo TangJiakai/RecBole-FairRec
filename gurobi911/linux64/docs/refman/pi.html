@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Pi</TITLE>
+<META NAME="description" CONTENT="Pi">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="slack.html">
+<LINK REL="previous" HREF="ctag.html">
+<LINK REL="next" HREF="slack.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="slack.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="linear_constraint_attribut.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ctag.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="slack.html">Slack</A>
+<B> Up:</B> <A
+ HREF="linear_constraint_attribut.html">Linear Constraint Attributes</A>
+<B> Previous:</B> <A
+ HREF="ctag.html">CTag</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000173500000000000000"></A>
+<A ID="attr:Pi"></A>
+<BR>
+Pi
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">No</TD>
+</TR>
+</TABLE>
+
+<P>
+The constraint dual value in the current solution (also known as the
+<EM>shadow price</EM>).
+
+<P>
+Given a linear programming problem
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{ll}
+\mathrm{minimize}    & c'x \\
+\mathrm{subject\ to} & Ax \ge b \\
+                     & x \ge 0
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 8.56ex; vertical-align: -3.72ex; " SRC="img230.svg"
+ ALT="$\begin{array}{ll}
+\mathrm{minimize} &amp; c'x \\
+\mathrm{subject\ to} &amp; Ax \ge b \\
+&amp; x \ge 0
+\end{array}$"></SPAN>
+</DIV>
+
+<P>
+and a corresponding dual problem
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\begin{array}{ll}
+\mathrm{maximize}    & b'y \\
+\mathrm{subject\ to} & A'y \le c \\
+                     & y \ge 0
+\end{array}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 8.56ex; vertical-align: -3.72ex; " SRC="img231.svg"
+ ALT="$\begin{array}{ll}
+\mathrm{maximize} &amp; b'y \\
+\mathrm{subject\ to} &amp; A'y \le c \\
+&amp; y \ge 0
+\end{array}$"></SPAN>
+</DIV>
+
+<P>
+the <code>Pi</code> attribute returns <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>.
+
+<P>
+Of course, not all models fit this canonical form. In general, dual
+values have the following properties:
+
+<UL>
+<LI>Dual values for <SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img232.svg"
+ ALT="$\ge$"></SPAN> constraints are <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.43ex; " SRC="img233.svg"
+ ALT="$\ge 0$"></SPAN>.
+</LI>
+<LI>Dual values for <SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img234.svg"
+ ALT="$\le$"></SPAN> constraints are <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.43ex; " SRC="img235.svg"
+ ALT="$\le 0$"></SPAN>.
+</LI>
+<LI>Dual values for <SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img38.svg"
+ ALT="$=$"></SPAN> constraints are unconstrained.
+</LI>
+</UL>
+For models with a maximization sense, the senses of the dual values
+are reversed: the dual is <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.43ex; " SRC="img233.svg"
+ ALT="$\ge 0$"></SPAN> for a <SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img234.svg"
+ ALT="$\le$"></SPAN> constraint and <SPAN CLASS="MATH"><IMG STYLE="height: 2.04ex; vertical-align: -0.43ex; " SRC="img235.svg"
+ ALT="$\le 0$"></SPAN>
+for a <SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img232.svg"
+ ALT="$\ge$"></SPAN> constraint.
+
+<P>
+Note that constraint dual values for linear constraints of QCP
+models are only available when the
+<A HREF="qcpdual.html#parameter:QCPDual">QCPDual</A> parameter is set to 1.
+To query the duals of the quadratic constraints in a QCP model,
+see <A HREF="qcpi.html#attr:QCPi">QCPi</A>.
+
+<P>
+Only available for convex, continuous models.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="slack.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="linear_constraint_attribut.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ctag.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="slack.html">Slack</A>
+<B> Up:</B> <A
+ HREF="linear_constraint_attribut.html">Linear Constraint Attributes</A>
+<B> Previous:</B> <A
+ HREF="ctag.html">CTag</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

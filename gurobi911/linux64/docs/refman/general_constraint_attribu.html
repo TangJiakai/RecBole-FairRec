@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>General Constraint Attributes</TITLE>
+<META NAME="description" CONTENT="General Constraint Attributes">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="quality_attributes.html">
+<LINK REL="previous" HREF="quadratic_constraint_attri.html">
+<LINK REL="next" HREF="funcpieceerror.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="funcpieceerror.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="iisqconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="funcpieceerror.html">FuncPieceError</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="iisqconstr.html">IISQConstr</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000176000000000000000">
+General Constraint Attributes</A>
+</H2>
+
+<P>
+These are general constraint attributes, meaning that they are
+associated with specific general constraints in the model.  If
+the attribute name contains string "GenConstr", then it is for all
+types of general constraints. If it starts with string "Func",
+then it is only for function constraints.
+
+<P>
+You should use one of the various <code>get</code> routines to retrieve the
+value of an attribute.  These are described at the beginning of
+<A HREF="attributes.html#sec:Attributes">this section</A>).
+For the object-oriented interfaces, general constraint attributes
+are retrieved by invoking the <code>get</code> method on a constraint
+object.  For attributes that can be modified directly by the user, you
+can use one of the various <code>set</code> methods.
+
+<P>
+Attempting to query an attribute that is not available will produce an
+error.  In C, the attribute query routine will return a
+<code>GRB_ERROR_DATA_NOT_AVAILABLE</code> error code.  The object-oriented
+interfaces will throw an exception.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html4028"
+  HREF="funcpieceerror.html">FuncPieceError</A>
+<LI><A ID="tex2html4029"
+  HREF="funcpiecelength.html">FuncPieceLength</A>
+<LI><A ID="tex2html4030"
+  HREF="funcpieceratio.html">FuncPieceRatio</A>
+<LI><A ID="tex2html4031"
+  HREF="funcpieces.html">FuncPieces</A>
+<LI><A ID="tex2html4032"
+  HREF="genconstrtype.html">GenConstrType</A>
+<LI><A ID="tex2html4033"
+  HREF="genconstrname.html">GenConstrName</A>
+<LI><A ID="tex2html4034"
+  HREF="iisgenconstr.html">IISGenConstr</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="funcpieceerror.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="iisqconstr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="funcpieceerror.html">FuncPieceError</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="iisqconstr.html">IISQConstr</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

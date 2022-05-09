@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Distributed Algorithms</TITLE>
+<META NAME="description" CONTENT="Distributed Algorithms">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="interactive_and_non_intera.html">
+<LINK REL="next" HREF="architecture.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="architecture.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="interactive_and_non_intera.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="architecture.html">Architecture</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="interactive_and_non_intera.html">Interactive and Non-Interactive Optimization</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00011500000000000000"></A>
+<A ID="sec:DistributedAlgorithms"></A>
+<BR>
+Distributed Algorithms
+</H3>
+
+<P>
+Gurobi Optimizer implements a number of distributed algorithms that
+allow you to use multiple machines to solve a problem faster.
+Available distributed algorithms are:
+
+<UL>
+<LI><B>A distributed MIP solver</B>, which allows you to
+  divide the work of solving a single MIP model among multiple
+  machines.  A manager machine passes problem data to a
+  set of worker machines to coordinate the overall solution
+  process.
+</LI>
+<LI><B>A distributed concurrent solver</B>, which allows you to use
+  multiple machines to solve an LP or MIP model.  Unlike the
+  distributed MIP solver, the concurrent solver doesn't divide the
+  work among machines.  Instead, each machine uses a different
+  strategy to solve the whole problem, with the hope that one strategy
+  will be particularly effective and will finish much earlier than the
+  others.  For some problems, this concurrent approach can be more
+  effective than attempting to divide up the work.
+</LI>
+<LI><B>Distributed parameter tuning</B>, which automatically
+  searches for parameter settings that improve performance on your
+  optimization model (or set of models).  Tuning solves your model(s)
+  with a variety of parameter settings, measuring the performance
+  obtained by each set, and then uses the results to identify the settings
+  that produce the best overall performance.  The distributed version of
+  tuning performs these trials on multiple machines, which makes the overall
+  tuning process run much faster.
+</LI>
+</UL>
+These distributed algorithms are designed to be nearly transparent to
+the user.  The user simply modifies a few parameters, and the work of
+distributing the computation among multiple machines is handled behind
+the scenes by the Gurobi library.
+
+<P>
+Additional information about distributed algorithms can be found in a
+<A HREF="distributed_algorithms2.html#sec:DistributedCluster">later section</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="architecture.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="interactive_and_non_intera.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="architecture.html">Architecture</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="interactive_and_non_intera.html">Interactive and Non-Interactive Optimization</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

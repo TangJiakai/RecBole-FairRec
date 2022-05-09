@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Appendix A: grb_rs</TITLE>
+<META NAME="description" CONTENT="Appendix A: grb_rs">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="appendix_b_rs_configuratio.html">
+<LINK REL="previous" HREF="using_remote_services_with.html">
+<LINK REL="next" HREF="appendix_b_rs_configuratio.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="appendix_b_rs_configuratio.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="region_router.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_b_rs_configuratio.html">Appendix B: grb_rs -</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="region_router.html">Region Router</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00060000000000000000"></A>
+<A ID="sec:RSMNodeAgentRef"></A>
+<BR>
+Appendix A: grb_rs
+</H1>
+
+<PRE>
+Usage:
+  grb_rs [flags]           Start the remote services as a standard process
+  grb_rs --help            Display usage
+  grb_rs command [flags]   Execute a specific command
+  grb_rs command --help    Display more information about a command
+
+Flags can be set using --flag=value or the short form -f=value if defined.
+A boolean flag can be enabled using --flag or the short form -f if defined.
+
+Configuration Helper Commands:
+  aws         Display machine information when running on Amazon Web Services
+  azure       Display machine information when running on Microsoft Azure
+  hash        Hash a password
+  init        Clone the default data directory and configuration to current
+                directory
+  token       Generate a cluster token
+  properties  Display help about configuration properties
+
+Service Commands:
+  install     Install the service
+  restart     Start or restart the service (install the service if necessary)
+  start       Start the service (install the service if necessary)
+  stop        Stop the service
+  uninstall   Uninstall the service
+
+With no command, grb_rs will start the remote services as a standard process
+and the following flags are available for quick configuration. The full list
+of properties can be displayed with the 'grb_rs properties' command and the
+properties can be set in the grb_rs.cnf configuration file.
+
+Logging Flags:
+      --console-ts             Add timestamps to console log messages
+      --logfile string         Log to a rotating log file
+      --logfile-max-age int    Limit the rotating log file to a number of days
+      --logfile-max-size int   Limit the size of each file to a size in Mb
+      --no-console             Disable log to console
+      --syslog                 Log to syslog or Windows event log
+  -v, --verbose                Enable verbose logging
+
+Configuration Flags:
+  -c, --config string          Location of the configuration file
+                                 (default: 'grb_rs.cnf')
+      --data string            Location of the data root directory
+                                 (default: 'data')
+      --group                  Tags the node with a group name
+      --hostname               Overrides the public name on this name
+      --idle-shutdown int      Shutdown if the server is idle for more than the
+                                 specified time limit (minutes)
+      --join URL               Join a cluster using the specified cluster
+                                 representative node address
+      --manager URL            Register the node with a Cluster Manager
+      --port int               Start the node on the given port
+      --service                Indicates if it is started by a service manager
+      --worker                 Declare this node as a distributed worker
+
+Security Flags:
+      --tls                    Use TLS encryption between nodes
+      --tlscert string         Path to TLS certificate file
+      --tlskey string          Path to TLS key file
+      --tls-insecure           Use TLS encryption between nodes but disable
+                                 verification of certificates
+      --manager-insecure       Disable certificate verification if TLS is used
+                                 to communicate with the Cluster Manager
+
+General Flags:
+      --version                Display version information
+      --help                   Display usage
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="appendix_b_rs_configuratio.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="region_router.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_b_rs_configuratio.html">Appendix B: grb_rs -</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="region_router.html">Region Router</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

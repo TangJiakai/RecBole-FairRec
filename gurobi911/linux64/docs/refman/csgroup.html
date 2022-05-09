@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>CSGroup</TITLE>
+<META NAME="description" CONTENT="CSGroup">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="csidletimeout.html">
+<LINK REL="previous" HREF="csclientlog.html">
+<LINK REL="next" HREF="csidletimeout.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="csidletimeout.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="csclientlog.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="csidletimeout.html">CSIdleTimeout</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="csclientlog.html">CSClientLog</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001823100000000000000"></A>
+<A ID="parameter:CSGroup"></A>
+<BR>
+CSGroup
+</H3>
+Group placement request for cluster
+
+<TABLE class="PAD " style="">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">string</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Default value:</SPAN></TD>
+<TD CLASS="LEFT">""</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+Specifies one or more groups of cluster nodes to control the placement
+of the job. The list is a comma-separated string of group names, with
+optionally a priority for a group. For example, specifying
+<code>group1:10,group2:50</code> means that the job will run on machines of
+<code>group1</code> or <code>group2</code>, and if the job is queued, it will have
+priority 10 on group1 and 50 on group2. Note that if the group is not
+specified, the job may run on any node. If there are no nodes in the
+cluster having the specified groups, the job will be rejected.
+
+<P>
+Refer to the <A ID="tex2html40"
+  HREF="../remoteservices/remoteservices.html">Gurobi Remote Services Reference
+Manual</A>
+for more information on
+starting Compute Server jobs and in particular to
+<A ID="tex2html41"
+  HREF="../remoteservices/grouping.html">Gurobi Remote Services cluster
+Grouping</A>
+for more information on
+grouping cluster nodes.
+
+<P>
+You must set this parameter through either a license file (using
+<code>GROUP=name</code>) or an <A HREF="environments.html#sec:Environment">empty
+environment</A>.  Changing the parameter after
+your environment has been created will have no effect.
+
+<P>
+For examples of how to query or modify parameter values from
+our different APIs, refer to our
+<A HREF="parameter_examples.html#sec:ParameterExamples">Parameter Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="csidletimeout.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="csclientlog.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="csidletimeout.html">CSIdleTimeout</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="csclientlog.html">CSClientLog</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

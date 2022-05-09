@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Guidelines for Numerical Issues</TITLE>
+<META NAME="description" CONTENT="Guidelines for Numerical Issues">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="copyright_notices_for_3rd_.html">
+<LINK REL="previous" HREF="grb_instant_cloud.html">
+<LINK REL="next" HREF="avoid_rounding_of_input.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="avoid_rounding_of_input.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="instant_cloud_setup.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="avoid_rounding_of_input.html">Avoid rounding of input</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="instant_cloud_setup.html">Instant Cloud Setup</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000340000000000000000"></A>
+<A ID="sec:Numerics"></A>
+<BR>
+Guidelines for Numerical Issues
+</H1>
+
+<P>
+Numerical instability is a generic label often applied to situations
+where solving an optimization model produces results that are erratic,
+inconsistent, or unexpected, or when the underlying algorithms exhibit
+poor performance or are unable to converge.  There are many potential
+causes of this behavior; however, most can be grouped into four
+categories:
+
+<UL>
+<LI>Rounding coefficients while building the model.
+</LI>
+<LI>Limitations of floating-point arithmetic.
+</LI>
+<LI>Unrealistic expectations about achievable precision.
+</LI>
+<LI>Ill conditioning, or geometry-induced issues.
+</LI>
+</UL>
+
+<P>
+This section explains these issues and how they affect both
+performance and solution quality. We also provide some general rules
+and some advanced techniques to help avoid them.  Although we will
+treat each of these four sources separately, it is important to
+remember that their effects often feed off of each other.  We also
+provide tips on how to diagnose numerical instability in your models.
+
+<P>
+Finally, we discuss the Gurobi parameters that can be modified to
+improve solution accuracy.  We should stress now, however, that the
+best way to improve numerical behavior and performance is to
+reformulate your model.  Parameters can help to manage the effects of
+numerical issues, but there are limits to what they can do, and they
+typically come with a substantial performance cost.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html4503"
+  HREF="avoid_rounding_of_input.html">Avoid rounding of input</A>
+<LI><A ID="tex2html4504"
+  HREF="real_numbers_are_not_real.html">Real numbers are not real</A>
+<LI><A ID="tex2html4505"
+  HREF="tolerances_and_user_scalin.html">Tolerances and user-scaling</A>
+<UL>
+<LI><A ID="tex2html4506"
+  HREF="grb_tolerances_and_the_lim.html">Gurobi tolerances and the limitations of double-precision arithmetic</A>
+<LI><A ID="tex2html4507"
+  HREF="why_scaling_and_geometry_i.html">Why scaling and geometry is relevant</A>
+<LI><A ID="tex2html4508"
+  HREF="recommended_ranges_for_var.html">Recommended ranges for variables and constraints</A>
+<LI><A ID="tex2html4509"
+  HREF="improving_ranges_for_varia.html">Improving ranges for variables and constraints</A>
+<LI><A ID="tex2html4510"
+  HREF="advanced_user_scaling.html">Advanced user scaling</A>
+<LI><A ID="tex2html4511"
+  HREF="avoid_hiding_large_coeffic.html">Avoid hiding large coefficients</A>
+<LI><A ID="tex2html4512"
+  HREF="dealing_with_big_m_constra.html">Dealing with big-M constraints</A>
+</UL>
+<BR>
+<LI><A ID="tex2html4513"
+  HREF="does_my_model_have_numeric.html">Does my model have numerical issues?</A>
+<LI><A ID="tex2html4514"
+  HREF="solver_parameters_to_manag.html">Solver parameters to manage numerical issues</A>
+<UL>
+<LI><A ID="tex2html4515"
+  HREF="presolve2.html">Presolve</A>
+<LI><A ID="tex2html4516"
+  HREF="choosing_the_right_algorit.html">Choosing the right algorithm</A>
+<LI><A ID="tex2html4517"
+  HREF="making_the_algorithm_less_.html">Making the algorithm less sensitive</A>
+</UL>
+<BR>
+<LI><A ID="tex2html4518"
+  HREF="instability_and_the_geomet.html">Instability and the geometry of optimization problems</A>
+<UL>
+<LI><A ID="tex2html4519"
+  HREF="the_case_of_linear_systems.html">The case of linear systems:</A>
+<LI><A ID="tex2html4520"
+  HREF="the_geometry_of_linear_opt.html">The geometry of linear optimization problems</A>
+<LI><A ID="tex2html4521"
+  HREF="multiple_optimal_solutions.html">Multiple optimal solutions</A>
+<LI><A ID="tex2html4522"
+  HREF="dealing_with_epsilon_optim.html">Dealing with epsilon-optimal solutions</A>
+<LI><A ID="tex2html4523"
+  HREF="thin_feasible_regions.html">Thin feasible regions</A>
+<LI><A ID="tex2html4524"
+  HREF="optimizing_over_the_circle.html">Optimizing over the circle:</A>
+<LI><A ID="tex2html4525"
+  HREF="optimizing_over_thin_regio.html">Optimizing over thin regions:</A>
+<LI><A ID="tex2html4526"
+  HREF="stability_and_convergence.html">Stability and convergence</A>
+</UL>
+<BR>
+<LI><A ID="tex2html4527"
+  HREF="further_reading.html">Further reading</A>
+<LI><A ID="tex2html4528"
+  HREF="_code_examples_.html">Source code examples:</A>
+<UL>
+<LI><A ID="tex2html4529"
+  HREF="_code_for_the_experiment_o.html">Source code for the experiment of optimizing over a circle</A>
+<LI><A ID="tex2html4530"
+  HREF="_code_for_the_experiment_o2.html">Source code for the experiment on a thin feasible region</A>
+<LI><A ID="tex2html4531"
+  HREF="_code_for_the_experiment_w.html">Source code for the experiment with column scalings</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="avoid_rounding_of_input.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="instant_cloud_setup.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="avoid_rounding_of_input.html">Avoid rounding of input</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="instant_cloud_setup.html">Instant Cloud Setup</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

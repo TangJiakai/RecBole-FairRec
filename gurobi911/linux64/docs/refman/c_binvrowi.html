@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBBinvRowi</TITLE>
+<META NAME="description" CONTENT="GRBBinvRowi">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_getbasishead.html">
+<LINK REL="previous" HREF="c_binvcolj.html">
+<LINK REL="next" HREF="c_getbasishead.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_getbasishead.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_advanced_simplex_routine.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_binvcolj.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getbasishead.html">GRBgetBasisHead</A>
+<B> Up:</B> <A
+ HREF="c_advanced_simplex_routine.html">Advanced simplex routines</A>
+<B> Previous:</B> <A
+ HREF="c_binvcolj.html">GRBBinvColj</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000212400000000000000"></A>
+<A ID="routine:GRBBinvRowi"></A>
+<BR>
+GRBBinvRowi
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBBinvRowi</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">i,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBsvec</TD>
+<TD CLASS="LEFT">*x )</TD>
+</TR>
+</TABLE>
+
+<P>
+Computes a single <EM>tableau row</EM>.  More precisely,
+this routine returns row
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.76ex; vertical-align: -0.12ex; " SRC="img61.svg"
+ ALT="$i$"></SPAN> from the matrix <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img62.svg"
+ ALT="$B^{-1} A$"></SPAN>, where <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img63.svg"
+ ALT="$B^{-1}$"></SPAN> is the inverse
+of the basis matrix
+and <SPAN CLASS="MATH"><IMG STYLE="height: 1.81ex; vertical-align: -0.12ex; " SRC="img59.svg"
+ ALT="$A$"></SPAN> is the constraint matrix.  Note that the tableau
+will contain columns corresponding to the variables in the model,
+and also columns corresponding to artificial and slack variables
+associated with constraints.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while computing the desired vector.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model.  Note that the model must have a current
+optimal basis, as computed by
+<A HREF="c_optimize.html#routine:GRBoptimize">GRBoptimize</A>.
+
+<P>
+ <SPAN  CLASS="textbf">i</SPAN>: The index of the desired tableau row.
+
+<P>
+ <SPAN  CLASS="textbf">x</SPAN>: The result vector.  The result will
+contain one entry for each non-zero value.  Note
+that the result may contain values for slack variables; the
+slack on row <SPAN  CLASS="texttt">i</SPAN> will have index <SPAN  CLASS="texttt">cols+i</SPAN>,
+where <SPAN  CLASS="texttt">cols</SPAN> is the number of columns in the model.  The
+user is responsible for allocating the <SPAN  CLASS="texttt">ind</SPAN> and <SPAN  CLASS="texttt">val</SPAN>
+fields to be large enough to hold the largest possible result.
+For this routine, the result could have one entry for each variable
+in the model, plus one entry for each constraint.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_getbasishead.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_advanced_simplex_routine.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_binvcolj.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getbasishead.html">GRBgetBasisHead</A>
+<B> Up:</B> <A
+ HREF="c_advanced_simplex_routine.html">Advanced simplex routines</A>
+<B> Previous:</B> <A
+ HREF="c_binvcolj.html">GRBBinvColj</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Grouping</TITLE>
+<META NAME="description" CONTENT="Grouping">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="processing_state_and_scali.html">
+<LINK REL="previous" HREF="compute_servers_and_distri.html">
+<LINK REL="next" HREF="processing_state_and_scali.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="processing_state_and_scali.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="compute_servers_and_distri.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="processing_state_and_scali.html">Processing State and Scaling</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="compute_servers_and_distri.html">Compute Servers and Distributed</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00025300000000000000"></A>
+<A ID="sec:RSMGrouping"></A>
+<BR>
+Grouping
+</H3>
+
+<P>
+With the Remote Services grouping feature, you can define a subset of
+the nodes in your cluster as a group, and then submit jobs
+specifically to that group. This can be quite useful when some nodes
+in the cluster are different from others. For example, some nodes may
+have more memory or faster CPUs.  Using this feature, you can force
+jobs to only run on the appropriate type of machines. If all nodes
+of the requested group are at capacity, jobs will be queued until a
+member of that group is available.
+
+<P>
+In order to define a group, you will need to add the <TT>GROUP</TT>
+property to the <TT>grb_rs.cnf</TT> configuration file and give a name
+to the group:
+
+<PRE>
+GROUP=group1
+</PRE>
+
+<P>
+The groups are static and can only be changed in the node
+configuration file. If you wish to change the group of a node, you
+will need to stop the node, edit the configuration file, and restart the
+node. A node can only be a member of one group.
+
+<P>
+The <TT>grbcluster nodes</TT> command displays the assigned group for
+each node (in the <TT>GRP</TT> column):
+
+<PRE>
+&gt; grbcluster nodes
+ID       ADDRESS       STATUS TYPE    GRP     LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db server1:61000 ALIVE  COMPUTE group1  VALID   ACCEPTING  0  0  10 19m  15.30 5.64
+735c595f server2:61000 ALIVE  COMPUTE group1  VALID   ACCEPTING  0  0  10 19m  10.45 8.01
+eb07fe16 server3:61000 ALIVE  WORKER  group2  VALID   ACCEPTING  0  0  1  &lt;1s  11.44 2.33
+4f14a532 server4:61000 ALIVE  WORKER  group2  VALID   ACCEPTING  0  0  1  &lt;1s  12.20 5.60
+</PRE>
+
+<P>
+You can submit an optimization job to a given group by
+using the <TT>GROUP</TT> property of
+the client license file (see <A HREF="client_license_file.html#sec:CSLicenseFile">set up a client
+  license</A>). You can also set the
+<TT>CSGROUP</TT> parameter in the programming interface.
+
+<P>
+The value of this parameter can be a single group to target
+a subset of nodes as explained. It can also be a list of groups,
+and you can also specify a priority for each group. Here is an
+example to submit a job to the group1 nodes with priority 10,
+and to group2 with priority 50.
+
+<PRE>
+group1:10,group2:50
+</PRE>
+
+<P>
+Note that if a group is not specified for a submitted job, the job
+can run on any nodes of any group.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="processing_state_and_scali.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="forming_a_cluster.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="compute_servers_and_distri.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="processing_state_and_scali.html">Processing State and Scaling</A>
+<B> Up:</B> <A
+ HREF="forming_a_cluster.html">Forming a Cluster</A>
+<B> Previous:</B> <A
+ HREF="compute_servers_and_distri.html">Compute Servers and Distributed</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

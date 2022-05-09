@@ -79,16 +79,20 @@ class FOCF(FairRecommender):
         sst_unique_value, sst_inverse = torch.unique(interaction[self.SST_FIELD], return_inverse=True)
         iid_unique_value, iid_inverse = torch.unique(interaction[self.ITEM_ID], return_inverse=True)
         iid_unique_len = len(iid_unique_value)
+        interaction_len = len(pred_scores)
         avg_pred_list = torch.zeros((iid_unique_len,2), device=self.device)
         sst_num = torch.zeros((iid_unique_len,2), device=self.device)
         avg_true_list = torch.zeros((iid_unique_len,2), device=self.device)
 
-        for i, true_score in enumerate(interaction[self.RATING]):
-            pred_score = pred_scores[i]
-            avg_pred_list[iid_inverse[i]][sst_inverse[i]] += pred_score
-            avg_true_list[iid_inverse[i]][sst_inverse[i]] += true_score
-            sst_num[iid_inverse[i]][sst_inverse[i]] += 1
-
+        # for i, true_score in enumerate(interaction[self.RATING]):
+        #     pred_score = pred_scores[i]
+        #     avg_pred_list[iid_inverse[i]][sst_inverse[i]] += pred_score
+        #     avg_true_list[iid_inverse[i]][sst_inverse[i]] += true_score
+        #     sst_num[iid_inverse[i]][sst_inverse[i]] += 1
+        index = (iid_inverse, sst_inverse)
+        avg_pred_list.index_put_(index, pred_scores, accumulate=True)
+        avg_true_list.index_put_(index, interaction[self.RATING], accumulate=True)
+        sst_num.index_put_(index, torch.ones(interaction_len, device=self.device), accumulate=True)
         sst_num += 1e-5
 
         return avg_pred_list/sst_num, avg_true_list/sst_num
@@ -96,7 +100,7 @@ class FOCF(FairRecommender):
     def value_unfairness(self, pred_scores, interaction):
         avg_pred_list, avg_true_list = self.get_item_ratings(pred_scores, interaction)
         diff = avg_pred_list - avg_true_list 
-        loss_input = torch.mean(torch.abs(diff[:,0]- diff[:,1]))
+        loss_input = torch.abs(diff[:,0]- diff[:,1])
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
@@ -104,23 +108,25 @@ class FOCF(FairRecommender):
     def absolute_unfairness(self, pred_scores, interaction):
         avg_pred_list, avg_true_list = self.get_item_ratings(pred_scores, interaction)
         diff = torch.abs(avg_pred_list - avg_true_list)
-        loss_input = torch.mean(torch.abs(diff[:,0]- diff[:,1]))
+        loss_input = torch.abs(diff[:,0]- diff[:,1])
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
 
     def under_unfairness(self, pred_scores, interaction):
         avg_pred_list, avg_true_list = self.get_item_ratings(pred_scores, interaction)
-        diff = torch.where((avg_true_list - avg_pred_list)>0, avg_true_list - avg_pred_list, 0)
-        loss_input = torch.mean(torch.abs(diff[:,0]- diff[:,1]))
+        zero_tensor = torch.tensor(0., dtype=torch.float32, device=self.device)
+        diff = torch.where((avg_true_list - avg_pred_list)>zero_tensor, avg_true_list - avg_pred_list, zero_tensor)
+        loss_input = torch.abs(diff[:,0]- diff[:,1])
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)
 
     def over_unfairness(self, pred_scores, interaction):
         avg_pred_list, avg_true_list = self.get_item_ratings(pred_scores, interaction)
-        diff = torch.where((avg_pred_list - avg_true_list)>0, avg_pred_list - avg_true_list, 0)
-        loss_input = torch.mean(torch.abs(diff[:,0]- diff[:,1]))
+        zero_tensor = torch.tensor(0., dtype=torch.float32, device=self.device)
+        diff = torch.where((avg_pred_list - avg_true_list)>zero_tensor, avg_pred_list - avg_true_list, zero_tensor)
+        loss_input = torch.abs(diff[:,0]- diff[:,1])
         loss_target = torch.zeros_like(loss_input, device=self.device)
 
         return F.smooth_l1_loss(loss_input, loss_target)

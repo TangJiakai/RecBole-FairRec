@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Using a Router without a Cluster Manager</TITLE>
+<META NAME="description" CONTENT="Using a Router without a Cluster Manager">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="previous" HREF="firewalls.html">
+<LINK REL="next" HREF="using_remote_services.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="using_remote_services.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="firewalls.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_remote_services.html">Using Remote Services</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="firewalls.html">Firewalls</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00026400000000000000"></A>
+<A ID="sec:Router"></A>
+<BR>
+Using a Router without a Cluster Manager
+</H3>
+
+<P>
+If you are installing a self-managed cluster, the clients need to have
+direct access to each node in the cluster, including the node DNS name
+and IP address. A Remote Services Router provides a point of contact
+for all clients and will route the communication to the appropriate
+node in the cluster, thus allowing you to isolate your cluster from
+its clients. A Remote Services Router acts as a reverse proxy.  Behind
+a router, the cluster nodes can use private DNS names or IP addresses
+as long as all of the nodes and the router can communicate
+together. Only the router must be accessible from the clients.
+
+<P>
+The router can use either HTTP or HTTPS to communicate with clients,
+and similarly it can choose either to route traffic to cluster
+nodes. It is a common to enable HTTPS between the clients and the
+router, while having the router and the nodes communicate over
+unencrypted HTTP in a private network. Using this setup only requires
+you to manage certificates on the router.
+
+<P>
+You can get more information about the router (<TT>grb_rsr</TT>) by reading the command-line help:
+
+<PRE>
+grb_rsr --help
+</PRE>
+
+<P>
+The router uses a configuration file <TT>grb_rsr.cnf</TT> that must be placed in the same directory as
+the <TT>grb_rsr</TT> executable. A predefined configuration file with additional comments is provided.
+The following command lists the available configuration properties:
+
+<PRE>
+grb_rsr properties
+</PRE>
+
+<P>
+Similarly to <TT>grb_rs</TT>, the router can be started as a service and log messages will be stored in the
+<TT>grbrsr-service.log</TT> rotating file by default. Log messages will also be sent to the <code>syslog</code> on Mac and Linux,
+and to the service event log on Windows.
+
+<PRE>
+grb_rsr start
+</PRE>
+
+<P>
+Here are some examples of how you might refer to a router using a URL (using HTTP or HTTPS, with the standard port or a custom port):
+
+<PRE>
+http://router.mycompany.com
+http://router.mycompany.com:61001
+https://router.mycompany.com
+https://router.mycompany.com:61001
+</PRE>
+
+<P>
+When using the command-line tools <TT>grbcluster</TT> or <TT>gurobi_cl</TT>, you can first
+log in with a router. The router address will be saved in your license file in the <TT>ROUTER</TT>
+property so that you can run other commands without needing to specify it again:
+
+<P>
+
+<PRE>
+&gt; grbcluster login --server=http://server1:61000 --router=http://router.mycompany.com
+info  : Using client license file '/home/jones/gurobi.lic'
+Enter password (return to use default):
+info  : Connected to node http://server1:61000 via router http://router.mycompany.com
+
+&gt; grbcluster nodes
+ID       ADDRESS               STATUS TYPE    LICENSE PROCESSING #Q #R JL IDLE %MEM  %CPU
+b7d037db https://server1:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  10 &lt;1s  66.58 7.97
+eb07fe16 https://server2:61000 ALIVE  COMPUTE VALID   ACCEPTING  0  0  1  &lt;1s  66.58 9.62
+</PRE>
+
+<P>
+For the clients using the Gurobi Optimizer API, you will need to
+either set the <TT>ROUTER</TT> property in the license file or construct
+an empty environment and set the <TT>CSRouter</TT> parameter before
+starting the environment.
+
+<P>
+For clients using the cluster REST API for monitoring purpose, you
+will need to use the router URL instead of a node address, and you can
+pass the selected node address in the header <TT>  X-GUROBI-SERVER</TT>.  In this way, the client communicates with the
+router and the router will use the header value to forward the request
+to the selected node. In case the node address is incorrect or does
+not exist, the router will return the HTTP error code 502.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="using_remote_services.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="communication_options.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="firewalls.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="using_remote_services.html">Using Remote Services</A>
+<B> Up:</B> <A
+ HREF="communication_options.html">Communication Options</A>
+<B> Previous:</B> <A
+ HREF="firewalls.html">Firewalls</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

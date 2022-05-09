@@ -1,0 +1,49 @@
+# Environment settings
+show_progress: True
+gpu_id: 2
+seed: 2022
+use_gpu: True
+state: INFO
+reproducibility: True
+data_path: 'dataset'
+checkpoint_dir: 'saved/saved_PFCN_PMF'
+dataset: ml-1M
+save_dataset: False
+save_dataloaders: False
+
+# Data settings
+item_inter_num_interval: "[1,inf)"
+user_inter_num_interval: "[1,inf)"
+load_col:
+  inter: [user_id,item_id,rating]
+  user: [user_id,gender]
+  item: [item_id]
+
+# model config
+model: PFCN_PMF
+
+# training settings
+epochs: 1000
+train_batch_size: 2048
+learner: adam
+learning_rate: 0.0001
+eval_step: 1
+stopping_step: 10
+neg_sampling: 
+  uniform: 1
+weight_decay: 0.00001
+
+# evalution settings
+eval_args:
+  split: {'RS':[0.8,0.1,0.1]}
+  group_by: user
+  order: RO
+  mode: uni100
+metrics: ["NDCG","Recall","Hit","MRR","DifferentialFairness","GiniIndex","PopularityPercentage",
+        "ValueUnfairness","AbsoluteUnfairness","UnderUnfairness","OverUnfairness","NonParityUnfairness"]
+valid_metric: NDCG@5
+topk: [5]
+popularity_ratio: 0.1
+eval_batch_size: 4096
+loss_decimal_place: 4
+metric_decimal_place: 4

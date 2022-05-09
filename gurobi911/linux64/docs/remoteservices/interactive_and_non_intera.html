@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Interactive and Non-Interactive Optimization</TITLE>
+<META NAME="description" CONTENT="Interactive and Non-Interactive Optimization">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="distributed_algorithms.html">
+<LINK REL="previous" HREF="cluster_manager.html">
+<LINK REL="next" HREF="distributed_algorithms.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="distributed_algorithms.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cluster_manager.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="distributed_algorithms.html">Distributed Algorithms</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="cluster_manager.html">Cluster Manager</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00011400000000000000"></A>
+<A ID="sec:InteractiveOptimization"></A>
+<BR>
+Interactive and Non-Interactive Optimization
+</H3>
+
+<P>
+The standard approach to using a Compute Server is in an interactive
+fashion, where the client stays connected to the server until the job
+completes.  The alternative is for the client to submit a <SPAN  CLASS="textit">batch</SPAN>
+to the server and then immediately disconnect.  The client can come
+back later to query the status of the job and retrieve the solution
+when the batch is complete.
+
+<P>
+As we just noted, batch optimization requires a Cluster Manager.  The
+Cluster Manager takes responsibility for storing the optimization
+model to be solved, submitting a job to the Compute Server cluster,
+and retrieving and storing the results of that job when it finishes
+(including the optimization status, the optimization log, the
+solution, any errors encountered, etc.).
+
+<P>
+Additional information on batch optimization can be found in a
+<A HREF="sub_a_non_interactive_job.html#sec:CSSimpleExampleBatch">later section</A>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="distributed_algorithms.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="client_server_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cluster_manager.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="distributed_algorithms.html">Distributed Algorithms</A>
+<B> Up:</B> <A
+ HREF="client_server_optimization.html">Client-Server Optimization</A>
+<B> Previous:</B> <A
+ HREF="cluster_manager.html">Cluster Manager</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.addVars()</TITLE>
+<META NAME="description" CONTENT="Model.addVars()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_cbcut.html">
+<LINK REL="previous" HREF="py_model_addvar.html">
+<LINK REL="next" HREF="py_model_cbcut.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_cbcut.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_addvar.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_cbcut.html">Model.cbCut()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_addvar.html">Model.addVar()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001022900000000000000"></A>
+<A ID="pythonmethod:Model.addVars"></A>
+<BR>
+Model.addVars()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addVars</SPAN></FONT></SPAN> ( *indices, lb=0.0, ub=float('inf'), obj=0.0, vtype=GRB.CONTINUOUS, name="" )
+
+<P>
+Add multiple decision variables to a model.
+
+<P>
+Returns a Gurobi <A HREF="py_tupledict.html#pythonclass:tupledict">tupledict</A>
+object that contains the newly created variables.  The keys for the
+<code>tupledict</code> are derived from the <code>indices</code> argument(s).  The
+arguments for this method can take several different forms, which will
+be described now.
+
+<P>
+The first arguments provide the indices that will be used as keys to
+access the variables in the returned <code>tupledict</code>.  In its
+simplest version, you would specify one or more integer values, and
+this method would create the equivalent of a multi-dimensional array
+of variables.  For example, <code>x = model.addVars(2, 3)</code> would
+create six variables, accessed as <code>x[0,0]</code>, <code>x[0,1]</code>,
+<code>x[0,2]</code>, <code>x[1,0]</code>, <code>x[1,1]</code>, and <code>x[1,2]</code>.
+
+<P>
+In a more complex version, you can specify arbitrary lists of
+immutable objects, and this method will create variables for each
+member of the cross product of these lists.  For example, 
+<code>x = model.addVars([3, 7], ['a', 'b', 'c'])</code> would create
+six variables, accessed as <code>x[3,'a']</code>, <code>x[7,'c']</code>, etc.
+
+<P>
+You can also provide your own list of tuples as indices.  For example,
+<code>x = model.addVars([(3,'a'), (3,'b'), (7,'b'), (7,'c')])</code> would
+be accessed in the same way as the previous example (<code>x[3,'a']</code>,
+<code>x[7,'c']</code>, etc.), except that not all combinations will be
+present.  This is typically how sparse indexing is handled.
+
+<P>
+Note that while the indices can be provided as multiple lists of
+objects, or as a list of tuples, the member values for a specific
+index must always be scalars (<code>int</code>, <code>float</code>, <code>string</code>,
+...).  For example, <code>x = model.addVars([(1, 3), 7], ['a'])</code> is
+not allowed, since the first argument for the first member would be
+<code>(1, 3)</code>.  Similarly,
+<code>x = model.addVars([((1, 3),'a'), (7,'a')])</code> is also not allowed.
+
+<P>
+The named arguments (<code>lb</code>, <code>obj</code>, etc.) can take several
+forms.  If you provide a scalar value (or use the default), then every
+variable will use that value.  Thus, for example, <code>lb=1.0</code> will
+give every created variable a lower bound of 1.0.  Note that a scalar
+value for the name argument has a special meaning, which will be
+discussed separately.
+
+<P>
+You can also provide a Python <code>dict</code> as the argument.  In that
+case, the value for each variable will be pulled from the dict, using
+the indices argument to build the keys.  For example, if the variables
+created by this method are indexed as <code>x[i,j]</code>, then the
+<code>dict</code> provided for the argument should have an entry for each
+possible <code>(i,j)</code> value.
+
+<P>
+Finally, if your <code>indices</code> argument is a single list, you can
+provide a Python <code>list</code> of the same length for the named
+arguments.  For each variable, it will pull the value from
+the corresponding position in the list.
+
+<P>
+As noted earlier, the <code>name</code> argument is special.  If you provide
+a scalar argument for the name, that argument will be transformed to
+have a subscript that corresponds to the index of the associated
+variable.  For example, if you do
+<code>x = model.addVars(2,3,name="x")</code>, the variables will get names
+<code>x[0,0]</code>, <code>x[0,1]</code>, etc.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">indices</SPAN>: Indices for accessing the new variables.
+
+<P>
+ <SPAN  CLASS="textbf">lb (optional)</SPAN>: Lower bound(s) for new variables.
+
+<P>
+ <SPAN  CLASS="textbf">ub (optional)</SPAN>: Upper bound(s) for new variables.
+
+<P>
+ <SPAN  CLASS="textbf">obj (optional)</SPAN>: Objective coefficient(s) for new variables.
+
+<P>
+ <SPAN  CLASS="textbf">vtype (optional)</SPAN>: Variable type(s) for new variables.
+
+<P>
+ <SPAN  CLASS="textbf">name (optional)</SPAN>: Names for new variables.
+The given name will be subscripted by the index of the generator
+expression, so if the index is an integer, <SPAN  CLASS="texttt">c</SPAN> would become
+<SPAN  CLASS="texttt">c[0]</SPAN>, <SPAN  CLASS="texttt">c[1]</SPAN>, etc.
+Note that the generated names will be stored as ASCII strings, so you
+should avoid using names that contain non-ASCII characters. In
+addition, names that contain spaces are strongly discouraged, because
+they can't be written to LP format files.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New <A HREF="py_tupledict.html#pythonclass:tupledict">tupledict</A>
+object that contains the new variables as values, using the provided
+indices as keys.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  # 3-D array of binary variables
+  x = model.addVars(3, 4, 5, vtype=GRB.BINARY)
+
+  # variables index by tuplelist
+  l = tuplelist([(1, 2), (1, 3), (2, 3)])
+  y = model.addVars(l, ub=[1, 2, 3])
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_cbcut.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_addvar.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_cbcut.html">Model.cbCut()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_addvar.html">Model.addVar()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

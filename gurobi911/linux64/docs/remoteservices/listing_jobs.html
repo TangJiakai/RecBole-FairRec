@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Listing Jobs</TITLE>
+<META NAME="description" CONTENT="Listing Jobs">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="accessing_job_logs.html">
+<LINK REL="previous" HREF="sub_interactive_jobs.html">
+<LINK REL="next" HREF="accessing_job_logs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="accessing_job_logs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_interactive_jobs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="accessing_job_logs.html">Accessing Job Logs</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="sub_interactive_jobs.html">Submitting Interactive Jobs</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00032200000000000000">
+Listing Jobs</A>
+</H3>
+
+<P>
+The optimization jobs running on a Compute Server cluster can be
+listed using the <TT>jobs</TT> command:
+
+<P>
+
+<PRE>
+&gt; grbcluster jobs
+JOBID    ADDRESS  STATUS  #Q  STIME               USER  PRIO API
+58780a22 server1  RUNNING     2019-04-07 14:36:49 jones 0    gurobi_cl
+</PRE>
+
+<P>
+The <TT>jobs</TT> command is actually a shortcut for the <TT>job list</TT> command.
+
+<PRE>
+&gt; grbcluster job list
+JOBID    ADDRESS  STATUS  #Q  STIME               USER  PRIO API
+58780a22 server1  RUNNING     2019-04-07 14:36:49 jones 0    gurobi_cl
+</PRE>
+
+<P>
+Note that you can get more information by using the <TT>  --long</TT> flag.  With this flag, you will also display the
+complete job ID, which is unique, instead of the short ID:
+
+<PRE>
+&gt; grbcluster jobs --long
+JOBID        ADDRESS  STATUS  #Q  STIME               USER  PRIO API       RUNTIME PID   HOST   IP
+58780a22-... server1  RUNNING     2019-04-07 14:36:49 jones 0    gurobi_cl 9.1.0   20656 machine1 [::1]
+</PRE>
+
+<P>
+The <TT>jobs</TT> command only shows jobs that are currently running.
+To obtain information on jobs that were processed recently, run the
+<TT>job recent</TT> command:
+
+<PRE>
+&gt; grbcluster job recent
+JOBID    ADDRESS  STATUS    STIME               USER  OPT         API
+58780a22 server1  COMPLETED 2019-04-07 14:36:54 jones OPTIMAL     gurobi_cl
+</PRE>
+
+<P>
+The information displayed by the <TT>jobs</TT> and <TT>job recent</TT>
+commands can be changed using the <TT>--view</TT> flag. The default view
+for the two commands is the <TT>status</TT> view.  Alternatives are:
+
+<PRE>
+status   - List all jobs and their statuses
+model    - List all jobs, and include information about the models solved
+simplex  - List jobs that used the SIMPLEX algorithm
+barrier  - List jobs that used the BARRIER algorithm
+mip      - list jobs that used the MIP algorithm
+</PRE>
+
+<P>
+For example, the <TT>model</TT> view gives details about the model,
+including the number of rows, columns and non-zeros in the constraint
+matrix:
+
+<P>
+
+<PRE>
+&gt; grbcluster job recent --view=model
+JOBID    STATUS    STIME               ROWS COLS NONZ ALG OBJ  DURATION
+58780a22 COMPLETED 2019-04-07 14:36:54 331  45   1034 MIP 30   4.901s
+</PRE>
+
+<P>
+To get an explanation of the meanings of the different fields within a
+view, add the <TT>--describe</TT> flag.  For example:
+
+<PRE>
+&gt; grbcluster job recent --view=model --describe
+JOBID     - Unique job ID, use --long to display full ID
+STATUS    - Job status
+STIME     - Job status updated time
+ROWS      - Number of rows
+COLS      - Number of columns
+NONZ      - Number of non zero
+ALG       - Algorithm MIP, SIMPLEX or BARRIER
+OBJ       - Best objective
+DURATION  - Solve duration
+</PRE>
+
+<P>
+For a Mixed-Integer Program (MIP), the <TT>mip</TT> view provides
+progress information for the branch-and-cut tree. For example:
+
+<PRE>
+&gt; grbcluster job recent --view=mip
+JOBID    STATUS    STIME               OBJBST OBJBND NODCNT SOLCNT CUTCNT NODLFT
+58780a22 COMPLETED 2019-04-07 14:36:54 30     30     54868  4      19     0
+</PRE>
+
+<P>
+Again, <TT>--describe</TT> explains the meanings of the different fields:
+
+<P>
+
+<PRE>
+&gt; grbcluster job recent --view mip --describe
+JOBID     - Unique job ID, use --long to display full ID
+STATUS    - Job status
+STIME     - Job status updated time
+OBJBST    - Current best objective
+OBJBND    - Current best objective bound
+NODCNT    - Current explored node count
+SOLCNT    - Current count of feasible solutions found
+CUTCNT    - Current count of cutting planes applied
+NODLFT    - Current unexplored node count
+</PRE>
+
+<P>
+Note that the <TT>jobs</TT> command provides live status information, so
+you will for example see current MIP progress information while the
+solve is in progress.
+
+<P>
+The other views (<TT>simplex</TT> and <TT>barrier</TT>) are similar,
+although of course they provide slightly different information.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="accessing_job_logs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_interactive_jobs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="accessing_job_logs.html">Accessing Job Logs</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="sub_interactive_jobs.html">Submitting Interactive Jobs</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

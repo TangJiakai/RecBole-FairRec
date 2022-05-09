@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Starting a token server</TITLE>
+<META NAME="description" CONTENT="Starting a token server">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="upgrading_a_token_server.html">
+<LINK REL="previous" HREF="retrieving_a_floating_lice.html">
+<LINK REL="next" HREF="upgrading_a_token_server.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="upgrading_a_token_server.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="setting_up_and_using_a_flo.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="retrieving_a_floating_lice.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="upgrading_a_token_server.html">Upgrading a token server</A>
+<B> Up:</B> <A
+ HREF="setting_up_and_using_a_flo.html">Setting up and using</A>
+<B> Previous:</B> <A
+ HREF="retrieving_a_floating_lice.html">Retrieving a Floating license</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00033200000000000000"></A>
+<A ID="subsubsection:starttokenserver"></A>
+<BR>
+Starting a token server
+</H3>
+
+<P>
+<B>Important note: most Gurobi licenses do not use the token server.
+  You should only follow these instructions if you are setting up
+  a floating license.  If you are not sure whether
+  you need to start a token server, you can examine the
+  contents of your <code>gurobi.lic</code> file.
+  If it contains the line <code>TYPE=TOKEN</code>, and does
+  not contain the line <code>MACHINELIMIT=0</code>, then you need
+  a token server.</B>
+
+<P>
+On a Windows system, you can start the token service by
+selecting the <EM>Gurobi Token Server</EM> menu item from the
+<EM>Gurobi</EM> folder of the <EM>Start</EM> menu.  You should only
+do so after you have installed the Gurobi license key file.
+
+<P>
+By default, the token server only produces logging output when it
+starts.  To obtain more detailed logging information, start the token
+server with the <TT>-v</TT> switch.  This will produce a log message
+each time a token is checked in or out.
+
+<P>
+The token server runs as a Windows service.  If you'd like to run it
+in the foreground, start it from and command window and use the
+<TT>-n</TT> switch.
+
+<P>
+<SPAN  CLASS="textbf">Firewalls</SPAN>
+
+<P>
+The next step after starting the Gurobi token server depends on your
+anti-virus software and firewall settings.  Most anti-virus software
+will immediately ask you to confirm that you are allowing program
+<TT>grb_ts.exe</TT> to receive network traffic.  Once you confirm this, the
+token server will start serving tokens.  If you don't receive such a
+prompt, you will need to add <TT>grb_ts.exe</TT> to the firewall
+exceptions list.  To do this, select <EM>Allow a program through Windows firewall</EM> under the
+<EM>Security</EM> area of the Control Panel (labeled
+<EM>Allow an app through Windows firewall</EM> in Windows 8).
+
+<P>
+Some machines have more restrictive firewalls that may require
+additional action.  The Gurobi token server uses port 41954 by
+default.  If you are unable to reach the token server after taking the
+steps described, you should ask your network administrator for
+more information on how to open the required port.
+
+<P>
+<SPAN  CLASS="textbf">Starting and stopping the grb_ts Windows service</SPAN>
+
+<P>
+Once the token service has been started, you should see the
+<TT>grb_ts</TT> service listed in the <EM>Services</EM> tab of the Task
+Manager.  To start or stop the service, click on the <EM>Services</EM>
+button at the bottom-right of the <EM>Services</EM> tab, and then
+right-click on the <EM>Gurobi Token Server</EM> item on this screen.
+
+<P>
+You can also start or stop the Gurobi Token Server service from a
+Console window with administrator privileges.  Running
+<TT>grb_ts -h</TT> lists command-line options.  Issuing a
+<TT>grb_ts -s</TT> command stops a running token server.  If you are
+unfamiliar with running command-line commands on a Windows system, you
+can learn more <A HREF="windows_command_line.html#section:windowscommandline">here</A>.
+
+<P>
+Add the line
+
+<P>
+<TT>VERBOSE=1</TT>
+
+<P>
+to your <TT>gurobi.lic</TT> file to start the license service in verbose
+mode.  Verbose mode produces a log message (in the Windows Event Log)
+each time a token is checked in or out.
+
+<P>
+<SPAN  CLASS="textbf">Next steps</SPAN>
+
+<P>
+Clients of the token server also need simple license files.
+Your next step is to set up a
+<A HREF="creating_a_token_server_cl.html#subsection:clientlicensetoken">client license</A>.
+
+<P>
+Once your token server is running and you've set up a client
+license, you can move on to
+<A HREF="testing_your_license.html#subsection:testlicense">testing the license</A>.
+
+<P>
+Once you've set up a client license, you can test the state of the
+token server at any time, as well as get a list of the clients that
+are currently using tokens, by typing <code>gurobi_cl --tokens</code>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="upgrading_a_token_server.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="setting_up_and_using_a_flo.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="retrieving_a_floating_lice.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="upgrading_a_token_server.html">Upgrading a token server</A>
+<B> Up:</B> <A
+ HREF="setting_up_and_using_a_flo.html">Setting up and using</A>
+<B> Previous:</B> <A
+ HREF="retrieving_a_floating_lice.html">Retrieving a Floating license</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,145 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>UpdateMode</TITLE>
+<META NAME="description" CONTENT="UpdateMode">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="username.html">
+<LINK REL="previous" HREF="tunetrials.html">
+<LINK REL="next" HREF="username.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="username.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tunetrials.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="username.html">UserName</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="tunetrials.html">TuneTrials</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00018215900000000000000"></A>
+<A ID="parameter:UpdateMode"></A>
+<BR>
+UpdateMode
+</H3>
+Changes the behavior of lazy updates
+
+<TABLE class="PAD " style="">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Default value:</SPAN></TD>
+<TD CLASS="LEFT">1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Minimum value:</SPAN></TD>
+<TD CLASS="LEFT">0</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Maximum value:</SPAN></TD>
+<TD CLASS="LEFT">1</TD>
+</TR>
+</TABLE>
+
+<P>
+Determines how newly added variables and linear constraints are
+handled.  The default setting (1) allows you to use new variables and
+constraints immediately for building or modifying the model.  A
+setting of 0 requires you to call <code>update</code> before these can be
+used.
+
+<P>
+Since the vast majority of programs never query Gurobi for details
+about the optimization models they build, the default setting
+typically removes the need to call <code>update</code>, or even be aware of
+the details of our <SPAN  CLASS="textit">lazy update</SPAN> approach for handling model
+modifications.  However, these details will show through when you try
+to query modified model information.
+
+<P>
+In the Gurobi interface, model modifications (bound changes,
+right-hand side changes, objective changes, etc.) are placed in a
+queue.  These queued modifications are applied to the model at three
+times: when you call <code>update</code>, when you call <code>optimize</code>, or
+when you call <code>write</code> to write the model to disk.  When you
+query information about the model, the result will depend on both
+<SPAN  CLASS="textit">whether</SPAN> that information was modified and <SPAN  CLASS="textit">when</SPAN>
+it was modified.  In particular, no matter what setting
+of <code>UpdateMode</code> you use, if the modification is sitting in the
+queue, you'll get the result from before the modification.
+
+<P>
+To expand on this a bit, all attribute modifications are actually
+placed in a queue.  This includes attributes that may not
+traditionally be viewed as being part of the model, including things
+like variable branching priorities, constraint basis statuses, etc.
+Querying the values of these attributes will return their previous
+values if subsequent modifications are still in the queue.
+
+<P>
+The only potential benefit to changing the parameter to 0 is that in
+unusual cases this setting may allow simplex to make more aggressive
+use of warm-start information after a model modification.
+
+<P>
+If you want to change this parameter, you need to set it as soon as
+you create your Gurobi environment.
+
+<P>
+Note that you still need to call <code>update</code> to modify an attribute
+on an SOS constraint, quadratic constraint, or general constraint.
+
+<P>
+
+<P>
+For examples of how to query or modify parameter values from
+our different APIs, refer to our
+<A HREF="parameter_examples.html#sec:ParameterExamples">Parameter Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="username.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tunetrials.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="username.html">UserName</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="tunetrials.html">TuneTrials</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

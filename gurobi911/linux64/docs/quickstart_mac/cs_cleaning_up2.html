@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Cleaning up</TITLE>
+<META NAME="description" CONTENT="Cleaning up">
+<META NAME="keywords" CONTENT="quickstart_mac">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_mac.css">
+
+<LINK REL="next" HREF="cs_error_handling2.html">
+<LINK REL="previous" HREF="cs_reporting_results_attri2.html">
+<LINK REL="next" HREF="cs_error_handling2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_error_handling2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_simple_python_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_reporting_results_attri2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_error_handling2.html">Error handling</A>
+<B> Up:</B> <A
+ HREF="cs_simple_python_example.html">Simple Python Example</A>
+<B> Previous:</B> <A
+ HREF="cs_reporting_results_attri2.html">Reporting results - attributes</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000114900000000000000">
+Cleaning up</A>
+</H3>
+
+<P>
+In our other interfaces, we encourage you to explicitly dispose of
+your Gurobi environment when you are done using it in order to release
+the associated resources.  Our recommendation in the Python interface
+is a bit more nuanced.
+
+<P>
+Most Gurobi Python programs use the default environment, which is
+automatically created when you first construct a Gurobi <code>Model</code>
+object and automatically disposed when your program ends.  You can
+call <code>disposeDefaultEnv()</code> to dispose of it manually, but if you
+want detailed control of environments (for example, if you are using a
+Compute Server or the Gurobi Instant Cloud), we recommend that you
+work with explicit environment objects instead.
+
+<P>
+Please refer to the <code>mip1_remote.py</code> example for details on how
+you would do this.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_error_handling2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_simple_python_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_reporting_results_attri2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_error_handling2.html">Error handling</A>
+<B> Up:</B> <A
+ HREF="cs_simple_python_example.html">Simple Python Example</A>
+<B> Previous:</B> <A
+ HREF="cs_reporting_results_attri2.html">Reporting results - attributes</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

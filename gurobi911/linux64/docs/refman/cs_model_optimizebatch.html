@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.OptimizeBatch()</TITLE>
+<META NAME="description" CONTENT="GRBModel.OptimizeBatch()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_presolve.html">
+<LINK REL="previous" HREF="cs_model_optimizeasync.html">
+<LINK REL="next" HREF="cs_model_presolve.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_presolve.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_optimizeasync.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_presolve.html">GRBModel.Presolve()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_optimizeasync.html">GRBModel.OptimizeAsync()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000824200000000000000"></A>
+<A ID="dotnetmethod:GRBModel.OptimizeBatch"></A>
+<BR>
+GRBModel.OptimizeBatch()
+</H3>
+
+<P>
+Submit a new batch request to the Cluster Manager.
+Returns the <TT>BatchID</TT> (a string), which
+uniquely identifies the job in the Cluster Manager and
+can be used to query the status of this request (from this
+program or from any other).  Once the request has completed,
+the <SPAN  CLASS="texttt">BatchID</SPAN> can also be used to retrieve the associated
+solution.  To submit a batch request, you must tag at
+least one element of the model by setting one of the
+<A HREF="vtag.html#attr:VTag">VTag</A>, <A HREF="ctag.html#attr:CTag">CTag</A> or
+<A HREF="qctag.html#attr:QCTag">QCTag</A> attributes. For more details on
+batch optimization, please refer to the <A HREF="batch_optimization.html#sec:BatchOptimization">Batch
+Optimization</A> section.
+
+<P>
+Note that this routine will process all pending model modifications.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">OptimizeBatch</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      // Submit batch request
+      batchID = model.OptimizeBatch();
+</PRE>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_presolve.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_optimizeasync.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_presolve.html">GRBModel.Presolve()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_optimizeasync.html">GRBModel.OptimizeAsync()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

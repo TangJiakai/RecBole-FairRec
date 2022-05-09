@@ -1,0 +1,163 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBgetq</TITLE>
+<META NAME="description" CONTENT="GRBgetq">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_getqconstr.html">
+<LINK REL="previous" HREF="c_getpwlobj.html">
+<LINK REL="next" HREF="c_getqconstr.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_getqconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_queries.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getpwlobj.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getqconstr.html">GRBgetqconstr</A>
+<B> Up:</B> <A
+ HREF="c_model_queries.html">Model Queries</A>
+<B> Previous:</B> <A
+ HREF="c_getpwlobj.html">GRBgetpwlobj</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000242300000000000000"></A>
+<A ID="routine:GRBgetq"></A>
+<BR>
+GRBgetq
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBgetq</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*numqnzP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*qrow,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*qcol,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*qval )</TD>
+</TR>
+</TABLE>
+
+<P>
+Retrieve all quadratic objective terms.  The <code>qrow</code>,
+<code>qcol</code>, and <code>qval</code> arguments must be large enough
+to hold the result.  You can query the
+<A HREF="numqnzs.html#attr:NumQNZs">NumQNZs</A>
+attribute to determine how many terms will be returned.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while retrieving the quadratic objective terms.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model from which the quadratic objective terms should be
+retrieved.
+
+<P>
+ <SPAN  CLASS="textbf">numqnzP</SPAN>: The number of quadratic objective terms retrieved.
+
+<P>
+ <SPAN  CLASS="textbf">qrow</SPAN>: Row indices associated with quadratic terms.
+A quadratic term is represented using three values: a pair of indices
+  (stored in <SPAN  CLASS="texttt">qrow</SPAN> and <SPAN  CLASS="texttt">qcol</SPAN>), and a coefficient (stored in
+  <SPAN  CLASS="texttt">qval</SPAN>). The three argument arrays provide the corresponding values
+  for each quadratic term. To give an example, to represent
+  <!-- MATH
+ $2 x_0^2 + x_0 x_1 + x_1^2$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.69ex; vertical-align: -0.69ex; " SRC="img50.svg"
+ ALT="$2 x_0^2 + x_0 x_1 +
+x_1^2$"></SPAN>, you would have <SPAN  CLASS="texttt">*numqnzP=3</SPAN>,
+  <SPAN  CLASS="texttt">qrow[] = {0, 0, 1}</SPAN>, <SPAN  CLASS="texttt">qcol[] = {0, 1, 1}</SPAN>, and
+  <SPAN  CLASS="texttt">qval[] = {2.0, 1.0, 1.0}</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">qcol</SPAN>: Column indices associated with quadratic terms.
+  See the description of the <SPAN  CLASS="texttt">qrow</SPAN> argument for more information.
+
+<P>
+ <SPAN  CLASS="textbf">qval</SPAN>: Numerical values associated with quadratic terms.
+  See the description of the <SPAN  CLASS="texttt">qrow</SPAN> argument for more information.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int     qnz;
+  int    *qrow, *qcol;
+  double *qval;
+
+  error = GRBgetdblattr(model, GRB_DBL_ATTR_NUMQNZS, &amp;qnz);
+  /* ...allocate qrow, qcol, qval to hold 'qnz' values... */
+  error = GRBgetq(model, &amp;qnz, qrow, qcol, qval);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_getqconstr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_queries.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getpwlobj.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_getqconstr.html">GRBgetqconstr</A>
+<B> Up:</B> <A
+ HREF="c_model_queries.html">Model Queries</A>
+<B> Previous:</B> <A
+ HREF="c_getpwlobj.html">GRBgetpwlobj</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

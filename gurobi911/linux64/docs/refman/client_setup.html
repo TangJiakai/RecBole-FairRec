@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Client Setup</TITLE>
+<META NAME="description" CONTENT="Client Setup">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="instant_cloud_setup.html">
+<LINK REL="previous" HREF="grb_instant_cloud.html">
+<LINK REL="next" HREF="instant_cloud_setup.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="instant_cloud_setup.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="grb_instant_cloud.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="grb_instant_cloud.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="instant_cloud_setup.html">Instant Cloud Setup</A>
+<B> Up:</B> <A
+ HREF="grb_instant_cloud.html">Gurobi Instant Cloud</A>
+<B> Previous:</B> <A
+ HREF="grb_instant_cloud.html">Gurobi Instant Cloud</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000331000000000000000"></A>
+<A ID="sec:CloudClientSetup"></A>
+<BR>
+Client Setup
+</H2>
+
+<P>
+As noted previously, a client program that wishes to launch a Gurobi
+Instant Cloud machine must pass credential information to the Instant
+Cloud Manager.  Every Instant Cloud license has such credentials
+associated with it.  This information is captured in a pair strings,
+an <SPAN  CLASS="textit">access ID</SPAN> and a <SPAN  CLASS="textit">secret key</SPAN>.  These strings can be
+retrieved from your account on the <A ID="tex2html55"
+  HREF="https://cloud.gurobi.com">Instant Cloud
+  Manager</A>.  Note that you shouldn't share
+these credentials with others, since anyone who knows these two
+strings can launch Instant Cloud machines in your account.
+
+<P>
+Once you have the credentials associated with your license, there are
+two ways to configure your client program to use them.  The simplest
+is to use a cloud license file.  This is just like any other Gurobi
+license file, except that its fields are specific to the cloud.  A
+cloud license file will contain two lines with credential information:
+<PRE>
+CLOUDACCESSID=312e9gef-e0bc-4114-b6fb-26ed7klaeff9
+CLOUDKEY=ae32L0H321dgaL
+</PRE>
+It may also contain an optional third line:
+<PRE>
+CLOUDPOOL=pool1
+</PRE>
+We'll discuss cloud pools a bit later.  You can download a
+<SPAN  CLASS="textit">gurobi.lic</SPAN> file containing this information from the Instant
+Cloud website, or you can create one yourself in a text editor.  If you
+follow the standard process for setting up a Gurobi license file
+(refer to the Quick Start Guide for details), then Gurobi will
+automatically use the Instant Cloud rather than running locally.
+
+<P>
+The other option for passing credential information to the Instant
+Cloud Manager is to call a Gurobi API routine.  The appropriate
+routine depends on your programming language.  Our
+<A HREF="c_loadcloudenv.html#routine:GRBloadcloudenv">C</A> and
+<A HREF="py_env_cloudenv.html#pythonmethod:Env.CloudEnv">Python</A> APIs have calls
+devoted to launching cloud servers.  Our
+<A HREF="cpp_env2.html#cppmethod:GRBEnv">C++</A>,
+<A HREF="java_env2.html#javamethod:GRBEnv">Java</A>, and
+<A HREF="cs_env2.html#dotnetmethod:GRBEnv">.NET</A> APIs each have a special GRBEnv
+constructor (look for the one that accepts an access ID and secret key
+in its argument list).  In all cases, you pass the access ID and
+secret key to the method or constructor, and the method creates a
+Gurobi environment that you can use like any other Gurobi environment
+(to build, solve, and modify optimization models, to retrieve
+solutions, etc.).
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="instant_cloud_setup.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="grb_instant_cloud.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="grb_instant_cloud.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="instant_cloud_setup.html">Instant Cloud Setup</A>
+<B> Up:</B> <A
+ HREF="grb_instant_cloud.html">Gurobi Instant Cloud</A>
+<B> Previous:</B> <A
+ HREF="grb_instant_cloud.html">Gurobi Instant Cloud</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

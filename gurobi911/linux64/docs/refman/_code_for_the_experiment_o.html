@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Source code for the experiment of optimizing over a circle</TITLE>
+<META NAME="description" CONTENT="Source code for the experiment of optimizing over a circle">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="_code_for_the_experiment_o2.html">
+<LINK REL="previous" HREF="_code_examples_.html">
+<LINK REL="next" HREF="_code_for_the_experiment_o2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="_code_for_the_experiment_o2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="_code_for_the_experiment_o2.html">Source code for the</A>
+<B> Up:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A>
+<B> Previous:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000348100000000000000"></A>
+<A ID="code:circle"></A>
+<BR>
+Source code for the experiment of optimizing over a circle
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">from gurobipy import *
+from math import *
+import random
+import time
+import sys
+
+# Work on a circle defined on a million constraints
+t0      = time.time()
+n       = 1024 * 1024
+m       = Model('Circle Optimization')
+X       = m.addVars(2,lb=-2,ub=2)
+Wb      = 0
+Wc      = 0
+Wd      = 0
+maxdiff = 0
+niter   = 0
+margin  = 1.01
+
+m.addConstrs(X[0]*cos((2*pi*i)/n) + X[1]*sin((2*pi*i)/n) &lt;= 1
+             for i in range(n))
+print('Added 2 Vars and %d constraints in %.2f seconds' %
+      (n, time.time()-t0))
+m.Params.OutputFlag = 0
+m.Params.Presolve   = 0
+
+# Now select random objectives and optimize. Resulting optimal
+# solution must be in the circle
+for i in range(4096):
+  theta=2*pi*random.random()
+  a = cos(theta)
+  b = sin(theta)
+  m.setObjective(X[0] * a + X[1] * b)
+  m.optimize()
+  niter  += m.IterCount
+
+  # See how far is the solution from the boundary of a circle of
+  # radius one, if we minimize (a,b) the optimal solution should be (-a,-b)
+  error  = (X[0].X+a)*(X[0].X+a) + (X[1].X+b)*(X[1].X+b)
+
+  # Display most inacurate solution
+  if (error &gt; margin * maxdiff  or
+      m.BoundVio &gt; margin * Wb  or
+      m.ConstrVio &gt; margin * Wc or
+      m.DualVio &gt; margin * Wd     ):
+    maxdiff = max(maxdiff, error)
+    Wb      = max(Wb, m.BoundVio)
+    Wc      = max(Wb, m.ConstrVio)
+    Wd      = max(Wd, m.DualVio)
+    print('Errors: %g %g %g %g Iter %d %d Kappa %g' %
+          (maxdiff, Wb, Wc, Wd, i, niter, m.KappaExact))
+    sys.stdout.flush()
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="_code_for_the_experiment_o2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="_code_examples_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="_code_for_the_experiment_o2.html">Source code for the</A>
+<B> Up:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A>
+<B> Previous:</B> <A
+ HREF="_code_examples_.html">Source code examples:</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

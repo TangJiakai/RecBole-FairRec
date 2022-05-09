@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.cbStopOneMultiObj()</TITLE>
+<META NAME="description" CONTENT="Model.cbStopOneMultiObj()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_cbusesolution.html">
+<LINK REL="previous" HREF="py_model_cbsetsolution.html">
+<LINK REL="next" HREF="py_model_cbusesolution.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_cbusesolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_cbsetsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_cbusesolution.html">Model.cbUseSolution()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_cbsetsolution.html">Model.cbSetSolution()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001023600000000000000"></A>
+<A ID="pythonmethod:Model.cbStopOneMultiObj"></A>
+<BR>
+Model.cbStopOneMultiObj()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">cbStopOneMultiObj</SPAN></FONT></SPAN> ( objcnt )
+
+<P>
+Interrupt the optimization process of one of the optimization steps in
+a multi-objective MIP problem without stopping the hierarchical
+optimization process.
+Only available for multi-objective MIP models and when the <TT>where</TT> member variable is not equal to <TT>GRB.Callback.MULTIOBJ</TT> (see the
+<A HREF="cb_codes.html#sec:CallbackCodes">Callback Codes</A> section for more
+information).
+
+<P>
+You would typically stop a multi-objective optimization step
+by querying the last finished number of multi-objectives steps,
+and using that number to stop the current step and move
+on to the next hierarchical objective (if any) as shown in the
+following example:
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+import time
+
+def mycallback(model, where):
+  if where == GRB.Callback.MULTIOBJ:
+    # get current objective number
+    model._objcnt = model.cbGet(GRB.Callback.MULTIOBJ_OBJCNT)
+
+    # reset start time to current time
+    model._starttime = time.time()
+
+  # See if we want to stop current multiobjective step
+  else if time.time() - model._starttime &gt; BIG or
+          solution is good enough:
+    # stop only this optimization step
+    cbStopOneMultiObj(model._objcnt)
+
+model._objcnt = 0
+model._starttime = time.time()
+model.optimize(mycallback)
+</PRE>
+
+<P>
+You should refer to the section on <A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple
+Objectives</A> for information on how to
+specify multiple objective functions and control the trade-off between
+them.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">objnum</SPAN>: The number of the multi-objective optimization step
+to interrupt. For processes running locally, this argument can have the
+special value -1, meaning to stop the current step.
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_cbusesolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_cbsetsolution.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_cbusesolution.html">Model.cbUseSolution()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_cbsetsolution.html">Model.cbSetSolution()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBread</TITLE>
+<META NAME="description" CONTENT="GRBread">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_write.html">
+<LINK REL="previous" HREF="c_readmodel.html">
+<LINK REL="next" HREF="c_write.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_write.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_input_output.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_readmodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_write.html">GRBwrite</A>
+<B> Up:</B> <A
+ HREF="c_input_output.html">Input/Output</A>
+<B> Previous:</B> <A
+ HREF="c_readmodel.html">GRBreadmodel</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00025200000000000000"></A>
+<A ID="routine:GRBread"></A>
+<BR>
+GRBread
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBread</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*filename )</TD>
+</TR>
+</TABLE>
+
+<P>
+Import optimization data from a file.  This routine is the general
+entry point for importing data from a file into a model.  It can be
+used to read start vectors for MIP models, basis files for LP models,
+or parameter settings.  The type of data read is determined by the
+file suffix.
+File formats are described in the
+<A HREF="model_file_formats.html#sec:FileFormats">File Format</A> section.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while reading the file.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model that will receive the start vector.
+
+<P>
+ <SPAN  CLASS="textbf">filename</SPAN>: The path to the file to be read.  The suffix on
+  the file must be either <SPAN  CLASS="texttt">.mst</SPAN> or <SPAN  CLASS="texttt">.sol</SPAN> for a MIP start file,
+  <SPAN  CLASS="texttt">.hnt</SPAN> for a MIP hint file,
+  <SPAN  CLASS="texttt">.ord</SPAN> for a priority order file, <SPAN  CLASS="texttt">.bas</SPAN> for a basis file,
+  or <SPAN  CLASS="texttt">.prm</SPAN> for a parameter file, The suffix may optionally be
+  followed by <SPAN  CLASS="texttt">.zip</SPAN>, <SPAN  CLASS="texttt">.gz</SPAN>, <SPAN  CLASS="texttt">.bz2</SPAN>, or <SPAN  CLASS="texttt">.7z</SPAN>.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  error = GRBread(model, "/tmp/model.mst.bz2");
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_write.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_input_output.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_readmodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_write.html">GRBwrite</A>
+<B> Up:</B> <A
+ HREF="c_input_output.html">Input/Output</A>
+<B> Previous:</B> <A
+ HREF="c_readmodel.html">GRBreadmodel</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

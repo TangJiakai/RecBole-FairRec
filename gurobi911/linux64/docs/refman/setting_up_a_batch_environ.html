@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Setting Up a Batch Environment</TITLE>
+<META NAME="description" CONTENT="Setting Up a Batch Environment">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="tagging_variables_or_const.html">
+<LINK REL="previous" HREF="batch_optimization.html">
+<LINK REL="next" HREF="tagging_variables_or_const.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="tagging_variables_or_const.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tagging_variables_or_const.html">Tagging Variables or Constraints</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000291000000000000000">
+Setting Up a Batch Environment</A>
+</H2>
+
+<P>
+Recall that the first step in building an optimization model is to
+create a Gurobi environment.  An environment provides a number of
+configuration options; among them is an option to indicate where the
+model should be solved.  You can solve a model locally, on a Compute
+Server, or using a Gurobi Instant Cloud server.  If you have a Cluster
+Manager installed, you also have the option of using batch
+optimization.
+
+<P>
+To use batch optimization, you should configure your environment as if
+you will be using a Compute Server through a Cluster Manager.  You'll
+need to set the <A HREF="csmanager.html#parameter:CSManager">CSManager</A>
+parameter to point to your Cluster Manager, and provide a valid
+<A HREF="username.html#parameter:UserName">UserName</A> and
+<A HREF="serverpassword.html#parameter:ServerPassword">ServerPassword</A>.
+The difference is that you will also need to
+set the <A HREF="csbatchmode.html#parameter:CSBatchMode">CSBatchMode</A> parameter to
+1.  This will cause the client to build the model locally, and only
+submit it to the server once a call to the <code>optimizeBatch</code> method
+is made.  This is in contrast to a standard Compute Server job, where
+the connection to the server is established immediately and the model
+is actually built on the server.
+
+<P>
+The following shows how you might set up your environment for
+batch optimization (in Python):
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    env = gp.Env(empty=True)
+    env.setParam('LogFile',        'batchmode.log')
+    env.setParam('CSManager',      'http://localhost:61080')
+    env.setParam('UserName',       'gurobi')
+    env.setParam('ServerPassword', 'pass')
+    env.setParam('CSBatchMode',    1)
+</PRE>
+
+<P>
+Note that you can also use
+<A HREF="csapiaccessid.html#parameter:CSAPIAccessID">CSAPIAccessID</A> and
+<A HREF="csapisecret.html#parameter:CSAPISecret">CSAPISecret</A>
+(instead of
+<A HREF="username.html#parameter:UserName">UserName</A> and
+<A HREF="serverpassword.html#parameter:ServerPassword">ServerPassword</A>)
+to connect to a Cluster Manager.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="tagging_variables_or_const.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="tagging_variables_or_const.html">Tagging Variables or Constraints</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

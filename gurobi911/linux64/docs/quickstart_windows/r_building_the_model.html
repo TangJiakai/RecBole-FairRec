@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Building the model</TITLE>
+<META NAME="description" CONTENT="Building the model">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="r_modifying_grb_parameters.html">
+<LINK REL="previous" HREF="r_example_details.html">
+<LINK REL="next" HREF="r_modifying_grb_parameters.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="r_modifying_grb_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="r_example_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="r_modifying_grb_parameters.html">Modifying Gurobi parameters</A>
+<B> Up:</B> <A
+ HREF="r_interface.html">R Interface</A>
+<B> Previous:</B> <A
+ HREF="r_example_details.html">Example details</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000134000000000000000">
+Building the model</A>
+</H2>
+
+<P>
+The example now builds an optimization model.  The data associated
+with an optimization model must be stored in a single list variable.
+Named components in this list contain the different parts of the
+model.
+The most fundamental named components are: The constraint matrix
+(<code>A</code>), the objective vector (<code>obj</code>), the right-hand side
+vector (<code>rhs</code>), and the constraint sense vector (<code>sense</code>).
+Among these, only the constraint matrix is mandatory, and default
+values are substituted for all other model fields in case they are
+missing.
+A model variable can also include optional components (e.g., the
+objective sense <code>modelsense</code>).
+
+<P>
+In our example, we use the built-in R <code>matrix</code> function to build
+the constraint matrix <code>A</code>.  <code>A</code> is stored as a dense
+matrix here.  You can also store <code>A</code> as a sparse matrix, using
+either the <code>sparse_triplet_matrix</code> function from the <code>slam</code> package
+or the <code>sparseMatrix</code> class from the <code>Matrix</code> package.  Sparse
+input matrices are illustrated in the <code>lp2.R</code> example.
+
+<P>
+Subsequent statements populate other components of the <code>model</code>
+variable,
+including the objective vector, the right-hand side vector, and the
+constraint sense vector.  In each case, we use the built-in
+<code>c</code> function to initialize the array arguments.
+
+<P>
+In addition to the mandatory components,
+this example also sets two optional components: <code>modelsense</code> and
+<code>vtype</code>.  The former is used to indicate the sense of the objective
+function.  The default is minimization, so we've set the component equal to
+<code>'max'</code> to indicate that we would like to maximize the specified
+objective.  The <code>vtype</code> component is used to indicate the types of
+the variables in the model.  In our example, all variables are binary
+(<code>'B'</code>).  Note that our interface allows you to specify a
+scalar value for any array argument.  The Gurobi interface will expand
+that scalar to a constant array of the appropriate length.  In this example,
+the scalar value <code>'B'</code> will be expanded to an array of length 3,
+containing one <code>'B'</code> value for each column of <code>A</code>.
+
+<P>
+One important note about default variable bounds: the convention in
+math programming is that a variable will by default have a lower bound
+of 0 and an infinite upper bound.  If you'd like your variables to
+have different bounds, you'll need to provide them explicitly.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="r_modifying_grb_parameters.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="r_example_details.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="r_modifying_grb_parameters.html">Modifying Gurobi parameters</A>
+<B> Up:</B> <A
+ HREF="r_interface.html">R Interface</A>
+<B> Previous:</B> <A
+ HREF="r_example_details.html">Example details</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

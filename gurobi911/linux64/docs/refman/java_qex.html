@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBQuadExpr</TITLE>
+<META NAME="description" CONTENT="GRBQuadExpr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_column.html">
+<LINK REL="previous" HREF="java_lex.html">
+<LINK REL="next" HREF="java_qex2.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_qex2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_lex_size.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_qex2.html">GRBQuadExpr()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_lex_size.html">GRBLinExpr.size()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000610000000000000000"></A>
+<A ID="javaclass:GRBQuadExpr"></A>
+<BR>
+GRBQuadExpr
+</H2>
+
+<P>
+Gurobi quadratic expression object.  A quadratic expression consists
+of a linear expression, plus a list of coefficient-variable-variable
+triples that capture the quadratic terms.  Quadratic expressions are
+used to build quadratic objective functions and quadratic constraints.
+They are temporary objects that typically have short lifespans.
+
+<P>
+The <code>GRBQuadExpr</code> class is a sub-class of the abstract base
+class <A HREF="java_expr.html#javaclass:GRBExpr">GRBExpr</A>.
+
+<P>
+You generally build quadratic expressions by starting with an empty
+expression (using the
+<A HREF="java_qex2.html#javamethod:GRBQuadExpr">GRBQuadExpr</A> constructor), and
+then adding terms.  Terms can be added individually, using
+<A HREF="java_qex_addterm.html#javamethod:GRBQuadExpr.addTerm">addTerm</A>, or in groups,
+using <A HREF="java_qex_addterms.html#javamethod:GRBQuadExpr.addTerms">addTerms</A>, or
+<A HREF="java_qex_multadd.html#javamethod:GRBQuadExpr.multAdd">multAdd</A>.  Quadratic
+terms can be removed from a quadratic expression using
+<A HREF="java_qex_remove.html#javamethod:GRBQuadExpr.remove">remove</A>.
+
+<P>
+To add a quadratic constraint to your model, you generally build one or
+two quadratic expression objects (<SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img67.svg"
+ ALT="$qexpr1$"></SPAN> and <SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img68.svg"
+ ALT="$qexpr2$"></SPAN>) and then use an
+overloaded comparison operator to build an argument for
+<A HREF="java_model_addqconstr.html#javamethod:GRBModel.addQConstr">GRBModel.addQConstr</A>.  To
+give a few examples:
+<BR><P></P>
+<DIV CLASS="mathdisplay">
+<!-- MATH
+ \begin{displaymath}
+\begin{array}{l}
+  \mathrm{model.addQConstr}(qexpr1, GRB.LESS\_EQUAL, qexpr2) \\
+  \mathrm{model.addQConstr}(qexpr1, GRB.EQUAL, 1) \\
+\end{array}
+\end{displaymath}
+ -->
+
+<IMG STYLE=""
+ SRC="img71.svg"
+ ALT="\begin{displaymath}
+\begin{array}{l}
+\mathrm{model.addQConstr}(qexpr1, GRB.LESS...
+...\mathrm{model.addQConstr}(qexpr1, GRB.EQUAL, 1) \\
+\end{array}\end{displaymath}">
+</DIV>
+<BR CLEAR="ALL">
+<P></P>
+Once you add a constraint to your model, subsequent changes to the
+expression object you used to build the constraint will have no
+effect on that constraint.
+
+<P>
+Individual quadratic terms in a quadratic expression can be queried
+using the <A HREF="java_qex_getvar1.html#javamethod:GRBQuadExpr.getVar1">getVar1</A>,
+<A HREF="java_qex_getvar2.html#javamethod:GRBQuadExpr.getVar2">getVar2</A>, and
+<A HREF="java_qex_getcoeff.html#javamethod:GRBQuadExpr.getCoeff">getCoeff</A> methods.  You
+can query the number of quadratic terms in the expression using the
+<A HREF="java_qex_size.html#javamethod:GRBQuadExpr.size">size</A> method.  To query the
+constant and linear terms associated with a quadratic expression,
+first obtain the linear portion of the quadratic expression using
+<A HREF="java_qex_getlex.html#javamethod:GRBQuadExpr.getLinExpr">getLinExpr</A>, and then
+use the <A HREF="java_lex_getconstant.html#javamethod:GRBLinExpr.getConstant">getConstant</A>,
+<A HREF="java_lex_getcoeff.html#javamethod:GRBLinExpr.getCoeff">getCoeff</A>, and
+<A HREF="java_lex_getvar.html#javamethod:GRBLinExpr.getVar">getVar</A> methods on the
+resulting <A HREF="java_lex.html#javaclass:GRBLinExpr">GRBLinExpr</A> object.
+
+<P>
+Note that a quadratic expression may contain multiple terms that
+involve the same variable pair.  These duplicate terms are merged when
+creating the model objective from an expression, but they may be
+visible when inspecting individual quadratic terms in the expression
+(e.g., when using
+<A HREF="java_qex_getvar1.html#javamethod:GRBQuadExpr.getVar1">getVar1</A> and
+<A HREF="java_qex_getvar2.html#javamethod:GRBQuadExpr.getVar2">getVar2</A>).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2740"
+  HREF="java_qex2.html">GRBQuadExpr()</A>
+<LI><A ID="tex2html2741"
+  HREF="java_qex_add.html">GRBQuadExpr.add()</A>
+<LI><A ID="tex2html2742"
+  HREF="java_qex_addconstant.html">GRBQuadExpr.addConstant()</A>
+<LI><A ID="tex2html2743"
+  HREF="java_qex_addterm.html">GRBQuadExpr.addTerm()</A>
+<LI><A ID="tex2html2744"
+  HREF="java_qex_addterms.html">GRBQuadExpr.addTerms()</A>
+<LI><A ID="tex2html2745"
+  HREF="java_qex_clear.html">GRBQuadExpr.clear()</A>
+<LI><A ID="tex2html2746"
+  HREF="java_qex_getcoeff.html">GRBQuadExpr.getCoeff()</A>
+<LI><A ID="tex2html2747"
+  HREF="java_qex_getlex.html">GRBQuadExpr.getLinExpr()</A>
+<LI><A ID="tex2html2748"
+  HREF="java_qex_getvalue.html">GRBQuadExpr.getValue()</A>
+<LI><A ID="tex2html2749"
+  HREF="java_qex_getvar1.html">GRBQuadExpr.getVar1()</A>
+<LI><A ID="tex2html2750"
+  HREF="java_qex_getvar2.html">GRBQuadExpr.getVar2()</A>
+<LI><A ID="tex2html2751"
+  HREF="java_qex_multadd.html">GRBQuadExpr.multAdd()</A>
+<LI><A ID="tex2html2752"
+  HREF="java_qex_remove.html">GRBQuadExpr.remove()</A>
+<LI><A ID="tex2html2753"
+  HREF="java_qex_size.html">GRBQuadExpr.size()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_qex2.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_lex_size.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_qex2.html">GRBQuadExpr()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_lex_size.html">GRBLinExpr.size()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBBatch::discard()</TITLE>
+<META NAME="description" CONTENT="GRBBatch::discard()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_batch_getjsonsolution.html">
+<LINK REL="previous" HREF="cpp_batch_abort.html">
+<LINK REL="next" HREF="cpp_batch_getjsonsolution.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_batch_getjsonsolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_batch_abort.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_batch_getjsonsolution.html">GRBBatch::getJSONSolution()</A>
+<B> Up:</B> <A
+ HREF="cpp_batch.html">GRBBatch</A>
+<B> Previous:</B> <A
+ HREF="cpp_batch_abort.html">GRBBatch::abort()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000415300000000000000"></A>
+<A ID="cppmethod:GRBBatch::discard"></A>
+<BR>
+GRBBatch::discard()
+</H3>
+
+<P>
+This method instructs the Cluster Manager to remove all information
+related to the batch request in question, including the stored
+solution if available. Further queries for the associated batch
+request will fail with error code <TT>GRB_ERROR_DATA_NOT_AVAILABLE</TT>. Use this function with
+care, as the removed information can not be recovered later on.
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">discard</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">void
+batchdiscard(string batchID)
+</PRE>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_batch_getjsonsolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_batch_abort.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_batch_getjsonsolution.html">GRBBatch::getJSONSolution()</A>
+<B> Up:</B> <A
+ HREF="cpp_batch.html">GRBBatch</A>
+<B> Previous:</B> <A
+ HREF="cpp_batch_abort.html">GRBBatch::abort()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

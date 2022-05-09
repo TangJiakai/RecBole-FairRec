@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>OPB format</TITLE>
+<META NAME="description" CONTENT="OPB format">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="mst_format.html">
+<LINK REL="previous" HREF="ilp_format.html">
+<LINK REL="next" HREF="mst_format.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="mst_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ilp_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="mst_format.html">MST format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="ilp_format.html">ILP format</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000236000000000000000"></A>
+<A ID="format:OPB"></A>
+<BR>
+OPB format
+</H2>
+
+<P>
+The OPB file format is used to store pseudo-boolean satisfaction and
+pseudo-boolean optimization models. These models may only contain
+binary variables, but these variables may be complemented and
+multiplied together in constraints and objectives. Pseudo-boolean
+models in OPB files are translated into a MIP representation by
+Gurobi. The syntax of the OPB format is described in detail by
+<A ID="tex2html51"
+  HREF="https://www.cril.univ-artois.fr/PB12/format.pdf">Roussel and
+  Manquinho</A>.
+However, the OPB format supported by Gurobi is less restrictive, e.g.,
+fractional coefficients are allowed.
+
+<P>
+The following is an example of a pseudo-boolean optimization model
+
+<DIV class="equation">
+
+<!-- MATH
+ \begin{equation}
+\begin{array}{ll}
+\mathrm{minimize}    & y - 1.3 x (1-z) + (1-z) \\
+\mathrm{subject\ to} & 2 y - 3 x + 1.7 w = 1.7 \\
+                     & -y + x + x z (1-v) \ge 0 \\
+                     & -y \le 0,\\
+                     & v, w, x, y, z \in \{0, 1\}.
+\end{array}
+\end{equation}
+ -->
+ &nbsp;  <IMG STYLE="height: 14.12ex; vertical-align: -6.50ex; " SRC="img273.svg"
+ ALT="$\displaystyle \begin{array}{ll}
+\mathrm{minimize} &amp; y - 1.3 x (1-z) + (1-z) \\ ...
+... x z (1-v) \ge 0 \\
+&amp; -y \le 0,\\
+&amp; v, w, x, y, z \in \{0, 1\}.
+\end{array}$"> 
+
+(<SPAN CLASS="arabic">1</SPAN>)
+</DIV>
+The corresponding OPB file for this example is given by
+<PRE>
+* This is a dummy pseudo-boolean optimization model
+min: y - 1.3 x ~z + ~z;
+2 y - 3 x + 1.7 w = 1.7;
+-1 y + x + x z ~v &gt;= 0;
+-1 y &lt;= 0;
+</PRE>
+
+<P>
+Lines starting with <SPAN  CLASS="texttt">*</SPAN> are treated as comments and
+ignored. Non-comment lines must end with a semicolon
+<SPAN  CLASS="texttt">;</SPAN>. Whitespace characters must be used to separate variables.  The
+complement of a variable may be specified with a tilde <code>~</code>.
+
+<P>
+Only minimization models are supported. These models must be specified
+with the <SPAN  CLASS="texttt">min:</SPAN> objective keyword. This keyword must appear
+before other constraints. Satisfiability models may be defined by
+omitting the objective.
+
+<P>
+Constraint senses <SPAN  CLASS="texttt">&gt;=</SPAN>, <SPAN  CLASS="texttt">=</SPAN>, and <SPAN  CLASS="texttt">&lt;=</SPAN> are
+supported.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="mst_format.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_file_formats.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="ilp_format.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="mst_format.html">MST format</A>
+<B> Up:</B> <A
+ HREF="model_file_formats.html">Model File Formats</A>
+<B> Previous:</B> <A
+ HREF="ilp_format.html">ILP format</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

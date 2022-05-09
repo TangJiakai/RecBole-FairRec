@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBgetmultiobjenv</TITLE>
+<META NAME="description" CONTENT="GRBgetmultiobjenv">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_discardconcurrentenvs.html">
+<LINK REL="previous" HREF="c_getconcurrentenv.html">
+<LINK REL="next" HREF="c_discardconcurrentenvs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_discardconcurrentenvs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getconcurrentenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_discardconcurrentenvs.html">GRBdiscardconcurrentenvs</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_getconcurrentenv.html">GRBgetconcurrentenv</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00021800000000000000"></A>
+<A ID="routine:GRBgetmultiobjenv"></A>
+<BR>
+GRBgetmultiobjenv
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBenv*</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBgetmultiobjenv</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">num )</TD>
+</TR>
+</TABLE>
+
+<P>
+Create/retrieve a multi-objective
+environment for the objective with the given index. This
+environment enables fine-grained control over the multi-objective
+optimization process. Specifically, by changing parameters on this
+environment, you modify the behavior of the optimization that
+occurs during the corresponding pass of the multi-objective
+optimization.
+
+<P>
+Each multi-objective environment starts with a copy of the current
+model environment.
+
+<P>
+Please refer to the discussion of
+<A HREF="multiple_objectives.html#sec:MultipleObjectives">Multiple Objectives</A> for
+information on how to specify multiple objective functions and control
+the trade-off between them.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The environment associated with a given multiobjective number in the model.
+A <SPAN  CLASS="texttt">NULL</SPAN> return value indicates that there was a problem retrieving the
+environment.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model from where we want to retrieve the
+multiobjecitve environment.
+
+<P>
+ <SPAN  CLASS="textbf">num</SPAN>: The multiobjective number.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  GRBenv *env0 = GRBgetmultiobjenv(model,0);
+  GRBenv *env1 = GRBgetmultiobjenv(model,1);
+
+  GRBsetintparam(env0, "Method", 2);
+  GRBsetintparam(env1, "Method", 1);
+
+  GRBoptimize(model);
+
+  GRBdiscardmultiobjenvs(model);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_discardconcurrentenvs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_getconcurrentenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_discardconcurrentenvs.html">GRBdiscardconcurrentenvs</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_getconcurrentenv.html">GRBgetconcurrentenv</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

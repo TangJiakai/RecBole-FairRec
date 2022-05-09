@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>The params argument</TITLE>
+<META NAME="description" CONTENT="The params argument">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="matlab_the_env_argument.html">
+<LINK REL="previous" HREF="matlab_the_model_argument.html">
+<LINK REL="next" HREF="matlab_the_env_argument.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="matlab_the_env_argument.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_common_arguments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_the_model_argument.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_the_env_argument.html">The env argument</A>
+<B> Up:</B> <A
+ HREF="matlab_common_arguments.html">Common Arguments</A>
+<B> Previous:</B> <A
+ HREF="matlab_the_model_argument.html">The model argument</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000121200000000000000">
+The params argument</A>
+</H3>
+<A ID="matlab:params"></A>
+As mentioned previously, the Gurobi optimizer provides a set of
+parameters that allow you to control many of the details of the
+optimization process.  Factors like feasibility and optimality
+tolerances, choices of algorithms, strategies for exploring the MIP
+search tree, etc., can be controlled by modifying Gurobi parameters
+before beginning the optimization.
+
+<P>
+
+<P>
+Parameter changes are specified using a <TT>struct</TT> 
+variable having multiple <TT>fields</TT>, which is passed as
+an argument to the appropriate Gurobi function (e.g.,
+
+<A HREF="matlab_grb.html#matlab:gurobi"><TT>gurobi</TT></A>).  The name of each field must be the name
+of a Gurobi parameter, and the associated value should be the desired
+value of that parameter.  You can find a complete list of the
+available Gurobi parameters
+<A HREF="parameters.html#sec:Parameters">here</A>.
+
+<P>
+To create a struct that would set the Gurobi
+<A HREF="method.html#parameter:Method">Method</A> parameter to 2 and the
+<A HREF="resultfile.html#parameter:ResultFile">ResultFile</A> parameter to
+<TT>model.mps</TT>, you would do the following:
+<BR>
+<BR><TT>
+params.Method = 2;
+<BR>
+params.ResultFile = 'model.mps';
+<BR></TT>
+
+<P>
+We should say a bit more about the <TT>ResultFile</TT> parameter.
+If this parameter is set, the optimization model that is eventually
+passed to Gurobi will also be output to the specified file. The
+filename suffix should be one of <TT>.mps</TT>, <TT>.lp</TT>,
+<TT>.rew</TT>, or <TT>.rlp</TT>, to indicate the desired file
+format (see the
+<A HREF="model_file_formats.html#sec:FileFormats">file format</A> 
+section for details on Gurobi file formats).
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="matlab_the_env_argument.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_common_arguments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="matlab_the_model_argument.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="matlab_the_env_argument.html">The env argument</A>
+<B> Up:</B> <A
+ HREF="matlab_common_arguments.html">Common Arguments</A>
+<B> Previous:</B> <A
+ HREF="matlab_the_model_argument.html">The model argument</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

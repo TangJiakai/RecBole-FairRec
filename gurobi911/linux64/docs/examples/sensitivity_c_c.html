@@ -1,0 +1,332 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>sensitivity_c.c</TITLE>
+<META NAME="description" CONTENT="sensitivity_c.c">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="sos_c_c.html">
+<LINK REL="previous" HREF="qp_c_c.html">
+<LINK REL="next" HREF="sos_c_c.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sos_c_c.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="qp_c_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sos_c_c.html">sos_c.c</A>
+<B> Up:</B> <A
+ HREF="c_examples.html">C Examples</A>
+<B> Previous:</B> <A
+ HREF="qp_c_c.html">qp_c.c</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000212400000000000000"></A>
+<A ID="subsubsection:sensitivity_c.c"></A>
+<BR>
+sensitivity_c.c
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">/* Copyright 2020, Gurobi Optimization, LLC */
+
+/* A simple sensitivity analysis example which reads a MIP model from a
+ * file and solves it. Then uses the scenario feature to analyze the impact
+ * w.r.t. the objective function of each binary variable if it is set to
+ * 1-X, where X is its value in the optimal solution.
+ *
+ * Usage:
+ *     sensitivity_c &lt;model filename&gt;
+ */
+
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include "gurobi_c.h"
+
+/* Maximum number of scenarios to be considered */
+#define MAXSCENARIOS 100
+
+int
+main(int   argc,
+     char *argv[])
+{
+  GRBenv   *env      = NULL;
+  GRBenv   *modelenv = NULL;
+  GRBmodel *model    = NULL;
+
+  double *origx = NULL;
+  double  origObjVal;
+
+  int ismip, status, numvars, i;
+  int scenarios;
+  int error = 0;
+
+  if (argc &lt; 2) {
+    fprintf(stderr, "Usage: sensitivity_c filename\n");
+    goto QUIT;
+  }
+
+  /* Create environment */
+  error = GRBloadenv(&amp;env, "sensitivity.log");
+  if (error) goto QUIT;
+
+  /* Read model */
+  error = GRBreadmodel(env, argv[1], &amp;model);
+  if (error) goto QUIT;
+
+  modelenv = GRBgetenv(model);
+  if (error) goto QUIT;
+
+  error = GRBgetintattr(model, GRB_INT_ATTR_IS_MIP, &amp;ismip);
+  if (error) goto QUIT;
+  if (ismip == 0) {
+    printf("Model is not a MIP\n");
+    goto QUIT;
+  }
+
+  /* Solve model */
+  error = GRBoptimize(model);
+  if (error) goto QUIT;
+
+  error = GRBgetintattr(model, GRB_INT_ATTR_STATUS, &amp;status);
+  if (error) goto QUIT;
+  if (status != GRB_OPTIMAL) {
+    printf("Optimization ended with status %d\n", status);
+    goto QUIT;
+  }
+
+  /* Store the optimal solution */
+  error = GRBgetdblattr(model, GRB_DBL_ATTR_OBJVAL, &amp;origObjVal);
+  if (error) goto QUIT;
+  error = GRBgetintattr(model, GRB_INT_ATTR_NUMVARS, &amp;numvars);
+  if (error) goto QUIT;
+  origx = (double *) malloc(numvars * sizeof(double));
+  if (origx == NULL) {
+    printf("Out of memory\n");
+    goto QUIT;
+  }
+  error = GRBgetdblattrarray(model, GRB_DBL_ATTR_X, 0, numvars, origx);
+  if (error) goto QUIT;
+
+  scenarios = 0;
+
+  /* Count number of unfixed, binary variables in model. For each we create a
+   * scenario.
+   */
+  for (i = 0; i &lt; numvars; i++) {
+    double lb, ub;
+    char   vtype;
+
+    error = GRBgetdblattrelement(model, GRB_DBL_ATTR_LB, i, &amp;lb);
+    if (error) goto QUIT;
+    error = GRBgetdblattrelement(model, GRB_DBL_ATTR_UB, i, &amp;ub);
+    if (error) goto QUIT;
+    error = GRBgetcharattrelement(model, GRB_CHAR_ATTR_VTYPE, i, &amp;vtype);
+    if (error) goto QUIT;
+
+    if (lb == 0.0 &amp;&amp; ub == 1.0                        &amp;&amp;
+        (vtype == GRB_BINARY || vtype == GRB_INTEGER)   ) {
+      scenarios++;
+
+      if (scenarios &gt;= MAXSCENARIOS)
+        break;
+    }
+  }
+
+  printf("###  construct multi-scenario model with %d scenarios\n", scenarios);
+
+  /* Set the number of scenarios in the model */
+  error = GRBsetintattr(model, GRB_INT_ATTR_NUMSCENARIOS, scenarios);
+  if (error) goto QUIT;
+
+  scenarios = 0;
+
+  /* Create a (single) scenario model by iterating through unfixed binary
+   * variables in the model and create for each of these variables a
+   * scenario by fixing the variable to 1-X, where X is its value in the
+   * computed optimal solution
+   */
+  for (i = 0; i &lt; numvars; i++) {
+    double lb, ub;
+    char   vtype;
+
+    error = GRBgetdblattrelement(model, GRB_DBL_ATTR_LB, i, &amp;lb);
+    if (error) goto QUIT;
+    error = GRBgetdblattrelement(model, GRB_DBL_ATTR_UB, i, &amp;ub);
+    if (error) goto QUIT;
+    error = GRBgetcharattrelement(model, GRB_CHAR_ATTR_VTYPE, i, &amp;vtype);
+    if (error) goto QUIT;
+
+    if (lb == 0.0 &amp;&amp; ub == 1.0                        &amp;&amp;
+        (vtype == GRB_BINARY || vtype == GRB_INTEGER) &amp;&amp;
+        scenarios &lt; MAXSCENARIOS                        ) {
+
+      /* Set ScenarioNumber parameter to select the corresponding scenario
+       * for adjustments
+       */
+      error = GRBsetintparam(modelenv, GRB_INT_PAR_SCENARIONUMBER, scenarios);
+      if (error) goto QUIT;
+
+      /* Set variable to 1-X, where X is its value in the optimal solution */
+      if (origx[i] &lt; 0.5) {
+        error = GRBsetdblattrelement(model, GRB_DBL_ATTR_SCENNLB, i, 1.0);
+        if (error) goto QUIT;
+      } else {
+        error = GRBsetdblattrelement(model, GRB_DBL_ATTR_SCENNUB, i, 0.0);
+        if (error) goto QUIT;
+      }
+
+
+      scenarios++;
+    } else {
+      /* Add MIP start for all other variables using the optimal solution
+       * of the base model
+       */
+      error = GRBsetdblattrelement(model, GRB_DBL_ATTR_START, i, origx[i]);
+      if (error) goto QUIT;
+    }
+  }
+
+  /* Solve multi-scenario model */
+  error = GRBoptimize(model);
+  if (error) goto QUIT;
+
+  /* Collect the status */
+  error = GRBgetintattr(model, GRB_INT_ATTR_STATUS, &amp;status);
+  if (error) goto QUIT;
+
+  /* In case we solved the scenario model to optimality capture the
+   * sensitivity information
+   */
+  if (status == GRB_OPTIMAL) {
+    int modelSense;
+
+    scenarios = 0;
+
+    /* Get model sense (minimization or maximization) */
+    error = GRBgetintattr(model, GRB_INT_ATTR_MODELSENSE, &amp;modelSense);
+    if (error) goto QUIT;
+
+    for (i = 0; i &lt; numvars; i++) {
+      double lb, ub;
+      char   vtype;
+
+      error = GRBgetdblattrelement(model, GRB_DBL_ATTR_LB, i, &amp;lb);
+      if (error) goto QUIT;
+      error = GRBgetdblattrelement(model, GRB_DBL_ATTR_UB, i, &amp;ub);
+      if (error) goto QUIT;
+      error = GRBgetcharattrelement(model, GRB_CHAR_ATTR_VTYPE, i, &amp;vtype);
+      if (error) goto QUIT;
+
+      if (lb == 0.0 &amp;&amp; ub == 1.0                        &amp;&amp;
+          (vtype == GRB_BINARY || vtype == GRB_INTEGER)   ) {
+
+        double scenarioObjVal;
+        double scenarioObjBound;
+        char  *varName;
+
+        /* Set scenario parameter to collect the objective value of the
+         * corresponding scenario
+         */
+        error = GRBsetintparam(modelenv, GRB_INT_PAR_SCENARIONUMBER, scenarios);
+        if (error) goto QUIT;
+
+        /* Collect objective value and bound for the scenario */
+        error = GRBgetdblattr(model, GRB_DBL_ATTR_SCENNOBJVAL, &amp;scenarioObjVal);
+        if (error) goto QUIT;
+        error = GRBgetdblattr(model, GRB_DBL_ATTR_SCENNOBJBOUND, &amp;scenarioObjBound);
+        if (error) goto QUIT;
+
+        error = GRBgetstrattrelement(model, GRB_STR_ATTR_VARNAME, i, &amp;varName);
+        if (error) goto QUIT;
+
+        /* Check if we found a feasible solution for this scenario */
+        if (scenarioObjVal &gt;= modelSense * GRB_INFINITY) {
+          /* Check if the scenario is infeasible */
+          if (scenarioObjBound &gt;= modelSense * GRB_INFINITY)
+            printf("Objective sensitivity for variable %s is infeasible\n",
+                   varName);
+          else
+            printf("Objective sensitivity for variable %s is unknown (no solution available)\n",
+                   varName);
+        } else {
+          /* Scenario is feasible and a solution is available */
+          printf("Objective sensitivity for variable %s is %g\n",
+                 varName, modelSense * (scenarioObjVal - origObjVal));
+        }
+
+        scenarios++;
+
+        if (scenarios &gt;= MAXSCENARIOS)
+          break;
+      }
+    }
+  }
+
+QUIT:
+
+  /* Error reporting */
+  if (error != 0) {
+    printf("ERROR: %s\n", GRBgeterrormsg(env));
+    exit(1);
+  }
+
+  /* Free data */
+  free(origx);
+
+  /* Free model */
+  GRBfreemodel(model);
+
+  /* Free environment */
+  GRBfreeenv(env);
+
+  return 0;
+}
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sos_c_c.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="qp_c_c.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sos_c_c.html">sos_c.c</A>
+<B> Up:</B> <A
+ HREF="c_examples.html">C Examples</A>
+<B> Previous:</B> <A
+ HREF="qp_c_c.html">qp_c.c</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.addGenConstrMin()</TITLE>
+<META NAME="description" CONTENT="GRBModel.addGenConstrMin()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_agc_abs.html">
+<LINK REL="previous" HREF="java_model_agc_max.html">
+<LINK REL="next" HREF="java_model_agc_abs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_agc_abs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model_agc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_agc_max.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_abs.html">GRBModel.addGenConstrAbs()</A>
+<B> Up:</B> <A
+ HREF="java_model_agc_xxx.html">GRBModel.addGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="java_model_agc_max.html">GRBModel.addGenConstrMax()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H4><A ID="SECTION00062420000000000000"></A>
+<A ID="javamethod:GRBModel.addGenConstrMin"></A>
+<BR>
+GRBModel.addGenConstrMin()
+</H4>
+
+<P>
+Add a new general constraint of type <SPAN  CLASS="texttt">GRB.GENCONSTR_MIN</SPAN> to a model.
+
+<P>
+A MIN constraint <!-- MATH
+ $r = \min\{x_1,\ldots,x_n,c\}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img25.svg"
+ ALT="$r = \min\{x_1,\ldots,x_n,c\}$"></SPAN> states that the resultant
+variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img20.svg"
+ ALT="$r$"></SPAN> should be equal to the minimum of the operand variables
+<!-- MATH
+ $x_1,\ldots,x_n$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img21.svg"
+ ALT="$x_1,\ldots,x_n$"></SPAN> and the constant <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img22.svg"
+ ALT="$c$"></SPAN>.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBGenConstr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addGenConstrMin</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">resvar,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">constant,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">String</TD>
+<TD CLASS="LEFT">name )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">resvar</SPAN>: The resultant variable of the new constraint.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: Array of variables that are the operands of the new constraint.
+
+<P>
+ <SPAN  CLASS="textbf">constant</SPAN>: The additional constant operand of the new constraint.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for the new general constraint.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New general constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<P><P>
+<BR>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_agc_abs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model_agc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_agc_max.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_abs.html">GRBModel.addGenConstrAbs()</A>
+<B> Up:</B> <A
+ HREF="java_model_agc_xxx.html">GRBModel.addGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="java_model_agc_max.html">GRBModel.addGenConstrMax()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,216 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>genconstr.R</TITLE>
+<META NAME="description" CONTENT="genconstr.R">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="lp_r.html">
+<LINK REL="previous" HREF="gc_pwl_func_r.html">
+<LINK REL="next" HREF="lp_r.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lp_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="gc_pwl_func_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp_r.html">lp.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="gc_pwl_func_r.html">gc_pwl_func.R</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00028800000000000000"></A>
+<A ID="subsubsection:genconstr.R"></A>
+<BR>
+genconstr.R
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint"># Copyright 2020, Gurobi Optimization, LLC
+# 
+# In this example we show the use of general constraints for modeling
+# some common expressions. We use as an example a SAT-problem where we
+# want to see if it is possible to satisfy at least four (or all) clauses
+# of the logical for
+# 
+# L = (x0 or ~x1 or x2)  and (x1 or ~x2 or x3)  and
+#     (x2 or ~x3 or x0)  and (x3 or ~x0 or x1)  and
+#     (~x0 or ~x1 or x2) and (~x1 or ~x2 or x3) and
+#     (~x2 or ~x3 or x0) and (~x3 or ~x0 or x1)
+# 
+# We do this by introducing two variables for each literal (itself and its
+# negated value), a variable for each clause, and then two
+# variables for indicating if we can satisfy four, and another to identify
+# the minimum of the clauses (so if it one, we can satisfy all clauses)
+# and put these two variables in the objective.
+# i.e. the Objective function will be
+# 
+# maximize Obj0 + Obj1
+# 
+#  Obj0 = MIN(Clause1, ... , Clause8)
+#  Obj1 = 1 -&gt; Clause1 + ... + Clause8 &gt;= 4
+# 
+# thus, the objective value will be two if and only if we can satisfy all
+# clauses; one if and only if at least four clauses can be satisfied, and
+# zero otherwise.
+# 
+
+library(Matrix)
+library(gurobi)
+
+# Set-up environment
+env &lt;- list()
+env$logfile &lt;- 'genconstr.log'
+
+# define primitive data
+nLiterals &lt;- 4
+nClauses  &lt;- 8
+nObj      &lt;- 2
+nVars     &lt;- 2 * nLiterals + nClauses + nObj
+Literal &lt;- function(n) {n}
+NotLit  &lt;- function(n) {n + nLiterals}
+Clause  &lt;- function(n) {2 * nLiterals + n}
+Obj     &lt;- function(n) {2 * nLiterals + nClauses + n}
+
+Clauses &lt;- list(c(Literal(1), NotLit(2), Literal(3)),
+                c(Literal(2), NotLit(3), Literal(4)),
+                c(Literal(3), NotLit(4), Literal(1)),
+                c(Literal(4), NotLit(1), Literal(2)),
+                c(NotLit(1), NotLit(2), Literal(3)),
+                c(NotLit(2), NotLit(3), Literal(4)),
+                c(NotLit(3), NotLit(4), Literal(1)),
+                c(NotLit(4), NotLit(1), Literal(2)))
+
+
+# Create model
+model &lt;- list()
+model$modelname  &lt;- 'genconstr'
+model$modelsense &lt;- 'max'
+
+# Create objective function, variable names, and variable types
+model$vtype    &lt;- rep('B',nVars)
+model$ub       &lt;- rep(1,  nVars)
+model$varnames &lt;- c(sprintf('X%d',      seq(1,nLiterals)), 
+                    sprintf('notX%d',   seq(1,nLiterals)),
+                    sprintf('Clause%d', seq(1,nClauses)),
+                    sprintf('Obj%d',    seq(1,nObj)))
+model$obj      &lt;- c(rep(0, 2*nLiterals + nClauses), rep(1, nObj))
+
+# Create linear constraints linking literals and not literals
+model$A           &lt;- spMatrix(nLiterals, nVars,
+                       i = c(seq(1,nLiterals),
+                             seq(1,nLiterals)),
+                       j = c(seq(1,nLiterals),
+                             seq(1+nLiterals,2*nLiterals)),
+                       x = rep(1,2*nLiterals))
+model$constrnames &lt;- c(sprintf('CNSTR_X%d',seq(1,nLiterals)))
+model$rhs         &lt;- rep(1,   nLiterals)
+model$sense       &lt;- rep('=', nLiterals)
+
+# Create OR general constraints linking clauses and literals
+model$genconor &lt;- lapply(1:nClauses,
+                         function(i) list(resvar=Clause(i),
+                                          vars  = Clauses[[i]],
+                                          name  = sprintf('CNSTR_Clause%d',i)))
+
+# Set-up Obj1 = Min(Clause[1:nClauses])
+model$genconmin &lt;- list(list(resvar = Obj(1),
+                             vars   = c(seq(Clause(1),Clause(nClauses))),
+                             name   = 'CNSTR_Obj1'))
+
+
+# the indicator constraint excepts the following vector types for the
+# linear sum:
+#
+# - a dense vector, for example
+#   c(rep(0, 2*nLiterals), rep(1, nClauses), rep(0,nObj))
+# - a sparse vector, for example
+#   sparseVector( x = rep(1,nClauses), i = (2*nLiterals+1):(2*nLiterals+nClauses), length=nVars)
+# - In case all coefficients are the same, you can pass a vector of length
+#   one with the corresponding value which gets expanded to a dense vector
+#   with all values being the given one
+#
+# We use a sparse vector in this example
+a &lt;- sparseVector( x = rep(1,nClauses), i = (2*nLiterals+1):(2*nLiterals+nClauses), length=nVars)
+
+# Set-up Obj2 to signal if any clause is satisfied, i.e.
+# we use an indicator constraint of the form:
+#     (Obj2 = 1) -&gt; sum(Clause[1:nClauses]) &gt;= 4
+model$genconind &lt;- list(list(binvar = Obj(2),
+                             binval = 1,
+                             a      = a,
+                             sense  = '&gt;',
+                             rhs    = 4,
+                             name   = 'CNSTR_Obj2'))
+
+# Save model
+gurobi_write(model, 'genconstr.lp', env)
+
+# Optimize
+result &lt;- gurobi(model, env = env)
+
+# Check optimization status
+if (result$status == 'OPTIMAL') {
+  if (result$objval &gt; 1.9) {
+    cat('Logical expression is satisfiable\n')
+  } else if(result$objval &gt; 0.9) {
+    cat('At least four clauses are satisfiable\n')
+  } else {
+    cat('At most three clauses may be satisfiable\n')
+  }
+} else {
+  cat('Optimization falied\n')
+}
+
+# Clear space
+rm(model,result,env,Clauses)
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lp_r.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="r_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="gc_pwl_func_r.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp_r.html">lp.R</A>
+<B> Up:</B> <A
+ HREF="r_examples.html">R Examples</A>
+<B> Previous:</B> <A
+ HREF="gc_pwl_func_r.html">gc_pwl_func.R</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

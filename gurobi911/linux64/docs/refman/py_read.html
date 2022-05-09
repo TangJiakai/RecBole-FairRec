@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>read()</TITLE>
+<META NAME="description" CONTENT="read()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_readparams.html">
+<LINK REL="previous" HREF="py_quicksum.html">
+<LINK REL="next" HREF="py_readparams.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_readparams.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_global_functions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_quicksum.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_readparams.html">readParams()</A>
+<B> Up:</B> <A
+ HREF="py_global_functions.html">Global Functions</A>
+<B> Previous:</B> <A
+ HREF="py_quicksum.html">quicksum()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000101600000000000000"></A>
+<A ID="pythonmethod:read"></A>
+<BR>
+read()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">read</SPAN></FONT></SPAN> ( filename, env=defaultEnv )
+
+
+<P>
+Read a model from a file.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">filename</SPAN>: Name of file containing model.  Note that the type
+  of the file is encoded in the file name suffix.  Valid suffixes are
+  <SPAN  CLASS="texttt">.mps</SPAN>, <SPAN  CLASS="texttt">.rew</SPAN>, <SPAN  CLASS="texttt">.lp</SPAN>, <SPAN  CLASS="texttt">.rlp</SPAN>, <SPAN  CLASS="texttt">.ilp</SPAN>,
+  or <SPAN  CLASS="texttt">.opb</SPAN>.  The files can be compressed, so additional suffixes of
+  <SPAN  CLASS="texttt">.gz</SPAN>, <SPAN  CLASS="texttt">.bz2</SPAN>, <SPAN  CLASS="texttt">.zip</SPAN>, or <SPAN  CLASS="texttt">.7z</SPAN> are accepted.
+  The file name may contain
+  <SPAN  CLASS="texttt">*</SPAN> or <SPAN  CLASS="texttt">?</SPAN> wildcards.  No file is read when no wildcard
+  match is found.  If more than one match is found, this routine will
+  attempt to read the first matching file.
+
+<P>
+ <SPAN  CLASS="textbf">env</SPAN>: Environment in which to create the model.  Creating
+  your environment (using the
+  <A HREF="py_env2.html#pythonmethod:Env">Env constructor</A>) gives
+  you more control over Gurobi licensing, but it can make
+  your program more complex.  Use the default environment
+  unless you know that you need to control your own
+  environments.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+<A HREF="py_model.html#pythonclass:Model">Model</A> object
+  containing the model that was read from the input file.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  m = read("afiro.mps")
+  m.optimize()
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_readparams.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_global_functions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_quicksum.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_readparams.html">readParams()</A>
+<B> Up:</B> <A
+ HREF="py_global_functions.html">Global Functions</A>
+<B> Previous:</B> <A
+ HREF="py_quicksum.html">quicksum()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

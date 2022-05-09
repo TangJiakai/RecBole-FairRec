@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Error handling</TITLE>
+<META NAME="description" CONTENT="Error handling">
+<META NAME="keywords" CONTENT="quickstart_windows">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_windows.css">
+
+<LINK REL="next" HREF="java_building_and_running_.html">
+<LINK REL="previous" HREF="java_cleaning_up.html">
+<LINK REL="next" HREF="java_building_and_running_.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_building_and_running_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_cleaning_up.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_building_and_running_.html">Building and running the</A>
+<B> Up:</B> <A
+ HREF="java_interface.html">Java Interface</A>
+<B> Previous:</B> <A
+ HREF="java_cleaning_up.html">Cleaning up</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000911000000000000000">
+Error handling</A>
+</H2>
+
+<P>
+Errors in the Gurobi Java interface are handled through the Java
+exception mechanism.  In the example, all Gurobi statements are
+enclosed inside a <code>try</code> block, and any associated errors would be
+caught by the <code>catch</code> block:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    } catch (GRBException e) {
+      System.out.println("Error code: " + e.getErrorCode() + ". " +
+                         e.getMessage());
+    }
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_building_and_running_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_cleaning_up.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_building_and_running_.html">Building and running the</A>
+<B> Up:</B> <A
+ HREF="java_interface.html">Java Interface</A>
+<B> Previous:</B> <A
+ HREF="java_cleaning_up.html">Cleaning up</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

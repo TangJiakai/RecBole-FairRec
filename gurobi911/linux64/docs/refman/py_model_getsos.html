@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.getSOS()</TITLE>
+<META NAME="description" CONTENT="Model.getSOS()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_getsoss.html">
+<LINK REL="previous" HREF="py_model_getrow.html">
+<LINK REL="next" HREF="py_model_getsoss.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_getsoss.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_getrow.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_getsoss.html">Model.getSOSs()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_getrow.html">Model.getRow()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001027900000000000000"></A>
+<A ID="pythonmethod:Model.getSOS"></A>
+<BR>
+Model.getSOS()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getSOS</SPAN></FONT></SPAN> ( sos )
+
+<P>
+Retrieve information about an SOS constraint.  The result is a tuple
+that contains the SOS type (1 or 2), the list of participating Var
+objects, and the list of associated SOS weights.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">sos</SPAN>: The SOS constraint of interest.  An <A HREF="py_sos.html#pythonclass:SOS">SOS</A>
+object, typically obtained from
+<A HREF="py_model_addsos.html#pythonmethod:Model.addSOS">addSOS</A>
+or
+<A HREF="py_model_getsoss.html#pythonmethod:Model.getSOSs">getSOSs</A>.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A tuple that contains the SOS type (1 or 2), a
+list of participating Var objects, and a list of associated SOS weights.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  (sostype, vars, weights) = model.getSOS(model.getSOSs()[0])
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_getsoss.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_getrow.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_getsoss.html">Model.getSOSs()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_getrow.html">Model.getRow()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

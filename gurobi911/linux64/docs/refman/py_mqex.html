@@ -1,0 +1,138 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>MQuadExpr</TITLE>
+<META NAME="description" CONTENT="MQuadExpr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_tempconstr.html">
+<LINK REL="previous" HREF="py_mlex.html">
+<LINK REL="next" HREF="py_mqex_copy.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_mqex_copy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_mlex_ge_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_mqex_copy.html">MQuadExpr.copy()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_mlex_ge_.html">MLinExpr.__ge__()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION0001014000000000000000"></A>
+<A ID="pythonclass:MQuadExpr"></A>
+<BR>
+MQuadExpr
+</H2>
+
+<P>
+Gurobi quadratic matrix expression object.  Quadratic matrix
+expressions are used to build quadratic objective functions and
+quadratic constraints.  They are temporary objects that typically have
+short lifespans.
+
+<P>
+You generally build quadratic matrix expressions using overloaded
+operators.  For example, if <code>x</code> is an
+<A HREF="py_mvar.html#pythonclass:MVar">MVar</A> object and <code>A</code> is a 2-D
+matrix (dense or sparse), then <code>x @ A @ x</code> and <code>x @ x</code>
+are both <A HREF="#pythonclass:MQuadExpr">MQuadExpr</A> objects.
+Most arithmetic operations are support on <code>MQuadExpr</code> objects,
+including addition and subtraction (e.g.,
+<code>expr = x @ A @ x - y @ B @ y</code>), and multiplication by a constant
+(e.g. <code>expr = 2 * x @ A @ y</code>).
+
+<P>
+The full list of overloaded operators
+on <A HREF="#pythonclass:MQuadExpr">MQuadExpr</A> objects
+is as follows:
+<code>+</code>, <code>+=</code>,
+<code>-</code>, <code>-=</code>, <code>*</code>, <code>*=</code>, and <code>/</code>.
+In Python parlance, we've defined the following
+<code>QuadExpr</code> functions:
+<code>__add__</code>, <code>__radd__</code>, <code>__iadd__</code>,
+<code>__sub__</code>, <code>__rsub__</code>, <code>__isub__</code>, <code>__neg__</code>,
+<code>__mul__</code>, <code>__rmul__</code>, and <code>__imul__</code>.
+
+<P>
+We've also overloaded the comparison operators
+(<A HREF="py_mqex_eq_.html#pythonmethod:MQuadExpr.__eq__">==</A>,
+<A HREF="py_mqex_le_.html#pythonmethod:MQuadExpr.__le__">&lt;=</A>, and
+<A HREF="py_mqex_ge_.html#pythonmethod:MQuadExpr.__ge__">&gt;=</A>), to make it
+easier to build constraints from quadratic expressions.
+
+<P>
+Note that the Python matrix multiplication operator (<code>@</code>) was
+introduced in Python version 3.5; it isn't available from Python 2.7.
+
+<P>
+Note that a quadratic matrix expression always produces a scalar
+result (a result with shape <code>(1,)</code>).  You can add linear terms
+into a quadratic matrix expression, but for the dimensions to be
+compatible they must also have shape <code>(1,)</code>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html3638"
+  HREF="py_mqex_copy.html">MQuadExpr.copy()</A>
+<LI><A ID="tex2html3639"
+  HREF="py_mqex_getvalue.html">MQuadExpr.getValue()</A>
+<LI><A ID="tex2html3640"
+  HREF="py_mqex_eq_.html">MQuadExpr.__eq__()</A>
+<LI><A ID="tex2html3641"
+  HREF="py_mqex_le_.html">MQuadExpr.__le__()</A>
+<LI><A ID="tex2html3642"
+  HREF="py_mqex_ge_.html">MQuadExpr.__ge__()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_mqex_copy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_python_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_mlex_ge_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_mqex_copy.html">MQuadExpr.copy()</A>
+<B> Up:</B> <A
+ HREF="py_python_api_details.html">Python API Details</A>
+<B> Previous:</B> <A
+ HREF="py_mlex_ge_.html">MLinExpr.__ge__()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

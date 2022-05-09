@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Appendix C: grb_rsm</TITLE>
+<META NAME="description" CONTENT="Appendix C: grb_rsm">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="appendix_d_rsm_configurati.html">
+<LINK REL="previous" HREF="appendix_b_rs_configuratio.html">
+<LINK REL="next" HREF="appendix_d_rsm_configurati.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="appendix_d_rsm_configurati.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_b_rs_configuratio.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_d_rsm_configurati.html">Appendix D: grb_rsm -</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_b_rs_configuratio.html">Appendix B: grb_rs -</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00080000000000000000"></A>
+<A ID="sec:RSMAgentRef"></A>
+<BR>
+Appendix C: grb_rsm
+</H1>
+
+<PRE>
+Usage:
+  grb_rsm [flags]           Start the Cluster Manager as a standard process
+  grb_rsm --help            Display usage
+  grb_rsm command [flags]   Execute a specific command
+  grb_rsm command --help    Display more information about a command
+
+Flags can be set using --flag=value or the short form -f=value if defined.
+A boolean flag can be enabled using --flag or the short form -f if defined.
+
+Configuration Helper Commands:
+  properties  Display help about configuration properties
+
+Service Commands:
+  install     Install the service
+  restart     Start or restart the service (install the service if necessary)
+  start       Start the service (install the service if necessary)
+  stop        Stop the service
+  uninstall   Uninstall the service
+
+Logging Flags:
+      --console-ts             Add timestamps to console log messages
+      --logfile string         Log to a rotating log file
+      --logfile-max-age int    Limit the rotating log file to a number of days
+      --logfile-max-size int   Limit the size of each file to a size in Mb
+      --no-console             Disable log to console
+      --syslog                 Log to syslog or Windows event log
+  -v, --verbose                Enable verbose logging
+
+Configuration Flags:
+  -c, --config string          Location of the configuration file (default: 'grb_rsm.cnf')
+      --database string        MongoDB database URL
+      --port int               Start the server on the given port
+      --service                Indicates that it is started by a service manager
+
+Security Flags:
+      --tls                    Use TLS for communication encryption
+      --tlscert string         Path to TLS certificate file
+      --tlskey string          Path to TLS key file
+      --tls-insecure           Use TLS but disable verification of certificates,
+                                 works with self-signed certificates
+
+General Flags:
+      --version                Display version information
+      --help                   Display usage
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="appendix_d_rsm_configurati.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_b_rs_configuratio.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_d_rsm_configurati.html">Appendix D: grb_rsm -</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_b_rs_configuratio.html">Appendix B: grb_rs -</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

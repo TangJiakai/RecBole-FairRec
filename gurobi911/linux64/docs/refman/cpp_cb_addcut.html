@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBCallback::addCut()</TITLE>
+<META NAME="description" CONTENT="GRBCallback::addCut()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_cb_addlazy.html">
+<LINK REL="previous" HREF="cpp_cb_abort.html">
+<LINK REL="next" HREF="cpp_cb_addlazy.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_cb_addlazy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_abort.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_addlazy.html">GRBCallback::addLazy()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_abort.html">GRBCallback::abort()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000413300000000000000"></A>
+<A ID="cppmethod:GRBCallback::addCut"></A>
+<BR>
+GRBCallback::addCut()
+</H3>
+
+<P>
+Add a cutting plane to the MIP model from within a callback function.
+Note that this method can only be invoked when the <code>where</code>
+member variable is equal to <SPAN  CLASS="texttt">GRB_CB_MIPNODE</SPAN> (see the
+<A HREF="cb_codes.html#sec:CallbackCodes">Callback Codes</A> section for more
+information).
+
+<P>
+Cutting planes can be added at any node of the branch-and-cut tree.
+However, they should be added sparingly, since they increase the size
+of the relaxation model that is solved at each node and can
+significantly degrade node processing speed.
+
+<P>
+Cutting planes are typically used to cut off the current relaxation
+solution.  To retrieve the relaxation solution at the current node,
+you should first call
+<A HREF="cpp_cb_getnoderel.html#cppmethod:GRBCallback::getNodeRel">getNodeRel</A>.
+
+<P>
+You should consider setting parameter
+<A HREF="precrush.html#parameter:PreCrush">PreCrush</A> to value 1 when adding
+your own cuts. This setting shuts off a few presolve reductions that
+can sometimes prevent your cut from being applied to the presolved
+model (which would result in your cut being silently ignored).
+
+<P>
+Note that cutting planes added through this method must truly be
+cutting planes -- they can cut off continuous solutions, but they may
+not cut off integer solutions that respect the original constraints of
+the model.  Ignoring this restriction will lead to incorrect
+solutions.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addCut</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">const GRBLinExpr&amp;</TD>
+<TD CLASS="LEFT">lhsExpr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">sense,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">rhsVal )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">lhsExpr</SPAN>: Left-hand side expression for new cutting plane.
+
+<P>
+ <SPAN  CLASS="textbf">sense</SPAN>: Sense for new cutting plane (<SPAN  CLASS="texttt">GRB_LESS_EQUAL</SPAN>,
+  <SPAN  CLASS="texttt">GRB_EQUAL</SPAN>, or <SPAN  CLASS="texttt">GRB_GREATER_EQUAL</SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">rhsVal</SPAN>: Right-hand side value for new cutting plane.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addCut</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBTempConstr&amp;</TD>
+<TD CLASS="LEFT">tc )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">tc</SPAN>: Temporary constraint object, created using an overloaded
+  comparison operator.  See
+  <A HREF="cpp_tempconstr.html#cppclass:GRBTempConstr">GRBTempConstr</A> for more
+  information.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_cb_addlazy.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_cb_abort.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_cb_addlazy.html">GRBCallback::addLazy()</A>
+<B> Up:</B> <A
+ HREF="cpp_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="cpp_cb_abort.html">GRBCallback::abort()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

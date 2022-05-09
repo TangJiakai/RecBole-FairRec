@@ -1,0 +1,193 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBnewmodel</TITLE>
+<META NAME="description" CONTENT="GRBnewmodel">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_copymodel.html">
+<LINK REL="previous" HREF="c_loadmodel.html">
+<LINK REL="next" HREF="c_copymodel.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_copymodel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_loadmodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_copymodel.html">GRBcopymodel</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_loadmodel.html">GRBloadmodel</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00022200000000000000"></A>
+<A ID="routine:GRBnewmodel"></A>
+<BR>
+GRBnewmodel
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBnewmodel</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBenv</TD>
+<TD CLASS="LEFT">*env,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">**modelP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*Pname,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">numvars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*obj,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*lb,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">*ub,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">*vtype,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">**varnames )</TD>
+</TR>
+</TABLE>
+
+<P>
+Create a new optimization model.  This routine allows you to specify
+an initial set of variables (with objective coefficients, bounds,
+types, and names), but the initial model will have no constraints.
+Constraints can be added later with
+<A HREF="c_addconstr.html#routine:GRBaddconstr">GRBaddconstr</A> or
+<A HREF="c_addconstrs.html#routine:GRBaddconstrs">GRBaddconstrs</A>.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while creating the new model.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">env</SPAN>: The environment in which the new model should be
+  created.  Note that the new model will get a copy of this
+  environment, so subsequent modifications to the original environment
+  (e.g., parameter changes) won't affect the new model.  Use
+  <A HREF="c_getenv.html#routine:GRBgetenv">GRBgetenv</A> to modify the
+  environment associated with a model.
+
+<P>
+ <SPAN  CLASS="textbf">modelP</SPAN>: The location in which the pointer to the new model
+  should be placed.
+
+<P>
+ <SPAN  CLASS="textbf">Pname</SPAN>: The name of the model.
+
+<P>
+ <SPAN  CLASS="textbf">numvars</SPAN>: The number of variables in the model.
+
+<P>
+ <SPAN  CLASS="textbf">obj</SPAN>: Objective coefficients for the new variables.  This argument can be <SPAN  CLASS="texttt">NULL</SPAN>, in which case the objective coefficients are set to
+<SPAN  CLASS="texttt">0.0</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">lb</SPAN>: Lower bounds for the new variables.  This argument can
+  be <SPAN  CLASS="texttt">NULL</SPAN>, in which case all variables get lower bounds of
+  <SPAN  CLASS="texttt">0.0</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">ub</SPAN>: Upper bounds for the new variables.  This argument can
+  be <SPAN  CLASS="texttt">NULL</SPAN>, in which case all variables get infinite upper bounds.
+
+<P>
+ <SPAN  CLASS="textbf">vtype</SPAN>: Types for the variables. Options are
+  <SPAN  CLASS="texttt">GRB_CONTINUOUS</SPAN>, <SPAN  CLASS="texttt">GRB_BINARY</SPAN>, <SPAN  CLASS="texttt">GRB_INTEGER</SPAN>,
+  <SPAN  CLASS="texttt">GRB_SEMICONT</SPAN>, or <SPAN  CLASS="texttt">GRB_SEMIINT</SPAN>.  This argument can
+  be <SPAN  CLASS="texttt">NULL</SPAN>, in which case all variables are assumed to be
+  continuous.
+
+<P>
+ <SPAN  CLASS="textbf">varnames</SPAN>: Names for the new variables.  This argument can be
+  <SPAN  CLASS="texttt">NULL</SPAN>, in which case all variables are given default
+  names.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  double obj[] = {1.0, 1.0};
+  char *names[] = {"var1", "var2"};
+  error = GRBnewmodel(env, &amp;model, "New", 2, obj, NULL, NULL, NULL, names);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_copymodel.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_creation_and_modif.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_loadmodel.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_copymodel.html">GRBcopymodel</A>
+<B> Up:</B> <A
+ HREF="c_model_creation_and_modif.html">Model Creation and Modification</A>
+<B> Previous:</B> <A
+ HREF="c_loadmodel.html">GRBloadmodel</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Choosing the right algorithm</TITLE>
+<META NAME="description" CONTENT="Choosing the right algorithm">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="making_the_algorithm_less_.html">
+<LINK REL="previous" HREF="presolve2.html">
+<LINK REL="next" HREF="making_the_algorithm_less_.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="making_the_algorithm_less_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solver_parameters_to_manag.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="presolve2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="making_the_algorithm_less_.html">Making the algorithm less</A>
+<B> Up:</B> <A
+ HREF="solver_parameters_to_manag.html">Solver parameters to manage</A>
+<B> Previous:</B> <A
+ HREF="presolve2.html">Presolve</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000345200000000000000">
+Choosing the right algorithm</A>
+</H3>
+
+<P>
+Gurobi Optimizer provides two main algorithms to solve continuous
+models and the continuous relaxations of mixed-integer models: barrier
+and simplex.
+
+<P>
+The barrier algorithm is usually fastest for large, difficult models.
+However, it is also more numerically sensitive. And even
+when the barrier algorithm converges, the crossover algorithm that
+usually follows can stall due to numerical issues.
+
+<P>
+The simplex method is often a good alternative, since it is generally
+less sensitive to numerical issues.  To use dual simplex or primal
+simplex, set the <A HREF="method.html#parameter:Method">Method</A> parameter to
+1 or 0, respectively.
+
+<P>
+Note that, in many optimization applications, not all problem
+instances have numerical issues.  Thus, choosing simplex exclusively
+may prevent you from taking advantage of the performance advantages of
+the barrier algorithm on numerically well-behaved instances.  In such
+cases, you should use the concurrent optimizer, which uses
+multiple algorithms simultaneously and returns the solution from the
+first one to finish.  The concurrent optimizer is the default
+for LP models, and can be selected for MIP by setting
+the <A HREF="method.html#parameter:Method">Method</A> parameter to 3 or 4.
+
+<P>
+For detailed control over the concurrent optimizer, you can create
+concurrent environments, where you can set specific algorithmic
+parameters for each concurrent solve. For example, you can create one
+concurrent environment with <TT>Method=0</TT> and another with
+<TT>Method=1</TT> to use primal and dual simplex simultaneously.
+Finally, you can use concurrent optimization
+with multiple distinct computers using distributed optimization.  On a
+single computer, the different algorithms run on multiple threads,
+each using different processor cores. With distributed optimization,
+independent computers run the separate algorithms, which can be faster
+since the computers do not compete for access to memory.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="making_the_algorithm_less_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solver_parameters_to_manag.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="presolve2.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="making_the_algorithm_less_.html">Making the algorithm less</A>
+<B> Up:</B> <A
+ HREF="solver_parameters_to_manag.html">Solver parameters to manage</A>
+<B> Previous:</B> <A
+ HREF="presolve2.html">Presolve</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

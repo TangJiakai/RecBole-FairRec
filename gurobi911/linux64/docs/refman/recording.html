@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Recording</TITLE>
+<META NAME="description" CONTENT="Recording">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="replay.html">
+<LINK REL="previous" HREF="recording_api_calls.html">
+<LINK REL="next" HREF="replay.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="replay.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="recording_api_calls.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="recording_api_calls.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="replay.html">Replay</A>
+<B> Up:</B> <A
+ HREF="recording_api_calls.html">Recording API Calls</A>
+<B> Previous:</B> <A
+ HREF="recording_api_calls.html">Recording API Calls</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000301000000000000000">
+Recording</A>
+</H2>
+
+<P>
+To enable recording, you simply need to set the
+<A HREF="record.html#parameter:Record">Record</A> parameter to 1 as soon as you
+create your Gurobi environment.  The easiest way to do this is with a
+<code>gurobi.env</code> file.  This file should contain the following line:
+<PRE>
+Record 1
+</PRE>
+If you put this file in the same directory as your application, Gurobi
+will pick up the setting when your application makes its first Gurobi
+call.  You can also set this parameter through the standard
+<A HREF="parameter_examples.html#sec:ParameterExamples">parameter modification routines</A>
+in your program.
+
+<P>
+Once this parameter is set, you should see the following in your log:
+<PRE>
+*** Start recording in file recording000.grbr
+</PRE>
+
+<P>
+If your application creates more than one Gurobi environment, you may
+see more than one of these messages.  Each will write to a different
+file:
+<PRE>
+*** Start recording in file recording001.grbr
+</PRE>
+
+<P>
+As your program runs, Gurobi will write the commands and data that are
+passed into Gurobi routines to these files.  Recording continues until
+you free your Gurobi environment (or until your program ends).  When
+you free the environment, if Gurobi logging is enabled you will see
+the following message:
+<PRE>
+*** Recording complete - close file recording000.grbr
+</PRE>
+
+<P>
+At this point, you have a recording file that is ready for later replay.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="replay.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="recording_api_calls.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="recording_api_calls.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="replay.html">Replay</A>
+<B> Up:</B> <A
+ HREF="recording_api_calls.html">Recording API Calls</A>
+<B> Previous:</B> <A
+ HREF="recording_api_calls.html">Recording API Calls</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

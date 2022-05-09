@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBCallback.getNodeRel()</TITLE>
+<META NAME="description" CONTENT="GRBCallback.getNodeRel()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_cb_getsolution.html">
+<LINK REL="previous" HREF="java_cb_getintinfo.html">
+<LINK REL="next" HREF="java_cb_getsolution.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_cb_getsolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_cb_getintinfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_cb_getsolution.html">GRBCallback.getSolution()</A>
+<B> Up:</B> <A
+ HREF="java_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="java_cb_getintinfo.html">GRBCallback.getIntInfo()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000612700000000000000"></A>
+<A ID="javamethod:GRBCallback.getNodeRel"></A>
+<BR>
+GRBCallback.getNodeRel()
+</H3>
+
+<P>
+Retrieve node relaxation solution values at the current
+node.  Only available when the <code>where</code> member variable is equal
+to <code>GRB.CB_MIPNODE</code>, and <code>GRB.CB_MIPNODE_STATUS</code> is equal
+to <code>GRB.Status.OPTIMAL</code>.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getNodeRel</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">v )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">v</SPAN>: The variable whose value is desired.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The value of the specified variable in the
+  node relaxation for the current node.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getNodeRel</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">xvars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">xvars</SPAN>: The list of variables whose values are desired.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The values of the specified variables in the
+  node relaxation for the current node.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">double[][]</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getNodeRel</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar[][]</TD>
+<TD CLASS="LEFT">xvars )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">xvars</SPAN>: The array of variables whose values are desired.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The values of the specified variables in the
+  node relaxation for the current node.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_cb_getsolution.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_cb_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_cb_getintinfo.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_cb_getsolution.html">GRBCallback.getSolution()</A>
+<B> Up:</B> <A
+ HREF="java_cb_.html">GRBCallback</A>
+<B> Previous:</B> <A
+ HREF="java_cb_getintinfo.html">GRBCallback.getIntInfo()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

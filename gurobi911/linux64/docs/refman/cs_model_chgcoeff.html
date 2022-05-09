@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.ChgCoeff()</TITLE>
+<META NAME="description" CONTENT="GRBModel.ChgCoeff()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_chgcoeffs.html">
+<LINK REL="previous" HREF="cs_model_addvars.html">
+<LINK REL="next" HREF="cs_model_chgcoeffs.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_chgcoeffs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_addvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_chgcoeffs.html">GRBModel.ChgCoeffs()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_addvars.html">GRBModel.AddVars()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000821100000000000000"></A>
+<A ID="dotnetmethod:GRBModel.ChgCoeff"></A>
+<BR>
+GRBModel.ChgCoeff()
+</H3>
+
+<P>
+Change one coefficient in the model.  The desired change is captured
+using a <A HREF="cs_var.html#dotnetclass:GRBVar">GRBVar</A> object, a
+<A HREF="cs_constr.html#dotnetclass:GRBConstr">GRBConstr</A> object, and a desired
+coefficient for the specified variable in the specified constraint.
+If you make multiple changes to the same coefficient, the last one
+will be applied.
+
+<P>
+Note that, due to our lazy update approach, the change won't actually
+  take effect until you update the model
+  (using <A HREF="cs_model_update.html#dotnetmethod:GRBModel.Update">GRBModel.Update</A>),
+  optimize the model
+  (using <A HREF="cs_model_optimize.html#dotnetmethod:GRBModel.Optimize">GRBModel.Optimize</A>),
+  or write the model to disk
+  (using <A HREF="cs_model_write.html#dotnetmethod:GRBModel.Write">GRBModel.Write</A>).
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">ChgCoeff</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBConstr</TD>
+<TD CLASS="LEFT">constr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">var,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">newvalue )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">constr</SPAN>: Constraint for coefficient to be changed.
+
+<P>
+ <SPAN  CLASS="textbf">var</SPAN>: Variable for coefficient to be changed.
+
+<P>
+ <SPAN  CLASS="textbf">newvalue</SPAN>: Desired new value for coefficient.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_chgcoeffs.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_addvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_chgcoeffs.html">GRBModel.ChgCoeffs()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_addvars.html">GRBModel.AddVars()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

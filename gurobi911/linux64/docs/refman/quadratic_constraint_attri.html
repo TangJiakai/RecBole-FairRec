@@ -1,0 +1,111 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Quadratic Constraint Attributes</TITLE>
+<META NAME="description" CONTENT="Quadratic Constraint Attributes">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="general_constraint_attribu.html">
+<LINK REL="previous" HREF="sos_attributes.html">
+<LINK REL="next" HREF="qcsense.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="qcsense.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="iissos.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="qcsense.html">QCSense</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="iissos.html">IISSOS</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000175000000000000000">
+Quadratic Constraint Attributes</A>
+</H2>
+
+<P>
+These are quadratic constraint attributes, meaning that they are
+associated with specific quadratic constraints in the model.  You
+should use one of the various <code>get</code> routines to retrieve the
+value of an attribute.  These are described at the beginning of
+<A HREF="attributes.html#sec:Attributes">this section</A>).
+For the object-oriented interfaces, quadratic constraint attributes
+are retrieved by invoking the <code>get</code> method on a constraint
+object.  For attributes that can be modified directly by the user, you
+can use one of the various <code>set</code> methods.
+
+<P>
+Attempting to query an attribute that is not available will produce an
+error.  In C, the attribute query routine will return a
+<code>GRB_ERROR_DATA_NOT_AVAILABLE</code> error code.  The object-oriented
+interfaces will throw an exception.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html4021"
+  HREF="qcsense.html">QCSense</A>
+<LI><A ID="tex2html4022"
+  HREF="qcrhs.html">QCRHS</A>
+<LI><A ID="tex2html4023"
+  HREF="qcname.html">QCName</A>
+<LI><A ID="tex2html4024"
+  HREF="qcpi.html">QCPi</A>
+<LI><A ID="tex2html4025"
+  HREF="qcslack.html">QCSlack</A>
+<LI><A ID="tex2html4026"
+  HREF="qctag.html">QCTag</A>
+<LI><A ID="tex2html4027"
+  HREF="iisqconstr.html">IISQConstr</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="qcsense.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="iissos.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="qcsense.html">QCSense</A>
+<B> Up:</B> <A
+ HREF="attributes.html">Attributes</A>
+<B> Previous:</B> <A
+ HREF="iissos.html">IISSOS</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

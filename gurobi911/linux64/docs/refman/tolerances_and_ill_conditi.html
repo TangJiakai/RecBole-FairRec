@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Tolerances and Ill Conditioning -- A Caveat</TITLE>
+<META NAME="description" CONTENT="Tolerances and Ill Conditioning -- A Caveat">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="objectives.html">
+<LINK REL="next" HREF="environments.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="environments.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objectives.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Up:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A>
+<B> Previous:</B> <A
+ HREF="objectives.html">Objectives</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000154000000000000000"></A>
+<A ID="subsection:Tolerances"></A>
+<BR>
+Tolerances and Ill Conditioning -- A Caveat
+</H2>
+
+<P>
+As noted at several places in this section, finite-precision
+arithmetic limits the precision of the solutions Gurobi computes.
+This limitation is managed through numerical tolerances in most cases;
+we treat a solution as satisfying a constraint if the violation is
+smaller than the corresponding tolerance.  The default tolerances are
+chosen to be sufficiently large so that numerical errors aren't an
+issue for most models.
+
+<P>
+Unfortunately, some models suffer from severe <SPAN  CLASS="textit">ill conditioning</SPAN>,
+which can greatly complicate the search for a solution.  This can show
+itself in a few ways.  Ill conditioning can severely hurt performance,
+and it can lead to solutions whose constraint violations are larger
+than the tolerances.
+
+<P>
+Ill conditioning is a measure of the amount of error that can result
+when solving linear systems of equations.  As noted earlier, linear
+and mixed-integer programming are built on top of linear solves, so
+errors in solving linear systems directly lead to errors in LP and MIP
+solutions.  Serious problems arise when the error in solving a linear
+system is comparable to the desired tolerance.  If you want to solve a
+linear programming problem to the default feasibility tolerance of
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.92ex; vertical-align: -0.31ex; " SRC="img216.svg"
+ ALT="$1e-6$"></SPAN>, for example, and if your linear system solves produce errors
+that are also roughly <SPAN CLASS="MATH"><IMG STYLE="height: 1.92ex; vertical-align: -0.31ex; " SRC="img216.svg"
+ ALT="$1e-6$"></SPAN>, then you have no way of knowing whether
+your current solution is truly feasible.  This can lead to
+oscillations, as your solution bounces between feasible and infeasible
+due to nothing more than numerical error, which can make it extremely
+difficult to achieve forward progress towards an optimal solution.
+
+<P>
+When solving linear and quadratic programming problems, we recommend
+that you check final primal and dual constraint violations.  Duality
+theory states that, if your solution is primal feasible, dual
+feasible, and complementary, then you have an optimal solution.
+Complementarity is automatically enforced by the simplex method, so
+achieving primal and dual feasibility (to tolerances) assures that the
+solution is optimal (to tolerances).
+
+<P>
+When solving a MIP model (which includes any model that contains
+discrete or non-convex features, such as non-convex objectives,
+general constraints, semi-continuous variables, etc.), there is
+unfortunately no simple method available to check the optimality of
+the result.  While we work hard to identify and manage the negative
+effects of ill conditioning, we are unable to provide a mathematical
+proof that the solution returned is truly optimal.
+
+<P>
+For additional information on numerical issues, please refer to the
+<A HREF="guidelines_for_numerical_i.html#sec:Numerics">Gurobi Guidelines for Numerical Issues</A>
+Section of this manual.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="environments.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variables_and_constraints_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objectives.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="environments.html">Environments</A>
+<B> Up:</B> <A
+ HREF="variables_and_constraints_.html">Variables and Constraints and</A>
+<B> Previous:</B> <A
+ HREF="objectives.html">Objectives</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

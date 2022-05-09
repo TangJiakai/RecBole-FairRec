@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>The env argument</TITLE>
+<META NAME="description" CONTENT="The env argument">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="the_params_argument.html">
+<LINK REL="next" HREF="solving_a_model.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="solving_a_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="common_arguments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="the_params_argument.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solving_a_model.html">Solving a Model</A>
+<B> Up:</B> <A
+ HREF="common_arguments.html">Common Arguments</A>
+<B> Previous:</B> <A
+ HREF="the_params_argument.html">The params argument</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000141300000000000000">
+The env argument</A>
+</H3>
+<A ID="r:env"></A>
+The optional <TT>env</TT> argument is also a <TT>list</TT>.
+It allows you to solve your problem on a Gurobi Compute Server or
+the Gurobi Instant Cloud.
+
+<P>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Using a Compute Server License</SPAN></SPAN>
+
+<P>
+Gurobi Compute Server allows you to offload optimization jobs to a
+remote server.  Servers are organized into clusters.  By providing the
+name of any node within the cluster, your job will automatically be
+sent to the least heavily loaded node in the cluster.  If all nodes
+are at capacity, your job will be placed in a queue, and will proceed
+once capacity becomes available.  You can find additional information
+about Gurobi Compute Server in the <A ID="tex2html31"
+  HREF="../remoteservices/remoteservices.html">Gurobi Remote Services Reference Manual</A>.
+
+<P>
+The following is an enumeration of all of the named components of the
+<TT>env</TT> argument that Gurobi will take into account.
+
+<P>
+<DL>
+<DT><STRONG>computeserver</STRONG></DT>
+<DD>A Compute Server.  You can refer to the server
+using its name or its IP address.  If you are using a non-default
+port, the server name should be followed by the port number (e.g.,
+<TT>server1:61000</TT>).
+
+<P>
+</DD>
+<DT><STRONG>password (optional)</STRONG></DT>
+<DD>User password on the Compute Server
+cluster. Obtain this from your Compute Server administrator.
+
+<P>
+</DD>
+<DT><STRONG>priority (optional)</STRONG></DT>
+<DD>The priority of the job.  Priorities must
+be between -100 and 100, with a default value of 0 (by convention).
+Higher priority jobs are chosen from the server job queue before lower
+priority jobs.  A job with priority 100 runs immediately, bypassing
+the job queue and ignoring the job limit on the server. You should
+exercise caution with priority 100 jobs, since they can severely
+overload a server, which can cause jobs to fail, and in extreme cases
+can cause the server to crash.
+
+<P>
+</DD>
+<DT><STRONG>router (optional)</STRONG></DT>
+<DD>The router for the Compute Server cluster.  A
+router can be used to improve the robustness of a Compute Server
+deployment.  You can refer to the router using either its name or its
+IP address.  A typical Remote Services deployment won't use a router,
+so you typically won't need to set this.
+
+<P>
+</DD>
+<DT><STRONG>CStlsinsecure (optional)</STRONG></DT>
+<DD>Indicates whether to use insecure mode
+  in the TLS (Transport Layer Security).  Set this to 0 unless your
+  server administrator tells you otherwise.
+</DD>
+</DL>
+
+<P>
+Here is an example of how to use an <TT>env</TT> argument to connect to a Compute Server:
+<BR>
+<BR><TT>env &lt;- list()
+<BR>
+env$computeserver &lt;- 'server1.mycompany.com:61000'
+<BR>
+env$priority      &lt;- 5
+<BR></TT>
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Using a Gurobi Instant Cloud License</SPAN></SPAN>
+
+<P>
+Gurobi Instant Cloud allows you to offload optimization jobs to
+a Gurobi Compute Server on the cloud.  If an appropriate
+machine is already running, the job will run on that machine.
+It will automatically launch a new machine otherwise.
+Note that launching a new machine can take a few minutes.
+You can find additional information about the Gurobi Instant Cloud
+service <A HREF="grb_instant_cloud.html#sec:Cloud">here</A>.
+
+<P>
+The following is an enumeration of all of the named components of the
+<TT>env</TT> argument that Gurobi will take into account.
+
+<P>
+<DL>
+<DT><STRONG>accessid</STRONG></DT>
+<DD>The access ID for your Gurobi Instant Cloud license.
+This can be retrieved from the Gurobi Instant Cloud website.  When
+used in combination with your <TT>secretkey</TT>, this allows you
+to launch Instant Cloud instances and submit jobs to them.
+
+<P>
+</DD>
+<DT><STRONG>secretkey</STRONG></DT>
+<DD>The secret key for your Gurobi Instant Cloud license.
+This can be retrieved from the Gurobi Instant Cloud website.  When
+used in combination with your <TT>accessid</TT>, this allows you to
+launch Instant Cloud instances and submit jobs to them.  Note that you
+should keep your secret key private.
+
+<P>
+</DD>
+<DT><STRONG>pool (optional)</STRONG></DT>
+<DD>The machine pool.  Machine pools allow you to
+create fixed configurations on the Instant Cloud website (capturing
+things like type of machine, geographic region, etc.), and then launch
+and share machines from client programs without having to restate
+configuration information each time you launch a machine. If not
+provided, your job will be launched in the default pool associated
+with your cloud license.
+
+<P>
+</DD>
+<DT><STRONG>priority (optional)</STRONG></DT>
+<DD>The priority of the job.  Priorities must
+be between -100 and 100, with a default value of 0 (by convention).
+Higher priority jobs are chosen from the server job queue before lower
+priority jobs.  A job with priority 100 runs immediately, bypassing
+the job queue and ignoring the job limit on the server. You should
+exercise caution with priority 100 jobs, since they can severely
+overload a server, which can cause jobs to fail, and in extreme cases
+can cause the server to crash.
+</DD>
+</DL>
+
+<P>
+Here is an example of how to use an <TT>env</TT> argument to launch a Gurobi Instant Cloud instance:
+<BR>
+<BR><TT>env &lt;- list()
+<BR>
+env$accessid  &lt;- '3d1ecef9-dfad-eff4-b3fa'
+<BR>
+env$secretkey &lt;- 'ae6L23alJe3+fas'
+<BR></TT>
+
+<P>
+Note that when creating an environment variable, you need to choose
+to use either Compute Server or Instant Cloud.  Populating
+named components for both will result in an error.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="solving_a_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="common_arguments.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="the_params_argument.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solving_a_model.html">Solving a Model</A>
+<B> Up:</B> <A
+ HREF="common_arguments.html">Common Arguments</A>
+<B> Previous:</B> <A
+ HREF="the_params_argument.html">The params argument</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

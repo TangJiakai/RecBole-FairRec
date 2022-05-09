@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>tune_vb.vb</TITLE>
+<META NAME="description" CONTENT="tune_vb.vb">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="workforce1_vb_vb.html">
+<LINK REL="previous" HREF="tsp_vb_vb.html">
+<LINK REL="next" HREF="workforce1_vb_vb.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="workforce1_vb_vb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="visual_basic_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tsp_vb_vb.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce1_vb_vb.html">workforce1_vb.vb</A>
+<B> Up:</B> <A
+ HREF="visual_basic_examples.html">Visual Basic Examples</A>
+<B> Previous:</B> <A
+ HREF="tsp_vb_vb.html">tsp_vb.vb</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000252800000000000000"></A>
+<A ID="subsubsection:tune_vb.vb"></A>
+<BR>
+tune_vb.vb
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">' Copyright 2020, Gurobi Optimization, LLC */
+'
+' This example reads a model from a file and tunes it.
+' It then writes the best parameter settings to a file
+' and solves the model using these parameters.
+
+Imports System
+Imports Gurobi
+
+Class tune_vb
+    Shared Sub Main(ByVal args As String())
+
+        If args.Length &lt; 1 Then
+            Console.Out.WriteLine("Usage: tune_vb filename")
+            Return
+        End If
+
+        Try
+            Dim env As New GRBEnv()
+
+            ' Read model from file
+            Dim model As New GRBModel(env, args(0))
+
+            ' Set the TuneResults parameter to 1
+            model.Parameters.TuneResults = 1
+
+            ' Tune the model
+            model.Tune()
+
+            ' Get the number of tuning results
+            Dim resultcount As Integer = model.TuneResultCount
+
+            If resultcount &gt; 0 Then
+
+                ' Load the tuned parameters into the model's environment
+                model.GetTuneResult(0)
+
+                ' Write the tuned parameters to a file
+                model.Write("tune.prm")
+
+                ' Solve the model using the tuned parameters
+                model.Optimize()
+            End If
+
+            ' Dispose of model and environment
+            model.Dispose()
+            env.Dispose()
+
+        Catch e As GRBException
+            Console.WriteLine("Error code: " &amp; e.ErrorCode &amp; ". " &amp; e.Message)
+        End Try
+    End Sub
+End Class
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="workforce1_vb_vb.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="visual_basic_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tsp_vb_vb.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce1_vb_vb.html">workforce1_vb.vb</A>
+<B> Up:</B> <A
+ HREF="visual_basic_examples.html">Visual Basic Examples</A>
+<B> Previous:</B> <A
+ HREF="tsp_vb_vb.html">tsp_vb.vb</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

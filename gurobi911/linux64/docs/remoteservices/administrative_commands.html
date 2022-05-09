@@ -1,0 +1,102 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Administrative Commands</TITLE>
+<META NAME="description" CONTENT="Administrative Commands">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="region_router.html">
+<LINK REL="previous" HREF="client_commands.html">
+<LINK REL="next" HREF="region_router.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="region_router.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="using_remote_services_with.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="region_router.html">Region Router</A>
+<B> Up:</B> <A
+ HREF="using_remote_services_with.html">Using Remote Services with</A>
+<B> Previous:</B> <A
+ HREF="client_commands.html">Client Commands</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00053000000000000000"></A>
+<A ID="sec:ICAdministrate"></A>
+<BR>
+Administrative Commands
+</H2>
+
+<P>
+Gurobi Instant Cloud allows you to perform administrative commands (to
+abort a job, change the job limit, etc.), but you'll need to retrieve
+the administrator password to do so.  The administrator password can
+be retrieved from the <A ID="tex2html16"
+  HREF="https://cloud.gurobi.com/manager">Instant Cloud
+  Manager</A>.  For a running machine,
+you will find the administrator password in the <TT>Machines</TT> area,
+within machine details under the <TT>PASSWORDS</TT> tab.  If you have no
+running machine, you can find it in the <TT>Settings</TT> area,
+under passwords settings. The password will be prompted if
+not specified in the license file.
+
+<P>
+For example, you can abort a specific job:
+
+<PRE>
+&gt; grbcluster job abort 3545d9de-8de4-4666-9491-5d60e2e56186
+</PRE>
+
+<P>
+Or, you can set the job limit of a specific Compute Server node:
+
+<PRE>
+&gt; grbcluster node config --server=ip-172-31-62-109  --job-limit=10
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="region_router.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="using_remote_services_with.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_commands.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="region_router.html">Region Router</A>
+<B> Up:</B> <A
+ HREF="using_remote_services_with.html">Using Remote Services with</A>
+<B> Previous:</B> <A
+ HREF="client_commands.html">Client Commands</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

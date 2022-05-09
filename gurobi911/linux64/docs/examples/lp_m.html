@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>lp.m</TITLE>
+<META NAME="description" CONTENT="lp.m">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="lp2_m.html">
+<LINK REL="previous" HREF="linprog_m.html">
+<LINK REL="next" HREF="lp2_m.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lp2_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="linprog_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp2_m.html">lp2.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="linprog_m.html">linprog.m</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000271100000000000000"></A>
+<A ID="subsubsection:lp.m"></A>
+<BR>
+lp.m
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function lp()
+% Copyright 2020, Gurobi Optimization, LLC
+%
+% This example formulates and solves the following simple LP model:
+% maximize
+%       x + 2 y + 3 z
+% subject to
+%       x +   y        &lt;= 1
+%             y +   z  &lt;= 1
+%
+
+model.A = sparse([1 1 0; 0 1 1]);
+model.obj = [1 2 3];
+model.modelsense = 'Max';
+model.rhs = [1 1];
+model.sense = [ '&lt;' '&lt;'];
+
+result = gurobi(model);
+
+disp(result.objval);
+disp(result.x);
+
+% Alterantive representation of A - as sparse triplet matrix
+i = [1; 1; 2; 2];
+j = [1; 2; 2; 3];
+x = [1; 1; 1; 1];
+model.A = sparse(i, j, x, 2, 3);
+
+% Set some parameters
+params.method = 2;
+params.timelimit = 100;
+
+result = gurobi(model, params);
+
+disp(result.objval);
+disp(result.x)
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lp2_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="linprog_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lp2_m.html">lp2.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="linprog_m.html">linprog.m</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

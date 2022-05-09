@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Client Commands</TITLE>
+<META NAME="description" CONTENT="Client Commands">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="administrative_commands.html">
+<LINK REL="previous" HREF="client_setup.html">
+<LINK REL="next" HREF="administrative_commands.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="administrative_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="using_remote_services_with.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="administrative_commands.html">Administrative Commands</A>
+<B> Up:</B> <A
+ HREF="using_remote_services_with.html">Using Remote Services with</A>
+<B> Previous:</B> <A
+ HREF="client_setup.html">Client Setup</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00052000000000000000"></A>
+<A ID="sec:ICMonitor"></A>
+<BR>
+Client Commands
+</H2>
+
+<P>
+Once you have set up your client license file and started an Instant
+Cloud instance, you can use <TT>grbcluster</TT> to list the nodes in
+your cluster or issue other client commands.  Instances can be started
+by submitting a job through the <TT>gurobi_cl</TT> command-line tool,
+through the Gurobi programming language APIs, or manually through the
+Instant Cloud Manager website.
+
+<P>
+If you try to run <TT>grbcluster</TT> without first starting an
+instance, you will get the following error:
+
+<PRE>
+fatal : Instant Cloud pool default has no machines
+</PRE>
+
+<P>
+If your instance is in the process of starting, you will get the
+following error:
+
+<PRE>
+fatal : Instant Cloud pool default is not ready
+</PRE>
+
+<P>
+If your instance is up and running, <TT>grbcluster</TT> will list the
+nodes in your cluster:
+
+<PRE>
+&gt; grbcluster nodes
+ADDRESS          STATUS TYPE    GRP              LICENSE #Q #R JL IDLE  %MEM  %CPU
+ip-172-31-31-180 ALIVE  COMPUTE m-HkQmbubhWH1g7m VALID   0  0  2  12m0s 27.08 1.98
+ip-172-31-62-109 ALIVE  COMPUTE m-HJSXmb_-2WBkLX VALID   0  0  2  12m0s 27.49 0.00
+</PRE>
+
+<P>
+To obtain additional details (about the license file, the cloud pool,
+or the name of the server), you can use the verbose mode with the
+<TT>-v</TT> flag:
+
+<PRE>
+&gt; grbcluster -v nodes
+verb  : Reading license file /licenses/gurobi.lic
+verb  : Accessing Instant Cloud pool 999999-pool5
+verb  : Using remote services on node ip-172-31-31-180
+ADDRESS          STATUS TYPE    GRP              LICENSE #Q #R JL IDLE  %MEM  %CPU
+ip-172-31-31-180 ALIVE  COMPUTE m-HkQmbubhWH1g7m VALID   0  0  2  12m0s 27.08 1.98
+ip-172-31-62-109 ALIVE  COMPUTE m-HJSXmb_-2WBkLX VALID   0  0  2  12m0s 27.49 0.00
+</PRE>
+
+<P>
+You can use <TT>grbcluster</TT> to perform all of the same
+<A HREF="using_remote_services.html#sec:UsingRemoteServices">client commands</A> on an Instant Cloud
+cluster that you'd perform on a cluster running locally.
+You can monitor running and recently processed jobs, access
+log files, view parameters, etc.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="administrative_commands.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="using_remote_services_with.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="client_setup.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="administrative_commands.html">Administrative Commands</A>
+<B> Up:</B> <A
+ HREF="using_remote_services_with.html">Using Remote Services with</A>
+<B> Previous:</B> <A
+ HREF="client_setup.html">Client Setup</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

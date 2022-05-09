@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Running a Distributed Algorithm as an Interactive Job</TITLE>
+<META NAME="description" CONTENT="Running a Distributed Algorithm as an Interactive Job">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="sub_a_distributed_algorith.html">
+<LINK REL="previous" HREF="configuration.html">
+<LINK REL="next" HREF="sub_a_distributed_algorith.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sub_a_distributed_algorith.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuration.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_a_distributed_algorith.html">Submitting a Distributed Algorithm</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="configuration.html">Configuration</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00036300000000000000">
+Running a Distributed Algorithm as an Interactive Job</A>
+</H3>
+
+<P>
+To give an example, if you have a cluster consisting of two machines
+(<TT>server1</TT> and <TT>server2</TT>), and if you set <TT>TuneJobs</TT> to
+2 in <TT>grbtune</TT> ...
+
+<PRE>
+&gt; grbtune TuneJobs=2 misc07.mps
+</PRE>
+...you should see output that looks like the following:
+
+<PRE>
+Capacity available on 'server1:61000' - connecting...
+...
+Using Compute Server as first worker
+Started distributed worker on server2:61000
+
+Distributed tuning: launched 2 distributed worker jobs
+</PRE>
+This output indicates that two worker jobs have been launched, one on
+machine <TT>server1</TT> and the other on machine <TT>server2</TT>.  These
+two jobs will continue to run until your tuning run completes.
+
+<P>
+Similarly, if you launch distributed MIP ...
+
+<PRE>
+&gt; gurobi_cl DistributedMIPJobs=2 misc07.mps
+</PRE>
+...you should see the following output in the log:
+
+<PRE>
+Using Compute Server as first worker
+Started distributed worker on server2:61000
+
+Distributed MIP job count: 2
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sub_a_distributed_algorith.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="distributed_algorithms2.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="configuration.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sub_a_distributed_algorith.html">Submitting a Distributed Algorithm</A>
+<B> Up:</B> <A
+ HREF="distributed_algorithms2.html">Distributed Algorithms</A>
+<B> Previous:</B> <A
+ HREF="configuration.html">Configuration</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

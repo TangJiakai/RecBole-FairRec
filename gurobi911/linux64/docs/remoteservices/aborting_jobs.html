@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Aborting Jobs</TITLE>
+<META NAME="description" CONTENT="Aborting Jobs">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="accessing_the_job_history.html">
+<LINK REL="previous" HREF="accessing_job_parameters.html">
+<LINK REL="next" HREF="accessing_the_job_history.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="accessing_the_job_history.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="accessing_job_parameters.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="accessing_the_job_history.html">Accessing the Job History</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="accessing_job_parameters.html">Accessing Job Parameters</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00032500000000000000">
+Aborting Jobs</A>
+</H3>
+
+<P>
+Jobs that are running on a Compute Server can be aborted by using the
+<TT>job abort</TT> command.  For example:
+
+<P>
+
+<PRE>
+&gt; grbcluster job abort e7022667
+</PRE>
+
+<P>
+The following steps illustrate how you would start and subsequently
+abort a job.  First, use the Gurobi command-line tool
+(<TT>gurobi_cl</TT>) to start a long-running optimization job on your
+Compute Server:
+
+<PRE>
+&gt; gurobi_cl glass4.mps
+</PRE>
+
+<P>
+Once the job starts, you can use the <TT>grbcluster jobs</TT> command to
+retrieve the associated <TT>JOBID</TT> (or you can read it off from the
+output of <TT>gurobi_cl</TT>):
+
+<PRE>
+&gt; grbcluster jobs
+JOBID    ADDRESS STATUS  #Q  STIME               PRIO
+8f9b15d9 server1 RUNNING     2017-10-10 17:30:33 0
+</PRE>
+
+<P>
+The full or short <TT>JOBID</TT> can be used to abort the job as follows:
+
+<PRE>
+&gt; grbcluster job abort 8f9b15d9
+</PRE>
+If no <TT>JOBID</TT> is specified, the most recently started job will be aborted.
+
+<P>
+After the abort command is issued, the status of the job can be retrieved
+using the <TT>job recent</TT> command:
+
+<PRE>
+&gt; grbcluster job recent
+JOBID    ADDRESS  STATUS  STIME               USER  OPT
+8f9b15d9 server1  ABORTED 2017-10-10 17:41:33 user1 OPTIMAL
+</PRE>
+As you can see, the status of the job has changed to <TT>ABORTED</TT>.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="accessing_the_job_history.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="job_commands.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="accessing_job_parameters.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="accessing_the_job_history.html">Accessing the Job History</A>
+<B> Up:</B> <A
+ HREF="job_commands.html">Job Commands</A>
+<B> Previous:</B> <A
+ HREF="accessing_job_parameters.html">Accessing Job Parameters</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

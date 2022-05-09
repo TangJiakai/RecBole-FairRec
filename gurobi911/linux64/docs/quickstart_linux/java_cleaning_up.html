@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Cleaning up</TITLE>
+<META NAME="description" CONTENT="Cleaning up">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="java_error_handling.html">
+<LINK REL="previous" HREF="java_reporting_results_att.html">
+<LINK REL="next" HREF="java_error_handling.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_error_handling.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_reporting_results_att.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_error_handling.html">Error handling</A>
+<B> Up:</B> <A
+ HREF="java_interface.html">Java Interface</A>
+<B> Previous:</B> <A
+ HREF="java_reporting_results_att.html">Reporting results - attributes</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000910000000000000000">
+Cleaning up</A>
+</H2>
+
+<P>
+The example concludes with <code>dispose</code> calls:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">      // Dispose of model and environment
+      model.dispose();
+      env.dispose();
+</PRE>
+
+<P>
+These reclaim the resources associated with the model and environment.
+Garbage collection would reclaim these eventually, but if your program
+doesn't exit immediately after performing the optimization, it is best
+to reclaim them explicitly.
+
+<P>
+Note that all models associated with an environment must be disposed
+before the environment itself is disposed.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_error_handling.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_reporting_results_att.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_error_handling.html">Error handling</A>
+<B> Up:</B> <A
+ HREF="java_interface.html">Java Interface</A>
+<B> Previous:</B> <A
+ HREF="java_reporting_results_att.html">Reporting results - attributes</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.getAttr()</TITLE>
+<META NAME="description" CONTENT="Model.getAttr()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_getcoeff.html">
+<LINK REL="previous" HREF="py_model_geta.html">
+<LINK REL="next" HREF="py_model_getcoeff.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_getcoeff.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_geta.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_getcoeff.html">Model.getCoeff()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_geta.html">Model.getA()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001024800000000000000"></A>
+<A ID="pythonmethod:Model.getAttr"></A>
+<BR>
+Model.getAttr()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">getAttr</SPAN></FONT></SPAN> ( attrname, objs=None )
+
+<P>
+Query the value of an attribute.  When called with a single argument,
+it returns the value of a model attribute.  When called with two
+arguments, it returns the value of an attribute for either a list or a
+dictionary containing either variables or constraints.  If called with
+a list, the result is a list.  If called with a dictionary, the result
+is a dictionary that uses the same keys, but is populated with the
+requested attribute values.  The full list of available attributes can
+be found in the <A HREF="attributes.html#sec:Attributes">Attributes</A> section.
+
+<P>
+Raises an <code>AttributeError</code> if the requested attribute doesn't
+exist or can't be queried.
+Raises a <code>GurobiError</code> if there is a problem with the
+<code>Model</code> object.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">attrname</SPAN>: Name of the attribute.
+
+<P>
+ <SPAN  CLASS="textbf">objs (optional)</SPAN>: List or dictionary containing either
+                           constraints or variables
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  print(model.numintvars)
+  print(model.getAttr("numIntVars"))
+  print(model.getAttr(GRB.Attr.NumIntVars))
+  print(model.getAttr("X", model.getVars()))
+  print(model.getAttr("Pi", model.getConstrs()))
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_getcoeff.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_geta.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_getcoeff.html">Model.getCoeff()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_geta.html">Model.getA()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

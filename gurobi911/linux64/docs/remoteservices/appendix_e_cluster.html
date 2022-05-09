@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Appendix E: grbcluster</TITLE>
+<META NAME="description" CONTENT="Appendix E: grbcluster">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="appendix_f_grb_cl.html">
+<LINK REL="previous" HREF="appendix_d_rsm_configurati.html">
+<LINK REL="next" HREF="appendix_f_grb_cl.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="appendix_f_grb_cl.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_d_rsm_configurati.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_f_grb_cl.html">Appendix F: gurobi_cl</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_d_rsm_configurati.html">Appendix D: grb_rsm -</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000100000000000000000"></A>
+<A ID="sec:RSClusterRef"></A>
+<BR>
+Appendix E: grbcluster
+</H1>
+
+<PRE>
+Usage:
+  grbcluster --help                Display usage
+  grbcluster command [flags]       Execute a top-level command
+  grbcluster command --help        Display help about a top-level command
+  grbcluster group command [flags] Execute a command from a group
+  grbcluster group command --help  Display help about a command
+                                   from a group
+
+Flags can be set using --flag=value or the short form -f=value if defined.
+A boolean flag can be enabled using --flag or the short form -f if defined.
+
+As a first step, the login command must be executed to set the connection
+parameters and save them into your client license file. You can list all the
+options by getting the help for this command:
+  grbcluster login --help
+
+Some commands or group of commands may only be used with a Cluster Manager,
+and will be denoted with an asterisk (*).
+
+Command Groups:
+  apikey*      Manage API keys
+  batch*       Submit, list and manage batches
+  job          Monitor and manage the optimization jobs
+  node         Monitor and manage cluster nodes
+  profile*     Display or manage your profile
+  repo*        Manage the artifact repository
+  user*        Manage users
+For each group, type 'grbcluster group --help' for more options.
+
+Account Commands:
+  login        Setup connection parameters
+  logout       Clear out connection session
+  passwd*      Change password of the current user
+
+Shortcut Commands:
+  batches*     List the active batches (same as 'batch list')
+  jobs         List the active jobs (same as 'job list')
+  nodes        List the cluster nodes (same as 'node list')
+
+
+Global Flags:
+      --console-ts   Add timestamps to console log messages
+      --help         Display usage
+  -v, --verbose      Enable verbose logging
+      --version      Display version information
+
+If a valid Gurobi license file is accessible at the predefined locations or
+using the variable GRB_LICENSE_FILE, the license file will provide default
+values for connection parameters (server, password, router etc). If the
+license file references a Gurobi Instant Cloud pool, it will resolve the
+connection parameters of the pool. When using the login command, the
+connection parameters will be saved to this client license file.
+
+grbcluster is compatible with standard proxy settings using environment
+variables HTTP_PROXY and HTTPS_PROXY. HTTPS_PROXY takes precedence over
+HTTP_PROXY for https requests. The values may be either a complete URL or
+a "host[:port]", in which case the "http" scheme is assumed.
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="appendix_f_grb_cl.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_d_rsm_configurati.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_f_grb_cl.html">Appendix F: gurobi_cl</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_d_rsm_configurati.html">Appendix D: grb_rsm -</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Interpreting the JSON Solution</TITLE>
+<META NAME="description" CONTENT="Interpreting the JSON Solution">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="a_complete_example.html">
+<LINK REL="previous" HREF="interacting_with_batch_req.html">
+<LINK REL="next" HREF="a_complete_example.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="a_complete_example.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="interacting_with_batch_req.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="a_complete_example.html">A Complete Example</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="interacting_with_batch_req.html">Interacting with Batch Requests</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000295000000000000000">
+Interpreting the JSON Solution</A>
+</H2>
+
+<P>
+Once you have retrieved a JSON solution string, you can use a JSON
+parser to retrieve solution information for individual variables and
+constraints.  This parser isn't included in the Gurobi library.
+Rather, programming languages have libraries for doing this.  The
+appropriate package in Python is (not surprisingly) called
+<code>json</code>.  The following provides a simple example of how this
+library can be used to parse a JSON solution string and extract a
+few pieces of solution information:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">            # Get JSON solution as string, create dict from it
+            sol = json.loads(batch.getJSONSolution())
+
+            # Pretty printing the general solution information
+            print(json.dumps(sol["SolutionInfo"], indent=4))
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="a_complete_example.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="batch_optimization.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="interacting_with_batch_req.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="a_complete_example.html">A Complete Example</A>
+<B> Up:</B> <A
+ HREF="batch_optimization.html">Batch Optimization</A>
+<B> Previous:</B> <A
+ HREF="interacting_with_batch_req.html">Interacting with Batch Requests</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

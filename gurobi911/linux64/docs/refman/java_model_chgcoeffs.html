@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.chgCoeffs()</TITLE>
+<META NAME="description" CONTENT="GRBModel.chgCoeffs()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_computeiis.html">
+<LINK REL="previous" HREF="java_model_chgcoeff.html">
+<LINK REL="next" HREF="java_model_computeiis.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_computeiis.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_chgcoeff.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_computeiis.html">GRBModel.computeIIS()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_chgcoeff.html">GRBModel.chgCoeff()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000621200000000000000"></A>
+<A ID="javamethod:GRBModel.chgCoeffs"></A>
+<BR>
+GRBModel.chgCoeffs()
+</H3>
+
+<P>
+Change a list of coefficients in the model.  Each desired change is
+captured using a <code>GRBVar</code> object, a <code>GRBConstr</code> object,
+and a desired coefficient for the specified variable in the specified
+constraint.  The entries in the input arrays each correspond to a
+single desired coefficient change.  The lengths of the input arrays
+must all be the same.  If you make multiple changes to the same
+coefficient, the last one will be applied.
+
+<P>
+Note that, due to our lazy update approach, the change won't actually
+  take effect until you update the model
+  (using <A HREF="java_model_update.html#javamethod:GRBModel.update">GRBModel.update</A>),
+  optimize the model
+  (using <A HREF="java_model_optimize.html#javamethod:GRBModel.optimize">GRBModel.optimize</A>),
+  or write the model to disk
+  (using <A HREF="java_model_write.html#javamethod:GRBModel.write">GRBModel.write</A>).
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">chgCoeffs</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBConstr[]</TD>
+<TD CLASS="LEFT">constrs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double[]</TD>
+<TD CLASS="LEFT">newvals )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">constrs</SPAN>: Constraints for coefficients to be changed.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: Variables for coefficients to be changed.
+
+<P>
+ <SPAN  CLASS="textbf">newvals</SPAN>: Desired new values for coefficients.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_computeiis.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_chgcoeff.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_computeiis.html">GRBModel.computeIIS()</A>
+<B> Up:</B> <A
+ HREF="java_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="java_model_chgcoeff.html">GRBModel.chgCoeff()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

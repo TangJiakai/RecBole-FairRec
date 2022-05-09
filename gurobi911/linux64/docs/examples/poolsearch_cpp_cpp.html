@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>poolsearch_c++.cpp</TITLE>
+<META NAME="description" CONTENT="poolsearch_c++.cpp">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="sensitivity_cpp_cpp.html">
+<LINK REL="previous" HREF="piecewise_cpp_cpp.html">
+<LINK REL="next" HREF="sensitivity_cpp_cpp.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sensitivity_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="piecewise_cpp_cpp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sensitivity_cpp_cpp.html">sensitivity_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="cpp_examples.html">C++ Examples</A>
+<B> Previous:</B> <A
+ HREF="piecewise_cpp_cpp.html">piecewise_c++.cpp</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000222100000000000000"></A>
+<A ID="subsubsection:poolsearch_c++.cpp"></A>
+<BR>
+poolsearch_c++.cpp
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">/* Copyright 2020, Gurobi Optimization, LLC */
+
+/* We find alternative epsilon-optimal solutions to a given knapsack
+ * problem by using PoolSearchMode */
+
+#include "gurobi_c++.h"
+#include &lt;sstream&gt;
+#include &lt;iomanip&gt;
+using namespace std;
+
+
+int main(void)
+{
+  GRBEnv *env  = 0;
+  GRBVar *Elem = 0;
+  int e, status, nSolutions;
+
+  try {
+    // Sample data
+    const int groundSetSize = 10;
+    double objCoef[10] =
+    {32, 32, 15, 15, 6, 6, 1, 1, 1, 1};
+    double knapsackCoef[10] =
+    {16, 16,  8,  8, 4, 4, 2, 2, 1, 1};
+    double Budget = 33;
+
+    // Create environment
+    env = new GRBEnv("poolsearch_c++.log");
+
+    // Create initial model
+    GRBModel model = GRBModel(*env);
+    model.set(GRB_StringAttr_ModelName, "poolsearch_c++");
+
+    // Initialize decision variables for ground set:
+    // x[e] == 1 if element e is chosen
+    Elem = model.addVars(groundSetSize, GRB_BINARY);
+    model.set(GRB_DoubleAttr_Obj, Elem, objCoef, groundSetSize);
+
+    for (e = 0; e &lt; groundSetSize; e++) {
+      ostringstream vname;
+      vname &lt;&lt; "El" &lt;&lt; e;
+      Elem[e].set(GRB_StringAttr_VarName, vname.str());
+    }
+
+    // Constraint: limit total number of elements to be picked to be at most
+    // Budget
+    GRBLinExpr lhs;
+    lhs = 0;
+    for (e = 0; e &lt; groundSetSize; e++) {
+      lhs += Elem[e] * knapsackCoef[e];
+    }
+    model.addConstr(lhs &lt;= Budget, "Budget");
+
+    // set global sense for ALL objectives
+    model.set(GRB_IntAttr_ModelSense, GRB_MAXIMIZE);
+
+    // Limit how many solutions to collect
+    model.set(GRB_IntParam_PoolSolutions, 1024);
+
+    // Limit the search space by setting a gap for the worst possible solution that will be accepted
+    model.set(GRB_DoubleParam_PoolGap, 0.10);
+
+    // do a systematic search for the k-best solutions
+    model.set(GRB_IntParam_PoolSearchMode, 2);
+
+    // save problem
+    model.write("poolsearch_c++.lp");
+
+    // Optimize
+    model.optimize();
+
+    // Status checking
+    status = model.get(GRB_IntAttr_Status);
+
+    if (status == GRB_INF_OR_UNBD ||
+        status == GRB_INFEASIBLE  ||
+        status == GRB_UNBOUNDED     ) {
+      cout &lt;&lt; "The model cannot be solved " &lt;&lt;
+             "because it is infeasible or unbounded" &lt;&lt; endl;
+      return 1;
+    }
+    if (status != GRB_OPTIMAL) {
+      cout &lt;&lt; "Optimization was stopped with status " &lt;&lt; status &lt;&lt; endl;
+      return 1;
+    }
+
+    // Print best selected set
+    cout &lt;&lt; "Selected elements in best solution:" &lt;&lt; endl &lt;&lt; "\t";
+    for (e = 0; e &lt; groundSetSize; e++) {
+      if (Elem[e].get(GRB_DoubleAttr_X) &lt; .9) continue;
+      cout &lt;&lt; " El" &lt;&lt; e;
+    }
+    cout &lt;&lt; endl;
+
+    // Print number of solutions stored
+    nSolutions = model.get(GRB_IntAttr_SolCount);
+    cout &lt;&lt; "Number of solutions found: " &lt;&lt; nSolutions &lt;&lt; endl;
+
+    // Print objective values of solutions
+    for (e = 0; e &lt; nSolutions; e++) {
+      model.set(GRB_IntParam_SolutionNumber, e);
+      cout &lt;&lt; model.get(GRB_DoubleAttr_PoolObjVal) &lt;&lt; " ";
+      if (e%15 == 14) cout &lt;&lt; endl;
+    }
+    cout &lt;&lt; endl;
+
+    // print fourth best set if available
+    if (nSolutions &gt;= 4) {
+      model.set(GRB_IntParam_SolutionNumber, 3);
+
+      cout &lt;&lt; "Selected elements in fourth best solution:" &lt;&lt; endl &lt;&lt; "\t";
+      for (e = 0; e &lt; groundSetSize; e++) {
+        if (Elem[e].get(GRB_DoubleAttr_Xn) &lt; .9) continue;
+        cout &lt;&lt; " El" &lt;&lt; e;
+      }
+      cout &lt;&lt; endl;
+    }
+  }
+  catch (GRBException e) {
+    cout &lt;&lt; "Error code = " &lt;&lt; e.getErrorCode() &lt;&lt; endl;
+    cout &lt;&lt; e.getMessage() &lt;&lt; endl;
+  }
+  catch (...) {
+    cout &lt;&lt; "Exception during optimization" &lt;&lt; endl;
+  }
+
+  // Free environment/vars
+  delete[] Elem;
+  delete env;
+  return 0;
+}
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sensitivity_cpp_cpp.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="piecewise_cpp_cpp.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sensitivity_cpp_cpp.html">sensitivity_c++.cpp</A>
+<B> Up:</B> <A
+ HREF="cpp_examples.html">C++ Examples</A>
+<B> Previous:</B> <A
+ HREF="piecewise_cpp_cpp.html">piecewise_c++.cpp</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

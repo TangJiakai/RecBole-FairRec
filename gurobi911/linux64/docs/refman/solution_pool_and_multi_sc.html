@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Solution Pool and Multi-Scenario Logging</TITLE>
+<META NAME="description" CONTENT="Solution Pool and Multi-Scenario Logging">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="multi_objective_logging.html">
+<LINK REL="previous" HREF="mip_logging.html">
+<LINK REL="next" HREF="multi_objective_logging.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="multi_objective_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="mip_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multi_objective_logging.html">Multi-Objective Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="mip_logging.html">MIP Logging</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000246000000000000000"></A>
+<A ID="sec:PoolScenLogging"></A>
+<BR>
+Solution Pool and Multi-Scenario Logging
+</H2>
+
+<P>
+Populating a solution pool or solving for multiple scenarios involves
+looking for more than one solution, which leads to different logging
+output.  In particular, logging for these methods comes in two phases.
+In the first, the log shows progress towards finding one provably
+optimal solution (for multi-scenario optimization, this is the best
+solution over all scenarios).  The log for this first phase is
+identical to the standard MIP log.  It shows progress in the lower
+and upper bounds, and the phase terminates when these are sufficiently
+close to each other.
+
+<P>
+The second phase starts once attention has shifted towards finding
+solutions beyond that one optimal solution.  You will see a message
+indicating that a new phase has begun.  When populating a solution
+pool, you will see:
+<PRE>
+Optimal solution found at node 7407 - now completing solution pool...
+</PRE>
+When solving for multiple scenarios, you will see:
+<PRE>
+Optimal solution found at node 15203 - now completing multiple scenarios...
+</PRE>
+
+<P>
+You will also see an additional header, which is slightly different
+from the standard MIP header.  For a solution pool:
+<PRE>
+    Nodes    |    Current Node    |      Pool Obj. Bounds     |     Work
+             |                    |   Worst                   |
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+</PRE>
+For multiple scenarios:
+<PRE>
+    Nodes    |    Current Node    |    Scenario Obj. Bounds   |     Work
+             |                    |   Worst                   |
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+</PRE>
+The most important difference versus the standard header is in the
+<code>Incumbent</code> column.  In the standard MIP log, this column shows
+the objective value for the <EM>best</EM> solution found so far.  For a
+solution pool or multiple scenarios, this column shows the objective
+value for the <EM>worst</EM> solution.  This of course isn't the worst
+solution ever found.  Rather, it shows the objective value for the
+worst solution among all the solutions that the MIP solver has been
+asked to find.  For example, if you have set the
+<A HREF="poolsolutions.html#parameter:PoolSolutions">PoolSolutions</A> parameter to 100
+to ask for the 100 best solutions, this column will show the objective
+value for the 100th best solution found so far.  If you are solving a
+multi-scenario model, this column shows the worst solution found over
+all scenarios.  As the search progresses, the value in this column
+will improve monotonically as the MIP solver replaces this worst
+solution with better solutions.
+
+<P>
+One other important difference in this second phase log is in the
+meaning of the <code>BestBd</code> column.  In the standard MIP log, this
+column gives a bound on the best possible objective value for any
+solution.  In this log, this column shows the best possible objective
+value for any solution that has not yet been found.  To give an
+example, if a minimization model has a unique optimal solution at
+objective 100, the second phase will begin once the lower bound
+reaches 100, and the <code>BestBd</code> column will show a value larger
+than 100 once the solver has determined that only one solution exists
+at objective 100.
+
+<P>
+The <code>BestBd</code> and <code>Incumbent</code> columns allow you to track
+progress towards completion of the solution pool or multi-scenario
+solve.  Specifically, once the best bound for any solution that has
+not yet been found reaches the objective value for the worst solution,
+we know that we can't improve that solution and we can stop.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="multi_objective_logging.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="logging.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="mip_logging.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="multi_objective_logging.html">Multi-Objective Logging</A>
+<B> Up:</B> <A
+ HREF="logging.html">Logging</A>
+<B> Previous:</B> <A
+ HREF="mip_logging.html">MIP Logging</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

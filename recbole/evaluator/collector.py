@@ -12,6 +12,7 @@ recbole.evaluator.collector
 ################################################
 """
 
+from distutils.command.config import config
 from recbole.evaluator.register import Register
 import torch
 import copy
@@ -74,6 +75,7 @@ class Collector(object):
         self.full = ('full' in config['eval_args']['mode'])
         self.topk = self.config['topk']
         self.device = self.config['device']
+        self.ugf_rerank = self.config['ugf_metric'] is not None
 
     def data_collect(self, train_data):
         """ Collect the evaluation resource from training data.
@@ -149,7 +151,7 @@ class Collector(object):
             pos_idx = torch.gather(pos_matrix, dim=1, index=topk_idx)
             result = torch.cat((pos_idx, pos_len_list), dim=1)
             self.data_struct.update_tensor('rec.topk', result)
-
+        
         if self.register.need('rec.meanrank'):
             desc_scores, desc_index = torch.sort(scores_tensor, dim=-1, descending=True)
 
@@ -199,7 +201,6 @@ class Collector(object):
             Args:
                 model (nn.Module): the trained recommendation model.
         """
-        pass
         # TODO:
 
     def eval_collect(self, eval_pred: torch.Tensor, data_label: torch.Tensor):

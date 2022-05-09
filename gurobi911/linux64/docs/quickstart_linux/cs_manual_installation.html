@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Manual installation</TITLE>
+<META NAME="description" CONTENT="Manual installation">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_anaconda_and_grb_conda_.html">
+<LINK REL="previous" HREF="cs_using_pip_to_install_gr.html">
+<LINK REL="next" HREF="cs_anaconda_and_grb_conda_.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_anaconda_and_grb_conda_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_installation_opt.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_using_pip_to_install_gr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_anaconda_and_grb_conda_.html">Anaconda and Gurobi conda</A>
+<B> Up:</B> <A
+ HREF="cs_python_installation_opt.html">Python Installation Options</A>
+<B> Previous:</B> <A
+ HREF="cs_using_pip_to_install_gr.html">Using pip to install</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000111200000000000000"></A>
+<A ID="subsubsection:manualinstall"></A>
+<BR>
+Manual installation
+</H3>
+
+<P>
+If you don't have internet access, or if you prefer to install the
+<code>gurobipy</code> extension manually, you can use the installation
+script provided with the Gurobi installation package.  Assuming you
+have already completed the
+<A HREF="software_installation_guid.html#section:Installation">Gurobi installation instructions</A>,
+your installation directory (referred to as
+<TT>&lt;installdir&gt;</TT>)
+will contain a file
+<TT>setup.py</TT>.  In order to run this installation script, you will need
+to open a terminal window, change your current directory to the
+Gurobi <TT>&lt;installdir&gt;</TT>, and issue the
+following command:
+
+<P>
+<TT>  python setup.py install</TT>
+
+<P>
+Ensure that you have write permissions within this Python
+installation.  You may need to install the <code>distutils</code>
+package before running this command.
+
+<P>
+Once <TT>gurobipy</TT> is successfully installed, you can type
+<TT>import gurobipy as gp</TT> or
+<TT>from gurobipy import *</TT> from your Python shell and access
+all of the <code>gurobipy</code> classes and methods.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_anaconda_and_grb_conda_.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_installation_opt.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_using_pip_to_install_gr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_anaconda_and_grb_conda_.html">Anaconda and Gurobi conda</A>
+<B> Up:</B> <A
+ HREF="cs_python_installation_opt.html">Python Installation Options</A>
+<B> Previous:</B> <A
+ HREF="cs_using_pip_to_install_gr.html">Using pip to install</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

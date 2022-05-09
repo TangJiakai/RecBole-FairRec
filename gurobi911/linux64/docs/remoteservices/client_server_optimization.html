@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Client-Server Optimization</TITLE>
+<META NAME="description" CONTENT="Client-Server Optimization">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="architecture.html">
+<LINK REL="previous" HREF="overview.html">
+<LINK REL="next" HREF="client_api.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="client_api.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="overview.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="overview.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_api.html">Client API</A>
+<B> Up:</B> <A
+ HREF="overview.html">Overview</A>
+<B> Previous:</B> <A
+ HREF="overview.html">Overview</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00011000000000000000"></A>
+<A ID="sec:ComputeServer"></A><A ID="sec:ClientServerOptimization"></A>
+<BR>
+Client-Server Optimization
+</H2>
+
+<P>
+Gurobi Remote Services allow you to offload optimization computations
+from one or more client programs onto a cluster of servers.  We
+provide a number of different configuration options.  In the most
+basic configuration, a single Compute Server can accept jobs from
+multiple clients:
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=4in]{graphics/csgraphics/compute_server}}$
+ -->
+<IMG STYLE=""
+ SRC="img2.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=4in]{graphics/csgraphics/compute_server}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+
+<P>
+More sophisticated configurations are also possible.  For example, you
+can have a Cluster Manager that manages access to multiple Compute
+Server nodes:
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\includegraphics[width=6in]{graphics/csgraphics/cluster_manager}}$
+ -->
+<IMG STYLE=""
+ SRC="img3.svg"
+ ALT="\scalebox{1.0}{\includegraphics[width=6in]{graphics/csgraphics/cluster_manager}}">
+</DIV>
+<P>
+<DIV class="CENTER">
+</DIV>
+The different configuration options are discussed in a
+<A HREF="architecture.html#sec:Architecture">later section</A>.
+
+<P>
+Client programs offload computation using the standard Gurobi
+<A HREF="client_api.html#sec:ClientAPI">language APIs</A>.  In most cases, users
+can write their programs without considering where they will run, and can
+decide at runtime whether to run them locally or on a Compute Server
+cluster.
+
+<P>
+Jobs submitted to a Compute Server cluster are
+<A HREF="queuing_and_load_balancing.html#sec:QueueingLoadBalancing">queued and load-balanced</A>.
+Jobs can be submitted to run either
+<A HREF="interactive_and_non_intera.html#sec:InteractiveOptimization">interactively or non-interactively</A>.
+You can run your optimization jobs on a single Compute Server node,
+or you can choose a
+<A HREF="distributed_algorithms.html#sec:DistributedAlgorithms">distributed algorithm</A>
+to use multiple nodes in your cluster to work on the same
+problem.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html137"
+  HREF="client_api.html">Client API</A>
+<LI><A ID="tex2html138"
+  HREF="queuing_and_load_balancing.html">Queuing and Load Balancing</A>
+<LI><A ID="tex2html139"
+  HREF="cluster_manager.html">Cluster Manager</A>
+<LI><A ID="tex2html140"
+  HREF="interactive_and_non_intera.html">Interactive and Non-Interactive Optimization</A>
+<LI><A ID="tex2html141"
+  HREF="distributed_algorithms.html">Distributed Algorithms</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="client_api.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="overview.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="overview.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="client_api.html">Client API</A>
+<B> Up:</B> <A
+ HREF="overview.html">Overview</A>
+<B> Previous:</B> <A
+ HREF="overview.html">Overview</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

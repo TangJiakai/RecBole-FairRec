@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Method</TITLE>
+<META NAME="description" CONTENT="Method">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="minrelnodes.html">
+<LINK REL="previous" HREF="markowitztol.html">
+<LINK REL="next" HREF="minrelnodes.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="minrelnodes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="markowitztol.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="minrelnodes.html">MinRelNodes</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="markowitztol.html">MarkowitzTol</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001827700000000000000"></A>
+<A ID="parameter:Method"></A>
+<BR>
+Method
+</H3>
+Algorithm used to solve continuous models
+
+<TABLE class="PAD " style="">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Default value:</SPAN></TD>
+<TD CLASS="LEFT">-1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Minimum value:</SPAN></TD>
+<TD CLASS="LEFT">-1</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Maximum value:</SPAN></TD>
+<TD CLASS="LEFT">5</TD>
+</TR>
+</TABLE>
+
+<P>
+Algorithm used to solve continuous models or the root node of a MIP
+model.  Options are: -1=automatic, 0=primal simplex, 1=dual simplex,
+2=barrier, 3=concurrent, 4=deterministic concurrent, 5=deterministic
+concurrent simplex.
+
+<P>
+In the current release, the default Automatic (-1) setting will
+typically choose non-deterministic concurrent (Method=3) for an LP,
+barrier (Method=2) for a QP or QCP, and dual (Method=1) for the MIP
+root node.  Only the simplex and barrier algorithms are available for
+continuous QP models.  Only primal and dual simplex are available for
+solving the root of an MIQP model.  Only barrier is available for
+continuous QCP models.
+
+<P>
+Concurrent optimizers run multiple solvers on multiple threads
+simultaneously, and choose the one that finishes first.  Method=3 and
+Method=4 will run dual simplex, barrier, and sometimes primal simplex
+(depending on the number of available threads).  Method=5 will run
+both primal and dual simplex.  The deterministic options (Method=4 and
+Method=5) give the exact same result each time, while Method=3 is
+often faster but can produce different optimal bases when run multiple
+times.
+
+<P>
+The default setting is rarely significantly slower than the best
+possible setting, so you generally won't see a big gain from changing
+this parameter.  There are classes of models where one particular
+algorithm is consistently fastest, though, so you may want to
+experiment with different options when confronted with a particularly
+difficult model.
+
+<P>
+Note that if memory is tight on an LP model, you should consider using
+the dual simplex method (Method=1).  The concurrent optimizer,
+which is typically chosen when using the default setting, consumes a
+lot more memory than dual simplex alone.
+
+<P>
+For examples of how to query or modify parameter values from
+our different APIs, refer to our
+<A HREF="parameter_examples.html#sec:ParameterExamples">Parameter Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="minrelnodes.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="markowitztol.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="minrelnodes.html">MinRelNodes</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="markowitztol.html">MarkowitzTol</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

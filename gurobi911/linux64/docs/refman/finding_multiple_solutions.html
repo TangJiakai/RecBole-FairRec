@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Finding Multiple Solutions</TITLE>
+<META NAME="description" CONTENT="Finding Multiple Solutions">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="examples.html">
+<LINK REL="previous" HREF="solution_pool.html">
+<LINK REL="next" HREF="examples.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="examples.html">Examples</A>
+<B> Up:</B> <A
+ HREF="solution_pool.html">Solution Pool</A>
+<B> Previous:</B> <A
+ HREF="solution_pool.html">Solution Pool</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000261000000000000000">
+Finding Multiple Solutions</A>
+</H2>
+
+<P>
+By default, the Gurobi MIP solver will try to find one proven optimal
+solution to your model.  It will typically find multiple sub-optimal
+solutions along the way, which can be retrieved later (using the
+<A HREF="solutionnumber.html#parameter:SolutionNumber">SolutionNumber</A> parameter,
+and the <A HREF="xn.html#attr:Xn">Xn</A> and
+<A HREF="poolobjval.html#attr:PoolObjVal">PoolObjVal</A> attributes).  However, these
+solutions aren't produced in a systematic way.  The set of solutions that
+are found depends on the exact path the solver takes through the MIP
+search.  You could solve a MIP model once, obtaining a set of interesting
+sub-optimal solutions, and then solve the same problem again with different
+parameter settings, and find only the optimal solution.
+
+<P>
+If you'd like more control over how solutions are found and retained,
+the Gurobi Optimizer has a number of parameters available for this.
+The first and simplest is
+<A HREF="poolsolutions.html#parameter:PoolSolutions">PoolSolutions</A>, which controls
+the size of the solution pool.  Changing this parameter won't affect
+the number of solutions that are found - it simply determines how many
+of those are retained.
+
+<P>
+You can use the <A HREF="poolsearchmode.html#parameter:PoolSearchMode">PoolSearchMode</A>
+parameter to control the approach used to find solutions.  In its
+default setting (0), the MIP search simply aims to find one optimal
+solution.  Setting the parameter to 1 causes the MIP search to expend
+additional effort to find more solutions, but in a non-systematic way.
+You will get more solutions, but not necessarily the best solutions.
+Setting the parameter to 2 causes the MIP to do a systematic search
+for the <code>n</code> best solutions.  For both non-default settings, the
+<A HREF="poolsolutions.html#parameter:PoolSolutions">PoolSolutions</A> parameter
+sets the target for the number of solutions to find.
+
+<P>
+If you are only interested in solutions that are within a certain gap
+of the best solution found, you can set the
+<A HREF="poolgap.html#parameter:PoolGap">PoolGap</A> parameter.  Solutions that
+are not within the specified gap are discarded.
+
+<P>
+Obtaining an <code>OPTIMAL</code> optimization return status when using
+<code>PoolSearchMode=2</code> indicates that the MIP solver succeeded in
+finding the desired number of best solutions, or it proved that the
+model doesn't have that many distinct feasible solutions.  If the
+solver terminated early (e.g., due to a time limit), you can use the
+<A HREF="poolobjbound.html#attr:PoolObjBound">PoolObjBound</A> attribute to evaluate
+the quality of the solutions that were found.  This attribute gives a
+bound on the objective of any solution that isn't already in the
+solution pool.  The difference between this attribute and
+<A HREF="objbound.html#attr:ObjBound">ObjBound</A> is that the latter gives a
+bound on the objective for any solution, and which is often looser
+than <code>PoolObjBound</code>.
+
+<P>
+There are a few subtleties associated with finding multiple solutions
+that you should be aware of.  For example, the notion of finding the
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN> best solutions can be a bit ambiguous when you have a non-zero
+optimality tolerance.  Also, it isn't obvious whether two solutions
+should be considered different when the model has continuous
+variables.  We'll discuss these issues later in this section.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="examples.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="solution_pool.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="examples.html">Examples</A>
+<B> Up:</B> <A
+ HREF="solution_pool.html">Solution Pool</A>
+<B> Previous:</B> <A
+ HREF="solution_pool.html">Solution Pool</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Appendix D: grb_rsm - Configuration Properties</TITLE>
+<META NAME="description" CONTENT="Appendix D: grb_rsm - Configuration Properties">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="appendix_e_cluster.html">
+<LINK REL="previous" HREF="appendix_c_rsm.html">
+<LINK REL="next" HREF="appendix_e_cluster.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="appendix_e_cluster.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_c_rsm.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_e_cluster.html">Appendix E: grbcluster</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_c_rsm.html">Appendix C: grb_rsm</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00090000000000000000">
+Appendix D: grb_rsm - Configuration Properties</A>
+</H1>
+The following list of properties can also be displayed using the <code>grb_rsm properties</code> command.
+
+<P>
+<DL>
+<DT><STRONG>AUTH_CACHE_AGE</STRONG></DT>
+<DD>Type int (default 30).
+    Max age of authentication information (seconds)
+
+<P>
+</DD>
+<DT><STRONG>CLUSTER_TOKEN</STRONG></DT>
+<DD>Type string.
+    Unique cluster identifier.
+    The token is en encrypted key to let the manager communicates with cluster
+    All nodes of a cluster and the manager must have the same token.
+    Use 'grb_rs token' command to generate a new token.
+
+<P>
+</DD>
+<DT><STRONG>CONSOLE_TS</STRONG></DT>
+<DD>Type bool, use <code>--console-ts</code> to override on the command line.
+    Add timestamps to console log messages.
+
+<P>
+</DD>
+<DT><STRONG>DB_URI</STRONG></DT>
+<DD>Type string (default mongodb://127.0.0.1:27017).
+    MongoDB connection string
+
+<P>
+</DD>
+<DT><STRONG>HISTORY_MAX_AGE</STRONG></DT>
+<DD>Type int (default 7).
+    Limit the job history to a number of days.
+
+<P>
+</DD>
+<DT><STRONG>HTTP_HEALTH_SERVER</STRONG></DT>
+<DD>Type bool.
+    Enable an additional HTTP server of /ping
+    When using TLS, it may be useful to keep a simple HTTP for health check
+
+<P>
+</DD>
+<DT><STRONG>HTTP_HEALTH_SERVER_PORT</STRONG></DT>
+<DD>Type int (default 9091).
+    Indicates the port for the additional HTTP health server
+
+<P>
+</DD>
+<DT><STRONG>IDLE_CONN_TIMEOUT</STRONG></DT>
+<DD>Type int (default 130).
+    maximum amount of time an idle (keep-alive) connection will remain idle before closing itself. Zero means no limit.
+
+<P>
+</DD>
+<DT><STRONG>JWT_EXPIRATION</STRONG></DT>
+<DD>Type int (default 480).
+    Expiration of session tokens (in minutes)
+
+<P>
+</DD>
+<DT><STRONG>LOGFILE</STRONG></DT>
+<DD>Type string, use <code>--logfile</code> to override on the command line.
+    Enable logging to a rotating log file.
+
+<P>
+</DD>
+<DT><STRONG>LOGFILE_MAX_AGE</STRONG></DT>
+<DD>Type int (default 5), use <code>--logfile-max-age</code> to override on the command line.
+    Limit the rotating log file to a number of days.
+
+<P>
+</DD>
+<DT><STRONG>LOGFILE_MAX_SIZE</STRONG></DT>
+<DD>Type int (default 500), use <code>--logfile-max-size</code> to override on the command line.
+    Limit the size of each file to a size in Mb.
+
+<P>
+</DD>
+<DT><STRONG>MAX_IDLE_CONNS</STRONG></DT>
+<DD>Type int (default 200).
+    Maximum number of connections in the idle connection pool.
+
+<P>
+</DD>
+<DT><STRONG>MAX_IDLE_CONNS_PER_HOST</STRONG></DT>
+<DD>Type int (default 32).
+    Maximum idle (keep-alive) connections to keep per-host.
+
+<P>
+</DD>
+<DT><STRONG>NO_CONSOLE</STRONG></DT>
+<DD>Type bool, use <code>--no-console</code> to override on the command line.
+    Disable the console log.
+
+<P>
+</DD>
+<DT><STRONG>OBJECT_NOT_CLOSED_MAX_AGE</STRONG></DT>
+<DD>Type int (default 1).
+    Limit the time an object must be closed before being deleted (hours)
+
+<P>
+</DD>
+<DT><STRONG>PORT</STRONG></DT>
+<DD>Type int, use <code>--port</code> to override on the command line.
+    Port number for the REST API.
+
+<P>
+</DD>
+<DT><STRONG>SYSLOG</STRONG></DT>
+<DD>Type bool, use <code>--syslog</code> to override on the command line.
+    Log to syslog or Windows event log.
+
+<P>
+</DD>
+<DT><STRONG>TLS</STRONG></DT>
+<DD>Type bool, use <code>--tls</code> to override on the command line.
+    Enable TLS encryption protocol.
+
+<P>
+</DD>
+<DT><STRONG>TLS_CERT</STRONG></DT>
+<DD>Type string, use <code>--tlscert</code> to override on the command line.
+    Path to TLS certificate file.
+    If not specified, a self-signed certificate will be generated.
+
+<P>
+</DD>
+<DT><STRONG>TLS_INSECURE</STRONG></DT>
+<DD>Type bool, use <code>--tls-insecure</code> to override on the command line.
+    Enable TLS encryption protocol but skip certificate verification.
+    This mode can be used with self-signed certificate so that data is encrypted.
+
+<P>
+</DD>
+<DT><STRONG>TLS_KEY</STRONG></DT>
+<DD>Type string, use <code>--tlskey</code> to override on the command line.
+    Path to TLS key file.
+    If not specified, a key will be generated to self-sign a certificate.
+
+<P>
+</DD>
+<DT><STRONG>VERBOSE</STRONG></DT>
+<DD>Type bool, use <code>--verbose</code> to override on the command line.
+    Enable verbose logging.
+
+<P>
+</DD>
+</DL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="appendix_e_cluster.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="appendix_c_rsm.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="appendix_e_cluster.html">Appendix E: grbcluster</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="appendix_c_rsm.html">Appendix C: grb_rsm</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

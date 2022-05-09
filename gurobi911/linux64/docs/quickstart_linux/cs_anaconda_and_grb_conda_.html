@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Anaconda and Gurobi conda package</TITLE>
+<META NAME="description" CONTENT="Anaconda and Gurobi conda package">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="previous" HREF="cs_manual_installation.html">
+<LINK REL="next" HREF="cs_python_tools.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_python_tools.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_installation_opt.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_manual_installation.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_python_tools.html">Python Tools</A>
+<B> Up:</B> <A
+ HREF="cs_python_installation_opt.html">Python Installation Options</A>
+<B> Previous:</B> <A
+ HREF="cs_manual_installation.html">Manual installation</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000111300000000000000"></A>
+<A ID="subsubsection:Anaconda"></A>
+<BR>
+Anaconda and Gurobi conda package
+</H3>
+
+<P>
+Anaconda is a Python distribution platform that comes with a convenient package
+manager (&ldquo;conda&rdquo;), and a diverse set of curated software packages.  Gurobi
+offers an installation package for this platform too.  We will briefly
+explain the steps needed to install Anaconda and the Gurobi conda package.
+Note that the conda package installs more than just <code>gurobipy</code>.  For example, it
+will also install the Gurobi command line tool <code>gurobi_cl</code>, some other
+tools, and documentation.
+
+<P>
+If you have already installed Anaconda, you may skip directly to step 2 below.
+
+<P>
+<SPAN  CLASS="textbf">Step 1: Download and Install Anaconda</SPAN>
+
+<P>
+The first step is to download and install Anaconda.  You can find
+detailed instructions
+<A ID="tex2html54"
+  HREF="https://www.gurobi.com/downloads/get-anaconda">here</A>.
+Be sure to check the box <SPAN style="font-family:monospace">Add Anaconda to my PATH environment variable</SPAN>
+when prompted during the installation process.
+Otherwise, Step 2 may not work.
+
+<P>
+<DIV class="CENTER">
+<!-- MATH
+ $\scalebox{1.0}{\fbox{\includegraphics[width=6.2in]{graphics/anaconda_download}}}$
+ -->
+<IMG STYLE=""
+ SRC="img13.svg"
+ ALT="\scalebox{1.0}{\fbox{\includegraphics[width=6.2in]{graphics/anaconda_download}}}">
+</DIV>
+
+<P>
+Gurobi supports the 64-bit x86 version of Python 3.8.
+Once the download has completed,
+issue the following command in the
+directory where you have stored the downloaded file:
+
+<P>
+<TT>bash Anaconda3-2020.07-Linux-x86_64.sh</TT>
+
+<P>
+Once the install is complete, and once you close your current terminal
+and open a new one, typing <TT>python</TT> in your terminal window
+should invoke the Anaconda Python interpreter:
+
+<P>
+<TT>&gt;python
+<BR>
+Python 3.8.4 |Anaconda, Inc.|...
+<BR>...
+</TT>
+
+<P>
+Type <TT>quit()</TT> in Python to return to the terminal.
+
+<P>
+<SPAN  CLASS="textbf">Step 2: Install the Gurobi conda package</SPAN>
+
+<P>
+The next step is to install the Gurobi package into Anaconda.  You do
+this by first adding the Gurobi channel to your Anaconda channels
+and then installing the <code>gurobi</code> package from this channel.
+
+<P>
+From a terminal window issue the following command to add the
+Gurobi channel to your default search list
+
+<P>
+<TT>conda config <code>--</code>add channels https://conda.anaconda.org/gurobi</TT>
+
+<P>
+Now issue the following command to install the Gurobi package
+
+<P>
+<TT>conda install gurobi</TT>
+
+<P>
+You can remove the Gurobi package at any time by issuing the
+command
+
+<P>
+<TT>conda remove gurobi</TT>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_python_tools.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_installation_opt.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_manual_installation.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_python_tools.html">Python Tools</A>
+<B> Up:</B> <A
+ HREF="cs_python_installation_opt.html">Python Installation Options</A>
+<B> Previous:</B> <A
+ HREF="cs_manual_installation.html">Manual installation</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

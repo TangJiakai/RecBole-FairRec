@@ -1,0 +1,403 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Constants</TITLE>
+<META NAME="description" CONTENT="Constants">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_charattr.html">
+<LINK REL="previous" HREF="java_.html">
+<LINK REL="next" HREF="java_charattr.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_charattr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_charattr.html">GRB.CharAttr</A>
+<B> Up:</B> <A
+ HREF="java_.html">GRB</A>
+<B> Previous:</B> <A
+ HREF="java_.html">GRB</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000615100000000000000"></A>
+<A ID="javaconstants"></A>
+<BR>
+Constants
+</H3>
+
+<P>
+The following list contains the set of constants needed by the Gurobi
+Java interface.  You would refer to them using a <code>GRB.</code> prefix
+(e.g., <code>GRB.Status.OPTIMAL</code>).
+
+<P>
+
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">  // Model-status-codes
+
+  public static final int LOADED          = 1;
+  public static final int OPTIMAL         = 2;
+  public static final int INFEASIBLE      = 3;
+  public static final int INF_OR_UNBD     = 4;
+  public static final int UNBOUNDED       = 5;
+  public static final int CUTOFF          = 6;
+  public static final int ITERATION_LIMIT = 7;
+  public static final int NODE_LIMIT      = 8;
+  public static final int TIME_LIMIT      = 9;
+  public static final int SOLUTION_LIMIT  = 10;
+  public static final int INTERRUPTED     = 11;
+  public static final int NUMERIC         = 12;
+  public static final int SUBOPTIMAL      = 13;
+  public static final int INPROGRESS      = 14;
+  public static final int USER_OBJ_LIMIT  = 15;
+
+  public class Status {
+    public static final int LOADED          = 1;
+    public static final int OPTIMAL         = 2;
+    public static final int INFEASIBLE      = 3;
+    public static final int INF_OR_UNBD     = 4;
+    public static final int UNBOUNDED       = 5;
+    public static final int CUTOFF          = 6;
+    public static final int ITERATION_LIMIT = 7;
+    public static final int NODE_LIMIT      = 8;
+    public static final int TIME_LIMIT      = 9;
+    public static final int SOLUTION_LIMIT  = 10;
+    public static final int INTERRUPTED     = 11;
+    public static final int NUMERIC         = 12;
+    public static final int SUBOPTIMAL      = 13;
+    public static final int INPROGRESS      = 14;
+    public static final int USER_OBJ_LIMIT  = 15;
+  }
+
+  // BatchStatus codes
+
+  public static final int CREATED   = 1;
+  public static final int SUBMITTED = 2;
+  public static final int ABORTED   = 3;
+  public static final int FAILED    = 4;
+  public static final int COMPLETED = 5;
+
+  public class BatchStatus {
+    public static final int CREATED   = 1;
+    public static final int SUBMITTED = 2;
+    public static final int ABORTED   = 3;
+    public static final int FAILED    = 4;
+    public static final int COMPLETED = 5;
+  }
+  // Version numbers
+
+  public static final int VERSION_MAJOR     = 9;
+  public static final int VERSION_MINOR     = 1;
+  public static final int VERSION_TECHNICAL = 1;
+
+  // Basis status info
+
+  public static final int BASIC           = 0;
+  public static final int NONBASIC_LOWER  = -1;
+  public static final int NONBASIC_UPPER  = -2;
+  public static final int SUPERBASIC      = -3;
+
+  // Constraint senses
+
+  public static final char LESS_EQUAL    = '&lt;';
+  public static final char GREATER_EQUAL = '&gt;';
+  public static final char EQUAL         = '=';
+
+  // Variable types
+
+  public static final char CONTINUOUS   = 'C';
+  public static final char BINARY       = 'B';
+  public static final char INTEGER      = 'I';
+  public static final char SEMICONT     = 'S';
+  public static final char SEMIINT      = 'N';
+
+  // Objective sense
+
+  public static final int MINIMIZE = 1;
+  public static final int MAXIMIZE = -1;
+
+  // SOS types
+
+  public static final int SOS_TYPE1      = 1;
+  public static final int SOS_TYPE2      = 2;
+
+  // General constraint types
+
+  public static final int GENCONSTR_MAX       = 0;
+  public static final int GENCONSTR_MIN       = 1;
+  public static final int GENCONSTR_ABS       = 2;
+  public static final int GENCONSTR_AND       = 3;
+  public static final int GENCONSTR_OR        = 4;
+  public static final int GENCONSTR_INDICATOR = 5;
+  public static final int GENCONSTR_PWL       = 6;
+  public static final int GENCONSTR_POLY      = 7;
+  public static final int GENCONSTR_EXP       = 8;
+  public static final int GENCONSTR_EXPA      = 9;
+  public static final int GENCONSTR_LOG       = 10;
+  public static final int GENCONSTR_LOGA      = 11;
+  public static final int GENCONSTR_POW       = 12;
+  public static final int GENCONSTR_SIN       = 13;
+  public static final int GENCONSTR_COS       = 14;
+  public static final int GENCONSTR_TAN       = 15;
+
+  // Numeric constants
+
+  public static final double INFINITY    = 1e100;
+  public static final double UNDEFINED   = 1e101;
+
+  // Other constants
+
+  public static final int DEFAULT_CS_PORT = 61000;
+
+  // Callback constants
+
+  public static final int CB_POLLING       =     0;
+  public static final int CB_PRESOLVE      =     1;
+  public static final int CB_SIMPLEX       =     2;
+  public static final int CB_MIP           =     3;
+  public static final int CB_MIPSOL        =     4;
+  public static final int CB_MIPNODE       =     5;
+  public static final int CB_MESSAGE       =     6;
+  public static final int CB_BARRIER       =     7;
+  public static final int CB_MULTIOBJ      =     8;
+  public static final int CB_PRE_COLDEL    =  1000;
+  public static final int CB_PRE_ROWDEL    =  1001;
+  public static final int CB_PRE_SENCHG    =  1002;
+  public static final int CB_PRE_BNDCHG    =  1003;
+  public static final int CB_PRE_COECHG    =  1004;
+  public static final int CB_SPX_ITRCNT    =  2000;
+  public static final int CB_SPX_OBJVAL    =  2001;
+  public static final int CB_SPX_PRIMINF   =  2002;
+  public static final int CB_SPX_DUALINF   =  2003;
+  public static final int CB_SPX_ISPERT    =  2004;
+  public static final int CB_MIP_OBJBST    =  3000;
+  public static final int CB_MIP_OBJBND    =  3001;
+  public static final int CB_MIP_NODCNT    =  3002;
+  public static final int CB_MIP_SOLCNT    =  3003;
+  public static final int CB_MIP_CUTCNT    =  3004;
+  public static final int CB_MIP_NODLFT    =  3005;
+  public static final int CB_MIP_ITRCNT    =  3006;
+  public static final int CB_MIPSOL_SOL    =  4001;
+  public static final int CB_MIPSOL_OBJ    =  4002;
+  public static final int CB_MIPSOL_OBJBST =  4003;
+  public static final int CB_MIPSOL_OBJBND =  4004;
+  public static final int CB_MIPSOL_NODCNT =  4005;
+  public static final int CB_MIPSOL_SOLCNT =  4006;
+  public static final int CB_MIPNODE_STATUS=  5001;
+  public static final int CB_MIPNODE_REL   =  5002;
+  public static final int CB_MIPNODE_OBJBST=  5003;
+  public static final int CB_MIPNODE_OBJBND=  5004;
+  public static final int CB_MIPNODE_NODCNT=  5005;
+  public static final int CB_MIPNODE_SOLCNT=  5006;
+  public static final int CB_MIPNODE_BRVAR =  5007;
+  public static final int CB_MSG_STRING    =  6001;
+  public static final int CB_RUNTIME       =  6002;
+  public static final int CB_BARRIER_ITRCNT  = 7001;
+  public static final int CB_BARRIER_PRIMOBJ = 7002;
+  public static final int CB_BARRIER_DUALOBJ = 7003;
+  public static final int CB_BARRIER_PRIMINF = 7004;
+  public static final int CB_BARRIER_DUALINF = 7005;
+  public static final int CB_BARRIER_COMPL   = 7006;
+  public static final int CB_MULTIOBJ_OBJCNT = 8001;
+  public static final int CB_MULTIOBJ_SOLCNT = 8002;
+  public static final int CB_MULTIOBJ_SOL    = 8003;
+
+  public class Callback {
+    public static final int POLLING       =     0;
+    public static final int PRESOLVE      =     1;
+    public static final int SIMPLEX       =     2;
+    public static final int MIP           =     3;
+    public static final int MIPSOL        =     4;
+    public static final int MIPNODE       =     5;
+    public static final int MESSAGE       =     6;
+    public static final int BARRIER       =     7;
+    public static final int MULTIOBJ      =     8;
+    public static final int PRE_COLDEL    =  1000;
+    public static final int PRE_ROWDEL    =  1001;
+    public static final int PRE_SENCHG    =  1002;
+    public static final int PRE_BNDCHG    =  1003;
+    public static final int PRE_COECHG    =  1004;
+    public static final int SPX_ITRCNT    =  2000;
+    public static final int SPX_OBJVAL    =  2001;
+    public static final int SPX_PRIMINF   =  2002;
+    public static final int SPX_DUALINF   =  2003;
+    public static final int SPX_ISPERT    =  2004;
+    public static final int MIP_OBJBST    =  3000;
+    public static final int MIP_OBJBND    =  3001;
+    public static final int MIP_NODCNT    =  3002;
+    public static final int MIP_SOLCNT    =  3003;
+    public static final int MIP_CUTCNT    =  3004;
+    public static final int MIP_NODLFT    =  3005;
+    public static final int MIP_ITRCNT    =  3006;
+    public static final int MIPSOL_SOL    =  4001;
+    public static final int MIPSOL_OBJ    =  4002;
+    public static final int MIPSOL_OBJBST =  4003;
+    public static final int MIPSOL_OBJBND =  4004;
+    public static final int MIPSOL_NODCNT =  4005;
+    public static final int MIPSOL_SOLCNT =  4006;
+    public static final int MIPNODE_STATUS=  5001;
+    public static final int MIPNODE_REL   =  5002;
+    public static final int MIPNODE_OBJBST=  5003;
+    public static final int MIPNODE_OBJBND=  5004;
+    public static final int MIPNODE_NODCNT=  5005;
+    public static final int MIPNODE_SOLCNT=  5006;
+    public static final int MIPNODE_BRVAR =  5007;
+    public static final int MSG_STRING    =  6001;
+    public static final int RUNTIME       =  6002;
+    public static final int BARRIER_ITRCNT  = 7001;
+    public static final int BARRIER_PRIMOBJ = 7002;
+    public static final int BARRIER_DUALOBJ = 7003;
+    public static final int BARRIER_PRIMINF = 7004;
+    public static final int BARRIER_DUALINF = 7005;
+    public static final int BARRIER_COMPL   = 7006;
+    public static final int MULTIOBJ_OBJCNT = 8001;
+    public static final int MULTIOBJ_SOLCNT = 8002;
+    public static final int MULTIOBJ_SOL    = 8003;
+  }
+
+  // Errors
+
+  public static final int ERROR_OUT_OF_MEMORY            = 10001;
+  public static final int ERROR_NULL_ARGUMENT            = 10002;
+  public static final int ERROR_INVALID_ARGUMENT         = 10003;
+  public static final int ERROR_UNKNOWN_ATTRIBUTE        = 10004;
+  public static final int ERROR_DATA_NOT_AVAILABLE       = 10005;
+  public static final int ERROR_INDEX_OUT_OF_RANGE       = 10006;
+  public static final int ERROR_UNKNOWN_PARAMETER        = 10007;
+  public static final int ERROR_VALUE_OUT_OF_RANGE       = 10008;
+  public static final int ERROR_NO_LICENSE               = 10009;
+  public static final int ERROR_SIZE_LIMIT_EXCEEDED      = 10010;
+  public static final int ERROR_CALLBACK                 = 10011;
+  public static final int ERROR_FILE_READ                = 10012;
+  public static final int ERROR_FILE_WRITE               = 10013;
+  public static final int ERROR_NUMERIC                  = 10014;
+  public static final int ERROR_IIS_NOT_INFEASIBLE       = 10015;
+  public static final int ERROR_NOT_FOR_MIP              = 10016;
+  public static final int ERROR_OPTIMIZATION_IN_PROGRESS = 10017;
+  public static final int ERROR_DUPLICATES               = 10018;
+  public static final int ERROR_NODEFILE                 = 10019;
+  public static final int ERROR_Q_NOT_PSD                = 10020;
+  public static final int ERROR_QCP_EQUALITY_CONSTRAINT  = 10021;
+  public static final int ERROR_NETWORK                  = 10022;
+  public static final int ERROR_JOB_REJECTED             = 10023;
+  public static final int ERROR_NOT_SUPPORTED            = 10024;
+  public static final int ERROR_EXCEED_2B_NONZEROS       = 10025;
+  public static final int ERROR_INVALID_PIECEWISE_OBJ    = 10026;
+  public static final int ERROR_UPDATEMODE_CHANGE        = 10027;
+  public static final int ERROR_CLOUD                    = 10028;
+  public static final int ERROR_MODEL_MODIFICATION       = 10029;
+  public static final int ERROR_CSWORKER                 = 10030;
+  public static final int ERROR_TUNE_MODEL_TYPES         = 10031;
+  public static final int ERROR_SECURITY                 = 10032;
+  public static final int ERROR_NOT_IN_MODEL             = 20001;
+  public static final int ERROR_FAILED_TO_CREATE_MODEL   = 20002;
+  public static final int ERROR_INTERNAL                 = 20003;
+
+  public class Error {
+    public static final int OUT_OF_MEMORY            = 10001;
+    public static final int NULL_ARGUMENT            = 10002;
+    public static final int INVALID_ARGUMENT         = 10003;
+    public static final int UNKNOWN_ATTRIBUTE        = 10004;
+    public static final int DATA_NOT_AVAILABLE       = 10005;
+    public static final int INDEX_OUT_OF_RANGE       = 10006;
+    public static final int UNKNOWN_PARAMETER        = 10007;
+    public static final int VALUE_OUT_OF_RANGE       = 10008;
+    public static final int NO_LICENSE               = 10009;
+    public static final int SIZE_LIMIT_EXCEEDED      = 10010;
+    public static final int CALLBACK                 = 10011;
+    public static final int FILE_READ                = 10012;
+    public static final int FILE_WRITE               = 10013;
+    public static final int NUMERIC                  = 10014;
+    public static final int IIS_NOT_INFEASIBLE       = 10015;
+    public static final int NOT_FOR_MIP              = 10016;
+    public static final int OPTIMIZATION_IN_PROGRESS = 10017;
+    public static final int DUPLICATES               = 10018;
+    public static final int NODEFILE                 = 10019;
+    public static final int ERROR_Q_NOT_PSD          = 10020;
+    public static final int QCP_EQUALITY_CONSTRAINT  = 10021;
+    public static final int NETWORK                  = 10022;
+    public static final int JOB_REJECTED             = 10023;
+    public static final int NOT_SUPPORTED            = 10024;
+    public static final int EXCEED_2B_NONZEROS       = 10025;
+    public static final int INVALID_PIECEWISE_OBJ    = 10026;
+    public static final int UPDATEMODE_CHANGE        = 10027;
+    public static final int CLOUD                    = 10028;
+    public static final int MODEL_MODIFICATION       = 10029;
+    public static final int CSWORKER                 = 10030;
+    public static final int TUNE_MODEL_TYPES         = 10031;
+    public static final int ERROR_SECURITY           = 10032;
+    public static final int NOT_IN_MODEL             = 20001;
+    public static final int FAILED_TO_CREATE_MODEL   = 20002;
+    public static final int INTERNAL                 = 20003;
+  }
+
+  public static final int CUTS_AUTO           = -1;
+  public static final int CUTS_OFF            = 0;
+  public static final int CUTS_CONSERVATIVE   = 1;
+  public static final int CUTS_AGGRESSIVE     = 2;
+  public static final int CUTS_VERYAGGRESSIVE = 3;
+
+  public static final int METHOD_AUTO                     = -1;
+  public static final int METHOD_PRIMAL                   = 0;
+  public static final int METHOD_DUAL                     = 1;
+  public static final int METHOD_BARRIER                  = 2;
+  public static final int METHOD_CONCURRENT               = 3;
+  public static final int METHOD_DETERMINISTIC_CONCURRENT = 4;
+
+  public static final int BARORDER_AUTOMATIC        = 0;
+  public static final int BARORDER_AMD              = 1;
+  public static final int BARORDER_NESTEDDISSECTION = 2;
+
+  public static final int FEASRELAX_LINEAR      = 0;
+</PRE>
+
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_charattr.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_charattr.html">GRB.CharAttr</A>
+<B> Up:</B> <A
+ HREF="java_.html">GRB</A>
+<B> Previous:</B> <A
+ HREF="java_.html">GRB</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

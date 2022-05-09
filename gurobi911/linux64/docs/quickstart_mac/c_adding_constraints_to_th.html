@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Adding constraints to the model</TITLE>
+<META NAME="description" CONTENT="Adding constraints to the model">
+<META NAME="keywords" CONTENT="quickstart_mac">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_mac.css">
+
+<LINK REL="next" HREF="c_optimizing_the_model.html">
+<LINK REL="previous" HREF="c_changing_the_objective_s.html">
+<LINK REL="next" HREF="c_optimizing_the_model.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_optimizing_the_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_changing_the_objective_s.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_optimizing_the_model.html">Optimizing the model</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_changing_the_objective_s.html">Changing the objective sense</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00077000000000000000">
+Adding constraints to the model</A>
+</H2>
+
+<P>
+Once the new variables are integrated into the model, the next step is
+to add our two linear constraints.  These constraints are added through the
+<TT>GRBaddconstr()</TT> routine.  To add a constraint, you must specify
+several pieces of information, including the non-zero values
+associated with the constraint, the constraint sense, the right-hand
+side value, and the constraint name.  These are all specified as
+arguments to <TT>GRBaddconstr()</TT>:
+
+<P>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">
+  /* First constraint: x + 2 y + 3 z &lt;= 4 */
+  ind[0] = 0; ind[1] = 1; ind[2] = 2;
+  val[0] = 1; val[1] = 2; val[2] = 3;
+
+  error = GRBaddconstr(model, 3, ind, val, GRB_LESS_EQUAL, 4.0, "c0");
+  if (error) goto QUIT;
+</PRE>
+
+<P>
+The first argument of <TT>GRBaddconstr()</TT> is the model to which the
+constraint is being added.  The second is the total number of non-zero
+coefficients associated with the new constraint.  The next two
+arguments describe the non-zeros in the new constraint.  Constraint
+coefficients are specified using a list of index-value pairs, one for
+each non-zero value.  In our example, the first constraint to be added
+is <!-- MATH
+ $x + 2y + 3z \leq 4$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.17ex; vertical-align: -0.57ex; " SRC="img9.svg"
+ ALT="$x + 2y + 3z \leq 4$"></SPAN>.  We have chosen to make <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img10.svg"
+ ALT="$x$"></SPAN> the first
+variable in our constraint matrix, <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img11.svg"
+ ALT="$y$"></SPAN> the second, and <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img12.svg"
+ ALT="$z$"></SPAN> the third
+(note that this choice is arbitrary). Given our variable ordering
+choice, the index-value pairs that are required for our first
+constraint are (0, 1.0), (1, 2.0), and (2, 3.0).
+These pairs are placed in the <code>ind</code> and
+<code>val</code> arrays.
+
+<P>
+The fifth argument to <TT>GRBaddconstr()</TT> provides the sense of the
+new constraint.  Possible values are <code>GRB_LESS_EQUAL</code>,
+<code>GRB_GREATER_EQUAL</code>, or <code>GRB_EQUAL</code>.  The sixth argument gives
+the right-hand side value.  The final argument gives the name of the
+constraint (we allow the constraint to take its default name here by
+specifying <code>NULL</code> for the argument).
+The second constraint is added in a similar fashion.
+
+<P>
+Note that routine <TT>GRBaddconstrs()</TT> would allow you to add both
+constraints in a single call.  The arguments for this routine are much
+more complex, though, without providing any significant advantages, so
+we recommend that you add one constraint at a time.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_optimizing_the_model.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_interface.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_changing_the_objective_s.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_optimizing_the_model.html">Optimizing the model</A>
+<B> Up:</B> <A
+ HREF="c_interface.html">C Interface</A>
+<B> Previous:</B> <A
+ HREF="c_changing_the_objective_s.html">Changing the objective sense</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

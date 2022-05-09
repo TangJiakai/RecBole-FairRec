@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Cluster Setup and Administration</TITLE>
+<META NAME="description" CONTENT="Cluster Setup and Administration">
+<META NAME="keywords" CONTENT="remoteservices">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="remoteservices.css">
+
+<LINK REL="next" HREF="using_remote_services.html">
+<LINK REL="previous" HREF="overview.html">
+<LINK REL="next" HREF="quick_cluster_manager_inst.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="quick_cluster_manager_inst.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_a_non_interactive_job.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="quick_cluster_manager_inst.html">Quick Cluster Manager Installation</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="sub_a_non_interactive_job.html">Submitting a Non-Interactive Job</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION00020000000000000000"></A>
+<A ID="sec:RSMClusterSetup"></A>
+<BR>
+Cluster Setup and Administration
+</H1>
+
+<P>
+This section covers the setup and administration of a Gurobi
+Remote Services cluster.  The intended audience is the system
+administrator.  If you are interested in using a cluster that has
+already been set up, you should proceed to the
+<A HREF="using_remote_services.html#sec:UsingRemoteServices">next section</A>.
+
+<P>
+This section begins by providing a step-by-step guide for a simple
+Cluster Manager installation on your local machine.  The goal is to
+help you to quickly gain a basic understanding of the role of each
+Remote Services component.
+
+<P>
+Then, we describe in more detail the steps and options for a full
+deployment. We start by describing how to
+<A HREF="ins_the_remote_services_pa.html#sec:RSMDownload">download the Remote Services package</A>
+and install it on all of the nodes in your cluster.  Once this is
+done, the next step is to install and start the <A HREF="ins_a_cluster_manager.html#sec:RSMInstallManager">Cluster
+  Manager</A>.  Note that this step is
+optional; you can run a self-managed Remote Services cluster (without
+a Cluster Manager).  Next, we explain the steps required to set up a
+cluster with
+<A HREF="ins_a_cluster_node.html#sec:RSMInstallNode">one node</A>, and then
+the steps to expand the cluster to <A HREF="forming_a_cluster.html#sec:RSMClusterForming">multiple
+  nodes</A>.  Finally, we present a discussion of
+the available <A HREF="communication_options.html#sec:RSMCommunicationOptions">communication
+  options</A>.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html150"
+  HREF="quick_cluster_manager_inst.html">Quick Cluster Manager Installation</A>
+<LI><A ID="tex2html151"
+  HREF="ins_the_remote_services_pa.html">Installing the Remote Services Package</A>
+<UL>
+<LI><A ID="tex2html152"
+  HREF="linux_installation.html">Linux Installation</A>
+<LI><A ID="tex2html153"
+  HREF="mac_os_installation.html">Mac OS Installation</A>
+<LI><A ID="tex2html154"
+  HREF="windows_installation.html">Windows Installation</A>
+</UL>
+<BR>
+<LI><A ID="tex2html155"
+  HREF="ins_a_cluster_manager.html">Installing a Cluster Manager</A>
+<UL>
+<LI><A ID="tex2html156"
+  HREF="ins_the_database.html">Installing the Database</A>
+<LI><A ID="tex2html157"
+  HREF="cluster_manager_server__rs.html">Cluster Manager Server (grb_rsm)</A>
+<LI><A ID="tex2html158"
+  HREF="configuring_the_cluster_ma.html">Configuring the Cluster Manager</A>
+<LI><A ID="tex2html159"
+  HREF="sta_the_cluster_manager_as.html">Starting the Cluster Manager as a Process</A>
+<LI><A ID="tex2html160"
+  HREF="sta_the_cluster_manager_as2.html">Starting the Cluster Manager as a Service</A>
+<LI><A ID="tex2html161"
+  HREF="verification.html">Verification</A>
+</UL>
+<BR>
+<LI><A ID="tex2html162"
+  HREF="ins_a_cluster_node.html">Installing a Cluster Node</A>
+<UL>
+<LI><A ID="tex2html163"
+  HREF="licensing.html">Licensing</A>
+<LI><A ID="tex2html164"
+  HREF="remote_services_agent__rs.html">Remote Services Agent (grb_rs)</A>
+<LI><A ID="tex2html165"
+  HREF="configuring_a_cluster_node.html">Configuring a Cluster Node</A>
+<LI><A ID="tex2html166"
+  HREF="sta_a_cluster_node_as_a_pr.html">Starting a Cluster Node as a Process</A>
+<LI><A ID="tex2html167"
+  HREF="sta_a_cluster_node_as_a_se.html">Starting a Cluster Node as a Service</A>
+<LI><A ID="tex2html168"
+  HREF="verification2.html">Verification</A>
+</UL>
+<BR>
+<LI><A ID="tex2html169"
+  HREF="forming_a_cluster.html">Forming a Cluster</A>
+<UL>
+<LI><A ID="tex2html170"
+  HREF="connecting_nodes.html">Connecting Nodes</A>
+<LI><A ID="tex2html171"
+  HREF="compute_servers_and_distri.html">Compute Servers and Distributed Workers</A>
+<LI><A ID="tex2html172"
+  HREF="grouping.html">Grouping</A>
+<LI><A ID="tex2html173"
+  HREF="processing_state_and_scali.html">Processing State and Scaling</A>
+</UL>
+<BR>
+<LI><A ID="tex2html174"
+  HREF="communication_options.html">Communication Options</A>
+<UL>
+<LI><A ID="tex2html175"
+  HREF="enabling_https.html">Enabling HTTPS</A>
+<LI><A ID="tex2html176"
+  HREF="using_https_with_self_sign.html">Using HTTPS with Self-Signed Certificates</A>
+<LI><A ID="tex2html177"
+  HREF="firewalls.html">Firewalls</A>
+<LI><A ID="tex2html178"
+  HREF="using_a_router_without_a_c.html">Using a Router without a Cluster Manager</A>
+</UL></UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="quick_cluster_manager_inst.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="remoteservices.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sub_a_non_interactive_job.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="quick_cluster_manager_inst.html">Quick Cluster Manager Installation</A>
+<B> Up:</B> <A
+ HREF="remoteservices.html">Gurobi Remote Services</A>
+<B> Previous:</B> <A
+ HREF="sub_a_non_interactive_job.html">Submitting a Non-Interactive Job</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

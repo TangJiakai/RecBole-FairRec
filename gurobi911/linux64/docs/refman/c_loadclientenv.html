@@ -1,0 +1,224 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBloadclientenv</TITLE>
+<META NAME="description" CONTENT="GRBloadclientenv">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_loadcloudenv.html">
+<LINK REL="previous" HREF="c_startenv.html">
+<LINK REL="next" HREF="c_loadcloudenv.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_loadcloudenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_startenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_loadcloudenv.html">GRBloadcloudenv</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_startenv.html">GRBstartenv</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00021400000000000000"></A>
+<A ID="routine:GRBloadclientenv"></A>
+<BR>
+GRBloadclientenv
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBloadclientenv</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBenv</TD>
+<TD CLASS="LEFT">**envP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*logfilename,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*computeserver,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*router,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*password,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">const char</TD>
+<TD CLASS="LEFT">*group,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">CStlsinsecure,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">priority,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">timeout )</TD>
+</TR>
+</TABLE>
+
+<P>
+Create a client environment on a compute server.  Optimization models
+live within an environment, so this is typically the first Gurobi
+routine called in an application.  This call specifies the compute
+server on which those optimization models will be solved, as well
+as the priority of the associated jobs.
+
+<P>
+This routine will also check the current working directory for a file
+named <TT>gurobi.env</TT>, and it will attempt to read
+parameter settings from this file if it exists.  The file should
+be in <A HREF="prm_format.html#format:PRM">PRM</A> format (briefly, each line
+should contain a parameter name, followed by the desired value
+for that parameter).
+
+<P>
+In general, you should aim to create a single Gurobi environment in
+your program, even if you plan to work with multiple models.  Reusing
+one environment is much more efficient than creating and destroying
+multiple environments.  The one exception is if you are writing a
+multi-threaded program, since environments are not thread safe.  In
+this case, you will need a separate environment for each of your
+threads.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that there was a problem creating
+the environment.  Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error
+  Code</A> table for a list of possible return
+values.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">envP</SPAN>: The location in which the pointer to the newly created
+  environment should be placed.
+
+<P>
+ <SPAN  CLASS="textbf">logfilename</SPAN>: The name of the log file for this environment.
+  May be <SPAN  CLASS="texttt">NULL</SPAN> (or an empty string), in which case no log file is
+  created.
+
+<P>
+ <SPAN  CLASS="textbf">computeserver</SPAN>: A Compute Server.  You can refer to the server using its name or
+its IP address.  If you are using a non-default port, the server
+name should be followed by the port number (e.g.,
+<SPAN  CLASS="texttt">server1:61000</SPAN>)
+
+<P>
+ <SPAN  CLASS="textbf">router</SPAN>: The router for a Compute Server cluster.  A router can be used to
+improve the robustness of a Compute Server deployment.  You
+should refer to the router using either its name or its IP
+address.  If no router is used (which is the typical case), pass
+an empty string.
+
+<P>
+ <SPAN  CLASS="textbf">password</SPAN>: The password for gaining access to the specified Compute Server
+cluster.  Pass an empty string if no password is required.
+
+<P>
+ <SPAN  CLASS="textbf">group</SPAN>: The name of the Compute Server group.
+
+<P>
+ <SPAN  CLASS="textbf">CStlsinsecure</SPAN>: Indicates whether to use insecure mode in the TLS (Transport
+Layer Security).  Set this to 0 unless your server administrator
+tells you otherwise.
+
+<P>
+ <SPAN  CLASS="textbf">priority</SPAN>: The priority of the job.  Priorities must be between -100 and
+100, with a default value of 0 (by convention).  Higher priority
+jobs are chosen from the server job queue before lower priority
+jobs. Depending on the configuration of the
+server, a job with priority 100 runs immediately, bypassing the
+job queue and ignoring the job limit on the server. You should
+exercise caution with priority 100 jobs, since they can severely
+overload a server, which can cause jobs to fail, and in extreme
+cases can cause the server to crash.  This behavior is managed by
+the <TT>HARDJOBLIMIT</TT>, and is disabled by default. Refer
+to the <A ID="tex2html7"
+  HREF="../remoteservices/remoteservices.html">Gurobi Remote Services Reference
+Manual</A>
+for more
+information on starting Compute Server options.
+
+<P>
+ <SPAN  CLASS="textbf">timeout</SPAN>: Queue timeout (in seconds).  If the job doesn't reach the front of
+the queue before the specified timeout, the call will exit with a
+<SPAN  CLASS="texttt">JOB_REJECTED</SPAN> error.  Use -1 to indicate
+that the call should never timeout.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  GRBenv *env;
+  error = GRBloadclientenv(&amp;env, "gurobi.log",
+                           "server1.mydomain.com,server2.mydomain.com",
+                           "", "", "", 0, 5, -1.0);
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_loadcloudenv.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_environment_creation_and.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_startenv.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_loadcloudenv.html">GRBloadcloudenv</A>
+<B> Up:</B> <A
+ HREF="c_environment_creation_and.html">Environment Creation and Destruction</A>
+<B> Previous:</B> <A
+ HREF="c_startenv.html">GRBstartenv</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

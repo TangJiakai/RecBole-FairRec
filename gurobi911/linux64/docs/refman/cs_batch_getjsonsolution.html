@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBBatch.GetJSONSolution()</TITLE>
+<META NAME="description" CONTENT="GRBBatch.GetJSONSolution()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_batch_get.html">
+<LINK REL="previous" HREF="cs_batch_discard.html">
+<LINK REL="next" HREF="cs_batch_get.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_batch_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_batch_discard.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_batch_get.html">GRBBatch.Get()</A>
+<B> Up:</B> <A
+ HREF="cs_batch.html">GRBBatch</A>
+<B> Previous:</B> <A
+ HREF="cs_batch_discard.html">GRBBatch.Discard()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000816400000000000000"></A>
+<A ID="dotnetmethod:GRBBatch.GetJSONSolution"></A>
+<BR>
+GRBBatch.GetJSONSolution()
+</H3>
+
+<P>
+This method retrieves the solution of a
+completed batch request from a Cluster Manager. The solution is returned as a
+<A HREF="json_solution_format.html#format:JSON">JSON solution string</A>. For this call to
+succeed, the status of the batch request must be <TT>COMPLETED</TT>.
+Please refer to the <A HREF="batch_status_codes.html#sec:BatchStatusCodes">Batch Status
+Codes</A> section for further details.
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GetJSONSolution</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+The requested solution in JSON format.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">        // Get JSON solution as string
+        Console.WriteLine("JSON solution:" + batch.GetJSONSolution());
+</PRE>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_batch_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_batch.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_batch_discard.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_batch_get.html">GRBBatch.Get()</A>
+<B> Up:</B> <A
+ HREF="cs_batch.html">GRBBatch</A>
+<B> Previous:</B> <A
+ HREF="cs_batch_discard.html">GRBBatch.Discard()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

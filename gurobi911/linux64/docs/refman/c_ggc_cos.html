@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBgetgenconstrCos</TITLE>
+<META NAME="description" CONTENT="GRBgetgenconstrCos">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="c_ggc_tan.html">
+<LINK REL="previous" HREF="c_ggc_sin.html">
+<LINK REL="next" HREF="c_ggc_tan.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="c_ggc_tan.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_queries.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_ggc_sin.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_ggc_tan.html">GRBgetgenconstrTan</A>
+<B> Up:</B> <A
+ HREF="c_model_queries.html">Model Queries</A>
+<B> Previous:</B> <A
+ HREF="c_ggc_sin.html">GRBgetgenconstrSin</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000241900000000000000"></A>
+<A ID="routine:GRBgetgenconstrCos"></A>
+<BR>
+GRBgetgenconstrCos
+</H3>
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">GRBgetgenconstrCos</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBmodel</TD>
+<TD CLASS="LEFT">*model,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">id,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*xvarP,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">*yvarP )</TD>
+</TR>
+</TABLE>
+
+<P>
+Retrieve the data associated with a general constraint of type COS.
+Calling this method for a general constraint of a different type
+leads to an error return code.
+You can query the <A HREF="genconstrtype.html#attr:GenConstrType">GenConstrType</A>
+attribute to determine the type of the general constraint.
+
+<P>
+See also <A HREF="c_agc_cos.html#routine:GRBaddgenconstrCos">GRBaddgenconstrCos</A>
+for a description of the semantics of this general constraint type.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+A non-zero return value indicates that a problem occurred while retrieving the data of the general constraint.
+Refer to the <A HREF="error_codes.html#sec:ErrorCodes">Error Code</A> table for a
+list of possible return values.  Details on the error can be obtained
+by calling <A HREF="c_geterrormsg.html#routine:GRBgeterrormsg">GRBgeterrormsg</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">model</SPAN>: The model to which the new general constraint should be added.
+
+<P>
+ <SPAN  CLASS="textbf">id</SPAN>: The index of the general constraint to retrieve.
+
+<P>
+Note that any of the following arguments can be <SPAN  CLASS="texttt">NULL</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">xvarP</SPAN>: The index of variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img27.svg"
+ ALT="$x$"></SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">yvarP</SPAN>: The index of variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img42.svg"
+ ALT="$y$"></SPAN>.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  int type;
+  int xvar;
+  int yvar;
+
+  error = GRBgetintattrelement(model, GRB_INT_ATTR_GENCONSTRTYPE, 3, &amp;type);
+  if (type == GRB_GENCONSTR_COS) {
+    error = GRBgetgenconstrCos(model, 3, &amp;xvar, &amp;yvar);
+  }
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="c_ggc_tan.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="c_model_queries.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="c_ggc_sin.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="c_ggc_tan.html">GRBgetgenconstrTan</A>
+<B> Up:</B> <A
+ HREF="c_model_queries.html">Model Queries</A>
+<B> Previous:</B> <A
+ HREF="c_ggc_sin.html">GRBgetgenconstrSin</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

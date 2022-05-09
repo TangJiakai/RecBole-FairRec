@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Model.setMObjective()</TITLE>
+<META NAME="description" CONTENT="Model.setMObjective()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="py_model_setobjective.html">
+<LINK REL="previous" HREF="py_model_setattr.html">
+<LINK REL="next" HREF="py_model_setobjective.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="py_model_setobjective.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_setattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_setobjective.html">Model.setObjective()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_setattr.html">Model.setAttr()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001029700000000000000"></A>
+<A ID="pythonmethod:Model.setMObjective"></A>
+<BR>
+Model.setMObjective()
+</H3>
+<SPAN CLASS="LARGE">
+<FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">setMObjective</SPAN></FONT></SPAN> ( Q, c, constant, xQ_L=None, xQ_R=None, xc=None, sense=None )
+
+<P>
+Set the model objective equal to a quadratic (or linear) expression
+  using matrix semantics.
+
+<P>
+Note that you will typically use overloaded operators to
+  set the objective using matrix objects.  The overloaded <code>@</code>
+  operator can be used to build a
+  <A HREF="py_mlex.html#pythonclass:MLinExpr">linear matrix expression</A>
+  or a
+  <A HREF="py_mqex.html#pythonclass:MQuadExpr">quadratic matrix expression</A>,
+  which is then passed to
+  <A HREF="py_model_setobjective.html#pythonmethod:Model.setObjective">setObjective</A>.
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">Q</SPAN>: The quadratic objective matrix - a NumPy 2-D dense ndarray
+  or a SciPy sparse matrix.  This can be <SPAN  CLASS="texttt">None</SPAN> if there are no
+  quadratic terms.
+
+<P>
+ <SPAN  CLASS="textbf">c</SPAN>: The linear constraint vector - a NumPy 1-D ndarray.  This
+  can be <SPAN  CLASS="texttt">None</SPAN> if there are no linear terms.
+
+<P>
+ <SPAN  CLASS="textbf">constant</SPAN>: Objective constant.
+
+<P>
+ <SPAN  CLASS="textbf">xQ_L (optional)</SPAN>: Decision variables for quadratic objective terms; left
+  multiplier for Q.  Argument can be an
+  <A HREF="py_mvar.html#pythonclass:MVar">MVar</A> object, a list of
+  <A HREF="py_var.html#pythonclass:Var">Var</A> objects, or <SPAN  CLASS="texttt">None</SPAN>
+  (<SPAN  CLASS="texttt">None</SPAN> uses all variables in the model).  The length of the
+  argument must match the size of the first dimension of <SPAN  CLASS="texttt">Q</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">xQ_R (optional)</SPAN>: Decision variables for quadratic objective terms; right
+  multiplier for Q.  The length of the argument must match the size of
+  the second dimension of <SPAN  CLASS="texttt">Q</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">xc (optional)</SPAN>: Decision variables for linear objective terms.
+  Argument
+  can be an <A HREF="py_mvar.html#pythonclass:MVar">MVar</A> object, a list of
+  <A HREF="py_var.html#pythonclass:Var">Var</A> objects, or <SPAN  CLASS="texttt">None</SPAN>
+  (<SPAN  CLASS="texttt">None</SPAN> uses all variables in the model).  The length of the
+  argument must match the length of <SPAN  CLASS="texttt">c</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">sense (optional)</SPAN>: Optimization sense
+  (<SPAN  CLASS="texttt">GRB.MINIMIZE</SPAN> for minimization, <SPAN  CLASS="texttt">GRB.MAXIMIZE</SPAN>
+  for maximization).  Omit this argument to use the
+  <SPAN  CLASS="texttt">ModelSense</SPAN> attribute value to determine the sense.
+
+<P>
+<SPAN CLASS="LARGE"><B>Example usage:</B></SPAN><PRE>
+  c = np.full(10, 1.0)
+  xc = model.addMVar(10)
+
+  model.setMObjective(None, c, 0.0, None, None, xc, GRB.MAXIMIZE)
+
+  Q = np.full((2, 3), 1.0)
+  xL = model.addMVar(2)
+  xR = model.addMVar(3)
+
+  model.setMObjective(Q, None, 0.0, xL, xR, None, GRB.MINIMIZE)
+</PRE>
+
+<P>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="py_model_setobjective.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="py_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="py_model_setattr.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="py_model_setobjective.html">Model.setObjective()</A>
+<B> Up:</B> <A
+ HREF="py_model.html">Model</A>
+<B> Previous:</B> <A
+ HREF="py_model_setattr.html">Model.setAttr()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

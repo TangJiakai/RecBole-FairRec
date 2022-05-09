@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Adding constraints to the model</TITLE>
+<META NAME="description" CONTENT="Adding constraints to the model">
+<META NAME="keywords" CONTENT="quickstart_mac">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_mac.css">
+
+<LINK REL="next" HREF="cs_optimizing_the_model3.html">
+<LINK REL="previous" HREF="cs_setting_the_objective3.html">
+<LINK REL="next" HREF="cs_optimizing_the_model3.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_optimizing_the_model3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_matrix_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_setting_the_objective3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_optimizing_the_model3.html">Optimizing the model</A>
+<B> Up:</B> <A
+ HREF="cs_python_matrix_example.html">Python Matrix Example</A>
+<B> Previous:</B> <A
+ HREF="cs_setting_the_objective3.html">Setting the objective</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000115600000000000000">
+Adding constraints to the model</A>
+</H3>
+
+<P>
+The next step in the example is to add our two linear constraints.
+This is done by building a sparse matrix that captures the constraint
+matrix:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    # Build (sparse) constraint matrix
+    val = np.array([1.0, 2.0, 3.0, -1.0, -1.0])
+    row = np.array([0, 0, 0, 1, 1])
+    col = np.array([0, 1, 2, 0, 1])
+
+    A = sp.csr_matrix((val, (row, col)), shape=(2, 3))
+</PRE>
+
+<P>
+The matrix has two rows, one for each constraint, and three columns,
+one for each variable in our matrix variable.
+The <code>row</code> and <code>col</code> arrays gives the row and column indices
+for the 5 non-zero values in the sparse matrix, respectively.  The
+<code>val</code> array gives the numerical values.
+Note that we multiply
+the greater-than constraint by <SPAN CLASS="MATH"><IMG STYLE="height: 1.92ex; vertical-align: -0.31ex; " SRC="img18.svg"
+ ALT="$-1$"></SPAN> to transform it to a less-than
+constraint.
+
+<P>
+We also capture the right-hand side in a NumPy array:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    # Build rhs vector
+    rhs = np.array([4.0, -1.0])
+</PRE>
+
+<P>
+We then use the overloaded <code>@</code> operator to build a linear matrix
+expression, and then use the overloaded less-than-or-equal operator to
+add two constraints (one for each row in the matrix expression):
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">    # Add constraints
+    m.addConstr(A @ x &lt;= rhs, name="c")
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_optimizing_the_model3.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_matrix_example.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_setting_the_objective3.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_optimizing_the_model3.html">Optimizing the model</A>
+<B> Up:</B> <A
+ HREF="cs_python_matrix_example.html">Python Matrix Example</A>
+<B> Previous:</B> <A
+ HREF="cs_setting_the_objective3.html">Setting the objective</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

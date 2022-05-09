@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>BranchPriority</TITLE>
+<META NAME="description" CONTENT="BranchPriority">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="partition.html">
+<LINK REL="previous" HREF="varhintpri.html">
+<LINK REL="next" HREF="partition.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="partition.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="varhintpri.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="partition.html">Partition</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="varhintpri.html">VarHintPri</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001721400000000000000"></A>
+<A ID="attr:BranchPriority"></A>
+<BR>
+BranchPriority
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+Variable branching priority.  The value of this attribute is used as
+the primary criterion for selecting a fractional variable for branching
+during the MIP search.  Variables with larger values always take
+priority over those with smaller values.  Ties are broken using the
+standard branch variable selection criteria.  The default variable
+branch priority value is zero.
+
+<P>
+Note that deleting variables from your model will cause several
+attributes to be discarded (variable hints and branch priorities).
+If you'd like them to persist, your program will need to repopulate
+them after deleting the variables and making a subsequent model update
+call.
+
+<P>
+Only affects MIP models.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="partition.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="variable_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="varhintpri.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="partition.html">Partition</A>
+<B> Up:</B> <A
+ HREF="variable_attributes.html">Variable Attributes</A>
+<B> Previous:</B> <A
+ HREF="varhintpri.html">VarHintPri</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

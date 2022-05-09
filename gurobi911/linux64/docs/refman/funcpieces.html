@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>FuncPieces</TITLE>
+<META NAME="description" CONTENT="FuncPieces">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="genconstrtype.html">
+<LINK REL="previous" HREF="funcpieceratio.html">
+<LINK REL="next" HREF="genconstrtype.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="genconstrtype.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="general_constraint_attribu.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="funcpieceratio.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="genconstrtype.html">GenConstrType</A>
+<B> Up:</B> <A
+ HREF="general_constraint_attribu.html">General Constraint Attributes</A>
+<B> Previous:</B> <A
+ HREF="funcpieceratio.html">FuncPieceRatio</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000176400000000000000"></A>
+<A ID="attr:FuncPieces"></A>
+<BR>
+FuncPieces
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">int</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">Yes</TD>
+</TR>
+</TABLE>
+
+<P>
+This attribute sets the strategy used for performing a
+piecewise-linear approximation of a function constraint.  There are a
+few options:
+
+<P>
+
+<UL>
+<LI><B>FuncPieces = 0</B>: Ignore the attribute settings for this function constraint and use the parameter settings (<A HREF="funcpieces2.html#parameter:FuncPieces">FuncPieces</A>, etc.) instead.
+</LI>
+<LI><B>FuncPieces &gt;= 2</B>: Sets the number of pieces; pieces are equal width.
+</LI>
+<LI><B>FuncPieces = 1</B>: Uses a fixed width for each piece; the actual width is provided in the <A HREF="funcpiecelength.html#attr:FuncPieceLength">FuncPieceLength</A> attribute.
+</LI>
+<LI><B>FuncPieces = -1</B>: Bounds the absolute error of the approximation; the error bound is provided in the <A HREF="funcpieceerror.html#attr:FuncPieceError">FuncPieceError</A> attribute.
+</LI>
+<LI><B>FuncPieces = -2</B>: Bounds the relative error of the approximation; the error bound is provided in the <A HREF="funcpieceerror.html#attr:FuncPieceError">FuncPieceError</A> attribute.
+</LI>
+</UL>
+
+<P>
+See the discussion of
+<A HREF="constraints.html#subsubsection:GenConstrFunction">function constraints</A>
+for more information.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="genconstrtype.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="general_constraint_attribu.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="funcpieceratio.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="genconstrtype.html">GenConstrType</A>
+<B> Up:</B> <A
+ HREF="general_constraint_attribu.html">General Constraint Attributes</A>
+<B> Previous:</B> <A
+ HREF="funcpieceratio.html">FuncPieceRatio</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>SolFiles</TITLE>
+<META NAME="description" CONTENT="SolFiles">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="solutionnumber.html">
+<LINK REL="previous" HREF="solutionlimit.html">
+<LINK REL="next" HREF="solutionnumber.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="solutionnumber.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="solutionlimit.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solutionnumber.html">SolutionNumber</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="solutionlimit.html">SolutionLimit</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION00018213900000000000000"></A>
+<A ID="parameter:SolFiles"></A>
+<BR>
+SolFiles
+</H3>
+Location to store intermediate solution files
+
+<TABLE class="PAD " style="">
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">string</TD>
+</TR>
+<TR><TD ALIGN="LEFT">&nbsp;</TD><TD CLASS="LEFT"><SPAN  CLASS="textbf">Default value:</SPAN></TD>
+<TD CLASS="LEFT">""</TD>
+</TR>
+</TABLE>
+
+<P>
+
+<P>
+During the MIP solution process, multiple incumbent solutions are
+typically found on the path to finding a proven optimal solution.
+Setting this parameter to a non-empty string causes these solutions to
+be written to files (in <A HREF="sol_format.html#format:SOL">.sol format</A>) as
+they are found.  The MIP solver will append <code>_n.sol</code> to the value
+of the parameter to form the name of the file that contains solution
+number <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img23.svg"
+ ALT="$n$"></SPAN>.  For example, setting the parameter to
+value <code>solutions/mymodel</code> will create
+files <code>mymodel_0.sol</code>, <code>mymodel_1.sol</code>, etc., in
+directory <code>solutions</code>.
+
+<P>
+Note that intermediate solutions can be retrieved as they are
+generated through a
+<A HREF="cb_codes.html#sec:CallbackCodes">callback</A> (by requesting the
+<code>MIPSOL_SOL</code> in a <code>MIPSOL</code> callback).
+This parameter makes the process simpler.
+
+<P>
+
+<SPAN  CLASS="textbf">Note:</SPAN> Only affects mixed integer programming (MIP) models 
+<BR>
+
+<P>
+For examples of how to query or modify parameter values from
+our different APIs, refer to our
+<A HREF="parameter_examples.html#sec:ParameterExamples">Parameter Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="solutionnumber.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="parameter_descriptions.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="solutionlimit.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solutionnumber.html">SolutionNumber</A>
+<B> Up:</B> <A
+ HREF="parameter_descriptions.html">Parameter Descriptions</A>
+<B> Previous:</B> <A
+ HREF="solutionlimit.html">SolutionLimit</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>tune.py</TITLE>
+<META NAME="description" CONTENT="tune.py">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="workforce_batchmode_py.html">
+<LINK REL="previous" HREF="tsp_py.html">
+<LINK REL="next" HREF="workforce_batchmode_py.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="workforce_batchmode_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tsp_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce_batchmode_py.html">workforce_batchmode.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="tsp_py.html">tsp.py</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000263800000000000000"></A>
+<A ID="subsubsection:tune.py"></A>
+<BR>
+tune.py
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">#!/usr/bin/env python3.7
+
+# Copyright 2020, Gurobi Optimization, LLC
+
+#  This example reads a model from a file and tunes it.
+#  It then writes the best parameter settings to a file
+#  and solves the model using these parameters.
+
+import sys
+import gurobipy as gp
+
+if len(sys.argv) &lt; 2:
+    print('Usage: tune.py filename')
+    sys.exit(0)
+
+# Read the model
+model = gp.read(sys.argv[1])
+
+# Set the TuneResults parameter to 1
+model.Params.tuneResults = 1
+
+# Tune the model
+model.tune()
+
+if model.tuneResultCount &gt; 0:
+
+    # Load the best tuned parameters into the model
+    model.getTuneResult(0)
+
+    # Write tuned parameters to a file
+    model.write('tune.prm')
+
+    # Solve the model using the tuned parameters
+    model.optimize()
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="workforce_batchmode_py.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="python_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="tsp_py.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="workforce_batchmode_py.html">workforce_batchmode.py</A>
+<B> Up:</B> <A
+ HREF="python_examples.html">Python Examples</A>
+<B> Previous:</B> <A
+ HREF="tsp_py.html">tsp.py</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

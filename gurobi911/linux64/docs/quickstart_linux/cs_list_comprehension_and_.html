@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>List comprehension and generator expressions</TITLE>
+<META NAME="description" CONTENT="List comprehension and generator expressions">
+<META NAME="keywords" CONTENT="quickstart_linux">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="quickstart_linux.css">
+
+<LINK REL="next" HREF="cs_the_tuplelist_class.html">
+<LINK REL="previous" HREF="cs_dictionaries.html">
+<LINK REL="next" HREF="cs_the_tuplelist_class.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_the_tuplelist_class.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_dictionaries.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_the_tuplelist_class.html">The tuplelist class</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_dictionaries.html">Dictionaries</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000116400000000000000">
+List comprehension and generator expressions</A>
+</H3>
+
+<P>
+List comprehension and generator expressions are important Python
+features that allows you to do implicit enumeration in a concise
+fashion.  To give a simple example, the following list comprehension
+builds a list containing the squares of the numbers from 1 through 5:
+
+<PRE>
+gurobi&gt; [x*x for x in [1, 2, 3, 4, 5]]
+[1, 4, 9, 16, 25]
+</PRE>
+A generator expression is very similar, but it is used to generate an
+<code>Iterable</code> (something that can be iterated over).  For example,
+suppose we want to compute the sum of the squares of the numbers from
+1 through 5.  We could use list comprehension to build the list, and
+then pass that list to <code>sum</code>.  However, it is simpler and more
+efficient to use a generator expression:
+
+<PRE>
+gurobi&gt; sum(x*x for x in [1, 2, 3, 4, 5])
+55
+</PRE>
+A generator expression can be used whenever a method accepts an
+<code>Iterable</code> argument (something that can be iterated over).  For
+example, most Python methods that accept a <code>list</code> argument (the
+most common type of <code>Iterable</code>) will also accept a generator
+expression.
+
+<P>
+Note that there's a Python routine for creating a contiguous list of
+integers: <code>range</code>.  The above would typically be written as
+follows:
+
+<PRE>
+gurobi&gt; sum(x*x for x in range(1,6))
+</PRE>
+Details on the <code>range</code> function can be found
+<A ID="tex2html63"
+  HREF="https://docs.python.org/3/library/functions.html">here</A>.
+
+<P>
+List comprehension and generator expressions can both contain more
+than one <code>for</code> clause, and one or more <code>if</code> clauses.  The
+following example builds a list of tuples containing all <code>x,y</code>
+pairs where <code>x</code> and <code>y</code> are both less than 4 and <code>x</code> is
+less than <code>y</code>:
+
+<PRE>
+gurobi&gt; [(x,y) for x in range(4) for y in range(4) if x &lt; y]
+[(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+</PRE>
+Note that the <code>for</code> statements are executed left-to-right, and
+values from one can be used in the next, so a more efficient way to
+write the above is:
+
+<PRE>
+gurobi&gt; [(x,y) for x in range(4) for y in range(x+1, 4)]
+</PRE>
+
+<P>
+Generator expressions are used extensively in our Python examples,
+primarily in the context of the <code>addConstrs</code> method.
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_the_tuplelist_class.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_python_dictionary_examp.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_dictionaries.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_the_tuplelist_class.html">The tuplelist class</A>
+<B> Up:</B> <A
+ HREF="cs_python_dictionary_examp.html">Python Dictionary Example</A>
+<B> Previous:</B> <A
+ HREF="cs_dictionaries.html">Dictionaries</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

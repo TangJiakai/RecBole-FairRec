@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBVar</TITLE>
+<META NAME="description" CONTENT="GRBVar">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cpp_constr.html">
+<LINK REL="previous" HREF="cpp_model.html">
+<LINK REL="next" HREF="cpp_var_get.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_var_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_write.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_var_get.html">GRBVar::get()</A>
+<B> Up:</B> <A
+ HREF="cpp_api_details.html">C++ API Details</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_write.html">GRBModel::write()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00043000000000000000"></A>
+<A ID="cppclass:GRBVar"></A>
+<BR>
+GRBVar
+</H2>
+
+<P>
+Gurobi variable object.  Variables are always associated with a
+particular model.  You create a variable object by adding a variable
+to a model (using
+<A HREF="cpp_model_addvar.html#cppmethod:GRBModel::addVar">GRBModel::addVar</A>), rather
+than by using a <code>GRBVar</code> constructor.
+
+<P>
+The methods on variable objects are used to get and set variable
+attributes.  For example, solution information can be queried by
+calling <A HREF="cpp_var_get.html#cppmethod:GRBVar::get">get</A>(
+<code>GRB_DoubleAttr_X</code>).  Note that you can also query attributes for
+a set of variables at once.  This is done using the attribute query
+method on the <code>GRBModel</code> object
+(<A HREF="cpp_model_get.html#cppmethod:GRBModel::get">GRBModel::get</A>).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2295"
+  HREF="cpp_var_get.html">GRBVar::get()</A>
+<LI><A ID="tex2html2296"
+  HREF="cpp_var_index.html">GRBVar::index()</A>
+<LI><A ID="tex2html2297"
+  HREF="cpp_var_sameas.html">GRBVar::sameAs()</A>
+<LI><A ID="tex2html2298"
+  HREF="cpp_var_set.html">GRBVar::set()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_var_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_write.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_var_get.html">GRBVar::get()</A>
+<B> Up:</B> <A
+ HREF="cpp_api_details.html">C++ API Details</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_write.html">GRBModel::write()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

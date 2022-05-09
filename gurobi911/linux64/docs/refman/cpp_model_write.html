@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel::write()</TITLE>
+<META NAME="description" CONTENT="GRBModel::write()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="previous" HREF="cpp_model_update.html">
+<LINK REL="next" HREF="cpp_var.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cpp_var.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_update.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_var.html">GRBVar</A>
+<B> Up:</B> <A
+ HREF="cpp_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_update.html">GRBModel::update()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000425500000000000000"></A>
+<A ID="cppmethod:GRBModel::write"></A>
+<BR>
+GRBModel::write()
+</H3>
+
+<P>
+This method&nbsp;is the general entry point for writing optimization data
+to a file.  It can be used to write optimization models, solutions
+vectors, basis vectors, start vectors, or parameter settings.  The
+type of data written is determined by the file suffix.
+File formats are described in the
+<A HREF="model_file_formats.html#sec:FileFormats">File Format</A> section.
+
+<P>
+Note that writing a model to a file will process all pending model
+modifications.  However, writing other model information (solutions,
+bases, etc.)  will not.
+
+<P>
+Note also that when you write a Gurobi parameter file (PRM), both
+integer or double parameters not at their default value will be
+saved, but no string parameter will be saved into the file.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">write</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">const string&amp;</TD>
+<TD CLASS="LEFT">filename )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">filename</SPAN>: The name of the file to be written.  The file
+type is encoded in the file name suffix.  Valid suffixes are
+<SPAN  CLASS="texttt">.mps</SPAN>, <SPAN  CLASS="texttt">.rew</SPAN>, <SPAN  CLASS="texttt">.lp</SPAN>, or <SPAN  CLASS="texttt">.rlp</SPAN> for writing
+the model itself, <SPAN  CLASS="texttt">.ilp</SPAN> for writing just the IIS associated
+with an infeasible model (see <A HREF="cpp_model_computeiis.html#cppmethod:GRBModel::computeIIS">GRBModel::computeIIS</A> for further
+information), <SPAN  CLASS="texttt">.sol</SPAN> for writing the current solution,
+<SPAN  CLASS="texttt">.mst</SPAN> for writing a start vector, <SPAN  CLASS="texttt">.hnt</SPAN> for writing a
+hint file, <SPAN  CLASS="texttt">.bas</SPAN> for writing an LP basis, <SPAN  CLASS="texttt">.prm</SPAN>
+for writing modified parameter settings, <SPAN  CLASS="texttt">.attr</SPAN> for writing
+model attributes, or <SPAN  CLASS="texttt">.json</SPAN> for writing solution
+information in JSON format. If your system has compression
+utilities installed (e.g., <TT>7z</TT> or <TT>zip</TT> for Windows,
+and <TT>gzip</TT>, <TT>bzip2</TT>, or <TT>unzip</TT> for
+Linux or Mac OS), then the files can be compressed, so additional
+suffixes of <SPAN  CLASS="texttt">.gz</SPAN>, <SPAN  CLASS="texttt">.bz2</SPAN>, or <SPAN  CLASS="texttt">.7z</SPAN> are
+accepted.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cpp_var.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cpp_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cpp_model_update.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cpp_var.html">GRBVar</A>
+<B> Up:</B> <A
+ HREF="cpp_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cpp_model_update.html">GRBModel::update()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

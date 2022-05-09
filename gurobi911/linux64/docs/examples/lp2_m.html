@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>lp2.m</TITLE>
+<META NAME="description" CONTENT="lp2.m">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="lpmethod_m.html">
+<LINK REL="previous" HREF="lp_m.html">
+<LINK REL="next" HREF="lpmethod_m.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="lpmethod_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lp_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lpmethod_m.html">lpmethod.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="lp_m.html">lp.m</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000271200000000000000"></A>
+<A ID="subsubsection:lp2.m"></A>
+<BR>
+lp2.m
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function lp2()
+% Copyright 2020, Gurobi Optimization, LLC
+%
+% Formulate a simple linear program, solve it, and then solve it
+% again using the optimal basis.
+
+model.A = sparse([1 3 4; 8 2 3]);
+model.obj = [1 2 3];
+model.rhs = [4 7];
+model.sense = ['&gt;' '&gt;'];
+
+% First solve requires a few simplex iterations
+result = gurobi(model)
+
+% Second solve - start from an optimal basis, so no iterations
+model.vbasis = result.vbasis;
+model.cbasis = result.cbasis;
+result = gurobi(model)
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="lpmethod_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="lp_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="lpmethod_m.html">lpmethod.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="lp_m.html">lp.m</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

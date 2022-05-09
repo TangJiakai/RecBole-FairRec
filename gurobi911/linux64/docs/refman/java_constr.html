@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBConstr</TITLE>
+<META NAME="description" CONTENT="GRBConstr">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_qconstr.html">
+<LINK REL="previous" HREF="java_var.html">
+<LINK REL="next" HREF="java_constr_get.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_constr_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_var_set.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_constr_get.html">GRBConstr.get()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_var_set.html">GRBVar.set()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION00064000000000000000"></A>
+<A ID="javaclass:GRBConstr"></A>
+<BR>
+GRBConstr
+</H2>
+
+<P>
+Gurobi constraint object.  Constraints are always associated with a
+particular model.  You create a constraint object by adding a
+constraint to a model (using
+<A HREF="java_model_addconstr.html#javamethod:GRBModel.addConstr">GRBModel.addConstr</A>),
+rather than by using a <code>GRBConstr</code> constructor.
+
+<P>
+The methods on constraint objects are used to get and set constraint
+attributes.  For example, constraint right-hand sides can be queried
+by calling
+<A HREF="java_constr_get.html#javamethod:GRBConstr.get">get</A>(<code>GRB.DoubleAttr.RHS</code>).
+Note, however, that it is generally more efficient to query attributes
+for a set of constraints at once.  This is done using the attribute
+query method on the <code>GRBModel</code> object
+(<A HREF="java_model_get.html#javamethod:GRBModel.get">GRBModel.get</A>).
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html2717"
+  HREF="java_constr_get.html">GRBConstr.get()</A>
+<LI><A ID="tex2html2718"
+  HREF="java_constr_index.html">GRBConstr.index()</A>
+<LI><A ID="tex2html2719"
+  HREF="java_constr_sameas.html">GRBConstr.sameAs()</A>
+<LI><A ID="tex2html2720"
+  HREF="java_constr_set.html">GRBConstr.set()</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_constr_get.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_api_details.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_var_set.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_constr_get.html">GRBConstr.get()</A>
+<B> Up:</B> <A
+ HREF="java_api_details.html">Java API Details</A>
+<B> Previous:</B> <A
+ HREF="java_var_set.html">GRBVar.set()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

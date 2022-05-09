@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Recording API Calls</TITLE>
+<META NAME="description" CONTENT="Recording API Calls">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="concurrent_optimizer.html">
+<LINK REL="previous" HREF="batch_optimization.html">
+<LINK REL="next" HREF="recording.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="recording.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="a_complete_example.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="recording.html">Recording</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="a_complete_example.html">A Complete Example</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H1><A ID="SECTION000300000000000000000"></A>
+<A ID="sec:Recording"></A>
+<BR>
+Recording API Calls
+</H1>
+
+<P>
+The Gurobi Optimizer provides the option to record the set of Gurobi
+commands issued by your program and store them to a file.  The
+commands can be played back later using the <A HREF="grb_command_line_tool.html#sec:CommandLine">Gurobi
+  Command-Line Tool</A>.  If you replay the commands
+on a machine with the same specs (operating system, core count, and
+instruction set) as the machine where you created the recording, your
+Gurobi calls will take the exact same computational paths that they
+took when you ran your original program.
+
+<P>
+Recording can be useful in a number of situations.
+
+<UL>
+<LI>If you want to understand how much time is being spent in Gurobi
+  routines, the replay will show you the total time spent in Gurobi
+  API routines, and the total time spent in Gurobi algorithms.
+</LI>
+<LI>If you want to check for leaks of Gurobi data, the replay will
+  show you how many Gurobi models and environments were never freed by
+  your program.
+</LI>
+<LI>If you run into a question or an issue and you would like to get
+  help from Gurobi, your recording will allow Gurobi technical support
+  to reproduce the exact results that you are seeing without requiring
+  you to send your entire application.
+</LI>
+</UL>
+
+<P>
+Recording is useful for testing across deployment scenarios. In
+particular, you can do the following:
+
+<UL>
+<LI>A recording made on a Compute Server can be replayed on a
+Compute Server or locally. By default, the recording will use
+<code>localhost:61000</code>; this can be overridden by setting the
+<code>GRB_COMPUTESERVER</code> environment variable. If
+<code>GRB_COMPUTESERVER</code> is set to an empty string, the replay will
+occur locally.
+</LI>
+<LI>A Cluster Manager recording can be replayed via a Cluster
+Manager, on a Compute Server, or locally.
+<code>GRB_COMPUTESERVER</code> has priority over 
+<code>GRB_CSMANAGER</code>. If <code>GRB_CSMANAGER</code> is set to "", the 
+replay will run locally or on the specified Compute Server.
+</LI>
+<LI>A Gurobi Instant Cloud recording can be replayed on the cloud,
+on a Compute Server, or locally. Setting <code>GRB_CLOUDACCESSID</code>
+and <code>GRB_CLOUDSECRETKEY</code> will run the replay on the cloud.
+<code>GRB_COMPUTESERVER</code> has priority over <code>GRB_CLOUDACCESSID</code>
+(and <code>GRB_CLOUDSECRETKEY</code>). If <code>GRB_CLOUDACCESSID</code> is set to "",
+the replay will run locally or on the specified Compute server.
+</LI>
+<LI>A token server recording can be replayed. The recording tries
+to use a token server at <code>localhost</code> (with the default port
+41954). This can be overridden by setting the <code>GRB_TOKENSERVER</code>
+environment variable. If <code>GRB_TOKENSERVER</code> is set to an empty
+string, the replay will be done using a local license.
+</LI>
+<LI>A recording that includes the <code>WorkerPool</code> parameter
+(used in the distributed MIP and distributed concurrent algorithms)
+can only be done by setting the <code>GRB_WORKERPOOL</code> environment
+variable.
+</LI>
+</UL>
+For recordings of optimization with Compute Server or Instant Cloud,
+the recording will query 
+the number of processors and cores from the remote worker and store
+this information in the recording file.
+When replaying a recording file, Gurobi uses these stored
+values.
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A ID="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL CLASS="ChildLinks">
+<LI><A ID="tex2html4496"
+  HREF="recording.html">Recording</A>
+<LI><A ID="tex2html4497"
+  HREF="replay.html">Replay</A>
+<LI><A ID="tex2html4498"
+  HREF="limitations.html">Limitations</A>
+</UL>
+<!--End of Table of Child-Links-->
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="recording.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="refman.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="a_complete_example.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="recording.html">Recording</A>
+<B> Up:</B> <A
+ HREF="refman.html">Gurobi Optimizer Reference Manual</A>
+<B> Previous:</B> <A
+ HREF="a_complete_example.html">A Complete Example</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

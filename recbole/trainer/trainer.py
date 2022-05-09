@@ -102,7 +102,9 @@ class Trainer(AbstractTrainer):
         self.best_valid_score = -np.inf if self.valid_metric_bigger else np.inf
         self.best_valid_result = None
         self.train_loss_dict = dict()
+
         self.optimizer = self._build_optimizer()
+
         self.eval_type = config['eval_type']
         self.eval_collector = Collector(config)
         self.evaluator = Evaluator(config)
@@ -193,7 +195,12 @@ class Trainer(AbstractTrainer):
                 clip_grad_norm_(self.model.parameters(), **self.clip_grad_norm)
             self.optimizer.step()
             if self.gpu_available and show_progress:
-                iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
+                iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))            
+        
+        if self.config['ips_norm']:
+            with torch.no_grad():
+                self.model.ips_norm()
+        
         return total_loss
 
     def _valid_epoch(self, valid_data, show_progress=False):
@@ -493,12 +500,14 @@ class Trainer(AbstractTrainer):
                 desc=set_color(f"Evaluate   ", 'pink'),
             ) if show_progress else eval_data
         )
+
+        self.eval_collector.model_collect(self.model)
         for batch_idx, batched_data in enumerate(iter_data):
+            torch.cuda.empty_cache() 
             interaction, scores, positive_u, positive_i = eval_func(batched_data)
             if self.gpu_available and show_progress:
                 iter_data.set_postfix_str(set_color('GPU RAM: ' + get_gpu_usage(self.device), 'yellow'))
             self.eval_collector.eval_batch_collect(scores, interaction, positive_u, positive_i)
-        self.eval_collector.model_collect(self.model)
         struct = self.eval_collector.get_data_struct()
         result = self.evaluator.evaluate(struct)
         self.wandblogger.log_eval_metrics(result, head='eval')
@@ -1318,6 +1327,58 @@ class FairGoTrainer(Trainer):
             saved_sst_embed_file = self.saved_sst_embed_file
         torch.save(stored_dict, saved_sst_embed_file)
 
+    def _save_checkpoint(self, epoch, verbose=True, **kwargs):
+        r"""Store the model parameters information and training information.
+
+        Args:
+            epoch (int): the current epoch id
+
+        """
+        saved_model_file = kwargs.pop('saved_model_file', self.saved_model_file)
+        state = {
+            'config': self.config,
+            'epoch': epoch,
+            'cur_step': self.cur_step,
+            'best_valid_score': self.best_valid_score,
+            'state_dict': self.model.state_dict(),
+            'other_parameter': self.model.other_parameter(),
+            'optimizer': self.optimizer.state_dict(),
+            'optimizer_filter': self.optimizer_filter.state_dict(),
+            'optimizer_dis': self.optimizer_dis.state_dict()
+        }
+        torch.save(state, saved_model_file)
+        if verbose:
+            self.logger.info(set_color('Saving current', 'blue') + f': {saved_model_file}')
+
+    def resume_checkpoint(self, resume_file):
+        r"""Load the model parameters information and training information.
+
+        Args:
+            resume_file (file): the checkpoint file
+
+        """
+        resume_file = str(resume_file)
+        self.saved_model_file = resume_file
+        checkpoint = torch.load(resume_file)
+        self.start_epoch = checkpoint['epoch'] + 1
+        self.cur_step = checkpoint['cur_step']
+        self.best_valid_score = checkpoint['best_valid_score']
+
+        # load architecture params from checkpoint
+        if checkpoint['config']['model'].lower() != self.config['model'].lower():
+            self.logger.warning(
+                'Architecture configuration given in config file is different from that of checkpoint. '
+                'This may yield an exception while state_dict is being loaded.'
+            )
+        self.model.load_state_dict(checkpoint['state_dict'])
+        self.model.load_other_parameter(checkpoint.get('other_parameter'))
+
+        # load optimizer state from checkpoint only when optimizer type is not changed
+        self.optimizer_filter.load_state_dict(checkpoint['optimizer_filter'])
+        self.optimizer_dis.load_state_dict(checkpoint['optimizer_dis'])
+        message_output = 'Checkpoint loaded. Resume training from epoch {}'.format(self.start_epoch)
+        self.logger.info(message_output)
+
 
 class FairGo_PMFTrainer(FairGoTrainer):
     def __init__(self, config, model):
@@ -1614,6 +1675,61 @@ class PFCNTrainer(Trainer):
                                                                  self.config['filter_mode'])
             saved_sst_embed_file = os.path.join(self.checkpoint_dir, saved_sst_embed_file)
             torch.save(stored_dict, saved_sst_embed_file)
+
+    def _save_checkpoint(self, epoch, verbose=True, **kwargs):
+        r"""Store the model parameters information and training information.
+
+        Args:
+            epoch (int): the current epoch id
+
+        """
+        saved_model_file = kwargs.pop('saved_model_file', self.saved_model_file)
+        state = {
+            'config': self.config,
+            'epoch': epoch,
+            'cur_step': self.cur_step,
+            'best_valid_score': self.best_valid_score,
+            'state_dict': self.model.state_dict(),
+            'other_parameter': self.model.other_parameter(),
+            'optimizer': self.optimizer.state_dict(),
+            'optimizer_filter': self.optimizer_filter.state_dict() if self.filter_mode !='none' else None,
+            'optimizer_dis': self.optimizer_dis.state_dict() if self.filter_mode !='none' else None
+        }
+        torch.save(state, saved_model_file)
+        if verbose:
+            self.logger.info(set_color('Saving current', 'blue') + f': {saved_model_file}')
+
+    def resume_checkpoint(self, resume_file):
+        r"""Load the model parameters information and training information.
+
+        Args:
+            resume_file (file): the checkpoint file
+
+        """
+        resume_file = str(resume_file)
+        self.saved_model_file = resume_file
+        checkpoint = torch.load(resume_file)
+        self.start_epoch = checkpoint['epoch'] + 1
+        self.cur_step = checkpoint['cur_step']
+        self.best_valid_score = checkpoint['best_valid_score']
+
+        # load architecture params from checkpoint
+        if checkpoint['config']['model'].lower() != self.config['model'].lower():
+            self.logger.warning(
+                'Architecture configuration given in config file is different from that of checkpoint. '
+                'This may yield an exception while state_dict is being loaded.'
+            )
+        self.model.load_state_dict(checkpoint['state_dict'])
+        self.model.load_other_parameter(checkpoint.get('other_parameter'))
+
+        # load optimizer state from checkpoint only when optimizer type is not changed
+        if self.filter_mode != 'none':
+            self.optimizer.load_state_dict(checkpoint['optimizer'])
+        else:
+            self.optimizer_filter.load_state_dict(checkpoint['optimizer_filter'])
+            self.optimizer_dis.load_state_dict(checkpoint['optimizer_dis'])
+        message_output = 'Checkpoint loaded. Resume training from epoch {}'.format(self.start_epoch)
+        self.logger.info(message_output)
 
 
 class PFCN_MLPTrainer(PFCNTrainer):

@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.Optimize()</TITLE>
+<META NAME="description" CONTENT="GRBModel.Optimize()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_optimizeasync.html">
+<LINK REL="previous" HREF="cs_model_getvars.html">
+<LINK REL="next" HREF="cs_model_optimizeasync.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_optimizeasync.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_getvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_optimizeasync.html">GRBModel.OptimizeAsync()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_getvars.html">GRBModel.GetVars()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000824000000000000000"></A>
+<A ID="dotnetmethod:GRBModel.Optimize"></A>
+<BR>
+GRBModel.Optimize()
+</H3>
+
+<P>
+Optimize the model.  The algorithm used for the optimization depends
+on the model type (simplex or barrier for a continuous model;
+branch-and-cut for a MIP model). Upon successful completion, this
+method will populate the solution related attributes of the model.
+See the <A HREF="attributes.html#sec:Attributes">Attributes</A> section for more
+information on attributes.
+
+<P>
+Please consult <A HREF="variables_and_constraints_.html#sec:VarsConstraintsObjectives">this section</A>
+for a discussion of some of the practical issues associated with
+solving a precisely defined mathematical model using finite-precision
+floating-point arithmetic.
+
+<P>
+Note that this method will process all pending model modifications.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">void</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">Optimize</SPAN></FONT></SPAN> ( )</TD>
+</TR>
+</TABLE>
+
+<UL>
+
+<P>
+</LI>
+</UL>
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_optimizeasync.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_getvars.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_optimizeasync.html">GRBModel.OptimizeAsync()</A>
+<B> Up:</B> <A
+ HREF="cs_model.html">GRBModel</A>
+<B> Previous:</B> <A
+ HREF="cs_model_getvars.html">GRBModel.GetVars()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

@@ -1,0 +1,147 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.AddGenConstrAnd()</TITLE>
+<META NAME="description" CONTENT="GRBModel.AddGenConstrAnd()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="cs_model_agc_or.html">
+<LINK REL="previous" HREF="cs_model_agc_abs.html">
+<LINK REL="next" HREF="cs_model_agc_or.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="cs_model_agc_or.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model_agc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_agc_abs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_agc_or.html">GRBModel.AddGenConstrOr()</A>
+<B> Up:</B> <A
+ HREF="cs_model_agc_xxx.html">GRBModel.AddGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="cs_model_agc_abs.html">GRBModel.AddGenConstrAbs()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H4><A ID="SECTION00082440000000000000"></A>
+<A ID="dotnetmethod:GRBModel.AddGenConstrAnd"></A>
+<BR>
+GRBModel.AddGenConstrAnd()
+</H4>
+
+<P>
+Add a new general constraint of type <SPAN  CLASS="texttt">GRB.GENCONSTR_AND</SPAN> to a model.
+
+<P>
+An AND constraint <!-- MATH
+ $r = \mbox{and}\{x_1,\ldots,x_n\}$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img28.svg"
+ ALT="$r = \mbox{and}\{x_1,\ldots,x_n\}$"></SPAN> states that the binary resultant
+variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img20.svg"
+ ALT="$r$"></SPAN> should be <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img29.svg"
+ ALT="$1$"></SPAN> if and only if all of the operand variables
+<!-- MATH
+ $x_1,\ldots,x_n$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 1.68ex; vertical-align: -0.57ex; " SRC="img21.svg"
+ ALT="$x_1,\ldots,x_n$"></SPAN> are equal to <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img29.svg"
+ ALT="$1$"></SPAN>.
+If any of the operand variables is <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img30.svg"
+ ALT="$0$"></SPAN>, then the resultant should be <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img30.svg"
+ ALT="$0$"></SPAN> as well.
+
+<P>
+Note that all variables participating in such a constraint will be forced
+to be binary, independent of how they were created.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBGenConstr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">AddGenConstrAnd</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">resvar,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBVar[]</TD>
+<TD CLASS="LEFT">vars,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">string</TD>
+<TD CLASS="LEFT">name )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">resvar</SPAN>: The resultant variable of the new constraint.
+
+<P>
+ <SPAN  CLASS="textbf">vars</SPAN>: Array of variables that are the operands of the new
+constraint.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for the new general constraint.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New general constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<P><P>
+<BR>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="cs_model_agc_or.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="cs_model_agc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="cs_model_agc_abs.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="cs_model_agc_or.html">GRBModel.AddGenConstrOr()</A>
+<B> Up:</B> <A
+ HREF="cs_model_agc_xxx.html">GRBModel.AddGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="cs_model_agc_abs.html">GRBModel.AddGenConstrAbs()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

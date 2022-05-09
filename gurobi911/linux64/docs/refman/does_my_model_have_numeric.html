@@ -1,0 +1,196 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>Does my model have numerical issues?</TITLE>
+<META NAME="description" CONTENT="Does my model have numerical issues?">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="solver_parameters_to_manag.html">
+<LINK REL="previous" HREF="tolerances_and_user_scalin.html">
+<LINK REL="next" HREF="solver_parameters_to_manag.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="solver_parameters_to_manag.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="dealing_with_big_m_constra.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solver_parameters_to_manag.html">Solver parameters to manage</A>
+<B> Up:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Previous:</B> <A
+ HREF="dealing_with_big_m_constra.html">Dealing with big-M constraints</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H2><A ID="SECTION000344000000000000000">
+Does my model have numerical issues?</A>
+</H2>
+
+<P>
+You can follow these steps to help determine whether a model is
+experiencing numerical issues:
+
+<OL>
+<LI>Isolate the model for testing by exporting a model file and a
+parameter file. The easiest way to do this is to create a <TT>gurobi.env</TT> file in your working directory that contains the following
+line:
+<PRE>
+Record 1
+</PRE>
+Once you have done this, running your program will produce one <TT>  recordingXYZ.grbr</TT> file for each Gurobi environment your program creates
+(where XYZ is a three-digit, 0-padded value that increases from 000).
+You can replay this recording file using
+<TT>gurobi_cl</TT> (e.g.,
+<TT>gurobi_cl recording000.grbr</TT>).
+Consult <A HREF="recording_api_calls.html#sec:Recording">this section</A>
+for more information on recording files.
+</LI>
+<LI>Using the Gurobi Interactive shell, run some simple Python code
+to read the model that the replay produces, and print the summary statistics:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">m = read('gurobi.rew')
+m.printStats()
+</PRE>
+The output will look like:
+
+<PRE>
+Statistics for model (null) :
+  Linear constraint matrix    : 25050 Constrs, 15820 Vars, 94874 NZs
+  Variable types              : 14836 Continuous, 984 Integer
+  Matrix coefficient range    : [ 0.00099, 6e+06 ]
+  Objective coefficient range : [ 0.2, 65 ]
+  Variable bound range        : [ 1, 5e+07 ]
+  RHS coefficient range       : [ 1, 5e+07 ]
+</PRE>
+The range of numerical coefficients is one indication of
+potential numerical issues. As a very rough guideline, the ratio of
+the largest to the smallest coefficient should be less than <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img346.svg"
+ ALT="$10^9$"></SPAN>;
+smaller is better.
+
+<P>
+In this example, the matrix range is
+<DIV class="CENTER">
+<!-- MATH
+ $6\cdot10^6 / 0.00099 = 6.0606\cdot10^9.$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.69ex; vertical-align: -0.70ex; " SRC="img347.svg"
+ ALT="$6\cdot10^6 / 0.00099 = 6.0606\cdot10^9.$"></SPAN>
+</DIV>
+</LI>
+<LI>If possible, re-solve the model using the same parameters and review
+the logs. With the Python shell, use code like the following:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">m.read('gurobi.prm')
+m.optimize()
+</PRE>
+Here are some examples of warning messages that suggest numerical issues:
+
+<PRE>
+Warning: Model contains large matrix coefficient range
+         Consider reformulating model or setting NumericFocus parameter
+         to avoid numerical issues.
+Warning: Markowitz tolerance tightened to 0.5
+Warning: switch to quad precision
+Numeric error
+Numerical trouble encountered
+Restart crossover...
+Sub-optimal termination
+Warning: ... variables dropped from basis
+Warning: unscaled primal violation = ... and residual = ...
+Warning: unscaled dual violation = ... and residual = ...
+</PRE>
+</LI>
+<LI>When the <TT>optimize</TT> function completes, print solution
+statistics. With the Python shell, use code like the following:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">m.printQuality()
+</PRE>
+which provides a summary of solution quality:
+
+<PRE>
+Solution quality statistics for model Unnamed :
+  Maximum violation:
+    Bound       : 2.98023224e-08 (X234)
+    Constraint  : 9.30786133e-04 (C5)
+    Integrality : 0.00000000e+00
+</PRE>
+
+<P>
+Violations that are larger than the tolerances are another indication
+of numerical issues. Also, for a pure LP (without integer variables),
+print the condition number via the following Python command:
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">m.KappaExact
+</PRE>
+The condition number measures the potential for error in linear
+calculations; a large condition number, such as <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img348.svg"
+ ALT="$10^{12}$"></SPAN>, is another
+indication of possible numerical issues, see <A HREF="instability_and_the_geomet.html#sec:conditionnumber">this</A> section for more details.
+</LI>
+<LI>If changing parameters (e.g.,
+  <A HREF="method.html#parameter:Method">Method</A> or
+  <A HREF="seed.html#parameter:Seed">Seed</A>) leads to a different
+  optimization status (e.g., <TT>Infeasible</TT> instead of
+  <TT>optimal</TT>), or if the
+  optimal objective values changes, this is usually a sign of
+  numerical issues.  To further assess this you can tighten tolerances
+  (to the order of <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img349.svg"
+ ALT="$10^{-8}$"></SPAN> or even <SPAN CLASS="MATH"><IMG STYLE="height: 2.12ex; vertical-align: -0.12ex; " SRC="img309.svg"
+ ALT="$10^{-9}$"></SPAN>), and see if the
+  behavior of the solver becomes consistent again.  Note that
+  tightening tolerances usually comes at the price of more computing
+  time, and should not be considered as a solution for numerical
+  issues.
+</LI>
+</OL>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="solver_parameters_to_manag.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="guidelines_for_numerical_i.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="dealing_with_big_m_constra.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="solver_parameters_to_manag.html">Solver parameters to manage</A>
+<B> Up:</B> <A
+ HREF="guidelines_for_numerical_i.html">Guidelines for Numerical Issues</A>
+<B> Previous:</B> <A
+ HREF="dealing_with_big_m_constra.html">Dealing with big-M constraints</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

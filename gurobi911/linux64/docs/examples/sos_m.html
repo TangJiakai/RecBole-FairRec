@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>sos.m</TITLE>
+<META NAME="description" CONTENT="sos.m">
+<META NAME="keywords" CONTENT="examples">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="examples.css">
+
+<LINK REL="next" HREF="sudoku_m.html">
+<LINK REL="previous" HREF="sensitivity_m.html">
+<LINK REL="next" HREF="sudoku_m.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="sudoku_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sensitivity_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sudoku_m.html">sudoku.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="sensitivity_m.html">sensitivity.m</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION000272600000000000000"></A>
+<A ID="subsubsection:sos.m"></A>
+<BR>
+sos.m
+</H3>
+<SCRIPT SRC="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></SCRIPT>
+<BR>
+<PRE CLASS="prettyprint">function sos()
+% Copyright 2020, Gurobi Optimization, LLC
+%
+% This example creates a very simple Special Ordered Set (SOS)
+% model. The model consists of 3 continuous variables, no linear
+% constraints, and a pair of SOS constraints of type 1.
+
+model.ub = [1 1 2];
+model.obj = [2 1 1];
+model.modelsense = 'Max';
+model.A = sparse(1,3);
+model.rhs = 0;
+model.sense = '=';
+
+% Add first SOS: x1 = 0 or x2 = 0
+model.sos(1).type   = 1;
+model.sos(1).index  = [1 2];
+model.sos(1).weight = [1 2];
+
+% Add second SOS: x1 = 0 or x3 = 0
+model.sos(2).type   = 1;
+model.sos(2).index  = [1 3];
+model.sos(2).weight = [1 2];
+
+% Write model to file
+gurobi_write(model, 'sos.lp');
+
+result = gurobi(model);
+
+for i=1:3
+    fprintf('x%d %e\n', i, result.x(i))
+end
+
+fprintf('Obj: %e\n', result.objval);
+end
+</PRE>
+
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="sudoku_m.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="matlab_examples.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="sensitivity_m.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="sudoku_m.html">sudoku.m</A>
+<B> Up:</B> <A
+ HREF="matlab_examples.html">MATLAB Examples</A>
+<B> Previous:</B> <A
+ HREF="sensitivity_m.html">sensitivity.m</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

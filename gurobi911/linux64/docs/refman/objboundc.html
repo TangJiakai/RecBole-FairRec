@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>ObjBoundC</TITLE>
+<META NAME="description" CONTENT="ObjBoundC">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="poolobjbound.html">
+<LINK REL="previous" HREF="objbound.html">
+<LINK REL="next" HREF="poolobjbound.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="poolobjbound.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objbound.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="poolobjbound.html">PoolObjBound</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="objbound.html">ObjBound</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H3><A ID="SECTION0001711900000000000000"></A>
+<A ID="attr:ObjBoundC"></A>
+<BR>
+ObjBoundC
+</H3>
+<TABLE class="PAD " style="">
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Type:</SPAN></TH>
+<TD CLASS="LEFT">double</TD>
+</TR>
+<TR><TH CLASS="LEFT"><SPAN  CLASS="textbf">Modifiable:</SPAN></TH>
+<TD CLASS="LEFT">No</TD>
+</TR>
+</TABLE>
+
+<P>
+The best known bound on the optimal objective.  When solving a MIP
+model, the algorithm maintains both a lower bound and an upper bound
+on the optimal objective value.  For a minimization model, the upper
+bound is the objective of the best known feasible solution, while the
+lower bound gives a bound on the best possible objective.
+
+<P>
+In contrast to <A HREF="objbound.html#attr:ObjBound">ObjBound</A>, this attribute
+does not take advantage of objective integrality information to round
+to a tighter bound.  For example, if the objective is known to take an
+integral value and the current best bound is 1.5,
+<code>ObjBound</code> will return 2.0 while <code>ObjBoundC</code> will
+return 1.5.
+
+<P>
+
+<P>
+For examples of how to query or modify attributes, refer to
+our <A HREF="attribute_examples.html#sec:AttributeExamples">Attribute Examples</A>.
+<P>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="poolobjbound.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="model_attributes.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="objbound.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="poolobjbound.html">PoolObjBound</A>
+<B> Up:</B> <A
+ HREF="model_attributes.html">Model Attributes</A>
+<B> Previous:</B> <A
+ HREF="objbound.html">ObjBound</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>

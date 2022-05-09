@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+
+<!--Converted with LaTeX2HTML 2019 (Released January 1, 2019) -->
+<HTML lang="EN">
+<HEAD>
+<TITLE>GRBModel.addGenConstrIndicator()</TITLE>
+<META NAME="description" CONTENT="GRBModel.addGenConstrIndicator()">
+<META NAME="keywords" CONTENT="refman">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META NAME="viewport" CONTENT="width=device-width, initial-scale=1.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2019">
+
+<LINK REL="STYLESHEET" HREF="refman.css">
+
+<LINK REL="next" HREF="java_model_agc_pwl.html">
+<LINK REL="previous" HREF="java_model_agc_or.html">
+<LINK REL="next" HREF="java_model_agc_pwl.html">
+</HEAD>
+
+<BODY >
+
+<DIV CLASS="navigation"><!--Navigation Panel-->
+<A
+ HREF="java_model_agc_pwl.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model_agc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_agc_or.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_pwl.html">GRBModel.addGenConstrPWL()</A>
+<B> Up:</B> <A
+ HREF="java_model_agc_xxx.html">GRBModel.addGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="java_model_agc_or.html">GRBModel.addGenConstrOr()</A>
+<BR>
+<BR></DIV>
+<!--End of Navigation Panel-->
+
+<H4><A ID="SECTION00062460000000000000"></A>
+<A ID="javamethod:GRBModel.addGenConstrIndicator"></A>
+<BR>
+GRBModel.addGenConstrIndicator()
+</H4>
+
+<P>
+Add a new general constraint of type <SPAN  CLASS="texttt">GRB.GENCONSTR_INDICATOR</SPAN> to a model.
+
+<P>
+An INDICATOR constraint <!-- MATH
+ $z = f \rightarrow a^Tx \leq b$
+ -->
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.63ex; vertical-align: -0.57ex; " SRC="img32.svg"
+ ALT="$z = f \rightarrow a^Tx \leq b$"></SPAN> states that if the binary
+indicator variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img33.svg"
+ ALT="$z$"></SPAN> is equal to <SPAN CLASS="MATH"><IMG STYLE="height: 2.29ex; vertical-align: -0.57ex; " SRC="img34.svg"
+ ALT="$f$"></SPAN>, where <SPAN CLASS="MATH"><IMG STYLE="height: 2.55ex; vertical-align: -0.70ex; " SRC="img35.svg"
+ ALT="$f \in \{0,1\}$"></SPAN>, then the linear constraint
+<SPAN CLASS="MATH"><IMG STYLE="height: 2.49ex; vertical-align: -0.43ex; " SRC="img36.svg"
+ ALT="$a^Tx \leq b$"></SPAN> should hold.
+On the other hand, if <SPAN CLASS="MATH"><IMG STYLE="height: 2.29ex; vertical-align: -0.57ex; " SRC="img37.svg"
+ ALT="$z = 1-f$"></SPAN>, the linear constraint may be violated.
+The sense of the linear constraint can also be specified to be <SPAN CLASS="MATH"><IMG STYLE="height: 1.08ex; vertical-align: -0.12ex; " SRC="img38.svg"
+ ALT="$=$"></SPAN> or <SPAN CLASS="MATH"><IMG STYLE="height: 2.02ex; vertical-align: -0.43ex; " SRC="img39.svg"
+ ALT="$\geq$"></SPAN>.
+
+<P>
+Note that the indicator variable <SPAN CLASS="MATH"><IMG STYLE="height: 1.23ex; vertical-align: -0.12ex; " SRC="img33.svg"
+ ALT="$z$"></SPAN> of a constraint will be forced
+to be binary, independent of how it was created.
+
+<P>
+
+<TABLE class="PAD " style="">
+<TR><TD CLASS="LEFT">GRBGenConstr</TD>
+<TD CLASS="LEFT"><SPAN CLASS="LARGE"><FONT COLOR="#801a1a"> <SPAN  CLASS="textbf">addGenConstrIndicator</SPAN></FONT></SPAN> (</TD>
+<TD CLASS="LEFT">GRBVar</TD>
+<TD CLASS="LEFT">binvar,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">int</TD>
+<TD CLASS="LEFT">binval,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">GRBLinExpr</TD>
+<TD CLASS="LEFT">expr,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">char</TD>
+<TD CLASS="LEFT">sense,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">double</TD>
+<TD CLASS="LEFT">rhs,</TD>
+</TR>
+<TR><TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">&nbsp;</TD>
+<TD CLASS="LEFT">String</TD>
+<TD CLASS="LEFT">name )</TD>
+</TR>
+</TABLE>
+
+<UL>
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Arguments:</SPAN></SPAN>
+
+<P>
+ <SPAN  CLASS="textbf">binvar</SPAN>: The binary indicator variable.
+
+<P>
+ <SPAN  CLASS="textbf">binval</SPAN>: The value for the binary indicator variable that would force the linear constraint to be satisfied (<SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img30.svg"
+ ALT="$0$"></SPAN> or <SPAN CLASS="MATH"><IMG STYLE="height: 1.72ex; vertical-align: -0.12ex; " SRC="img29.svg"
+ ALT="$1$"></SPAN>).
+
+<P>
+ <SPAN  CLASS="textbf">expr</SPAN>: Left-hand side expression for the linear constraint triggered by the indicator.
+
+<P>
+ <SPAN  CLASS="textbf">sense</SPAN>: Sense for the linear constraint.  Options are
+<SPAN  CLASS="texttt">GRB.LESS_EQUAL</SPAN>, <SPAN  CLASS="texttt">GRB.EQUAL</SPAN>, or
+<SPAN  CLASS="texttt">GRB.GREATER_EQUAL</SPAN>.
+
+<P>
+ <SPAN  CLASS="textbf">rhs</SPAN>: Right-hand side value for the linear constraint.
+
+<P>
+ <SPAN  CLASS="textbf">name</SPAN>: Name for the new general constraint.
+
+<P>
+
+<SPAN CLASS="LARGE"><SPAN  CLASS="textbf">Return value:</SPAN></SPAN>
+
+<P>
+New general constraint.
+
+<P>
+</LI>
+</UL>
+<P>
+
+<P><P>
+<BR>
+
+<DIV CLASS="navigation"><HR>
+<!--Navigation Panel-->
+<A
+ HREF="java_model_agc_pwl.html">
+<IMG WIDTH="37" HEIGHT="24" ALT="next" SRC="next.png"></A> 
+<A
+ HREF="java_model_agc_xxx.html">
+<IMG WIDTH="26" HEIGHT="24" ALT="up" SRC="up.png"></A> 
+<A
+ HREF="java_model_agc_or.html">
+<IMG WIDTH="63" HEIGHT="24" ALT="previous" SRC="prev.png"></A>   
+<BR>
+<B> Next:</B> <A
+ HREF="java_model_agc_pwl.html">GRBModel.addGenConstrPWL()</A>
+<B> Up:</B> <A
+ HREF="java_model_agc_xxx.html">GRBModel.addGenConstrXxx()</A>
+<B> Previous:</B> <A
+ HREF="java_model_agc_or.html">GRBModel.addGenConstrOr()</A></DIV>
+<!--End of Navigation Panel-->
+
+</BODY>
+</HTML>
