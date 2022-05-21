@@ -747,6 +747,12 @@ class TailPercentage(AbstractMetric):
 
 
 class PopularityPercentage(AbstractMetric):
+    """
+    PopularityPercentage refers to the proportion of popular items in the recommendation list against the total number of items
+    in the list, which can be seen as a popularity level measure of fairness.
+
+    For further details, please refer to the paper https://doi.org/10.1145/3437963.3441824
+    """
     metric_type = EvaluatorType.RANKING
     metric_need = ['rec.items', 'data.count_items']
 
@@ -878,6 +884,8 @@ class NonParityUnfairness(AbstractMetric):
 class ValueUnfairness(AbstractMetric):
     r"""ValueUnfairness measures value unfairness of non-parity
 
+        For further details, please refer to the `paper <https://proceedings.neurips.cc/paper/2017/file/e6384711491713d29bc63fc5eeb5ba4f-Paper.pdf>`__.
+
         .. math::
             \frac{1}{n} \sum_{j=1}^{n}\left|\left(\mathrm{E}_{g}[y]_{j}-\mathrm{E}_{g}[r]_{j}\right)-\left(\mathrm{E}_{\neg g}[y]_{j}-\mathrm{E}_{\neg g}[r]_{j}\right)\right|
 
@@ -955,6 +963,8 @@ class ValueUnfairness(AbstractMetric):
 
 class AbsoluteUnfairness(AbstractMetric):
     r"""AbsoluteUnfairness measures absolute unfairness
+
+        For further details, please refer to the `paper <https://proceedings.neurips.cc/paper/2017/file/e6384711491713d29bc63fc5eeb5ba4f-Paper.pdf>`__.
 
         .. math::
             \frac{1}{n} \sum_{j=1}^{n}\left\|\left|\mathrm{E}_{g}[y]_{j}-\mathrm{E}_{g}[r]_{j}\right|-\mid \mathrm{E}_{\neg g}[y]_{j}-\mathrm{E}_{\neg g}[r]_{j}\right\|
@@ -1034,6 +1044,8 @@ class AbsoluteUnfairness(AbstractMetric):
 class UnderUnfairness(AbstractMetric):
     r"""UnderUnfairness measures underestimation unfairness
 
+        For further details, please refer to the `paper <https://proceedings.neurips.cc/paper/2017/file/e6384711491713d29bc63fc5eeb5ba4f-Paper.pdf>`__.
+
         .. math::
             \frac{1}{n} \sum_{j=1}^{n}\left|\max \left\{0, \mathrm{E}_{g}[r]_{j}-\mathrm{E}_{g}[y]_{j}\right\}-\max \left\{0, \mathrm{E}_{\neg g}[r]_{j}-\mathrm{E}_{\neg g}[y]_{j}\right\}\right|
 
@@ -1112,6 +1124,8 @@ class UnderUnfairness(AbstractMetric):
 class OverUnfairness(AbstractMetric):
     r"""OverUnfairness measures overestimation unfairness
 
+        For further details, please refer to the `paper <https://proceedings.neurips.cc/paper/2017/file/e6384711491713d29bc63fc5eeb5ba4f-Paper.pdf>`__.
+
         .. math::
             \frac{1}{n} \sum_{j=1}^{n}\left|\max \left\{0, \mathrm{E}_{g}[r]_{j}-\mathrm{E}_{g}[y]_{j}\right\}-\max \left\{0, \mathrm{E}_{\neg g}[r]_{j}-\mathrm{E}_{\neg g}[y]_{j}\right\}\right|
 
@@ -1188,6 +1202,23 @@ class OverUnfairness(AbstractMetric):
 
     
 class DifferentialFairness(AbstractMetric):
+    """
+    The DifferentialFairness metric aims to ensure equitable treatment for all protected groups.
+    
+    For further details, please refer to the https://dl.acm.org/doi/10.1145/3442381.3449904
+
+    For gender bias in our recommender (assuming a gender binary), we can estimate epsilon-DF per sensitive item i by verifying that:
+    
+    .. math::
+             \begin{gathered}
+        e^{-\epsilon} \leq \frac{\sum_{u: A=m} \hat{y}_{u i}+\alpha}{N_{m}+2 \alpha} \frac{N_{f}+2 \alpha}{\sum_{u: A=f} \hat{y}_{u i}+\alpha} \leq e^{\epsilon} \\
+        e^{-\epsilon} \leq \frac{\sum_{u: A=m}\left(1-\hat{y}_{u i}\right)+\alpha}{N_{m}+2 \alpha} \frac{N_{f}+2 \alpha}{\sum_{u: A=f}\left(1-\hat{y}_{u i}\right)+\alpha} \leq e^{\epsilon},
+        \end{gathered}
+    :math:`\alpha` is each entry of the parameter of a symmetric Dirichlet prior with concentration parameter 2\alpha.
+    :math:`i` is an item.
+    :math:`N_A` is the number of users of gender A (m or f ).
+   
+    """
     smaller = True
     metric_type = EvaluatorType.RANKING
     metric_need = ['data.positive_i', 'rec.positive_score', 'data.sst']

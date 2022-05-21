@@ -179,13 +179,6 @@ def get_dataloader(config, phase):
         type: The dataloader class that meets the requirements in :attr:`config` and :attr:`phase`.
     """
     register_table = {
-        "MultiDAE": _get_AE_dataloader,
-        "MultiVAE": _get_AE_dataloader,
-        'MacridVAE': _get_AE_dataloader,
-        'CDAE': _get_AE_dataloader,
-        'ENMF': _get_AE_dataloader,
-        'RaCT': _get_AE_dataloader,
-        'RecVAE': _get_AE_dataloader,
         'FOCF': _get_FOCF_dataloader,
     }
 
@@ -194,10 +187,7 @@ def get_dataloader(config, phase):
 
     model_type = config['MODEL_TYPE']
     if phase == 'train':
-        if model_type != ModelType.KNOWLEDGE:
-            return TrainDataLoader
-        else:
-            return KnowledgeBasedDataLoader
+        return TrainDataLoader
     else:
         eval_strategy = config['eval_neg_sample_args']['strategy']
         if eval_strategy in {'none', 'by'}:

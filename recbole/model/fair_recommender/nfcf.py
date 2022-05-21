@@ -1,16 +1,23 @@
 from email.policy import strict
-from tabnanny import check
-from numpy import concatenate
 import torch
 import torch.nn as nn
-from torch.nn.init import normal_
+from recbole.model.abstract_recommender import FairRecommender
 
-from recbole.model.abstract_recommender import GeneralRecommender
 from recbole.model.layers import MLPLayers
 from recbole.utils import InputType
 
+r"""
+NFCF
+################################################
+Reference:
+Rashidul Islam, Kamrun Naher Keya, Ziqian Zeng, Shimei Pan, and James Foulds. 2021. Debiasing Career Recommendations with Neural Fair Collaborative Filtering. In Proceedings of the Web Conference 2021.
+"""
 
-class NFCF(GeneralRecommender):
+class NFCF(FairRecommender):
+    r""" neural fair collaborative filtering (NFCF), a practical framework for mitigating gender bias in recommending career-related 
+    sensitive items (e.g. jobs, academic concentrations, or courses of study) using a pre-training and fine-tuning approach to neural collaborative filtering, 
+    augmented with bias correction techniques
+    """
     input_type = InputType.POINTWISE
 
     def __init__(self, config, dataset):

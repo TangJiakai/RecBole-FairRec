@@ -4,10 +4,10 @@
 # @Email  : whut_tangjiakai@qq.com
 
 r"""
-PersonaliedFair
+PFCN
 ################################################
 Reference:
-    Li, Y., et al., ”Towards Personalized Fairness based on Causal Notion.“ in SIGIR 2021
+Yunqi Li, Hanxiong Chen, Shuyuan Xu, Yingqiang Ge, and Yongfeng Zhang. 2021. Towards Personalized Fairness based on Causal Notion. Proceedings of the 44th International ACM SIGIR Conference on Research and Development in Information Retrieval.
 """
 
 import torch
@@ -21,9 +21,9 @@ from recbole.utils import InputType
 
 
 class PFCN_MLP(FairRecommender):
-    r"""PFCN is a personalized and fair-aware recommendation algorithm
+    r""" PFCN is a framework for achieving counterfactually fair recommendations through adversary learning by generating feature-independent user embeddings for recommendation.
 
-    which has 2 version: combination model(cm) and separated model(sm)
+    PFCN_DMF's base model is PMF
     """
     input_type = InputType.PAIRWISE
 

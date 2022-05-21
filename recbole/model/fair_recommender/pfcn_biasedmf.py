@@ -14,8 +14,18 @@ from recbole.model.abstract_recommender import FairRecommender
 from recbole.model.loss import BPRLoss
 from recbole.utils import InputType
 
+r"""
+PFCN
+################################################
+Reference:
+Yunqi Li, Hanxiong Chen, Shuyuan Xu, Yingqiang Ge, and Yongfeng Zhang. 2021. Towards Personalized Fairness based on Causal Notion. Proceedings of the 44th International ACM SIGIR Conference on Research and Development in Information Retrieval.
+"""
 
 class PFCN_BiasedMF(FairRecommender):
+    r""" PFCN is a framework for achieving counterfactually fair recommendations through adversary learning by generating feature-independent user embeddings for recommendation.
+
+    PFCN_BiasedMF's base model is Biased MF
+    """
 
     input_type = InputType.PAIRWISE
 

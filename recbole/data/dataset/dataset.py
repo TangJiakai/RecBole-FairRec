@@ -26,7 +26,7 @@ import torch.nn.utils.rnn as rnn_utils
 from scipy.sparse import coo_matrix
 
 from recbole.data.interaction import Interaction
-from recbole.utils import FeatureSource, FeatureType, get_local_time, set_color, ensure_dir
+from recbole.utils import FeatureSource, FeatureType,  set_color, ensure_dir
 from recbole.utils.url import decide_download, download_url, extract_zip, makedirs, rename_atomic_files
 
 

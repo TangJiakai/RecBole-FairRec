@@ -4,7 +4,7 @@
 # @Email  : whut_tangjiakai@qq.com
 
 r"""
-NonParityFair
+FOCF
 ################################################
 Reference:
 Yao, S. and B. Huang, "Beyond parity: fairness objectives for collaborative filtering." in NIPS. 2017

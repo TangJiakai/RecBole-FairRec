@@ -1,9 +1,0 @@
-PFCN_PMF_embed-none.pth(gender) : 
-	[{'test/auc': 0.522064287900034, 'test/auc_epoch': 0.522064287900034}]
-
-PFCN_PMF_embed-none.pth(age) : 
-	[{'test/auc': 0.5670552987389166, 'test/auc_epoch': 0.5670552987389166}]
-
-PFCN_PMF_embed-none.pth(occupation) : 
-	[{'test/auc': 0.5127756064950917, 'test/auc_epoch': 0.5127756064950917}]
-
