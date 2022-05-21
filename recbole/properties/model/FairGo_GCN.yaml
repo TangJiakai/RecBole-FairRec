@@ -9,7 +9,6 @@ load_col:
   user: [user_id,gender,age,occupation]
 
 model: FairGo_GCN
-# WAP | LVA | LBA 
 aggr_method: 'LBA'
 vs_weights: [4,1]
 embedding_size: 64

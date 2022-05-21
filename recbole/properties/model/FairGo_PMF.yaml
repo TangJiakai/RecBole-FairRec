@@ -19,11 +19,9 @@ load_col:
 
 # model config
 model: FairGo_PMF
-# WAP | LVA | LBA 
 aggr_method: 'LBA'
 vs_weights: [4,1]
 embedding_size: 64
-n_layers: 2
 dis_hidden_size_list: [16,8,4]
 filter_hidden_size_list: [128,64]
 activation: leakyrelu
