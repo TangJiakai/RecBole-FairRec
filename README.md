@@ -43,35 +43,3 @@ Implement Fair Recommendation Model In RecBole-FairRec
 | **FairGo_GCN_LBA** | 0.9881        | 0.9821                   |   | 1.5841                   | 0.1304              | 0.118                  | 0.0143              | 0.1161             | 0.0051                  |   | 0.1938     | 0.1111       | 0.5518    | 0.3251    |
 | **NCF_MLP**        | 0.9035(1)     | 0.8206(1)                |   | 1.5627                   | 0.1054(2)           | 0.0942                 | 0.009               | 0.0965             | 0.0043                  |   | 0.5051(1)  | 0.2756(1)    | 0.9154(1) | 0.7109    |
 | **NFCF**           | 0.9193(3)     | 0.8628(3)                |   | 1.5366                   | 0.1151              | 0.0974                 | 0.0133              | 0.1018             | 0.0045                  |   | 0.4927(2)  | 0.2693(2)    | 0.9094(2) | 0.7022    |
-You can now import Markdown table code directly using File/Paste table data... dialog.
-
-How to use it?
-Using the Table menu set the desired size of the table.
-Enter the table data into the table:
-select and copy (Ctrl+C) a table from the spreadsheet (e.g. Google Docs, LibreOffice Calc, webpage) and paste it into our editor -- click a cell and press Ctrl+V
-or just double click any cell to start editing it's contents -- Tab and Arrow keys can be used to navigate table cells
-Adjust text alignment and table borders using the options from the menu and using the toolbar buttons -- formatting is applied to all the selected cells.
-Click "Generate" button to see the generated table -- select it and copy to your document.
-Markdown tables support
-As the official Markdown documentation states, Markdown does not provide any special syntax for tables. Instead it uses HTML <table> syntax. But there exist Markdown syntax extensions which provide additional syntax for creating simple tables.
-
-One of the most popular is Markdown Here — an extension for popular browsers which allows you to easily prepare good-looking e-mails using Markdown syntax.
-
-Similar table syntax is used in the Github Flavored Markdown, in short GFM tables.
-
-Example
-GFM Markdown table syntax is quite simple. It does not allow row or cell spanning as well as putting multi-line text in a cell. The first row is always the header followed by an extra line with dashes "-" and optional colons ":" for forcing column alignment.
-
-| Tables   |      Are      |  Cool |
-|----------|:-------------:|------:|
-| col 1 is |  left-aligned | $1600 |
-| col 2 is |    centered   |   $12 |
-| col 3 is | right-aligned |    $1 |
-    
-Advertisement
-About
-Changelog
-Cookie Settings
-Privacy Policy
-Contact
-© TablesGenerator.com
