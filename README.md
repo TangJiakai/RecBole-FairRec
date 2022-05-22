@@ -11,95 +11,67 @@ Implement Fair Recommendation Model In RecBole
   - [x] FairGo_GCN
 - [x] NFCF([Debiasing career recommendations with neural fair collaborative filtering](https://dl.acm.org/doi/abs/10.1145/3442381.3449904?casa_token=ZzbZbC-Fn_oAAAAA:6KCSThLs7UsT9s0ZzeSryT3Mry067KeTiNdurfa9Q9UHWY7fLGgmjPtQy9i1zU1Yqm4Xf46NVYVuu40) in WWW 2021) 
 -------------------------------------------------------------
-## Model Performance
+# Dataset Statistics
 
-各模型性能对比
-https://shimo.im/sheets/KrkEVLwoYDcpaoAJ/MODOC/
+| Dataset    | #Users | #Items | #Interactions | Sparsity |
+| ---------- | ------ | ------ | ------------- | -------- |
+| ml-1m      | 6,040  | 3,629  | 836,478       | 96.18%   |
 
-### FOCF
-- **MovieLens-1M**  
+# Evaluation Results
+|                    | **GiniIndex** | **PopularityPercentage** |   | **DifferentialFairness** | **ValueUnfairness** | **AbsoluteUnfairness** | **UnderUnfairness** | **OverUnfairness** | **NonParityUnfairness** |   | **NDCG@5** | **Recall@5** | **Hit@5** | **MRR@5** |
+|--------------------|---------------|--------------------------|---|--------------------------|---------------------|------------------------|---------------------|--------------------|-------------------------|---|------------|--------------|-----------|-----------|
+| **BPR**            | 0.9873        | 0.9991                   |   | 1.493                    | 0.1308              | 0.1024                 | 0.0406              | 0.0903             | 0.0189                  |   | 0.263      | 0.1347       | 0.6518    | 0.4317    |
+| **NCF**            | 0.9353        | 0.884                    |   | 1.4781                   | 0.0824(1)           | 0.0548(1)              | 0.0439              | 0.0384             | 0.0101                  |   | 0.4717     | 0.2538       | 0.8972    | 0.6762    |
+| **PMF**            | 0.9876        | 0.9766                   |   | 1.5714                   | 0.1293              | 0.1139                 | 0.0203              | 0.109              | 0.0013(2)               |   | 0.2196     | 0.1209       | 0.5944    | 0.3717    |
+| **GCN**            | 0.9878        | 0.9291                   |   | 1.5837                   | 0.13                | 0.1177                 | 0.0128              | 0.1172             | 0.01                    |   | 0.1982     | 0.1045       | 0.554     | 0.3428    |
+| **BiasedMF**       | 0.9874        | 1                        |   | 1.455                    | 0.127               | 0.0926(3)              | 0.0318              | 0.0952             | 0.0149                  |   | 0.2643     | 0.1381       | 0.6627    | 0.4322    |
+| **DMF**            | 0.9167(2)     | 0.8359(2)                |   | 1.4847                   | 0.1055(3)           | 0.0948                 | 0.0083(2)           | 0.0972             | 0.0068                  |   | 0.4882(3)  | 0.2663(3)    | 0.9028(3) | 0.7011    |
+| **FOCF_value**     | 0.9875        | 0.9973                   |   | 1.1039(2)                | 0.1275              | 0.1051                 | 0.1107              | 0.0168(2)          | 0.0204                  |   | 0.2422     | 0.1299       | 0.6316    | 0.405     |
+| **FOCF_abs**       | 0.9871        | 0.9939                   |   | 1.2727(3)                | 0.1287              | 0.1051                 | 0.1045              | 0.0242(3)          | 0.0061                  |   | 0.2407     | 0.129        | 0.6291    | 0.4034    |
+| **FOCF_under**     | 0.9797        | 0.902                    |   | 1.4435                   | 0.1287              | 0.104                  | 0.0295              | 0.0992             | 0.0051                  |   | 0.2375     | 0.1353       | 0.6247    | 0.4055    |
+| **FOCF_over**      | 0.9875        | 0.9977                   |   | 1.0641(1)                | 0.1274              | 0.1055                 | 0.1125              | 0.0149(1)          | 0.0297                  |   | 0.2425     | 0.1301       | 0.6325    | 0.4053    |
+| **FOCF_nonparity** | 0.9877        | 0.9999                   |   | 1.2878                   | 0.1267              | 0.0895(2)              | 0.071               | 0.0556             | 0.0004(1)               |   | 0.2569     | 0.1381       | 0.6594    | 0.4253    |
+| **PFCN_MLP**       | 0.9875        | 1                        |   | 1.5539                   | 0.1283              | 0.1277                 | 0.0003(1)           | 0.128              | 0.0035                  |   | 0.2621     | 0.1371       | 0.6578    | 0.4309    |
+| **PFCN_BiasedMF**  | 0.9874        | 1                        |   | 1.4821                   | 0.1283              | 0.0984                 | 0.0395              | 0.0888             | 0.0071                  |   | 0.2644     | 0.1384       | 0.6629    | 0.434     |
+| **PFCN_DMF**       | 0.9873        | 1                        |   | 1.5357                   | 0.1277              | 0.1071                 | 0.0284              | 0.0993             | 0.0018(3)               |   | 0.2578     | 0.1351       | 0.654     | 0.422     |
+| **PFCN_PMF**       | 0.9873        | 1                        |   | 1.4272                   | 0.1261              | 0.096                  | 0.0223              | 0.1038             | 0.0101                  |   | 0.2608     | 0.1374       | 0.6642    | 0.4296    |
+| **FairGo_PMF_WAP** | 0.9822        | 0.9283                   |   | 1.5781                   | 0.1321              | 0.1171                 | 0.0166              | 0.1156             | 0.0057                  |   | 0.2187     | 0.1283       | 0.5922    | 0.3691    |
+| **FairGo_PMF_LVA** | 0.9822        | 0.9232                   |   | 1.5824                   | 0.1321              | 0.1198                 | 0.0143              | 0.1179             | 0.007                   |   | 0.2127     | 0.1199       | 0.5781    | 0.3651    |
+| **FairGo_PMF_LBA** | 0.9821        | 0.9024                   |   | 1.5842                   | 0.1322              | 0.1203                 | 0.0139              | 0.1183             | 0.0056                  |   | 0.2109     | 0.1156       | 0.577     | 0.3624    |
+| **FairGo_GCN_WAP** | 0.9881        | 0.9161                   |   | 1.5783                   | 0.1304              | 0.1156                 | 0.0175              | 0.1128             | 0.0081                  |   | 0.1699     | 0.0968       | 0.5051    | 0.3024    |
+| **FairGo_GCN_LVA** | 0.9881        | 0.9819                   |   | 1.5841                   | 0.1304              | 0.118                  | 0.0143              | 0.1161             | 0.0051                  |   | 0.1939     | 0.1111       | 0.552     | 0.3252    |
+| **FairGo_GCN_LBA** | 0.9881        | 0.9821                   |   | 1.5841                   | 0.1304              | 0.118                  | 0.0143              | 0.1161             | 0.0051                  |   | 0.1938     | 0.1111       | 0.5518    | 0.3251    |
+| **NCF_MLP**        | 0.9035(1)     | 0.8206(1)                |   | 1.5627                   | 0.1054(2)           | 0.0942                 | 0.009               | 0.0965             | 0.0043                  |   | 0.5051(1)  | 0.2756(1)    | 0.9154(1) | 0.7109    |
+| **NFCF**           | 0.9193(3)     | 0.8628(3)                |   | 1.5366                   | 0.1151              | 0.0974                 | 0.0133              | 0.1018             | 0.0045                  |   | 0.4927(2)  | 0.2693(2)    | 0.9094(2) | 0.7022    |
+You can now import Markdown table code directly using File/Paste table data... dialog.
 
-| Unfairness | Error(RMSE) | Value | Absolute | Underestimation | Overestimation | Non-Parity |
-|:-:| :-:| :-: | :-: | :-: | :-: | :-: |
-| None | 0.8780 | 0.4538 | 0.3310 | 0.2208 | 0.2330 | 0.0546 |
-| Value | 0.9405 | 0.4798 | 0.3526 | 0.2578 | 0.2220 | 0.0645 |
-| Absolute |  0.9414 | 0.4854 | 0.3593 | 0.2652 | 0.2202 | 0.1094 |
-| Underestimation | 0.9555 | 0.5691 | 0.5098 | 0.068 | 0.5011 | 0.3410 |
-| Overestimation | 0.9437 | 0.5776 | 0.5271 | 0.5251 | 0.0525 | 0.2314 |
-| Non-Parity| 0.8789 | 0.4579 | 0.3323 | 0.2309 | 0.2269 | 0.0028 |
+How to use it?
+Using the Table menu set the desired size of the table.
+Enter the table data into the table:
+select and copy (Ctrl+C) a table from the spreadsheet (e.g. Google Docs, LibreOffice Calc, webpage) and paste it into our editor -- click a cell and press Ctrl+V
+or just double click any cell to start editing it's contents -- Tab and Arrow keys can be used to navigate table cells
+Adjust text alignment and table borders using the options from the menu and using the toolbar buttons -- formatting is applied to all the selected cells.
+Click "Generate" button to see the generated table -- select it and copy to your document.
+Markdown tables support
+As the official Markdown documentation states, Markdown does not provide any special syntax for tables. Instead it uses HTML <table> syntax. But there exist Markdown syntax extensions which provide additional syntax for creating simple tables.
 
-### PFCN_MLP
-- **MovieLens-1M**
+One of the most popular is Markdown Here — an extension for popular browsers which allows you to easily prepare good-looking e-mails using Markdown syntax.
 
-|   | Orgin| SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 | 0.4081  | 0.2499 | 0.2504 | 0.2501 | 0.2504 | 0.2509 | 0.2518 | 0.2498 | 0.2521 | 0.2465 | 0.2529  | 0.2489  | 0.2520 |  0.2499 | 0.2520  |
-|  HIT@5 | 0.8300 | 0.6522 | 0.6500 | 0.6474 | 0.6465 | 0.6560 | 0.6457 | 0.6530 | 0.6459 | 0.6472 | 0.6512 | 0.6485 | 0.6523 | 0.6563  | 0.6472 |
-|  AUC<br/>(mul:macro) |  G0.7960<br/>A0.7128<br/>O0.5402 | 0.5710  | 0.5148  | 0.5596  | 0.5864 | 0.6813 |  0.5062 |  G0.5057<br/>A0.5967 | G0.5227<br/>A0.6154 | G0.5146<br/>O0.6918  | G0.5140<br/>O0.5111  |  A0.6465<br/>O0.6918 | A0.5805<br/>O0.5209  |  G0.5175<br/>A0.6097<br/>O0.6853 | G0.5111<br/>A0.5372<br/>O0.5084  |
+Similar table syntax is used in the Github Flavored Markdown, in short GFM tables.
 
+Example
+GFM Markdown table syntax is quite simple. It does not allow row or cell spanning as well as putting multi-line text in a cell. The first row is always the header followed by an extra line with dashes "-" and optional colons ":" for forcing column alignment.
 
-### PFCN_BiasedMF
-- **MovieLens-1M**
-
-|   | Orgin| SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 |  0.2656 | 0.2361| 0.2543 |0.2367 | 0.2524 | 0.2334 | 0.2506 | 0.2371 | 0.2552 | 0.2306 | 0.2555  | 0.2297  | 0.2540 | 0.2344  | 0.2560  |
-|  HIT@5 | 0.6651   | 0.6197| 0.6444 | 0.6147| 0.6402 |0.6101  | 0.6425 |0.6134 | 0.6434 | 0.6126 | 0.6502  |  0.6051 | 0.6444 | 0.6180  | 0.6459  |
-|  AUC<br/>(mul:macro) |  G0.5845<br/>A0.5531<br/>O0.5248 | 0.5459  | 0.5224  | 0.6667 | 0.5127  | 0.7370  | 0.5119  |  G0.5051<br/>A0.6881 | G0.5120<br/>A0.5331 | G0.5398<br/>O0.7316  | G0.5155<br/>O0.5409  |  A0.6933<br/>O0.7238 | A0.5402<br/>O0.5234  | G0.5355<br/>A0.6600<br/>O0.7303  |  G0.5101<br/>A0.5429<br/>O0.5412 |
-
-### PFCN_DMF
-- **MovieLens-1M**
-
-|   | Orgin| SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 |  0.3442 |0.2048 |0.2058 | 0.2044 | 0.2028 | 0.2079 | 0.2088 | 0.2033 | 0.2054 | 0.1952 | 0.2083  | 0.2049  | 0.2067 |  0.2079 | 0.2061  |
-|  HIT@5 |  0.7737  |0.595 |0.5997 | 0.6007 |0.5962 | 0.6007| 0.6058 | 0.5914 | 0.5995  | 0.5829 | 0.6046  | 0.593  | 0.5983 | 0.6048  |  0.5998 |
-|  AUC<br/>(mul:macro) |  G0.7558<br/>A0.6588<br/>O0.5429 | 0.5418  | 0.5135  | 0.6170 | 0.5171  | 0.6929  | 0.5016  |  G0.5558<br/>A0.6371 | G0.5231<br/>A0.5171 | G0.5243<br/>O0.6908  | G0.5162<br/>O0.5030  |  A0.6239<br/>O0.7018 | A0.5063<br/>O0.5017  | G0.5450<br/>A0.5359<br/>O0.7047  |  G0.5133<br/>A0.5128<br/>O0.5057 |
-
-### PFCN_PMF
-- **MovieLens-1M**
-
-|   | Orgin| SM-G | CM-G  |  SM-A | CM-A  |  SM-O | CM-O | SM-GA | CM-GA | SM-GO | CM-GO | SM-AO | CM-AO | SM-GAO | CM-GAO |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-|  NDCG@5 |  0.2619 |0.2626 | 0.2643 |0.2619  | 0.2620|0.2615 | 0.2622 |0.2602 |0.2632 | 0.2618 | 0.2633  | 0.2626  | 0.2625 | 0.2623  | 0.2620  |
-|  HIT@5 | 0.6469   | 0.6568 | 0.6656 | 0.6641 | 0.6599 | 0.6598 |0.6649  | 0.6603 | 0.6649 | 0.6589 | 0.6636  | 0.6609  | 0.6627 | 0.6669  | 0.6644 |
-|  AUC<br/>(mul:macro) |  G0.5221<br/>A0.5671<br/>O0.5128 | 0.5710 | 0.5119  | 0.5337 | 0.5127 | 0.7551  | 0.6667 |  G0.5013<br/>A0.5318 | G0.5140<br/>A0.5016 | G0.5093<br/>O0.7438  | G0.5199<br/>O0.6538 |  A0.6428<br/>O0.7498 | A0.5010<br/>O0.5087  |  G0.5413<br/>A0.6296<br/>O0.7550 | G0.5126<br/>A0.5150<br/>O0.5763  |
-
-### FairGo_PMF
-- **MovieLens-1M**
-
-||PMF|FairGo_PMF<br>(G-1O)|FairGo_PMF<br>(A-1O)|FairGo_PMF<br>(O-1O)|FairGo_PMF<br>(Com.-1O)|FairGo_PMF<br>(LVA-G-2O)|FairGo_PMF<br>(LVA-A-2O)|FairGo_PMF<br>(LVA-O-2O)|FairGo_PMF<br>(LVA-Com.-2O)|FairGo_PMF<br>(LBA-G-2O)|FairGo_PMF<br>(LBA-A-2O)|FairGo_PMF<br>(LBA-O-2O)|FairGo_PMF<br>(LBA-Com.-2O)|
-|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|RMSE|0.9336 | 0.8993|0.9022 |0.8689 |6.3037 |6.3037 |6.3037 | | | | | | |
-|AUC-G| | | | | | | | | | | | | |
-|F1-A<br>(micro)| | | | | | | | | | | | | |
-|F1-O<br>(micro)| | | | | | | | | | | | | |
-
-
-- **Lastfm-360K**
-  
-||PMF|FairGo_PMF<br>(G-1O)|FairGo_PMF<br>(A-1O)|FairGo_PMF<br>(O-1O)|FairGo_PMF<br>(Com.-1O)|FairGo_PMF<br>(LVA-G-2O)|FairGo_PMF<br>(LVA-A-2O)|FairGo_PMF<br>(LVA-O-2O)|FairGo_PMF<br>(LVA-Com.-2O)|FairGo_PMF<br>(LBA-G-2O)|FairGo_PMF<br>(LBA-A-2O)|FairGo_PMF<br>(LBA-O-2O)|FairGo_PMF<br>(LBA-Com.-2O)|
-|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|RMSE| | | | | | | | | | | | | |
-|AUC-G| | | | | | | | | | | | | |
-|F1-A<br>(micro)| | | | | | | | | | | | | |
-|F1-O<br>(micro)| | | | | | | | | | | | | |
-
-### FairGo_GCN
-- **MovieLens-1M**
-
-||PMF|FairGo_GCN<br>(G-1O)|FairGo_GCN<br>(A-1O)|FairGo_GCN<br>(O-1O)|FairGo_GCN<br>(Com.-1O)|FairGo_GCN<br>(LVA-G-2O)|FairGo_GCN<br>(LVA-A-2O)|FairGo_GCN<br>(LVA-O-2O)|FairGo_GCN<br>(LVA-Com.-2O)|FairGo_GCN<br>(LBA-G-2O)|FairGo_GCN<br>(LBA-A-2O)|FairGo_GCN<br>(LBA-O-2O)|FairGo_GCN<br>(LBA-Com.-2O)|
-|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|RMSE|0.9705 |1.0809 |1.0703 | 1.0834| 6.3037|6.3037 |6.3037 | | | | | | |
-|AUC-G| | | | | | | | | | | | | |
-|F1-A<br>(micro)| | | | | | | | | | | | | |
-|F1-O<br>(micro)| | | | | | | | | | | | | |
-
-- **Lastfm-360K**
-  
-||PMF|FairGo_GCN<br>(G-1O)|FairGo_GCN<br>(A-1O)|FairGo_GCN<br>(O-1O)|FairGo_GCN<br>(Com.-1O)|FairGo_GCN<br>(LVA-G-2O)|FairGo_GCN<br>(LVA-A-2O)|FairGo_GCN<br>(LVA-O-2O)|FairGo_GCN<br>(LVA-Com.-2O)|FairGo_GCN<br>(LBA-G-2O)|FairGo_GCN<br>(LBA-A-2O)|FairGo_GCN<br>(LBA-O-2O)|FairGo_GCN<br>(LBA-Com.-2O)|
-|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|:----:|
-|RMSE| | | | | | | | | | | | | |
-|AUC-G| | | | | | | | | | | | | |
-|F1-A<br>(micro)| | | | | | | | | | | | | |
-|F1-O<br>(micro)| | | | | | | | | | | | | |
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+    
+Advertisement
+About
+Changelog
+Cookie Settings
+Privacy Policy
+Contact
+© TablesGenerator.com
