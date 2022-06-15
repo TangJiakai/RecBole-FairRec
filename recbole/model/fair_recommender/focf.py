@@ -22,7 +22,7 @@ from recbole.utils import InputType
 
 
 class FOCF(FairRecommender):
-    r""" FOCF is fair-aware recommendation model by adding fairness regulation
+    r""" FOCF is a fair-aware recommendation model by adding fairness regulation
 
     Base recommendation model is MF
     """
@@ -43,8 +43,6 @@ class FOCF(FairRecommender):
         self.user_embedding_layer = nn.Embedding(self.n_users, self.embedding_size)
         self.item_embedding_layer = nn.Embedding(self.n_items, self.embedding_size)
         self.rating_loss_fun = nn.MSELoss()
-        # self.sigmoid = nn.Sigmoid()
-        # self.rec_loss_fun = nn.BCELoss()
         self.fair_loss_fun = self.get_loss_fun(config['fair_objective'])
 
         self.apply(xavier_normal_initialization)
@@ -84,11 +82,6 @@ class FOCF(FairRecommender):
         sst_num = torch.zeros((iid_unique_len,2), device=self.device)
         avg_true_list = torch.zeros((iid_unique_len,2), device=self.device)
 
-        # for i, true_score in enumerate(interaction[self.RATING]):
-        #     pred_score = pred_scores[i]
-        #     avg_pred_list[iid_inverse[i]][sst_inverse[i]] += pred_score
-        #     avg_true_list[iid_inverse[i]][sst_inverse[i]] += true_score
-        #     sst_num[iid_inverse[i]][sst_inverse[i]] += 1
         index = (iid_inverse, sst_inverse)
         avg_pred_list.index_put_(index, pred_scores, accumulate=True)
         avg_true_list.index_put_(index, interaction[self.RATING], accumulate=True)

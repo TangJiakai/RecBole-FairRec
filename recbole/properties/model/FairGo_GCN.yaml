@@ -6,7 +6,7 @@ TIME_FIELD: timestamp
 sst_attr_list: ['gender']
 load_col:
   inter: [user_id,item_id,rating,timestamp]
-  user: [user_id,gender,age,occupation]
+  user: [user_id,gender]
 
 model: FairGo_GCN
 aggr_method: 'LBA'
@@ -26,7 +26,6 @@ gcn_act: relu
 
 # training settings
 pretrain_epochs: 600
-neg_sampling: {'uniform': 1}
 train_epoch_interval: 5
 weight_decay: 0.0001
 

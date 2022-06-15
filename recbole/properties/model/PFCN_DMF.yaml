@@ -7,7 +7,7 @@ threshold: {'rating': 3.0}
 sst_attr_list: ["gender"]
 load_col:
   inter: [user_id,item_id,rating]
-  user: [user_id,gender,age,occupation]
+  user: [user_id,gender]
 
 # model config
 model: PFCN_DMF
