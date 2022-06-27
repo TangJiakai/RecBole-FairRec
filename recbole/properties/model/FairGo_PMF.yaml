@@ -9,7 +9,7 @@ sst_attr_list: ['gender']
 load_pretrain_weight: False
 load_col:
   inter: [user_id,item_id,rating,timestamp]
-  user: [user_id,gender,age,occupation]
+  user: [user_id,gender]
 #   user_emb: [uid,user_emb]
 #   item_emb: [iid,item_emb]
 # preload_weight: {'uid': user_emb, 'iid':item_emb}
@@ -29,7 +29,6 @@ fair_weight: 0.1
 
 # training settings
 pretrain_epochs: 600
-neg_sampling: {'uniform': 1}
 train_epoch_interval: 5
 weight_decay: 0.0001
 

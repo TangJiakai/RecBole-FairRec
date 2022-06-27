@@ -1,6 +1,7 @@
 # Data settings
 LABEL_FIELD: label
-threshold: {'rating': 3.0}
+threshold: 
+  rating: 3.0
 sst_attr_list: ["gender"]
 load_col:
   inter: [user_id,item_id,rating]
@@ -12,7 +13,7 @@ load_col:
 model: FOCF
 embedding_size: 64
 # none|value|absolute|under|over|nonparity
-fair_objective: absolute
+fair_objective: none
 fair_weight: 1.0
 
 # training settings

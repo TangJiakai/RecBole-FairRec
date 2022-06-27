@@ -6,32 +6,30 @@ use_gpu: True
 state: INFO
 reproducibility: True
 data_path: 'dataset'
-checkpoint_dir: 'saved/saved_PFCN_PMF'
+checkpoint_dir: 'saved/saved_FOCF'
 dataset: ml-1M
 save_dataset: False
 save_dataloaders: False
 
 # Data settings
-item_inter_num_interval: "[1,inf)"
-user_inter_num_interval: "[1,inf)"
 load_col:
   inter: [user_id,item_id,rating]
   user: [user_id,gender]
   item: [item_id]
 
 # model config
-model: PFCN_PMF
+model: FOCF
 
 # training settings
 epochs: 1000
 train_batch_size: 2048
 learner: adam
-learning_rate: 0.0001
+learning_rate: 0.001
 eval_step: 1
 stopping_step: 10
 neg_sampling: 
   uniform: 1
-weight_decay: 0.00001
+weight_decay: 0.001
 
 # evalution settings
 eval_args:

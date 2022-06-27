@@ -17,7 +17,6 @@ embedding_size: 64
 mlp_hidden_size: [128,64]
 
 # training settings
-neg_sampling: {'uniform': 1}
 weight_decay: 1e-6
 
 # evalution settings
