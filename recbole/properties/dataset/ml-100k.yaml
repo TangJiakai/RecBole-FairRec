@@ -45,5 +45,5 @@ preload_weight: ~
 normalize_field: ~
 
 # Benchmark file
-benchmark_filename: ['train','valid','test']
+# benchmark_filename: ['train','valid','test']
 

@@ -173,7 +173,7 @@ class FairGo_GCN(FairRecommender):
     def forward(self, sst_list):
         all_embedding = self.get_ego_embeddings()
         if self.train_stage == 'pretrain':
-            all_embedding = self.gcn(all_embedding, self.edge_indices, self.edge_weights)
+            all_embedding = self.gcn(all_embedding, self.edge_indices, edge_weight=self.edge_weights)
         if self.train_stage == 'finetune':
             temp = None
             for sst in sst_list:

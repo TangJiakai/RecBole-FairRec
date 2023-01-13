@@ -12,3 +12,4 @@ saved/
 *.egg-info/
 docs/build/
 wandb/*
+test.yaml
