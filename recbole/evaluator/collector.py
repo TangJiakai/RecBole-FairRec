@@ -72,7 +72,7 @@ class Collector(object):
         self.config = config
         self.data_struct = DataStruct()
         self.register = Register(config)
-        self.full = ('full' in config['eval_args']['mode'])
+        self.full = 'full' in config['eval_args']['mode']
         self.topk = self.config['topk']
         self.device = self.config['device']
         self.ugf_rerank = self.config['ugf_metric'] is not None
@@ -151,7 +151,7 @@ class Collector(object):
             pos_idx = torch.gather(pos_matrix, dim=1, index=topk_idx)
             result = torch.cat((pos_idx, pos_len_list), dim=1)
             self.data_struct.update_tensor('rec.topk', result)
-        
+
         if self.register.need('rec.meanrank'):
             desc_scores, desc_index = torch.sort(scores_tensor, dim=-1, descending=True)
 
@@ -181,20 +181,28 @@ class Collector(object):
         if self.register.need('data.positive_i'):
             self.data_struct.update_tensor('data.positive_i', positive_i)
 
-        if self.register.need('rec.negative_score'):
-            pos_len = len(positive_u)
-            neg_items = interaction[self.config['ITEM_ID_FIELD']][pos_len: pos_len*2]
-            neg_score = scores_tensor[positive_u, neg_items]
-            self.data_struct.update_tensor('rec.negative_score', neg_score)
+        if self.full == True:
+            if self.register.need('data.sst'):
+                for sst in self.config['sst_attr_list']:
+                    assert sst in interaction.columns, f'{sst} is not in interaction'
+                    # self.data_struct.update_tensor('data.' + sst, interaction[sst][torch.arange(len(positive_u))])
+                    self.data_struct.update_tensor('data.' + sst, interaction[sst][positive_u])
+        else:
+            if self.register.need('rec.negative_score'):
+                pos_len = len(positive_u)
+                neg_items = interaction[self.config['ITEM_ID_FIELD']][pos_len: pos_len * 2]
+                neg_score = scores_tensor[positive_u, neg_items]
+                self.data_struct.update_tensor('rec.negative_score', neg_score)
 
-        if self.register.need('data.negative_i'):
-            pos_len = len(positive_u)
-            self.data_struct.update_tensor('data.negative_i', interaction[self.config['ITEM_ID_FIELD']][pos_len: pos_len*2])
+            if self.register.need('data.negative_i'):
+                pos_len = len(positive_u)
+                self.data_struct.update_tensor('data.negative_i',
+                                               interaction[self.config['ITEM_ID_FIELD']][pos_len: pos_len * 2])
 
-        if self.register.need('data.sst'):
-            for sst in self.config['sst_attr_list']:
-                assert sst in interaction.columns, f'{sst} is not in interaction'
-                self.data_struct.update_tensor('data.' + sst, interaction[sst][torch.arange(len(positive_u))])
+            if self.register.need('data.sst'):
+                for sst in self.config['sst_attr_list']:
+                    assert sst in interaction.columns, f'{sst} is not in interaction'
+                    self.data_struct.update_tensor('data.' + sst, interaction[sst][torch.arange(len(positive_u))])
 
     def model_collect(self, model: torch.nn.Module):
         """ Collect the evaluation resource from model.
@@ -222,11 +230,12 @@ class Collector(object):
             And reset some of outdated resource.
         """
         returned_struct = copy.deepcopy(self.data_struct)
-        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.label', 'rec.positive_score', 'data.positive_i', 'rec.negative_score', 'data.negative_i']:
+        for key in ['rec.topk', 'rec.meanrank', 'rec.score', 'rec.items', 'data.label', 'rec.positive_score',
+                    'data.positive_i', 'rec.negative_score', 'data.negative_i']:
             if key in self.data_struct:
                 del self.data_struct[key]
         if self.register.need('data.sst'):
             for key in self.config['sst_attr_list']:
                 if ('data.' + key) in self.data_struct:
-                    del self.data_struct['data.'+key]
+                    del self.data_struct['data.' + key]
         return returned_struct
